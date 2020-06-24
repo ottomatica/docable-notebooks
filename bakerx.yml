@@ -2,3 +2,4 @@ name: docable-notebooks
 image: bionic-node
 sync: true
 ip: 192.168.33.33
+run: cd /bakerx && npm install && npm run dev&
