@@ -1,0 +1,4 @@
+name: docable-notebooks
+image: bionic-node
+sync: true
+ip: 192.168.33.33
