@@ -1,0 +1,54 @@
+pre>code[data-type="command"] {
+    border-left: 5px solid cornflowerblue;
+}
+
+pre>code[data-type="command"]::before {
+    content: "[command]"
+}
+
+/* pre:has(code[data-type="file"]) {
+} */
+
+pre < code[data-type="command"]::before  {
+
+}
+
+
+/* https://fransdejonge.com/wp-content/uploads/2010/01/sidenotes.html */
+.sideAnnotation {
+    float: none;
+    width: 100px;
+    margin-left: -100px;
+    margin-top: 8px;
+    padding: 3px;
+    text-align: right;
+    position: absolute;
+    user-select: none;
+    color: lightsteelblue;
+}
+
+
+.docable-cell {
+    border: 1px solid lightgray;
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+.docable-command-cell {
+    border-left: 5px solid cornflowerblue;
+}
+
+.docable-file-cell {
+    border-left: 5px solid coral;
+}
+
+/* .docable-command-cell::before {
+    position: absolute;
+    display: block;
+    top: -1px;
+    left: -1px;
+    width: 5px;
+    height: calc(100% + 2px);
+    content: '';
+    background: #42A5F5;
+} */

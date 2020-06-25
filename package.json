@@ -28,6 +28,10 @@
   "dependencies": {
     "docable": "github:ottomatica/docable",
     "express": "^4.17.1",
-    "pug": "^3.0.0"
+    "jsdom": "^16.2.2",
+    "marked": "^1.1.0",
+    "pug": "^3.0.0",
+    "showdown": "^1.9.1",
+    "showdown-highlight": "^2.1.4"
   }
 }
