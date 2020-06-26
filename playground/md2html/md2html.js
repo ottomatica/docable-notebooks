@@ -2,6 +2,7 @@ const fs = require('fs');
 const showdown = require('showdown');
 showdown.setFlavor('github');
 const showdownHighlight = require("showdown-highlight");
+const JSON5 = require('json5');
 
 const gh_markdown_css = `
 <style>
@@ -30,15 +31,16 @@ const resources = `
 
 var executionAttributes = {
     type: 'output',
-    regex: /\{([^]+?)\}\s*<\/p>\s*(<pre>\s*<code)/gi,
+    regex: /(\{[^]+?\})\s*<\/p>\s*(<pre>\s*<code)/gi,
     replace: (match, attributes, codeTag) => {
+		const attributesObj = JSON5.parse(attributes)
         let docableDataAttributes = '';
 
-        for (const attribute of attributes.split(';').map(a => a.trim())) {
-            docableDataAttributes+= ` data-${attribute}`;
+        for (const attribute of Object.keys(attributesObj)) {
+            docableDataAttributes+= ` data-${attribute}="${attributesObj[attribute]}"`;
         }
 
-        const type = match.match(/type="([^\s=]*)"/)[1];
+        const type = attributesObj.type;
         const sideAnnotation = `<div class="sideAnnotation">[${type}:]</div>`
 
         return sideAnnotation + codeTag.replace('><code', ` class="docable-cell docable-cell-${type}"><code${docableDataAttributes}`);
