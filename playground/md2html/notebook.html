@@ -1,28 +1,51 @@
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
-<link rel="stylesheet" href="./notebook.css">
-<link rel="stylesheet" href="./github-markdown.css">
-
-<style>
-	.markdown-body {
-		box-sizing: border-box;
-		min-width: 200px;
-		max-width: 980px;
-		margin: 0 auto;
-		padding: 45px;
-	}
-
-	@media (max-width: 767px) {
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+	<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
+	<link rel="stylesheet" href="../../lib/md2html/notebook.css">
+	<link rel="stylesheet" href="../../lib/md2html/github-markdown.css">
+	
+	<style>
 		.markdown-body {
-			padding: 15px;
+			box-sizing: border-box;
+			min-width: 200px;
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 45px;
 		}
-	}
-</style><div class="markdown-body"><h1 id="yay">Yay!</h1>
+
+		@media (max-width: 767px) {
+			.markdown-body {
+				padding: 15px;
+			}
+		}
+	</style><div class="markdown-body">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+		<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
+		<link rel="stylesheet" href="/css/notebook.css">
+		<link rel="stylesheet" href="/css/github-markdown.css">
+		
+		<style>
+			.markdown-body {
+				box-sizing: border-box;
+				min-width: 200px;
+				max-width: 980px;
+				margin: 0 auto;
+				padding: 45px;
+			}
+
+			@media (max-width: 767px) {
+				.markdown-body {
+					padding: 15px;
+				}
+			}
+		</style><div class="markdown-body"><h1 id="yay">Yay!</h1>
 <pre><code class="hljs">This <span class="hljs-keyword">shoould </span>_not_ <span class="hljs-keyword">be </span>highlighted</code></pre>
 <pre><code class="hljs js language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-string">'this is highlighted js code but not a docable cell'</span>;</code></pre>
 <p>This is a js block which is a docable file cell…<br />
 <div class="sideAnnotation">[file:]</div><pre class="docable-cell docable-cell-file"><code data-type="file" data-path="/tmp/foo.js" data-user="root" class="hljs js language-js"><span class="hljs-keyword">const</span> p = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);</code></pre>
 <p>and a command cell:</p>
-<p><div class="sideAnnotation">[command:]</div><pre class="docable-cell docable-cell-command"><code data-type="command" data-user="root" class="hljs bash language-bash">ls | rm -rf</code></pre></div>
+<p><div class="sideAnnotation">[command:]</div><pre class="docable-cell docable-cell-command"><code data-type="command" data-user="root" class="hljs bash language-bash">ls | rm -rf</code></pre>
+<pre><code class="hljs diff language-diff"><span class="hljs-deletion">- this is a diff</span>
+<span class="hljs-addition">+ this is not a diff</span></code></pre></div></div>

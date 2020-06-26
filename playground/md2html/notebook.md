@@ -22,3 +22,7 @@ and a command cell:
 ls | rm -rf
 ```
 
+```diff
+- this is a diff
++ this is not a diff
+```

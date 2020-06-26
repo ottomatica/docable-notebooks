@@ -1,58 +1,41 @@
 const fs = require('fs');
 const showdown = require('showdown');
 showdown.setFlavor('github');
-const showdownHighlight = require("showdown-highlight");
-const JSON5 = require('json5');
+const md2html = require('../../lib/md2html');
 
+// github markdown css
 const gh_markdown_css = `
-<style>
-	.markdown-body {
-		box-sizing: border-box;
-		min-width: 200px;
-		max-width: 980px;
-		margin: 0 auto;
-		padding: 45px;
-	}
-
-	@media (max-width: 767px) {
+	<style>
 		.markdown-body {
-			padding: 15px;
+			box-sizing: border-box;
+			min-width: 200px;
+			max-width: 980px;
+			margin: 0 auto;
+			padding: 45px;
 		}
-	}
-</style>`;
 
+		@media (max-width: 767px) {
+			.markdown-body {
+				padding: 15px;
+			}
+		}
+	</style>`;
+
+// import highlight.js
 const resources = `
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
-<link rel="stylesheet" href="./notebook.css">
-<link rel="stylesheet" href="./github-markdown.css">
-`;
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+	<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
+	<link rel="stylesheet" href="../../lib/md2html/notebook.css">
+	<link rel="stylesheet" href="../../lib/md2html/github-markdown.css">
+	`;
 
-var executionAttributes = {
-    type: 'output',
-    regex: /(\{[^]+?\})\s*<\/p>\s*(<pre>\s*<code)/gi,
-    replace: (match, attributes, codeTag) => {
-		const attributesObj = JSON5.parse(attributes)
-        let docableDataAttributes = '';
-
-        for (const attribute of Object.keys(attributesObj)) {
-            docableDataAttributes+= ` data-${attribute}="${attributesObj[attribute]}"`;
-        }
-
-        const type = attributesObj.type;
-        const sideAnnotation = `<div class="sideAnnotation">[${type}:]</div>`
-
-        return sideAnnotation + codeTag.replace('><code', ` class="docable-cell docable-cell-${type}"><code${docableDataAttributes}`);
-    }
-};
-showdown.extension('executionAttributes', executionAttributes);
 
 const text = fs.readFileSync('./notebook.md', { encoding: 'utf-8' }).toString();
-const conv = new showdown.Converter({ extensions: [showdownHighlight,'executionAttributes'] });
-const html = conv.makeHtml(text);
+let html = md2html(text);
+html = `${resources}${gh_markdown_css}<div class="markdown-body">${html}</div>`;
 
-fs.writeFileSync('./notebook.html', `${resources}${gh_markdown_css}<div class="markdown-body">${html}</div>`, { encoding: 'utf-8' });
+fs.writeFileSync('./notebook.html', html, { encoding: 'utf-8' });
 
 
 // =================
