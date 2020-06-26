@@ -27,28 +27,16 @@ pre < code[data-type="command"]::before  {
     color: lightsteelblue;
 }
 
-
-.docable-cell {
-    border: 1px solid lightgray;
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+.markdown-body pre.docable-cell {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* border: 1px solid lightgray; */
 }
 
-.docable-command-cell {
+.docable-cell-command {
     border-left: 5px solid cornflowerblue;
 }
 
-.docable-file-cell {
+.docable-cell-file {
     border-left: 5px solid coral;
 }
-
-/* .docable-command-cell::before {
-    position: absolute;
-    display: block;
-    top: -1px;
-    left: -1px;
-    width: 5px;
-    height: calc(100% + 2px);
-    content: '';
-    background: #42A5F5;
-} */

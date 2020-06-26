@@ -41,7 +41,7 @@ var executionAttributes = {
         const type = match.match(/type="([^\s=]*)"/)[1];
         const sideAnnotation = `<div class="sideAnnotation">[${type}:]</div>`
 
-        return sideAnnotation + codeTag.replace('><code', ` class="docable-cell docable-${type}-cell"><code${docableDataAttributes}`);
+        return sideAnnotation + codeTag.replace('><code', ` class="docable-cell docable-cell-${type}"><code${docableDataAttributes}`);
     }
 };
 showdown.extension('executionAttributes', executionAttributes);
