@@ -3,7 +3,8 @@ const path = require("path");
 const fs = require('fs');
 const testreport = require('docable');
 const child_process = require('child_process');
-
+const md2html = require('./lib/md2html')
+const {htmlUnescape} = require('escape-goat');
 const app = express();
 const port = process.env.PORT || "3000";
 var bodyParser = require("body-parser");
@@ -48,6 +49,23 @@ app.post('/run', async function (req, res) {
     res.setHeader('Content-Type', 'text/plain');
     res.send(results);
 })
+
+app.post('/markdown', async function (req, res) {
+    const md = htmlUnescape(req.body);
+    console.log('req', md)
+    
+    let html;
+    try{
+        html = md2html(md);
+    } catch (err) { 
+        console.log('err', err)
+    }
+
+    console.log('req', html)
+
+    res.setHeader('Content-Type', 'text/plain');
+    res.send(html);
+});
 
 app.listen(port, () => {
     console.log(`Listening to requests on http://localhost:${port}`);

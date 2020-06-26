@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "docable": "github:ottomatica/docable",
+    "escape-goat": "^3.0.0",
     "express": "^4.17.1",
     "jsdom": "^16.2.2",
     "json5": "^2.1.3",

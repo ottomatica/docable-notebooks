@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Jekyll v4.0.1">
-    <title>Sticky Footer Navbar Template · Bootstrap</title>
+    <title>Docable Notebook</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sticky-footer-navbar/">
 
@@ -33,7 +33,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
-    <link rel="stylesheet" href="./css/github-markdown.css">
+    <!-- md2html -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
+    <link rel="stylesheet" href="/css/notebook.css">
+    <link rel="stylesheet" href="/css/github-markdown.css">
+    <!-- md2html -->
 
     <style>
         .bd-placeholder-img {
@@ -140,7 +146,18 @@
                     var md = window.markdownit();
                     var result = md.render(content);
 
-                    document.getElementById("main").innerHTML = result;
+
+                    // using /markdown endpoint to do md2html
+                    fetch('/markdown', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: result,
+                        headers: { "content-type": "text/plain; charset=UTF-8" },
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("main").innerHTML = data;
+                    });
 
                 }).catch(error => console.log(error))
 

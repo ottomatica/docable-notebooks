@@ -1,0 +1,26 @@
+/* https://fransdejonge.com/wp-content/uploads/2010/01/sidenotes.html */
+.sideAnnotation {
+    float: none;
+    width: 100px;
+    margin-left: -100px;
+    margin-top: 8px;
+    padding: 3px;
+    text-align: right;
+    position: absolute;
+    user-select: none;
+    color: lightsteelblue;
+}
+
+.markdown-body pre.docable-cell {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    /* border: 1px solid lightgray; */
+}
+
+.docable-cell-command {
+    border-left: 5px solid cornflowerblue;
+}
+
+.docable-cell-file {
+    border-left: 5px solid coral;
+}
