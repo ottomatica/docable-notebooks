@@ -24,3 +24,11 @@
 .docable-cell-file {
     border-left: 5px solid coral;
 }
+
+.passing {
+    background-color: #ccffcc!important;
+}
+
+.failing {
+    background-color: #ffb3b3!important;
+}
