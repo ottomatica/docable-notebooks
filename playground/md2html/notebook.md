@@ -19,7 +19,7 @@ and a command cell:
 
 {type: 'command', user: 'root'}
 ```bash
-ls | rm -rf
+foo
 ```
 
 ```diff

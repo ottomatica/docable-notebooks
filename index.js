@@ -22,46 +22,35 @@ app.get("/", (req, res) => {
 });
 
 app.post('/run', async function (req, res) {
-    // console.log(req.body);
     // res.send('Got a POST request')
 
-    fs.writeFileSync('/tmp/notebook.md', req.body, {encoding: 'utf-8'});
-    fs.copyFileSync(path.join(__dirname, 'resources/steps.yml'), '/tmp/steps.yml');
-
-    // await testreport("report", { stepfile: '/tmp/steps.yml' });
-
+    fs.writeFileSync('/tmp/notebook.html', req.body, {encoding: 'utf-8'});
 
     try{
-        let logs = child_process.execSync(`cd / && /bakerx/node_modules/.bin/docable report /tmp/steps.yml`);
-        console.log(logs);
+        let logs = child_process.execSync(`cd /bakerx && ./node_modules/.bin/docable notebook /tmp/notebook.html`);
+        console.log(logs.toString());
     }
     catch (err) {
         console.error('err: ', err);
     }
 
-    const results = fs.readFileSync('/tmp/docable_results/notebook.html', {encoding: 'utf-8'});
+    const results = fs.readFileSync('/tmp/notebook_results.html', {encoding: 'utf-8'});
 
-    console.log(results);
-
-    fs.unlinkSync('/tmp/docable_results/notebook.html')
-
+    fs.unlinkSync('/tmp/notebook_results.html')
 
     res.setHeader('Content-Type', 'text/plain');
     res.send(results);
 })
 
 app.post('/markdown', async function (req, res) {
-    const md = htmlUnescape(req.body);
-    console.log('req', md)
-    
+    const md = req.body;
+
     let html;
     try{
         html = md2html(md);
     } catch (err) { 
         console.log('err', err)
     }
-
-    console.log('req', html)
 
     res.setHeader('Content-Type', 'text/plain');
     res.send(html);
