@@ -27,7 +27,7 @@ app.post('/run', async function (req, res) {
     fs.writeFileSync('/tmp/notebook.html', req.body, {encoding: 'utf-8'});
 
     try{
-        let logs = child_process.execSync(`cd /bakerx && ./node_modules/.bin/docable notebook /tmp/notebook.html`);
+        let logs = child_process.execSync(`./node_modules/.bin/docable notebook /tmp/notebook.html`);
         console.log(logs.toString());
     }
     catch (err) {
