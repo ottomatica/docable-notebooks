@@ -3,37 +3,9 @@ const showdown = require('showdown');
 showdown.setFlavor('github');
 const md2html = require('../../lib/md2html');
 
-// github markdown css
-const gh_markdown_css = `
-	<style>
-		.markdown-body {
-			box-sizing: border-box;
-			min-width: 200px;
-			max-width: 980px;
-			margin: 0 auto;
-			padding: 45px;
-		}
-
-		@media (max-width: 767px) {
-			.markdown-body {
-				padding: 15px;
-			}
-		}
-	</style>`;
-
-// import highlight.js
-const resources = `
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/default.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
-	<script charset="UTF-8" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/languages/go.min.js"></script>
-	<link rel="stylesheet" href="../../lib/md2html/notebook.css">
-	<link rel="stylesheet" href="../../lib/md2html/github-markdown.css">
-	`;
-
-
 const text = fs.readFileSync('./notebook.md', { encoding: 'utf-8' }).toString();
 let html = md2html(text);
-html = `${resources}${gh_markdown_css}<div class="markdown-body">${html}</div>`;
+html = `<div class="markdown-body">${html}</div>`;
 
 fs.writeFileSync('./notebook.html', html, { encoding: 'utf-8' });
 
