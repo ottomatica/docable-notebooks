@@ -1,0 +1,8 @@
+
+notebook-steps.html: 
+  steps:
+    - select: This is a js block which is a docable file cell
+      type: file
+      path: "/tmp/foo.js"
+    - select: and a command cell
+      type: command
