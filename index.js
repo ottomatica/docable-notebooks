@@ -1,9 +1,10 @@
 const express = require("express");
 const path = require("path");
 const fs = require('fs');
-const testreport = require('docable');
-const child_process = require('child_process');
-const md2html = require('./lib/md2html')
+const os = require('os');
+const docable = require('docable');
+const { v4: uuidv4 } = require('uuid');
+
 const {htmlUnescape} = require('escape-goat');
 const app = express();
 const port = process.env.PORT || "3000";
@@ -24,30 +25,39 @@ app.get("/", (req, res) => {
 app.post('/run', async function (req, res) {
     // res.send('Got a POST request')
 
-    fs.writeFileSync('/tmp/notebook.html', req.body, {encoding: 'utf-8'});
+    const notebookMdPath = path.join(os.tmpdir(), uuidv4());
+    await fs.promises.writeFile(notebookMdPath, req.body, { encoding: 'utf-8' });
 
+    let results;
     try{
-        let logs = child_process.execSync(`./node_modules/.bin/docable notebook /tmp/notebook.html`);
-        console.log(logs.toString());
+        results = await docable.docable({ doc: notebookMdPath });
     }
     catch (err) {
         console.error('err: ', err);
     }
 
-    const results = fs.readFileSync('/tmp/notebook_results.html', {encoding: 'utf-8'});
-
-    fs.unlinkSync('/tmp/notebook_results.html')
+    fs.unlinkSync(notebookMdPath);
 
     res.setHeader('Content-Type', 'text/plain');
+
+    // can't send cheerio selector in response
+    results = results.map(res => {
+        return { result: res.result, cell: { ...res.cell, elem: undefined } }
+    });
+    
     res.send(results);
 })
 
 app.post('/markdown', async function (req, res) {
     const md = req.body;
 
+    const tempMdPath = path.join(os.tmpdir(), uuidv4());
+    await fs.promises.writeFile(tempMdPath, md, { encoding: 'utf-8' });
+
     let html;
     try{
-        html = md2html(md);
+        html = await docable.transformers.inline.transform(tempMdPath);
+        fs.promises.unlink(tempMdPath);
     } catch (err) { 
         console.log('err', err)
     }
