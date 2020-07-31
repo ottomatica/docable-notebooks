@@ -4,6 +4,7 @@ const fs = require('fs');
 const os = require('os');
 const docable = require('docable');
 const { v4: uuidv4 } = require('uuid');
+const cheerio = require('cheerio');
 
 const {htmlUnescape} = require('escape-goat');
 const app = express();
@@ -51,15 +52,22 @@ app.post('/run', async function (req, res) {
 app.post('/markdown', async function (req, res) {
     const md = req.body;
 
+    let IR;
     let html;
     try{
-        html = await docable.transformers.inline.transform(Buffer.from(md, 'utf-8'));
+        IR = await docable.transformers.inline.transform(Buffer.from(md, 'utf-8'));
+
+        const $ = cheerio.load(IR);
+        $('[data-docable="true"]').each(function (index, elem) {
+            $(elem).prepend(`<div class="sideAnnotation">[${$(elem).data('type')}:]</div>`)
+        })
+        html = $.html();
     } catch (err) { 
         console.log('err', err)
     }
 
     res.setHeader('Content-Type', 'text/plain');
-    res.send(html);
+    res.send({ html, IR });
 });
 
 app.listen(port, () => {

@@ -1,5 +1,5 @@
 let markdownContent;
-let renderedMD;
+let IR;
 
 document.getElementById("input-file").addEventListener('change', getFile);
 
@@ -15,10 +15,10 @@ function getFile(event) {
                 body: content,
                 headers: { "content-type": "text/plain; charset=UTF-8" },
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                document.getElementById("main").innerHTML = data;
-                renderedMD = data;
+                document.getElementById("main").innerHTML = data.html;
+                IR = data.IR;
             });
         }).catch(error => console.log(error))
     };
