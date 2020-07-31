@@ -51,13 +51,9 @@ app.post('/run', async function (req, res) {
 app.post('/markdown', async function (req, res) {
     const md = req.body;
 
-    const tempMdPath = path.join(os.tmpdir(), uuidv4());
-    await fs.promises.writeFile(tempMdPath, md, { encoding: 'utf-8' });
-
     let html;
     try{
-        html = await docable.transformers.inline.transform(tempMdPath);
-        fs.promises.unlink(tempMdPath);
+        html = await docable.transformers.inline.transform(Buffer.from(md, 'utf-8'));
     } catch (err) { 
         console.log('err', err)
     }
