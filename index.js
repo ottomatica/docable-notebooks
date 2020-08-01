@@ -59,7 +59,7 @@ app.post('/markdown', async function (req, res) {
 
         const $ = cheerio.load(IR);
         $('[data-docable="true"]').each(function (index, elem) {
-            $(elem).prepend(`<div class="sideAnnotation">[${$(elem).data('type')}:]</div>`)
+            $(`<div class="sideAnnotation">[${$(elem).data('type')}:]</div>`).insertBefore(elem);
         })
         html = $.html();
     } catch (err) { 
