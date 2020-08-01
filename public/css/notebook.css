@@ -11,17 +11,21 @@
     color: lightsteelblue;
 }
 
-.markdown-body pre.docable-cell {
+.markdown-body .docable-cell pre {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     /* border: 1px solid lightgray; */
 }
 
-.docable-cell-command {
+.docable-cell-command pre {
     border-left: 5px solid cornflowerblue;
 }
 
-.docable-cell-file {
+.docable-cell-file pre {
+    border-left: 5px solid coral;
+}
+
+.docable-cell-edit pre {
     border-left: 5px solid coral;
 }
 

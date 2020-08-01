@@ -30,8 +30,8 @@
     "docable": "github:ottomatica/docable",
     "escape-goat": "^3.0.0",
     "express": "^4.17.1",
-    "jsdom": "^16.2.2",
-    "marked": "^1.1.0",
+    "jsdom": "^16.3.0",
+    "marked": "^1.1.1",
     "prettier": "^2.0.5",
     "pug": "^3.0.0"
   }
