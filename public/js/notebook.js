@@ -52,7 +52,9 @@ $('#submit').click(function () {
         const results = JSON.parse(data);
         for (const result of results) {
             // selecting cells using index to adding results
-            let selector = $('[data-docable="true"]').eq(result.cell.index);
+            let cell = $('[data-docable="true"]').eq(result.cell.index);
+            let selector = $(cell).next('.docable-cell-output');
+
             setResults(selector, result.result);
         }
 
