@@ -62,14 +62,14 @@ app.post('/markdown', async function (req, res) {
 
             let el = $(elem);
             // add parent
-            let parent = el.wrap(`<div class="docable-cell docable-cell-${el.data('type')}">`);
+            el.wrap(`<div class="docable-cell docable-cell-${el.data('type')}">`);
 
             // insert sideannotation before pre block.
             $(`<div class="sideAnnotation">[${$(elem).data('type')}:]</div>`).insertBefore(elem)
 
             // insert output block
-            parent.append('<div class="docable-cell-output">');
-            
+            el.parent().append('<div class="docable-cell-output">');
+
         })
         html = $.html();
     } catch (err) { 
