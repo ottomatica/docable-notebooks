@@ -29,44 +29,48 @@
     border-left: 5px solid coral;
 }
 
-.docable-cell:hover > .docable-cell-overlay {
-    -webkit-filter: brightness(70%);
-    filter: brightness(70%);
+.docable-cell-overlay {
+    position: relative;
+    display: block;
 }
 
-/* .docable-cell-overlay {
-} */
+/* Overlay dark effect */
+.docable-cell-overlay:hover {
+    -webkit-filter: brightness(85%);
+    filter: brightness(85%);
+    transition: all 600ms;
+}
+
+/* base overlay button */
+.docable-overlay-btn {
+    /* button is not visible by default */
+    display: none;
+    /* make button style invsible */
+    border: none;
+    background-color: transparent;
+    /* svg property is grey */
+    fill: grey;
+}
+
+/* edit buttons are visible on hover */
+.docable-cell-overlay:hover .docable-overlay-btn {
+    display: block;
+}
+
+.docable-overlay-btn:hover {
+    fill: #28a745;
+    opacity: 1;
+    transition: all .2s;
+}
 
 .btn-more {
     margin-bottom: 5px;
     position: absolute;
-    display: block;
     bottom:0;
-    right:0;    
-
-    /* opacity: 0; */
-    /* make button style invsible */
-    border: none;
-    background-color: transparent;
-}
-
-.btn-more svg
-{
+    right:0; 
     width: 22px;
     height: 22px;    
-
-    fill: grey;
 }
-
-.btn-more:hover svg {
-    border: none;
-    fill: #28a745;
-    opacity: 1;
-}
-
-/* .docable-cell-overlay:hover ~ .play-btn {
-    visibility: visible;
-} */
 
 .play-btn {
 
@@ -76,18 +80,7 @@
 
     width: 50px;
     height: 50px;
-
-    /* make button style invsible */
-    border: none;
-    background-color: transparent;
 }
-  
-.play-btn:hover svg {
-    transition: all .2s;
-    fill: #28a745;
-    opacity: 1;
-}
-
 
 
 .passing {
