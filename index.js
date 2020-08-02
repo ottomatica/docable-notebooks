@@ -61,14 +61,42 @@ app.post('/markdown', async function (req, res) {
         $('[data-docable="true"]').each(function (index, elem) {
 
             let el = $(elem);
-            // add parent
-            el.wrap(`<div class="docable-cell docable-cell-${el.data('type')}">`);
+
+            let cell = $(`<div class="docable-cell docable-cell-${el.data('type')}">`);
+            let overlay = $(`<div class="docable-cell-overlay">`);
+
+            // overlay is parent to pre block
+            el.wrap(overlay);
+            // cell is parent to overlay
+            overlay.wrap(cell);
+
+            // add buttons
+            let more_btn = 
+            `<button class="btn-more">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 560" id="more-icon-560" aria-hidden="true" class="option-menu">
+            <path d="M350 280c0 38.634-31.366 70-70 70s-70-31.366-70-70 31.366-70 70-70 70 31.366 70 70m0-210c0 38.634-31.366 70-70 70s-70-31.366-70-70 31.366-70 70-70 70 31.366 70 70m0 420c0 38.634-31.366 70-70 70s-70-31.366-70-70 31.366-70 70-70 70 31.366 70 70"></path>
+            </svg>
+            </button>
+            `;
+            overlay.append(more_btn);
+
+            let play_btn = 
+            `
+            <button class="play-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26">
+                <polygon class="play-btn__svg" points="9.33 6.69 9.33 19.39 19.3 13.04 9.33 6.69"/>
+                <path class="play-btn__svg" d="M26,13A13,13,0,1,1,13,0,13,13,0,0,1,26,13ZM13,2.18A10.89,10.89,0,1,0,23.84,13.06,10.89,10.89,0,0,0,13,2.18Z"/>
+                </svg> 
+            </button>
+            `
+            overlay.append(play_btn);
+
 
             // insert sideannotation before pre block.
-            $(`<div class="sideAnnotation">[${$(elem).data('type')}:]</div>`).insertBefore(elem)
+            $(`<div class="sideAnnotation">[${$(elem).data('type')}:]</div>`).insertBefore(overlay)
 
             // insert output block
-            el.parent().append('<div class="docable-cell-output">');
+            cell.append('<div class="docable-cell-output">');
 
         })
         html = $.html();
