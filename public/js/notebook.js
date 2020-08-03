@@ -40,6 +40,7 @@ function submitButtonSpinToggle() {
 $('#submit').click(function () {
 
     submitButtonSpinToggle();
+    resetResults();
 
     fetch('/run', {
         method: 'POST',
@@ -67,6 +68,7 @@ $('main').on('click', 'button.play-btn', function () {
     submitButtonSpinToggle();
 
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+    resetResults(stepIndex);
 
     fetch('/run', {
         method: 'POST',
@@ -113,3 +115,17 @@ function _setFailing(selector, response) {
     selector.addClass('failing');
 }
 
+function resetResults(index) {
+    let selector;
+
+    if (index) {
+        let cell = $('[data-docable="true"]').eq(index);
+        selector = cell.parent().next('.docable-cell-output');
+    }
+
+    else {
+        selector = $('.docable-cell-output');
+    }
+
+    selector.empty();
+}
