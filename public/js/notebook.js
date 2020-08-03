@@ -89,22 +89,22 @@ $('main').on('click', 'button.play-btn', function () {
         });
 })
 
-async function setResults(selector, result) {
+function setResults(selector, result) {
     if (!result) return;
 
     if (result.status)
-        await _setPassing(selector);
+        _setPassing(selector);
     else
-        await _setFailing(selector, result);
+        _setFailing(selector, result);
     return result;
 }
 
-async function _setPassing(selector) {
+function _setPassing(selector) {
     selector.prepend('<span>✓ </span>');
     selector.addClass('passing');
 }
 
-async function _setFailing(selector, response) {
+function _setFailing(selector, response) {
     selector.prepend('<span>𐄂 </span>');
     selector.append(`<br/><br/>`);
     selector.append(`<span>️ error: ${response.error || response.stderr}</span> </br>`);
@@ -112,3 +112,4 @@ async function _setFailing(selector, response) {
     selector.append(`<span> command output: ${response.stdout || '""'}</span> </br>`);
     selector.addClass('failing');
 }
+
