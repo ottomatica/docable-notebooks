@@ -67,9 +67,9 @@ async function setResults(selector, result) {
     if (!result) return;
 
     if (result.status)
-        await this._setPassing(selector);
+        await _setPassing(selector);
     else
-        await this._setFailing(selector, result);
+        await _setFailing(selector, result);
     return result;
 }
 
