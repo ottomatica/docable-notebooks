@@ -17,6 +17,7 @@ app.use(bodyParser.text({ type: 'text/plain' }))
 // app.set("view engine", "pug");
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.json());
 
 app.get("/", (req, res) => {
     // res.status(200).send("Notebooks For DevOps");
@@ -27,11 +28,11 @@ app.post('/run', async function (req, res) {
     // res.send('Got a POST request')
 
     const notebookMdPath = path.join(os.tmpdir(), uuidv4());
-    await fs.promises.writeFile(notebookMdPath, req.body, { encoding: 'utf-8' });
+    await fs.promises.writeFile(notebookMdPath, req.body.markdownContent, { encoding: 'utf-8' });
 
     let results;
     try{
-        results = await docable.docable({ doc: notebookMdPath });
+        results = await docable.docable({ doc: notebookMdPath, stepIndex: req.body.stepIndex });
     }
     catch (err) {
         console.error('err: ', err);

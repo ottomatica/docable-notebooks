@@ -44,8 +44,8 @@ $('#submit').click(function () {
     fetch('/run', {
         method: 'POST',
         mode: 'cors',
-        body: markdownContent,
-        headers: { "content-type": "text/plain; charset=UTF-8" },
+        body: JSON.stringify({ markdownContent }),
+        headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text())
     .then(data => {
@@ -62,6 +62,30 @@ $('#submit').click(function () {
     });
 
 });
+
+$('main').on('click', 'button.play-btn', function () {
+    let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+
+    fetch('/run', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ markdownContent, stepIndex }),
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+        .then(response => response.text())
+        .then(data => {
+            const results = JSON.parse(data);
+            for (const result of results) {
+                // selecting cells using index to adding results
+                let cell = $('[data-docable="true"]').eq(result.cell.index);
+                let selector = $(cell).next('.docable-cell-output');
+
+                setResults(selector, result.result);
+            }
+
+            submitButtonSpinToggle();
+        });
+})
 
 async function setResults(selector, result) {
     if (!result) return;
