@@ -64,6 +64,8 @@ $('#submit').click(function () {
 });
 
 $('main').on('click', 'button.play-btn', function () {
+    submitButtonSpinToggle();
+
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
 
     fetch('/run', {
