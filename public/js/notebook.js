@@ -53,7 +53,7 @@ $('#submit').click(function () {
         for (const result of results) {
             // selecting cells using index to adding results
             let cell = $('[data-docable="true"]').eq(result.cell.index);
-            let selector = $(cell).next('.docable-cell-output');
+            let selector = cell.parent().next('.docable-cell-output');
 
             setResults(selector, result.result);
         }
@@ -80,7 +80,7 @@ $('main').on('click', 'button.play-btn', function () {
             for (const result of results) {
                 // selecting cells using index to adding results
                 let cell = $('[data-docable="true"]').eq(result.cell.index);
-                let selector = $(cell).next('.docable-cell-output');
+                let selector = cell.parent().next('.docable-cell-output');
 
                 setResults(selector, result.result);
             }
