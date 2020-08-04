@@ -2,6 +2,53 @@ let markdownContent;
 let IR;
 
 document.getElementById("input-file").addEventListener('change', getFile);
+setupExamplesDropdown();
+
+function setupExamplesDropdown() {
+    _fetchExamples();
+    _selectExample();
+}
+
+function _selectExample() {
+    $("#examples-dropdown").change(function () {
+        const selectedExample = $('#examples-dropdown option').filter(':selected').val();
+        fetch(`/examples/${selectedExample}`, {
+            method: 'GET',
+            mode: 'cors',
+        })
+        .then(response => response.text())
+        .then(content => {
+
+            markdownContent = content;
+            // using /markdown endpoint to do md2html
+            fetch('/markdown', {
+                method: 'POST',
+                mode: 'cors',
+                body: content,
+                headers: { "content-type": "text/plain; charset=UTF-8" },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("main").innerHTML = data.html;
+                IR = data.IR;
+            });
+
+        });
+    });
+}
+
+function _fetchExamples () {
+    fetch('/examples', {
+        method: 'GET',
+        mode: 'cors',
+    })
+    .then(response => response.json())
+    .then(examples => {
+        for(const example of examples) {
+            $('#examples-dropdown').append(new Option(example, example));
+        }
+    });
+}
 
 function getFile(event) {
     const input = event.target
