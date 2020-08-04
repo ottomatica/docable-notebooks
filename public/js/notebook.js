@@ -54,7 +54,7 @@ $('#submit').click(function () {
         for (const result of results) {
             // selecting cells using index to adding results
             let cell = $('[data-docable="true"]').eq(result.cell.index);
-            let selector = cell.parent().next('.docable-cell-output');
+            let selector = cell.parent();
 
             setResults(selector, result.result);
         }
@@ -120,21 +120,14 @@ function _setFailing(cell, response) {
 function resetResults(index) {
     let output;
 
-    if (index) {
-        let input = $('[data-docable="true"]').eq(index);
+    let input = $('[data-docable="true"]')    
+    if (index) input = input.eq(index);
         
-        let cell = input.parent();
-        cell.removeClass("failing");
-        cell.removeClass("passing");
+    let cell = input.parent();
+    cell.removeClass("failing");
+    cell.removeClass("passing");
 
-        output = cell.next('.docable-cell-output');
+    output = cell.next('.docable-cell-output');
 
-        output.empty();
-    }
-
-    else {
-        // TODO reset failing/passing.
-    }
-
-
+    output.empty();
 }
