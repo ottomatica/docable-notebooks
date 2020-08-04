@@ -1,3 +1,7 @@
+const runEnpoint = window.location.pathname.startsWith('/examples') ? '/runexample' : '/run';
+let exampleName = undefined;
+if(runEnpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
+
 let markdownContent = md;
 let IR;
 
@@ -92,10 +96,10 @@ $('#submit').click(function () {
     submitButtonSpinToggle();
     resetResults();
 
-    fetch('/run', {
+    fetch(runEnpoint, {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ markdownContent }),
+        body: JSON.stringify({ markdownContent, name: exampleName }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text())
@@ -120,10 +124,10 @@ $('main').on('click', 'button.play-btn', function () {
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     resetResults(stepIndex);
 
-    fetch('/run', {
+    fetch(runEnpoint, {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ markdownContent, stepIndex }),
+        body: JSON.stringify({ markdownContent, stepIndex, name: exampleName}),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
         .then(response => response.text())

@@ -17,14 +17,44 @@ app.use(bodyParser.text({ type: 'text/plain' }))
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs')
 
-app.use(express.static(__dirname + '/public'));
+app.use('/js', express.static(__dirname + '/public/js'));
+app.use('/css', express.static(__dirname + '/public/css'));
+
 app.use(express.json());
 
-app.post('/run', async function (req, res) {
-    // res.send('Got a POST request')
+if (process.env.NODE_ENV == 'dev') {
+    app.use('/', express.static(__dirname + '/public/'));
+    app.post('/run', async function (req, res) {
+        // res.send('Got a POST request')
+    
+        const notebookMdPath = path.join(os.tmpdir(), uuidv4());
+        await fs.promises.writeFile(notebookMdPath, req.body.markdownContent, { encoding: 'utf-8' });
+    
+        let results;
+        try{
+            results = await docable.docable({ doc: notebookMdPath, stepIndex: req.body.stepIndex });
+        }
+        catch (err) {
+            console.error('err: ', err);
+        }
+    
+        fs.unlinkSync(notebookMdPath);
+    
+        res.setHeader('Content-Type', 'text/plain');
+    
+        // can't send cheerio selector in response
+        results = results.map(res => {
+            return { result: res.result, cell: { ...res.cell, elem: undefined } }
+        });
+        
+        res.send(results);
+    });
+}
 
-    const notebookMdPath = path.join(os.tmpdir(), uuidv4());
-    await fs.promises.writeFile(notebookMdPath, req.body.markdownContent, { encoding: 'utf-8' });
+app.post('/runexample', async function (req, res) {
+
+    const exampleName = req.body.name;
+    const notebookMdPath = path.join(__dirname, 'examples', exampleName + '.md');
 
     let results;
     try{
@@ -34,8 +64,6 @@ app.post('/run', async function (req, res) {
         console.error('err: ', err);
     }
 
-    fs.unlinkSync(notebookMdPath);
-
     res.setHeader('Content-Type', 'text/plain');
 
     // can't send cheerio selector in response
@@ -44,7 +72,7 @@ app.post('/run', async function (req, res) {
     });
     
     res.send(results);
-})
+});
 
 app.post('/markdown', async function (req, res) {
     const { html, IR, md } = await utils.notebookRender(req.body);
