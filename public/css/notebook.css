@@ -15,6 +15,7 @@
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     /* border: 1px solid lightgray; */
+    font-size: 14px;
 }
 
 .docable-cell-command pre {
@@ -28,6 +29,11 @@
 .docable-cell-edit pre {
     border-left: 5px solid coral;
 }
+
+.markdown-body .docable-cell .failing pre {
+    border-left: 5px solid red;
+}
+
 
 .docable-cell-overlay {
     position: relative;
@@ -84,11 +90,28 @@
     height: 50px;
 }
 
+.docable-cell-output {
+    background-color: #343a40;
+    padding: 10px;
+    color: whitesmoke;
+    font-family: Consolas, Menlo, "Liberation Mono", Monaco, "Lucida Console";
 
-.passing {
-    background-color: #ccffcc!important;
+    font-size: 12px;
+    line-height: 1.1;
 }
 
-.failing {
-    background-color: #ffb3b3!important;
+/* pseudo selector for ensuring not displayed when empty.*/
+.docable-cell-output:empty
+{
+    display:none;
+}
+
+.docable-cell-output .docable-error {
+  background-color: red;   
+  padding: 1.5px;
+}
+
+.docable-cell-output .docable-success {
+  background-color: green;    
+  padding: 1.5px;
 }

@@ -81,10 +81,10 @@ $('main').on('click', 'button.play-btn', function () {
             const results = JSON.parse(data);
             for (const result of results) {
                 // selecting cells using index to adding results
-                let cell = $('[data-docable="true"]').eq(result.cell.index);
-                let selector = cell.parent().next('.docable-cell-output');
+                let block = $('[data-docable="true"]').eq(result.cell.index);
+                let cell = block.parent();
 
-                setResults(selector, result.result);
+                setResults(cell, result.result);
             }
 
             submitButtonSpinToggle();
@@ -95,37 +95,46 @@ function setResults(selector, result) {
     if (!result) return;
 
     if (result.status)
-        _setPassing(selector);
+        _setPassing(selector, result);
     else
         _setFailing(selector, result);
     return result;
 }
 
-function _setPassing(selector) {
-    selector.prepend('<span>✓ </span>');
-    selector.addClass('passing');
+function _setPassing(cell, response) {
+    cell.addClass('passing');
+
+    let output = cell.next('.docable-cell-output');
+    output.append(`<span class="docable-success">SUCCESS</span><span>:${response.stdout}</span>`);
 }
 
-function _setFailing(selector, response) {
-    selector.prepend('<span>𐄂 </span>');
-    selector.append(`<br/><br/>`);
-    selector.append(`<span>️ error: ${response.error || response.stderr}</span> </br>`);
-    selector.append(`<span> exit code: ${response.exitCode}</span> </br>`);
-    selector.append(`<span> command output: ${response.stdout || '""'}</span> </br>`);
-    selector.addClass('failing');
+function _setFailing(cell, response) {
+    cell.addClass('failing');
+
+    let output = cell.next('.docable-cell-output');
+    output.append(`<span class="docable-error">️ERROR</span><span>:${response.error || response.stderr}</span> </br>`);
+    output.append(`<span>exit code: ${response.exitCode}</span> </br>`);
+    output.append(`<span>command output: ${response.stdout || '""'}</span> </br>`);
 }
 
 function resetResults(index) {
-    let selector;
+    let output;
 
     if (index) {
-        let cell = $('[data-docable="true"]').eq(index);
-        selector = cell.parent().next('.docable-cell-output');
+        let input = $('[data-docable="true"]').eq(index);
+        
+        let cell = input.parent();
+        cell.removeClass("failing");
+        cell.removeClass("passing");
+
+        output = cell.next('.docable-cell-output');
+
+        output.empty();
     }
 
     else {
-        selector = $('.docable-cell-output');
+        // TODO reset failing/passing.
     }
 
-    selector.empty();
+
 }
