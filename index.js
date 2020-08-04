@@ -14,16 +14,11 @@ var bodyParser = require("body-parser");
 app.use(bodyParser.text({ type: 'text/plain' }))
 
 // edit view:
-// app.set("views", path.join(__dirname, "views"));
-// app.set("view engine", "pug");
+app.set("views", path.join(__dirname, "views"));
+app.set('view engine', 'ejs')
 
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
-
-app.get("/", (req, res) => {
-    // res.status(200).send("Notebooks For DevOps");
-    res.render("index", { title: "Notebook" });
-});
 
 app.post('/run', async function (req, res) {
     // res.send('Got a POST request')
@@ -58,8 +53,24 @@ app.post('/markdown', async function (req, res) {
     res.send({ html, IR, md });
 });
 
+// get specific example
+app.get('/examples/:name', async function (req, res) {
+    const name = req.params.name;
+    try {
+        const example = await utils.getExamples(name);
+        const { html, IR, md } = await utils.notebookRender(example);
+
+        res.render("index", { notebookHtml: html, md });
+    }
+    catch (err) {
+        console.log(err)
+        res.status(404);
+        res.send(`Example ${name} not found!`);
+    }
+});
+
 // get list of available examples
-app.get('/examples', async function (req, res) {
+app.get('/getexamples', async function (req, res) {
     const examples = (await utils.getExamples()).map(example => path.basename(example, '.md'));
 
     res.setHeader('Content-Type', 'application/json');
@@ -67,7 +78,7 @@ app.get('/examples', async function (req, res) {
 });
 
 // get specific example
-app.get('/examples/:name', async function (req, res) {
+app.get('/getexamples/:name', async function (req, res) {
     const name = req.params.name;
     try {
         const example = await utils.getExamples(name);

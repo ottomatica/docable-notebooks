@@ -1,7 +1,10 @@
-let markdownContent;
+let markdownContent = md;
 let IR;
 
-document.getElementById("input-file").addEventListener('change', getFile);
+if(document.getElementById("input-file"))
+    document.getElementById("input-file").addEventListener('change', getFile);
+
+
 setupExamplesDropdown();
 
 function setupExamplesDropdown() {
@@ -12,7 +15,7 @@ function setupExamplesDropdown() {
 function _selectExample() {
     $("#examples-dropdown").change(function () {
         const selectedExample = $('#examples-dropdown option').filter(':selected').val();
-        fetch(`/examples/${selectedExample}`, {
+        fetch(`/getexamples/${selectedExample}`, {
             method: 'GET',
             mode: 'cors',
         })
@@ -38,7 +41,7 @@ function _selectExample() {
 }
 
 function _fetchExamples () {
-    fetch('/examples', {
+    fetch('/getexamples', {
         method: 'GET',
         mode: 'cors',
     })
