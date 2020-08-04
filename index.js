@@ -5,7 +5,7 @@ const os = require('os');
 const docable = require('docable');
 const { v4: uuidv4 } = require('uuid');
 const cheerio = require('cheerio');
-const notebookRender = require('./lib/notebookRender');
+const utils = require('./lib/utils');
 
 const {htmlUnescape} = require('escape-goat');
 const app = express();
@@ -52,10 +52,33 @@ app.post('/run', async function (req, res) {
 })
 
 app.post('/markdown', async function (req, res) {
-    const { html, IR, md } = await notebookRender(req.body);
+    const { html, IR, md } = await utils.notebookRender(req.body);
 
     res.setHeader('Content-Type', 'text/plain');
     res.send({ html, IR, md });
+});
+
+// get list of available examples
+app.get('/examples', async function (req, res) {
+    const examples = (await utils.getExamples()).map(example => path.basename(example, '.md'));
+
+    res.setHeader('Content-Type', 'application/json');
+    res.send(examples);
+});
+
+// get specific example
+app.get('/examples/:name', async function (req, res) {
+    const name = req.params.name;
+    try {
+        const example = await utils.getExamples(name);
+        res.setHeader('Content-Type', 'text/plain');
+        res.send(example);
+    }
+    catch (err) {
+        res.status(404);
+        res.send(`Example ${name} not found!`);
+    }
+
 });
 
 app.listen(port, () => {
