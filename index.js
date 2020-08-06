@@ -7,6 +7,7 @@ const docable = require('docable');
 const { v4: uuidv4 } = require('uuid');
 const bodyParser = require("body-parser");
 const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
 
 const utils = require('./lib/utils');
 const port = process.env.PORT || "3000";
@@ -16,7 +17,8 @@ const app = express();
 app.use(session({
     secret: "Shh, its a secret!",
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+    store: new SQLiteStore({db: '.sessions'})
 }));
  
 app.use(bodyParser.text({ type: 'text/plain' }))
