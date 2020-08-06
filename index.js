@@ -66,7 +66,6 @@ app.post('/runexample', async function (req, res) {
     // create container for each session
     const containerName = `${req.body.name}-${req.session.id}`;
     const conn = Connectors.getConnector('docker', containerName);
-    await conn.pull('ubuntu:18.04');
     if (!(await conn.containerExists())) {
         // delete any other containers associated with this session
         if (req.session.container) {
@@ -149,6 +148,9 @@ app.get('/getexamples/:name', async function (req, res) {
 
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+    const conn = Connectors.getConnector('docker', 'foo');
+    await conn.pull('ubuntu:18.04');
+
     console.log(`Listening to requests on http://localhost:${port}`);
 });
