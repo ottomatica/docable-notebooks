@@ -2,15 +2,23 @@ const express = require("express");
 const path = require("path");
 const fs = require('fs');
 const os = require('os');
+const Connectors = require('infra.connectors');
 const docable = require('docable');
 const { v4: uuidv4 } = require('uuid');
-const cheerio = require('cheerio');
-const utils = require('./lib/utils');
+const bodyParser = require("body-parser");
+const session = require('express-session');
 
-const {htmlUnescape} = require('escape-goat');
-const app = express();
+const utils = require('./lib/utils');
 const port = process.env.PORT || "3000";
-var bodyParser = require("body-parser");
+
+const app = express();
+
+app.use(session({
+    secret: "Shh, its a secret!",
+    resave: true,
+    saveUninitialized: true
+}));
+ 
 app.use(bodyParser.text({ type: 'text/plain' }))
 
 // edit view:
@@ -53,12 +61,31 @@ if (process.env.NODE_ENV == 'dev') {
 
 app.post('/runexample', async function (req, res) {
 
+    // create container for each session
+    const containerName = `${req.body.name}-${req.session.id}`;
+    const conn = Connectors.getConnector('docker', containerName);
+    await conn.pull('ubuntu:18.04');
+    if (!(await conn.containerExists())) {
+        // delete any other containers associated with this session
+        if (req.session.container) {
+            const conn = Connectors.getConnector('docker', req.session.container);
+            if (await conn.containerExists()) await conn.delete();
+            console.log(`Deleted previous container: ${req.session.container}`);
+        }
+
+        // create new container for this notebook + session
+        await conn.run('ubuntu:18.04', '/bin/bash');
+
+        // setting current container name for session 
+        req.session.container = containerName;
+    }
+
     const exampleName = req.body.name;
     const notebookMdPath = path.join(__dirname, 'examples', exampleName + '.md');
 
     let results;
-    try{
-        results = await docable.docable({ doc: notebookMdPath, stepIndex: req.body.stepIndex });
+    try {
+        results = await docable.docable({ doc: notebookMdPath, stepIndex: req.body.stepIndex, setupObj: { docker: containerName } });
     }
     catch (err) {
         console.error('err: ', err);
