@@ -11,7 +11,10 @@ const SQLiteStore = require('connect-sqlite3')(session);
 
 const pino = require('pino');
 const expressPino = require('express-pino-logger');
-const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const logger = pino(pino.destination({
+    dest: './docable-notebooks.log',
+    sync: false
+}));
 const expressLogger = expressPino({ logger });
 
 const CONTAINER_TIMEOUT = 600000;
