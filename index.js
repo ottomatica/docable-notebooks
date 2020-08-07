@@ -12,11 +12,15 @@ const SQLiteStore = require('connect-sqlite3')(session);
 const utils = require('./lib/utils');
 const port = process.env.PORT || "3000";
 
+const CONTAINER_TIMEOUT = 600000;
+let timeoutQ = {};
+
 const app = express();
 
 app.use(session({
     secret: "Shh, its a secret!",
     resave: true,
+    rolling: true,
     saveUninitialized: true,
     store: new SQLiteStore({db: '.sessions'})
 }));
@@ -79,6 +83,15 @@ app.post('/runexample', async function (req, res) {
 
         // setting current container name for session 
         req.session.container = containerName;
+
+        // setting timeout
+        timeoutQ[req.session.container] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
+    }
+
+    else {
+        // resetting timeout
+        clearTimeout(timeoutQ[req.session.container])
+        timeoutQ[req.session.container] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
     }
 
     const exampleName = req.body.name;
@@ -154,3 +167,10 @@ app.listen(port, async () => {
 
     console.log(`Listening to requests on http://localhost:${port}`);
 });
+
+function timeoutContainer(name, timeout) {
+    const conn = Connectors.getConnector('docker', name);
+    return setTimeout(async () => {
+        await conn.delete();
+    }, timeout);
+}
