@@ -9,11 +9,16 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
-const utils = require('./lib/utils');
-const port = process.env.PORT || "3000";
+const pino = require('pino');
+const expressPino = require('express-pino-logger');
+const logger = pino({ level: process.env.LOG_LEVEL || 'info' });
+const expressLogger = expressPino({ logger });
 
 const CONTAINER_TIMEOUT = 600000;
 let timeoutQ = {};
+
+const utils = require('./lib/utils');
+const port = process.env.PORT || "3000";
 
 const app = express();
 
@@ -36,22 +41,29 @@ app.use('/css', express.static(__dirname + '/public/css'));
 
 app.use(express.json());
 
+app.use(expressLogger);
+
 if (process.env.NODE_ENV == 'dev') {
+    logger.info(`Enabling arbitrary md in /`);
     app.use('/', express.static(__dirname + '/public/'));
+
     app.post('/run', async function (req, res) {
         // res.send('Got a POST request')
     
         const notebookMdPath = path.join(os.tmpdir(), uuidv4());
+
+        logger.info(`Writing input notebook in a temp file`);
         await fs.promises.writeFile(notebookMdPath, req.body.markdownContent, { encoding: 'utf-8' });
     
         let results;
         try{
+            logger.info(`Running docable on ${notebookMdPath}`);
             results = await docable.docable({ doc: notebookMdPath, stepIndex: req.body.stepIndex });
         }
         catch (err) {
-            console.error('err: ', err);
+            logger.error(err);
         }
-    
+
         fs.unlinkSync(notebookMdPath);
     
         res.setHeader('Content-Type', 'text/plain');
@@ -74,11 +86,14 @@ app.post('/runexample', async function (req, res) {
         // delete any other containers associated with this session
         if (req.session.container) {
             const conn = Connectors.getConnector('docker', req.session.container);
-            if (await conn.containerExists()) await conn.delete();
-            console.log(`Deleted previous container: ${req.session.container}`);
+            if (await conn.containerExists()) {
+                logger.info(`Deleting session's previous container: ${req.session.container}`);
+                await conn.delete();
+            }
         }
 
         // create new container for this notebook + session
+        logger.info(`Creating new container: ${containerName}`);
         await conn.run('ubuntu:18.04', '/bin/bash');
 
         // setting current container name for session 
@@ -90,8 +105,9 @@ app.post('/runexample', async function (req, res) {
 
     else {
         // resetting timeout
-        clearTimeout(timeoutQ[req.session.container])
-        timeoutQ[req.session.container] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
+        logger.info(`Cancelling timer for killing container: ${containerName}`);
+        clearTimeout(timeoutQ[containerName])
+        timeoutQ[containerName] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
     }
 
     const exampleName = req.body.name;
@@ -99,10 +115,11 @@ app.post('/runexample', async function (req, res) {
 
     let results;
     try {
+        logger.info(`Running docable on ${notebookMdPath} inside ${containerName} container`);
         results = await docable.docable({ doc: notebookMdPath, stepIndex: req.body.stepIndex, setupObj: { docker: containerName } });
     }
     catch (err) {
-        console.error('err: ', err);
+        logger.error(err);
     }
 
     res.setHeader('Content-Type', 'text/plain');
@@ -116,23 +133,27 @@ app.post('/runexample', async function (req, res) {
 });
 
 app.post('/markdown', async function (req, res) {
+    logger.info(`Rendering example: \n${req.body}`);
     const { html, IR, md } = await utils.notebookRender(req.body);
 
     res.setHeader('Content-Type', 'text/plain');
     res.send({ html, IR, md });
 });
 
-// get specific example
+// render specific example
 app.get('/examples/:name', async function (req, res) {
     const name = req.params.name;
     try {
+        logger.info(`Finding example: ./examples/${name}.md`);
         const example = await utils.getExamples(name);
+
+        logger.info(`Rendering example: ./examples/${name}.md`);
         const { html, IR, md } = await utils.notebookRender(example);
 
         res.render("index", { notebookHtml: html, md });
     }
     catch (err) {
-        console.log(err)
+        logger.warn(err);
         res.status(404);
         res.send(`Example ${name} not found!`);
     }
@@ -150,25 +171,31 @@ app.get('/getexamples', async function (req, res) {
 app.get('/getexamples/:name', async function (req, res) {
     const name = req.params.name;
     try {
+        logger.info(`Finding example: ./examples/${name}.md`);
         const example = await utils.getExamples(name);
         res.setHeader('Content-Type', 'text/plain');
         res.send(example);
     }
     catch (err) {
+        logger.warn(err);
         res.status(404);
         res.send(`Example ${name} not found!`);
     }
-
 });
 
 app.listen(port, async () => {
     const conn = Connectors.getConnector('docker', 'foo');
+    
+    logger.info(`Pulling latest version of docker image: ubuntu:18.04`);
     await conn.pull('ubuntu:18.04');
 
-    console.log(`Listening to requests on http://localhost:${port}`);
+    logger.info(`Server started in ${process.env.NODE_ENV} NODE_ENV`);
+    logger.info(`Listening to requests on http://localhost:${port}`);
 });
 
 function timeoutContainer(name, timeout) {
+    logger.info(`Setting timer for killing container in ${timeout}ms: ${name}`);
+
     const conn = Connectors.getConnector('docker', name);
     return setTimeout(async () => {
         await conn.delete();
