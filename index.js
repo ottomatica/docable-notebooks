@@ -132,6 +132,8 @@ app.post('/runexample', async function (req, res) {
         return { result: res.result, cell: { ...res.cell, elem: undefined } }
     });
     
+    logger.info(`Docable results: ${JSON.stringify(results)}`);
+
     res.send(results);
 });
 
