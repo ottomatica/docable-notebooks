@@ -96,6 +96,7 @@ app.post('/runexample', async function (req, res) {
         }
 
         // create new container for this notebook + session
+        logger.info(`Available memory: ${Number.parseFloat(100 * os.freemem() / os.totalmem()).toFixed(2)}%`);
         logger.info(`Creating new container: ${containerName}`);
         await conn.run('ubuntu:18.04', '/bin/bash');
 
