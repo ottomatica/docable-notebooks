@@ -102,17 +102,16 @@ app.post('/runexample', async function (req, res) {
 
         // setting current container name for session 
         req.session.container = containerName;
-
-        // setting timeout
-        timeoutQ[req.session.container] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
     }
 
     else {
         // resetting timeout
         logger.info(`Cancelling timer for killing container: ${containerName}`);
         clearTimeout(timeoutQ[containerName])
-        timeoutQ[containerName] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
     }
+
+    // setting timeout
+    timeoutQ[containerName] = timeoutContainer(containerName, CONTAINER_TIMEOUT);
 
     const exampleName = req.body.name;
     const notebookMdPath = path.join(__dirname, 'examples', exampleName + '.md');
