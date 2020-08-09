@@ -206,3 +206,11 @@ function timeoutContainer(name, timeout) {
         await conn.delete();
     }, timeout);
 }
+
+process.on('uncaughtException', pino.final(logger, (err, finalLogger) => {
+    finalLogger.error(err, 'uncaughtException');
+}));
+
+process.on('unhandledRejection', pino.final(logger, (err, finalLogger) => {
+    finalLogger.error(err, 'unhandledRejection');
+}));
