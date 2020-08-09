@@ -163,16 +163,17 @@ function _setPassing(cell, response) {
     cell.addClass('passing');
 
     let output = cell.next('.docable-cell-output');
-    output.append(`<span class="docable-success">SUCCESS</span><span>:${response.stdout}</span>`);
+    output.append(`<span class="docable-success">SUCCESS</span>: <br> <span>${response.stdout}</span>`);
+    output.append(`<span>${response.stderr}</span> </br>`);
 }
 
 function _setFailing(cell, response) {
     cell.addClass('failing');
 
     let output = cell.next('.docable-cell-output');
-    output.append(`<span class="docable-error">️ERROR</span><span>:${response.error || response.stderr}</span> </br>`);
+    output.append(`<span class="docable-error">️ERROR</span>: <br> <span>${response.stderr}</span> </br>`);
+    output.append(`<span>${response.stdout}</span> </br>`);
     output.append(`<span>exit code: ${response.exitCode}</span> </br>`);
-    output.append(`<span>command output: ${response.stdout || '""'}</span> </br>`);
 }
 
 function resetResults(index) {
