@@ -87,11 +87,14 @@ function readFileContent(file) {
     });
 }
 
+let running = false;
 function submitButtonSpinToggle() {
+    running = !running;
     $('#submit-button').toggleClass('spinner-border spinner-border-sm');
 }
 
 $('#submit').click(function () {
+    if (running) return;
 
     submitButtonSpinToggle();
     resetResults();
@@ -119,6 +122,7 @@ $('#submit').click(function () {
 });
 
 $('main').on('click', 'button.play-btn', function () {
+    if (running) return;
     submitButtonSpinToggle();
 
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
