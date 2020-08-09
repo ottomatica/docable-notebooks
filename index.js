@@ -17,6 +17,7 @@ const logger = pino(pino.destination({
 }));
 const expressLogger = expressPino({ logger });
 
+const DOCKER_IMAGE = 'node:12-buster';
 const CONTAINER_TIMEOUT = 600000;
 let timeoutQ = {};
 
@@ -73,7 +74,7 @@ if (process.env.NODE_ENV == 'dev') {
     
         // can't send cheerio selector in response
         results = results.map(res => {
-            return { result: res.result, cell: { ...res.cell, elem: undefined } }
+            return { result: { ...res.result, stdout: res.result.stdout.replace('\n', '<br>'), stderr: res.result.stderr.replace('\n', '<br>')} , cell: { ...res.cell, elem: undefined } }
         });
         
         res.send(results);
@@ -98,7 +99,7 @@ app.post('/runexample', async function (req, res) {
         // create new container for this notebook + session
         logger.info(`Available memory: ${Number.parseFloat(100 * os.freemem() / os.totalmem()).toFixed(2)}%`);
         logger.info(`Creating new container: ${containerName}`);
-        await conn.run('ubuntu:18.04', '/bin/bash');
+        await conn.run(DOCKER_IMAGE, '/bin/sh');
 
         // setting current container name for session 
         req.session.container = containerName;
@@ -129,7 +130,7 @@ app.post('/runexample', async function (req, res) {
 
     // can't send cheerio selector in response
     results = results.map(res => {
-        return { result: res.result, cell: { ...res.cell, elem: undefined } }
+        return { result: { ...res.result, stdout: res.result.stdout.replace('\n', '<br>'), stderr: res.result.stderr.replace('\n', '<br>')} , cell: { ...res.cell, elem: undefined } }
     });
     
     logger.info(`Docable results: ${JSON.stringify(results)}`);
@@ -191,8 +192,8 @@ app.get('/getexamples/:name', async function (req, res) {
 app.listen(port, async () => {
     const conn = Connectors.getConnector('docker', 'foo');
     
-    logger.info(`Pulling latest version of docker image: ubuntu:18.04`);
-    await conn.pull('ubuntu:18.04');
+    logger.info(`Pulling latest version of docker image: ${DOCKER_IMAGE}`);
+    await conn.pull(DOCKER_IMAGE);
 
     logger.info(`Server started in ${process.env.NODE_ENV} NODE_ENV`);
     logger.info(`Listening to requests on http://localhost:${port}`);
