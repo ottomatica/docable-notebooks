@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "LOG_LEVEL=debug NODE_ENV=dev nodemon ./index.js | pino-pretty",
-    "prod": "LOG_LEVEL=debug NODE_ENV=prod nodemon ./index.js | pino-pretty",
+    "prod": "LOG_LEVEL=debug NODE_ENV=prod pm2 start ./index.js",
     "deploy": "NODE_ENV=prod pm2 start index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
