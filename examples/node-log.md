@@ -25,7 +25,7 @@ This is a docable cell which represents a command:
 ```bash|{type:'command'}
 date
 ```
-<hr style="border-top: 1px dashed gray;">
+<hr style="border-bottom: 1px dashed gray;">
 
 Now suppose you wrote a tutorial in markdown, this is how it would look like:
 
