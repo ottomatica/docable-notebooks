@@ -1,9 +1,35 @@
-
 _Want to get updates about docable? [Please click here to subscribe to our mailing list.](https://buttondown.email/ottomatica)_
 
 _Enjoyed trying this out, saw a bug, or have some ideas  on how to improve things? [Please click here to fill out our short survey](https://forms.gle/fMe8u4zsQyRss8rx9). We will read and address every response!_
 
 ---
+
+# Intro to Docable Notebooks
+
+Docable Notebooks provide a way for viewing normal markdown files in an interactive and executable format. To enable this, you simply need to add some annotations to your document. For example, let's see a simple example markdown for making a `command` cell that can be executed in Docable:
+
+~~~
+This is a docable cell which represents a command:
+
+```bash|{type:'command'}
+date
+```
+~~~
+
+Docable notebooks will turn the markdown above into an interactive and executable document. **_To execute the cell, simply hover your mouse over the cell and press the play button_**:
+
+<hr style="border-top: 1px dashed gray;">
+
+This is a docable cell which represents a command:
+
+```bash|{type:'command'}
+date
+```
+<hr style="border-top: 1px dashed gray;">
+
+Now suppose you wrote a tutorial in markdown, this is how it would look like:
+
+<br>
 
 # Basic Logging in Node.JS
 
