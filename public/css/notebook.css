@@ -42,31 +42,23 @@
 
 /* Overlay dark effect */
 .docable-cell-overlay:hover {
-    -webkit-filter: brightness(85%);
-    filter: brightness(85%);
+    -webkit-filter: brightness(90%);
+    filter: brightness(90%);
     transition: all 600ms;
 }
 
 /* base overlay button */
 .docable-overlay-btn {
-    /* button is not visible by default */
-    display: none;
-    /* make button style invsible */
-    border: none;
-    background-color: transparent;
-    /* svg property is grey */
-    fill: grey;
-}
-
-/* edit buttons are visible on hover */
-.docable-cell-overlay:hover .docable-overlay-btn {
-    display: block;
+    position: absolute;
+    top: 15px;
+    font-size: 1.2rem;
+    color: lightgray
 }
 
 .docable-overlay-btn:hover {
-    fill: #28a745;
-    opacity: 1;
-    transition: all .2s;
+    -webkit-filter: brightness(80%);
+    filter: brightness(80%);
+    transition: all 200ms;
 }
 
 .btn-more {
@@ -79,6 +71,8 @@
 }
 
 .play-btn {
+    right: 40px;
+}
 
     position: absolute;
     top:50%;

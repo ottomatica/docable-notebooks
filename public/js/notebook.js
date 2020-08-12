@@ -121,7 +121,7 @@ $('#submit').click(function () {
 
 });
 
-$('main').on('click', 'button.play-btn', function () {
+$('main').on('click', '.play-btn', function () {
     if (running) return;
     submitButtonSpinToggle();
 
