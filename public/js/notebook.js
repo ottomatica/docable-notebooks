@@ -1,3 +1,9 @@
+new ClipboardJS('.copy-btn', {
+    text: function (trigger) {
+        return $(trigger).siblings('pre[data-docable="true"]').text();
+    }
+});
+
 const runEnpoint = window.location.pathname.startsWith('/examples') ? '/runexample' : '/run';
 let exampleName = undefined;
 if(runEnpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
