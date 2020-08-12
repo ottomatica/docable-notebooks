@@ -22,6 +22,11 @@
     border-left: 5px solid cornflowerblue;
 }
 
+[data-type="command"]::before {
+    content: '$ ';
+    color: grey;
+}
+
 .docable-cell-file pre {
     border-left: 5px solid coral;
 }
