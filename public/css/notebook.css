@@ -27,9 +27,23 @@
     color: grey;
 }
 
-.docable-cell-file pre {
-    border-left: 5px solid coral;
+.docable-cell-file-header {
+    /*background-color: #e5e5e5;*/
+    background-color: coral;
+    border-radius: 3px 3px 0 0;
+    color: #323232;
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    padding: 8px 15px;
+    position: relative;
+    text-align: center;
+    z-index: 2;
 }
+
+/* .docable-cell-file pre {
+    border-left: 5px solid coral;
+} */
 
 .docable-cell-edit pre {
     border-left: 5px solid coral;
