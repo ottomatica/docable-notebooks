@@ -25,7 +25,11 @@ const CONTAINER_TIMEOUT = 600000;
 let timeoutQ = {};
 
 const utils = require('./lib/utils');
+
+
 const port = process.env.PORT || "3000";
+const notebook_dir = path.join(os.homedir(), 'docable');
+
 
 const app = express();
 
@@ -81,6 +85,25 @@ if (process.env.NODE_ENV == 'dev') {
         });
         
         res.send(results);
+    });
+
+    // render notebook in notebook dir
+    app.get('/notebooks/:name', async function (req, res) {
+        const name = req.params.name;
+        try {
+            logger.info(`Finding notebook: ${notebook_dir}/${name}.md`);
+            const nb = await utils.getExamples(name);
+
+            logger.info(`Rendering notebook: ${notebook_dir}/${name}.md`);
+            const { html, IR, md } = await utils.notebookRender(nb);
+
+            res.render("index", { notebookHtml: html, md });
+        }
+        catch (err) {
+            logger.warn(err);
+            res.status(404);
+            res.send(`Notebook ${name} not found!`);
+        }
     });
 }
 
