@@ -117,6 +117,7 @@ $('#submit').click(function () {
         for (const result of results) {
             // selecting cells using index to adding results
             let cell = $('[data-docable="true"]').eq(result.cell.index);
+            if (block.data('type') == 'file' && result.result.status) result.result.stdout == 'Created file successfully.';
             let selector = cell.parent();
 
             setResults(selector, result.result);
@@ -146,6 +147,7 @@ $('main').on('click', '.play-btn', function () {
             for (const result of results) {
                 // selecting cells using index to adding results
                 let block = $('[data-docable="true"]').eq(result.cell.index);
+                if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
                 let cell = block.parent();
 
                 setResults(cell, result.result);
