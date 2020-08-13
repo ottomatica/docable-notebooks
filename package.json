@@ -4,7 +4,7 @@
   "description": "Notebooks for CM and DevOps",
   "main": "index.js",
   "scripts": {
-    "dev": "LOG_LEVEL=debug NODE_ENV=dev nodemon ./index.js | pino-pretty",
+    "dev": "LOG_LEVEL=debug NODE_ENV=dev nodemon ./index.js --notebook_dir examples/ | pino-pretty",
     "prod": "LOG_LEVEL=debug NODE_ENV=prod pm2 start ./index.js",
     "deploy": "NODE_ENV=prod pm2 start index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -44,6 +44,7 @@
     "marked": "^1.1.1",
     "pino": "^6.5.0",
     "prettier": "^2.0.5",
-    "pug": "^3.0.0"
+    "pug": "^3.0.0",
+    "yargs": "^15.4.1"
   }
 }
