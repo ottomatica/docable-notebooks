@@ -1,7 +1,3 @@
-<!--
-setup:
-  docker: docableContainer
--->
 
 # Working with files
 
