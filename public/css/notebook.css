@@ -55,15 +55,15 @@
 /* base overlay button */
 .docable-overlay-btn {
     position: absolute;
-    top: 15px;
-    font-size: 1.2rem;
+    top: 10px;
+    font-size: 1.75rem;
     color: lightgray
 }
 
 .docable-overlay-btn:hover {
-    -webkit-filter: brightness(80%);
-    filter: brightness(80%);
-    transition: all 200ms;
+    color: #28a745;
+    opacity: 1;
+    transition: all .2s;
 }
 
 .btn-more {
