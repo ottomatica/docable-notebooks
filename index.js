@@ -98,12 +98,20 @@ if (process.env.NODE_ENV == 'dev') {
 
     if( notebook_dir )
     {
-        // render notebook in notebook dir
+        // list notebooks
+        app.get('/notebooks/', async function (req, res) {
+
+            let notebooks = await utils.getNotebook(null, notebook_dir);
+            let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`)
+            res.render("notebooks", { notebooks_urls });
+        });
+
+        // render notebook from notebook dir
         app.get('/notebooks/:name', async function (req, res) {
             const name = req.params.name;
             try {
                 logger.info(`Finding notebook: ${notebook_dir}/${name}.md`);
-                const nb = await utils.getExamples(name);
+                const nb = await utils.getNotebook(name, notebook_dir);
 
                 logger.info(`Rendering notebook: ${notebook_dir}/${name}.md`);
                 const { html, IR, md } = await utils.notebookRender(nb);
