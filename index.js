@@ -9,6 +9,9 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
+const Configstore = require('configstore');
+const config = new Configstore('docable-notebook', {}, { configPath: path.join(os.homedir(), '.docable-notebooks', 'secrets.json') });
+
 const pino = require('pino');
 const expressPino = require('express-pino-logger');
 const logger = pino(pino.destination({
