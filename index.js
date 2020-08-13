@@ -27,9 +27,18 @@ let timeoutQ = {};
 const utils = require('./lib/utils');
 
 
-const port = process.env.PORT || "3000";
-const notebook_dir = path.join(os.homedir(), 'docable');
+const yargs = require('yargs');
+const argv = yargs
+.option('notebook_dir', {
+    alias: 'd',
+    description: 'Serve notebooks from this directory on /notebooks',
+    type: 'string',
+}).help()
+.alias('help', 'h')
+.argv;
 
+const port = process.env.PORT || "3000";
+const notebook_dir = argv.notebook_dir;
 
 const app = express();
 
@@ -87,24 +96,27 @@ if (process.env.NODE_ENV == 'dev') {
         res.send(results);
     });
 
-    // render notebook in notebook dir
-    app.get('/notebooks/:name', async function (req, res) {
-        const name = req.params.name;
-        try {
-            logger.info(`Finding notebook: ${notebook_dir}/${name}.md`);
-            const nb = await utils.getExamples(name);
+    if( notebook_dir )
+    {
+        // render notebook in notebook dir
+        app.get('/notebooks/:name', async function (req, res) {
+            const name = req.params.name;
+            try {
+                logger.info(`Finding notebook: ${notebook_dir}/${name}.md`);
+                const nb = await utils.getExamples(name);
 
-            logger.info(`Rendering notebook: ${notebook_dir}/${name}.md`);
-            const { html, IR, md } = await utils.notebookRender(nb);
+                logger.info(`Rendering notebook: ${notebook_dir}/${name}.md`);
+                const { html, IR, md } = await utils.notebookRender(nb);
 
-            res.render("index", { notebookHtml: html, md });
-        }
-        catch (err) {
-            logger.warn(err);
-            res.status(404);
-            res.send(`Notebook ${name} not found!`);
-        }
-    });
+                res.render("index", { notebookHtml: html, md });
+            }
+            catch (err) {
+                logger.warn(err);
+                res.status(404);
+                res.send(`Notebook ${name} not found!`);
+            }
+        });
+    }
 }
 
 app.post('/runexample', async function (req, res) {
