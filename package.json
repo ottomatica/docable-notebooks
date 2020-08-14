@@ -4,7 +4,7 @@
   "description": "Notebooks for CM and DevOps",
   "main": "index.js",
   "scripts": {
-    "dev": "LOG_LEVEL=debug NODE_ENV=dev nodemon ./index.js --notebook_dir examples/ | pino-pretty",
+    "dev": "cross-env LOG_LEVEL=debug NODE_ENV=dev nodemon ./index.js --notebook_dir examples/ | pino-pretty",
     "prod": "LOG_LEVEL=debug NODE_ENV=prod pm2 start ./index.js",
     "deploy": "NODE_ENV=prod pm2 start index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ottomatica/docable-notebooks#readme",
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "nodemon": "^2.0.4",
     "pino-pretty": "^4.1.0",
     "pm2": "^4.4.0"
