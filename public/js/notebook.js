@@ -160,6 +160,27 @@ $('main').on('click', '.play-btn', function () {
 $('.btn-more').on('click', function () {
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     console.log(stepIndex);
+
+    let parent = $(this).parent();
+
+    $(parent).hide();
+
+    let form = 
+`<form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Docable Cell</label>
+      <textarea rows="5" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Cancel</button>
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+`;
+
+    $(this).parent().parent().append(form);
+    let md = $(this).siblings('pre[data-docable="true"]').text();
+    console.log(md);
+    $('#exampleInputEmail1').val(md);
+
 });
 
 function setResults(selector, result) {
