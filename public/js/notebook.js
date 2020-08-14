@@ -95,9 +95,22 @@ $('.btn-more').on('click', function () {
 `;
 
     $(this).parent().parent().append(form);
-    let md = $(this).siblings('pre[data-docable="true"]').text();
-    console.log(md);
-    $('#exampleInputEmail1').val(md);
+
+    fetch('/viewCell', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ markdownContent: markdownContent, stepIndex: stepIndex }),
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        $('#exampleInputEmail1').val(data.cell);
+    });
+
 
 });
 

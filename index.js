@@ -75,6 +75,7 @@ if (process.env.NODE_ENV == 'dev') {
 
     app.post('/run', notebook_routes.runUnsafe);
 
+    app.post('/viewCell', notebook_routes.viewCell);
     if( notebook_dir )
     {
         // list notebooks
