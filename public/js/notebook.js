@@ -100,17 +100,19 @@ $('.btn-more').on('click', function () {
 
         let text = $('textarea[name=form-edit-cell]').val();
         
-        $.post('/editCell', { markdownContent: markdownContent, stepIndex: stepIndex, text: text },
-        function(data)
+        fetch('/editCell', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({ markdownContent: markdownContent, stepIndex: stepIndex, text: text }),
+            headers: { "content-type": "application/json; charset=UTF-8" },
+        }).then(response => response.text())
+        .then(data =>
         {
-            console.log(data);
-        }).done(function(data, textStatus, jqXHR) {
-            console.log( textStatus, data);
-        })
-        .fail(function(jqXHR, textStatus, errorThrown) {
-            console.log( textStatus, errorThrown);
-        })
-    
+            var newDoc = document.open("text/html", "replace");
+            newDoc.write(data);
+            newDoc.close();
+        });
+
     });
 
     fetch('/viewCell', {
