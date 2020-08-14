@@ -84,17 +84,38 @@ $('.btn-more').on('click', function () {
     $(parent).hide();
 
     let form = 
-`<form>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Docable Cell</label>
-      <textarea rows="5" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Cancel</button>
-    <button type="submit" class="btn btn-primary">Update</button>
-  </form>
-`;
+    `<form id="update-cell-form">
+        <div class="form-group">
+            <label for="docable-edit-area-${stepIndex}">Edit Cell</label>
+            <textarea rows="5" name="form-edit-cell" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-secondary">Cancel</button>
+        <button type="submit" id="btn-update-cell" class="btn btn-primary">Update</button>
+    </form>
+    `;
 
-    $(this).parent().parent().append(form);
+    parent.parent().append(form);
+
+    $('#update-cell-form').on('submit', function () {
+
+        let text = $('textarea[name=form-edit-cell]').val();
+        
+        fetch('/editCell', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({ markdownContent: markdownContent, stepIndex: stepIndex, text: text }),
+            headers: { "content-type": "application/json; charset=UTF-8" },
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data);
+        //     $(`#docable-edit-area-${stepIndex}`).val(data.cell);
+        // });
+    
+    });
 
     fetch('/viewCell', {
         method: 'POST',
@@ -108,10 +129,8 @@ $('.btn-more').on('click', function () {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        $('#exampleInputEmail1').val(data.cell);
+        $(`#docable-edit-area-${stepIndex}`).val(data.cell);
     });
-
-
 });
 
 function setResults(selector, result) {
