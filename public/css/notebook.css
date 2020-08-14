@@ -74,6 +74,29 @@
     color: lightgray
 }
 
+.docable-overlay-btn-reveal {
+    position: absolute;
+    top: 10px;
+    /* button is not visible by default */
+    display: none;
+    /* make button style invsible */
+    border: none;
+    background-color: transparent;
+    /* svg property is grey */
+    fill: lightgray;
+}
+
+.docable-cell-overlay:hover .docable-overlay-btn-reveal
+{
+    display: block;
+}
+
+.docable-overlay-btn-reveal:hover {
+    fill: #28a745;
+    opacity: 1;
+    transition: all .2s;    
+}
+
 .docable-overlay-btn:hover {
     color: #28a745;
     opacity: 1;
@@ -81,16 +104,13 @@
 }
 
 .btn-more {
-    margin-bottom: 5px;
-    position: absolute;
-    bottom:0;
-    right:0; 
+    right:10px; 
     width: 32px;
     height: 32px;    
 }
 
 .play-btn {
-    right: 10px;
+    right: 40px;
 }
 
 .docable-cell-output {

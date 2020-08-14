@@ -155,7 +155,12 @@ $('main').on('click', '.play-btn', function () {
 
             submitButtonSpinToggle();
         });
-})
+});
+
+$('.btn-more').on('click', function () {
+    let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+    console.log(stepIndex);
+});
 
 function setResults(selector, result) {
     if (!result) return;
