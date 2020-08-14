@@ -142,15 +142,6 @@ app.listen(port, async () => {
     logger.info(`Listening to requests on http://localhost:${port}`);
 });
 
-function timeoutContainer(name, timeout) {
-    logger.info(`Setting timer for killing container in ${timeout}ms: ${name}`);
-
-    const conn = Connectors.getConnector('docker', name);
-    return setTimeout(async () => {
-        await conn.delete();
-    }, timeout);
-}
-
 process.on('uncaughtException', pino.final(logger, (err, finalLogger) => {
     finalLogger.error(err, 'uncaughtException');
 }));
