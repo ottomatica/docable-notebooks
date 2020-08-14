@@ -1,31 +1,7 @@
-const express = require("express");
 const path = require("path");
 const fs = require('fs');
 const os = require('os');
-const Connectors = require('infra.connectors');
-const docable = require('docable');
 const { v4: uuidv4 } = require('uuid');
-const bodyParser = require("body-parser");
-const session = require('express-session');
-const SQLiteStore = require('connect-sqlite3')(session);
-
-const Configstore = require('configstore');
-const config = new Configstore('docable-notebook', {}, { configPath: path.join(os.homedir(), '.docable-notebooks', 'secrets.json') });
-
-const pino = require('pino');
-const expressPino = require('express-pino-logger');
-const logger = pino(pino.destination({
-    dest: './docable-notebooks.log',
-    sync: false
-}));
-const expressLogger = expressPino({ logger });
-
-const DOCKER_IMAGE = 'node:12-buster';
-const CONTAINER_TIMEOUT = 600000;
-let timeoutQ = {};
-
-const utils = require('./lib/utils');
-
 
 const yargs = require('yargs');
 const argv = yargs
@@ -39,6 +15,35 @@ const argv = yargs
 
 const port = process.env.PORT || "3000";
 const notebook_dir = argv.notebook_dir;
+
+// Initialize configure store and logger.
+const env = require('./lib/env');
+env.setup(notebook_dir);
+
+let {config, logger } = env.vars();
+
+
+const pino = require('pino');
+const expressPino = require('express-pino-logger');
+const expressLogger = expressPino({ logger });
+
+const bodyParser = require("body-parser");
+const express = require("express");
+const notebook_routes = require('./lib/routes/notebook');
+const workspace_routes = require('./lib/routes/workspace');
+
+
+const session = require('express-session');
+const SQLiteStore = require('connect-sqlite3')(session);
+
+const DOCKER_IMAGE = 'node:12-buster';
+const CONTAINER_TIMEOUT = 600000;
+let timeoutQ = {};
+
+const utils = require('./lib/utils');
+
+const Connectors = require('infra.connectors');
+const docable = require('docable');
 
 const app = express();
 
@@ -107,31 +112,10 @@ if (process.env.NODE_ENV == 'dev') {
     if( notebook_dir )
     {
         // list notebooks
-        app.get('/notebooks/', async function (req, res) {
-
-            let notebooks = await utils.getNotebook(null, notebook_dir);
-            let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`)
-            res.render("home", { notebooks_urls });
-        });
+        app.get('/notebooks/', workspace_routes.notebooks );
 
         // render notebook from notebook dir
-        app.get('/notebooks/:name', async function (req, res) {
-            const name = req.params.name;
-            try {
-                logger.info(`Finding notebook: ${notebook_dir}/${name}.md`);
-                const nb = await utils.getNotebook(name, notebook_dir);
-
-                logger.info(`Rendering notebook: ${notebook_dir}/${name}.md`);
-                const { html, IR, md } = await utils.notebookRender(nb);
-
-                res.render("notebook", { notebookHtml: html, md });
-            }
-            catch (err) {
-                logger.warn(err);
-                res.status(404);
-                res.send(`Notebook ${name} not found!`);
-            }
-        });
+        app.get('/notebooks/:name', workspace_routes.get_notebook );
     }
 }
 
