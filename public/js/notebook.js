@@ -100,20 +100,11 @@ $('.btn-more').on('click', function () {
 
         let text = $('textarea[name=form-edit-cell]').val();
         
-        fetch('/editCell', {
-            method: 'POST',
-            mode: 'cors',
-            body: JSON.stringify({ markdownContent: markdownContent, stepIndex: stepIndex, text: text }),
-            headers: { "content-type": "application/json; charset=UTF-8" },
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+        $.post('editCell', { markdownContent: markdownContent, stepIndex: stepIndex, text: text },
+        function(data)
+        {
+            console.log(data);
         });
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        //     $(`#docable-edit-area-${stepIndex}`).val(data.cell);
-        // });
     
     });
 
