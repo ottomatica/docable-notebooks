@@ -84,27 +84,32 @@ $('.btn-more').on('click', function () {
     $(parent).hide();
 
     let form = 
-    `<form id="update-cell-form">
+    `<div id="update-cell-form">
         <div class="form-group">
             <label for="docable-edit-area-${stepIndex}">Edit Cell</label>
             <textarea rows="5" name="form-edit-cell" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
         </div>
         <button type="submit" class="btn btn-secondary">Cancel</button>
-        <button type="submit" id="btn-update-cell" class="btn btn-primary">Update</button>
-    </form>
+        <button id="btn-update-cell" class="btn btn-primary">Update</button>
+    </div>
     `;
 
     parent.parent().append(form);
 
-    $('#update-cell-form').on('submit', function () {
+    $('#btn-update-cell').on('click', function () {
 
         let text = $('textarea[name=form-edit-cell]').val();
         
-        $.post('editCell', { markdownContent: markdownContent, stepIndex: stepIndex, text: text },
+        $.post('/editCell', { markdownContent: markdownContent, stepIndex: stepIndex, text: text },
         function(data)
         {
             console.log(data);
-        });
+        }).done(function(data, textStatus, jqXHR) {
+            console.log( textStatus, data);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+            console.log( textStatus, errorThrown);
+        })
     
     });
 
