@@ -19,7 +19,7 @@ const notebook_dir = argv.notebook_dir;
 const env = require('./lib/env');
 env.setup(notebook_dir);
 
-let {config, logger } = env.vars();
+let {config, logger, DOCKER_IMAGE } = env.vars();
 
 
 const pino = require('pino');
@@ -35,7 +35,6 @@ const workspace_routes = require('./lib/routes/workspace');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
-const DOCKER_IMAGE = 'node:12-buster';
 const utils = require('./lib/utils');
 
 const Connectors = require('infra.connectors');
@@ -66,7 +65,6 @@ app.use(expressLogger);
 if (process.env.NODE_ENV == 'dev') {
     logger.info(`Enabling arbitrary md in /notebooks`);
 
-    // app.use('/', express.static(__dirname + '/public/'));
     app.get('/', async function (req, res) {
         let notebooks = await utils.getNotebook(null, notebook_dir);
         let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`)
