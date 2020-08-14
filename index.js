@@ -63,9 +63,17 @@ app.use(express.json());
 
 app.use(expressLogger);
 
+
+
 if (process.env.NODE_ENV == 'dev') {
-    logger.info(`Enabling arbitrary md in /`);
-    app.use('/', express.static(__dirname + '/public/'));
+    logger.info(`Enabling arbitrary md in /notebooks`);
+
+    // app.use('/', express.static(__dirname + '/public/'));
+    app.get('/', async function (req, res) {
+        let notebooks = await utils.getNotebook(null, notebook_dir);
+        let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`)
+        res.render("home", { notebooks_urls });
+    });
 
     app.post('/run', async function (req, res) {
         // res.send('Got a POST request')
@@ -103,7 +111,7 @@ if (process.env.NODE_ENV == 'dev') {
 
             let notebooks = await utils.getNotebook(null, notebook_dir);
             let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`)
-            res.render("notebooks", { notebooks_urls });
+            res.render("home", { notebooks_urls });
         });
 
         // render notebook from notebook dir
@@ -116,7 +124,7 @@ if (process.env.NODE_ENV == 'dev') {
                 logger.info(`Rendering notebook: ${notebook_dir}/${name}.md`);
                 const { html, IR, md } = await utils.notebookRender(nb);
 
-                res.render("index", { notebookHtml: html, md });
+                res.render("notebook", { notebookHtml: html, md });
             }
             catch (err) {
                 logger.warn(err);
@@ -202,7 +210,7 @@ app.get('/examples/:name', async function (req, res) {
         logger.info(`Rendering example: ./examples/${name}.md`);
         const { html, IR, md } = await utils.notebookRender(example);
 
-        res.render("index", { notebookHtml: html, md });
+        res.render("notebook", { notebookHtml: html, md });
     }
     catch (err) {
         logger.warn(err);
