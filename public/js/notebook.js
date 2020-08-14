@@ -34,9 +34,9 @@ $('#submit').click(function () {
         const results = JSON.parse(data);
         for (const result of results) {
             // selecting cells using index to adding results
-            let cell = $('[data-docable="true"]').eq(result.cell.index);
+            let block = $('[data-docable="true"]').eq(result.cell.index);
             if (block.data('type') == 'file' && result.result.status) result.result.stdout == 'Created file successfully.';
-            let selector = cell.parent();
+            let selector = block.parent();
 
             setResults(selector, result.result);
         }
