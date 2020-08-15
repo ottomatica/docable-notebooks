@@ -87,7 +87,7 @@ $('.btn-more').on('click', function () {
     `<div id="update-cell-form">
         <div class="form-group">
             <label for="docable-edit-area-${stepIndex}">Edit Cell</label>
-            <textarea rows="5" name="form-edit-cell" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
+            <textarea rows="5" name="text" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
         </div>
         <button type="submit" class="btn btn-secondary">Cancel</button>
         <button id="btn-update-cell" class="btn btn-primary">Update</button>
@@ -96,21 +96,35 @@ $('.btn-more').on('click', function () {
 
     parent.parent().append(form);
 
+    // $("<input />").attr("type", "hidden")
+    // .attr("name", "markdownContent")
+    // .attr("value", markdownContent)
+    // .appendTo('#update-cell-form');
+
+    // $("<input />").attr("type", "hidden")
+    // .attr("name", "stepIndex")
+    // .attr("value", stepIndex)
+    // .appendTo('#update-cell-form');
+
     $('#btn-update-cell').on('click', function () {
 
-        let text = $('textarea[name=form-edit-cell]').val();
-        
         fetch('/editCell', {
             method: 'POST',
             mode: 'cors',
-            body: JSON.stringify({ markdownContent: markdownContent, stepIndex: stepIndex, text: text }),
+            body: JSON.stringify({ text: $(`textarea[id="docable-edit-area-${stepIndex}"`).val() }),
             headers: { "content-type": "application/json; charset=UTF-8" },
-        }).then(response => response.text())
-        .then(data =>
-        {
-            var newDoc = document.open("text/html", "replace");
-            newDoc.write(data);
-            newDoc.close();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+        .then(response => response.text())
+        .then(data => {
+
+
+            let cell = $('[data-docable="true"]').eq(stepIndex);
+
+            cell.parent().parent().replaceWith( data );
+
         });
 
     });
