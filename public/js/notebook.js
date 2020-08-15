@@ -53,10 +53,12 @@ $('main').on('click', '.play-btn', function () {
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     resetResults(stepIndex);
 
-    fetch(runEnpoint, {
+    let cell = $('[data-docable="true"]').eq(stepIndex);
+
+    fetch('/runCell', {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ markdownContent, stepIndex, name: exampleName}),
+        body: JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
         .then(response => response.text())
@@ -72,7 +74,7 @@ $('main').on('click', '.play-btn', function () {
             }
 
             submitButtonSpinToggle();
-        });
+        }).catch( err => console.log( err ));
 });
 
 $('.btn-more').on('click', function () {
