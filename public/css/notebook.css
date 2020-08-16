@@ -121,6 +121,9 @@
 
     font-size: 12px;
     line-height: 1.1;
+
+    /* allow newlines/etc. */
+    white-space: pre;
 }
 
 /* pseudo selector for ensuring not displayed when empty.*/
