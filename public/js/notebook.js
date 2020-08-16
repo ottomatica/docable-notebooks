@@ -77,9 +77,13 @@ $('main').on('click', '.play-btn', function () {
         }).catch( err => console.log( err ));
 });
 
-$('.btn-more').on('click', function () {
+// We use the parent, with child selector because if cells are dynamically updated, then they will not be registered.
+$('main').on('click', '.btn-more', function () {
+//$('.btn-more').on('click', function () {
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     console.log(stepIndex);
+
+    let cell = $('[data-docable="true"]').eq(stepIndex);
 
     let parent = $(this).parent();
 
@@ -91,7 +95,7 @@ $('.btn-more').on('click', function () {
             <label for="docable-edit-area-${stepIndex}">Edit Cell</label>
             <textarea rows="5" name="text" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
         </div>
-        <button type="submit" class="btn btn-secondary">Cancel</button>
+        <button id="btn-cancel-cell" type="submit" class="btn btn-secondary">Cancel</button>
         <button id="btn-update-cell" class="btn btn-primary">Update</button>
     </div>
     `;
@@ -107,6 +111,13 @@ $('.btn-more').on('click', function () {
     // .attr("name", "stepIndex")
     // .attr("value", stepIndex)
     // .appendTo('#update-cell-form');
+
+    $('#btn-cancel-cell').on('click', function () {
+
+        $("#update-cell-form").remove();
+        $(parent).show();
+
+    });
 
     $('#btn-update-cell').on('click', function () {
 
@@ -134,7 +145,7 @@ $('.btn-more').on('click', function () {
     fetch('/viewCell', {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ markdownContent: markdownContent, stepIndex: stepIndex }),
+        body: JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .catch((error) => {
