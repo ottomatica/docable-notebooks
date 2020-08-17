@@ -95,6 +95,21 @@
             <% } %>
         </ul>
 
+
+        <% if (github_imports && github_imports.length > 0) { %>
+
+        <h2>Imported from Github</h2>
+
+        <ul>
+            <% for(var i=0; i < github_imports.length; i++) { %>
+               <li>
+                 <a href="<%- '/github/?notebook=' + github_imports[i] %>"><%= github_imports[i] %></a>
+               </li>
+            <% } %>
+        </ul>
+
+        <% } %>
+
     </main>
 
     <footer class="footer mt-auto py-3">

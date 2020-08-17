@@ -68,8 +68,9 @@ if (process.env.NODE_ENV == 'dev') {
 
     app.get('/', async function (req, res) {
         let notebooks = await utils.getNotebook(null, notebook_dir);
-        let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`)
-        res.render("home", { notebooks_urls });
+        let notebooks_urls = notebooks.map( nb => `/notebooks/${nb}`);
+        let github_imports = config.get('githubImports');
+        res.render("home", { notebooks_urls, github_imports });
     });
 
     app.post('/run', notebook_routes.runNotebook);
@@ -89,6 +90,7 @@ if (process.env.NODE_ENV == 'dev') {
 
     app.get('/import', workspace_routes.import);
     app.post('/gitImport', workspace_routes.gitImport);
+    app.get('/github', workspace_routes.get_github_imports);
 
 }
 
