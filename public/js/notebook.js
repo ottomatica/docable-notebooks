@@ -8,9 +8,6 @@ const runEnpoint = window.location.pathname.startsWith('/examples') ? '/runexamp
 let exampleName = undefined;
 if(runEnpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
 
-let markdownContent = md;
-let IR;
-
 let running = false;
 function submitButtonSpinToggle() {
     running = !running;
