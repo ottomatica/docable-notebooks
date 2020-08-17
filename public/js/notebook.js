@@ -4,9 +4,9 @@ new ClipboardJS('.copy-btn', {
     }
 });
 
-const runEnpoint = window.location.pathname.startsWith('/examples') ? '/runexample' : '/run';
+const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runexample' : '/run';
 let exampleName = undefined;
-if(runEnpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
+if(runEndpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
 
 let running = false;
 function submitButtonSpinToggle() {
@@ -20,7 +20,7 @@ $('#submit').click(function () {
     submitButtonSpinToggle();
     resetResults();
 
-    fetch(runEnpoint, {
+    fetch(runEndpoint, {
         method: 'POST',
         mode: 'cors',
         body: JSON.stringify({ notebook: $('main').html(), name: exampleName }),
