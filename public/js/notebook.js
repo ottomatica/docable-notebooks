@@ -4,12 +4,9 @@ new ClipboardJS('.copy-btn', {
     }
 });
 
-const runEnpoint = window.location.pathname.startsWith('/examples') ? '/runexample' : '/run';
+const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runhosted' : '/run';
 let exampleName = undefined;
-if(runEnpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
-
-let markdownContent = md;
-let IR;
+if(runEndpoint == '/runhosted') exampleName = window.location.pathname.split('/')[2];
 
 let running = false;
 function submitButtonSpinToggle() {
@@ -18,15 +15,22 @@ function submitButtonSpinToggle() {
 }
 
 $('#submit').click(function () {
+
+    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), name: exampleName }))
+
+});
+
+function run(endPoint, body, stepIndex)
+{
     if (running) return;
 
     submitButtonSpinToggle();
-    resetResults();
+    resetResults(stepIndex);
 
-    fetch(runEnpoint, {
+    fetch(endPoint, {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ markdownContent, name: exampleName }),
+        body: body,
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text())
@@ -34,8 +38,8 @@ $('#submit').click(function () {
         const results = JSON.parse(data);
         for (const result of results) {
             // selecting cells using index to adding results
-            let block = $('[data-docable="true"]').eq(result.cell.index);
-            if (block.data('type') == 'file' && result.result.status) result.result.stdout == 'Created file successfully.';
+            let block = $('[data-docable="true"]').eq(result.cellindex);
+            if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
             let selector = block.parent();
 
             setResults(selector, result.result);
@@ -43,38 +47,15 @@ $('#submit').click(function () {
 
         submitButtonSpinToggle();
     });
-
-});
+}
 
 $('main').on('click', '.play-btn', function () {
-    if (running) return;
-    submitButtonSpinToggle();
 
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
-    resetResults(stepIndex);
-
     let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    fetch('/runCell', {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex }),
-        headers: { "content-type": "application/json; charset=UTF-8" },
-    })
-        .then(response => response.text())
-        .then(data => {
-            const results = JSON.parse(data);
-            for (const result of results) {
-                // selecting cells using index to adding results
-                let block = $('[data-docable="true"]').eq(result.cell.index);
-                if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
-                let cell = block.parent();
+    run('/runCell', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex }), stepIndex)
 
-                setResults(cell, result.result);
-            }
-
-            submitButtonSpinToggle();
-        }).catch( err => console.log( err ));
 });
 
 // We use the parent, with child selector because if cells are dynamically updated, then they will not be registered.
@@ -101,16 +82,6 @@ $('main').on('click', '.btn-more', function () {
     `;
 
     parent.parent().append(form);
-
-    // $("<input />").attr("type", "hidden")
-    // .attr("name", "markdownContent")
-    // .attr("value", markdownContent)
-    // .appendTo('#update-cell-form');
-
-    // $("<input />").attr("type", "hidden")
-    // .attr("name", "stepIndex")
-    // .attr("value", stepIndex)
-    // .appendTo('#update-cell-form');
 
     $('#btn-cancel-cell').on('click', function () {
 
