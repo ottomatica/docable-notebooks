@@ -1,9 +1,3 @@
-new ClipboardJS('.copy-btn', {
-    text: function (trigger) {
-        return $(trigger).siblings('pre[data-docable="true"]').text();
-    }
-});
-
 const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runhosted' : '/run';
 let exampleName = undefined;
 if(runEndpoint == '/runhosted') exampleName = window.location.pathname.split('/')[2];
@@ -92,6 +86,13 @@ $('main').on('click', '.btn-more', function () {
         $(`#docable-edit-area-${stepIndex}`).val(data.cell);
     });
 });
+
+new ClipboardJS('.copy-btn', {
+    text: function (trigger) {
+        return $(trigger).siblings('pre[data-docable="true"]').text();
+    }
+});
+
 
 function setResults(selector, result) {
     if (!result) return;
