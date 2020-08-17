@@ -20,12 +20,12 @@ $('#submit').click(function () {
 
 });
 
-function run(endPoint, body)
+function run(endPoint, body, stepIndex)
 {
     if (running) return;
 
     submitButtonSpinToggle();
-    resetResults();
+    resetResults(stepIndex);
 
     fetch(endPoint, {
         method: 'POST',
@@ -54,7 +54,7 @@ $('main').on('click', '.play-btn', function () {
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    run('/runCell', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex }))
+    run('/runCell', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex }), stepIndex)
 
 });
 
