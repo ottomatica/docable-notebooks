@@ -91,7 +91,7 @@ if (process.env.NODE_ENV == 'dev') {
     }
 }
 
-app.post('/runexample', notebook_routes.runHosted);
+app.post('/runhosted', notebook_routes.runHosted);
 app.post('/markdown', notebook_routes.render);
 
 // render specific example

@@ -4,9 +4,9 @@ new ClipboardJS('.copy-btn', {
     }
 });
 
-const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runexample' : '/run';
+const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runhosted' : '/run';
 let exampleName = undefined;
-if(runEndpoint == '/runexample') exampleName = window.location.pathname.split('/')[2];
+if(runEndpoint == '/runhosted') exampleName = window.location.pathname.split('/')[2];
 
 let running = false;
 function submitButtonSpinToggle() {
