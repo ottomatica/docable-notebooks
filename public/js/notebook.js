@@ -34,6 +34,9 @@ function run(endPoint, body, stepIndex)
         }
 
         submitButtonSpinToggle();
+    }).catch( function(err) {
+        $('#docable-error').append( err );
+        submitButtonSpinToggle();
     });
 }
 

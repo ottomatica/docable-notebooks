@@ -11,6 +11,20 @@
     color: lightsteelblue;
 }
 
+#docable-error {
+    padding:10px;
+    margin:10px 0;
+    text-align:center;
+    line-height:1.5em;
+
+    color: #D8000C;
+    background-color: #FFD2D2;
+}
+
+#docable-error:empty{
+    display: none;
+}
+
 .markdown-body .docable-cell pre {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
