@@ -1,6 +1,4 @@
 const path = require("path");
-const fs = require('fs');
-const os = require('os');
 
 const yargs = require('yargs');
 const argv = yargs
@@ -13,13 +11,12 @@ const argv = yargs
 .argv;
 
 const port = process.env.PORT || "3000";
-const notebook_dir = argv.notebook_dir;
 
 // Initialize configure store and logger.
 const env = require('./lib/env');
-env.setup(notebook_dir);
+env.setup(argv.notebook_dir);
 
-let {config, logger, DOCKER_IMAGE } = env.vars();
+let {config, logger, DOCKER_IMAGE, notebook_dir } = env.vars();
 
 
 const pino = require('pino');
@@ -89,6 +86,10 @@ if (process.env.NODE_ENV == 'dev') {
         // render notebook from notebook dir
         app.get('/notebooks/:name', workspace_routes.get_notebook );
     }
+
+    app.get('/import', workspace_routes.import);
+    app.post('/gitImport', workspace_routes.gitImport);
+
 }
 
 app.post('/runhosted', notebook_routes.runHosted);
