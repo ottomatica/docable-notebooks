@@ -26,7 +26,7 @@ $('#submit').click(function () {
     fetch(runEnpoint, {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ markdownContent, name: exampleName }),
+        body: JSON.stringify({ notebook: $('main').html(), name: exampleName }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text())
@@ -34,7 +34,7 @@ $('#submit').click(function () {
         const results = JSON.parse(data);
         for (const result of results) {
             // selecting cells using index to adding results
-            let block = $('[data-docable="true"]').eq(result.cell.index);
+            let block = $('[data-docable="true"]').eq(result.cellindex);
             if (block.data('type') == 'file' && result.result.status) result.result.stdout == 'Created file successfully.';
             let selector = block.parent();
 
@@ -66,7 +66,7 @@ $('main').on('click', '.play-btn', function () {
             const results = JSON.parse(data);
             for (const result of results) {
                 // selecting cells using index to adding results
-                let block = $('[data-docable="true"]').eq(result.cell.index);
+                let block = $('[data-docable="true"]').eq(result.cellindex);
                 if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
                 let cell = block.parent();
 
@@ -101,16 +101,6 @@ $('main').on('click', '.btn-more', function () {
     `;
 
     parent.parent().append(form);
-
-    // $("<input />").attr("type", "hidden")
-    // .attr("name", "markdownContent")
-    // .attr("value", markdownContent)
-    // .appendTo('#update-cell-form');
-
-    // $("<input />").attr("type", "hidden")
-    // .attr("name", "stepIndex")
-    // .attr("value", stepIndex)
-    // .appendTo('#update-cell-form');
 
     $('#btn-cancel-cell').on('click', function () {
 
