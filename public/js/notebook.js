@@ -39,7 +39,7 @@ function run(endPoint, body)
         for (const result of results) {
             // selecting cells using index to adding results
             let block = $('[data-docable="true"]').eq(result.cellindex);
-            if (block.data('type') == 'file' && result.result.status) result.result.stdout == 'Created file successfully.';
+            if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
             let selector = block.parent();
 
             setResults(selector, result.result);
