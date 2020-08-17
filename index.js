@@ -75,7 +75,7 @@ if (process.env.NODE_ENV == 'dev') {
         res.render("home", { notebooks_urls });
     });
 
-    app.post('/run', notebook_routes.runUnsafe);
+    app.post('/run', notebook_routes.runNotebook);
 
     app.post('/viewCell', notebook_routes.viewCell);
     app.post('/editCell', notebook_routes.editCell);
