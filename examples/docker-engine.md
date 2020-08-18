@@ -1,4 +1,6 @@
 
+# Setup Docker and Docker-Machine on Windows
+
 Check if you have choco!
 
 ```bash|{type:'command', failed_when: "!stdout.includes('Chocolatey v')"}
@@ -67,3 +69,11 @@ docker run hello-world
 ### Managing docker-machine
 
 If restarting the Windows, you may need to run `docker-machine start` after reboot, to ensure virtual machine is running.
+
+
+## Current Tutorial Issues:
+
+* Streaming output would be good. Install commands are problematic and time out.
+* Multiline commands are not working well---only first line gets executed. I had to change SETX command block to be oneliner
+* The SETX command isn't ideal either since it has hard-coded path. This should be updated to be dynamic.
+* Finally, reloading server and it's process to handle any change to env... tricky. The `echo %DOCKER_HOST%` command will not have the right environment variable, unless the docable notebook server and the shell it's running in, is restarted.
