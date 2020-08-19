@@ -28,14 +28,20 @@ function run(endPoint, body, stepIndex)
         let output = cell.next('.docable-cell-output');
         output.append(`<span class="docable-stream">STREAM</span>:\n`);
 
+        let results='';
         streamOutput(body, function(data)
         {
-            // Our results object is a list... hack...
-            if( data.indexOf("[") == 0 )
+            // Our results object is a list... quick optimization hack
+            if( data.indexOf("[") == 0 || results != '')
             {
-                resetResults(stepIndex);
-                processResults(data);
-                submitButtonSpinToggle();
+                results += data;
+                // check if we've received complete string, because server might chunk up response...
+                if( IsJsonString(results) )
+                {
+                    resetResults(stepIndex);
+                    processResults(data);
+                    submitButtonSpinToggle();
+                }
             }
             else {
                 output.append(`<span>${data}</span>\n`);
@@ -54,6 +60,15 @@ function run(endPoint, body, stepIndex)
             submitButtonSpinToggle();
         });
         }
+}
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
 
 function processResults(data)
