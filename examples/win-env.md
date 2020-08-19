@@ -1,7 +1,7 @@
 # Playground for windows environment
 
-```bash|{type:'command'}
-setx VAR0 "hello"
+```bash|{type:'command', refresh:true}
+setx VAR1 "hello world"
 ```
 
 Use chocolately helper function.
@@ -13,7 +13,7 @@ RefreshEnv
 Testing if we can read this.
 
 ```bash|{type:'command'}
-echo %VAR0%
+echo %VAR1%
 ```
 
 Get all variables.
