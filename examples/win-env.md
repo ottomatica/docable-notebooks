@@ -4,6 +4,12 @@
 setx VAR0 "hello"
 ```
 
+Use chocolately helper function.
+
+```bash|{type:'command'}
+RefreshEnv
+```
+
 Testing if we can read this.
 
 ```bash|{type:'command'}
@@ -32,3 +38,5 @@ Useful resources:
 https://stackoverflow.com/questions/13222724/command-line-to-remove-an-environment-variable-from-the-os-level-configuration
 
 https://superuser.com/questions/1179433/how-to-list-global-environment-variables-separately-from-user-specific-environme
+
+https://stackoverflow.com/questions/171588/is-there-a-command-to-refresh-environment-variables-from-the-command-prompt-in-w
