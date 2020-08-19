@@ -98,23 +98,7 @@ app.post('/runhosted', notebook_routes.runHosted);
 app.post('/markdown', notebook_routes.render);
 
 // render specific example
-app.get('/examples/:name', async function (req, res) {
-    const name = req.params.name;
-    try {
-        logger.info(`Finding example: ./examples/${name}.md`);
-        const example = await utils.getExamples(name);
-
-        logger.info(`Rendering example: ./examples/${name}.md`);
-        const { html, IR, md } = await utils.notebookRender(example);
-
-        res.render("notebook", { notebookHtml: html, md });
-    }
-    catch (err) {
-        logger.warn(err);
-        res.status(404);
-        res.send(`Example ${name} not found!`);
-    }
-});
+app.get('/examples/:name', workspace_routes.get_hosted_notebook);
 
 // get list of available examples
 app.get('/getexamples', async function (req, res) {
