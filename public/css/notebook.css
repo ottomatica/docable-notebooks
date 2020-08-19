@@ -138,6 +138,9 @@
 
     /* allow newlines/etc. */
     white-space: pre;
+
+    max-height: 300px;
+    overflow: scroll;
 }
 
 /* pseudo selector for ensuring not displayed when empty.*/
