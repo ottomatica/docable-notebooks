@@ -151,6 +151,11 @@
   padding: 1.5px;
 }
 
+.docable-cell-output .docable-stream {
+    background-color: yellowgreen;   
+    padding: 1.5px;
+  }
+
 .docable-cell-output .docable-success {
   background-color: green;    
   padding: 1.5px;

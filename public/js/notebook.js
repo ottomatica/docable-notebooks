@@ -21,41 +21,52 @@ function run(endPoint, body, stepIndex)
     submitButtonSpinToggle();
     resetResults(stepIndex);
 
-    if( $('[data-stream="true"]').eq(stepIndex) )
+    if( $('[data-stream="true"]').eq(stepIndex).length > 0 )
     {
         let block = $('[data-docable="true"]').eq(stepIndex);
         let cell = block.parent();
         let output = cell.next('.docable-cell-output');
-        output.append(`<span class="docable-success">OUTPUT</span>:\n`);
+        output.append(`<span class="docable-stream">STREAM</span>:\n`);
 
-        streamOutput(body, function(value)
+        streamOutput(body, function(data)
         {
-            output.append(`<span>${value}</span>\n`);
-        }).then(function(data)
-        {
-            submitButtonSpinToggle();
+            // Our results object is a list... hack...
+            if( data.indexOf("[") == 0 )
+            {
+                resetResults(stepIndex);
+                processResults(data);
+                submitButtonSpinToggle();
+            }
+            else {
+                output.append(`<span>${data}</span>\n`);
+            }
+
         });
 
     }
     else {
         executeCells(endPoint, body).then(function(data) {
 
-            const results = JSON.parse(data);
-            for (const result of results) {
-                // selecting cells using index to adding results
-                let block = $('[data-docable="true"]').eq(result.cellindex);
-                if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
-                let selector = block.parent();
-        
-                setResults(selector, result.result);
-            }
-
+            processResults(data);
             submitButtonSpinToggle();
         }).catch( function(err) {
             $('#docable-error').append( err );
             submitButtonSpinToggle();
         });
         }
+}
+
+function processResults(data)
+{
+    const results = JSON.parse(data);
+    for (const result of results) {
+        // selecting cells using index to adding results
+        let block = $('[data-docable="true"]').eq(result.cellindex);
+        if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
+        let selector = block.parent();
+
+        setResults(selector, result.result);
+    }    
 }
 
 $('main').on('click', '.play-btn', function () {
