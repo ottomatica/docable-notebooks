@@ -11,8 +11,14 @@ Some interesting notes:
 wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.17.2.tar.xz --show-progress --progress=bar:force 2>&1
 ```
 
-Another interesting example, with a rate limit. This will download the Go binary, but limit the download speed to `10mb`.
+Another interesting example, with a rate limit. This will download the Go binary, but limit the download speed to `5mb`.
 
 ```bash|{type:'command', stream: true}
-wget --limit-rate=10m https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz --show-progress --progress=bar:force 2>&1
+wget --limit-rate=5m https://dl.google.com/go/go1.10.3.linux-amd64.tar.gz --show-progress --progress=bar:force 2>&1
 ```
+
+
+### Issues
+
+* We might be able to set our terminal width/column-size larger so we can reduce wrapping output.
+* Investigating rewriting output when terminal rewrites could be interesting.
