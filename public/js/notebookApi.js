@@ -1,4 +1,3 @@
-
 function executeCells(endPoint, body) {
     
     return fetch(endPoint, {
@@ -8,6 +7,39 @@ function executeCells(endPoint, body) {
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text());
+}
+
+function streamOutput(body, onProgress) {
+    return new Promise(function(resolve, reject) {
+        fetch('/runCell', {
+            method: 'POST',
+            mode: 'cors',
+            body: body,
+            headers: { "content-type": "application/json; charset=UTF-8" },
+        }).then( async response =>  {
+            const reader = response.body.getReader();
+                //.pipeThrough(new TextDecoderStream()).getReader();
+
+            while(true) {
+                // done is true for the last chunk
+                // value is Uint8Array of the chunk bytes
+                const {done, value} = await reader.read(); 
+
+                if( value )
+                {
+                    const decoder = new TextDecoder();
+                    onProgress(decoder.decode(value));
+                    console.log(`Received ${value.length} bytes`)
+                }
+
+                if (done) {
+                    resolve();
+                    break;
+                }
+    
+            }
+        })
+    });
 }
 
 function editCell(text) {

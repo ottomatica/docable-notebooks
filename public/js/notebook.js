@@ -21,23 +21,41 @@ function run(endPoint, body, stepIndex)
     submitButtonSpinToggle();
     resetResults(stepIndex);
 
-    executeCells(endPoint, body).then(function(data) {
+    if( $('[data-stream="true"]').eq(stepIndex) )
+    {
+        let block = $('[data-docable="true"]').eq(stepIndex);
+        let cell = block.parent();
+        let output = cell.next('.docable-cell-output');
+        output.append(`<span class="docable-success">OUTPUT</span>:\n`);
 
-        const results = JSON.parse(data);
-        for (const result of results) {
-            // selecting cells using index to adding results
-            let block = $('[data-docable="true"]').eq(result.cellindex);
-            if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
-            let selector = block.parent();
-    
-            setResults(selector, result.result);
+        streamOutput(body, function(value)
+        {
+            output.append(`<span>${value}</span>\n`);
+        }).then(function(data)
+        {
+            submitButtonSpinToggle();
+        });
+
+    }
+    else {
+        executeCells(endPoint, body).then(function(data) {
+
+            const results = JSON.parse(data);
+            for (const result of results) {
+                // selecting cells using index to adding results
+                let block = $('[data-docable="true"]').eq(result.cellindex);
+                if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
+                let selector = block.parent();
+        
+                setResults(selector, result.result);
+            }
+
+            submitButtonSpinToggle();
+        }).catch( function(err) {
+            $('#docable-error').append( err );
+            submitButtonSpinToggle();
+        });
         }
-
-        submitButtonSpinToggle();
-    }).catch( function(err) {
-        $('#docable-error').append( err );
-        submitButtonSpinToggle();
-    });
 }
 
 $('main').on('click', '.play-btn', function () {

@@ -3,6 +3,6 @@
 
 List the current directory contents.
 
-```bash|{type:'command'}
+```bash|{type:'command', stream: true}
 ls
 ```
