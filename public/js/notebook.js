@@ -39,7 +39,7 @@ function run(endPoint, body, stepIndex)
                 if( IsJsonString(results) )
                 {
                     resetResults(stepIndex);
-                    processResults(data);
+                    processResults(results);
                     submitButtonSpinToggle();
                 }
             }
