@@ -21,7 +21,7 @@ chmod +x ./pw.sh
 Run install.
 
 ```bash|{type:'command', stream: true}
-cd ~ ; HAVE_SUDO_ACCESS=0 SUDO_ASKPASS=./pw.sh ./brew.sh
+HAVE_SUDO_ACCESS=0 SUDO_ASKPASS=./pw.sh ./brew.sh
 ```
 
 Testing privileged (Mac)
