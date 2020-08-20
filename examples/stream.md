@@ -4,7 +4,7 @@
 This is an example of a streaming command. Progress will be displayed immediately. After completion, the final results of the command output are updated.
 
 ```bash|{type:'command', stream: true}
-echo "start..." && sleep 3 && echo "\n3 seconds later."
+echo "start..." && sleep 3 && echo "3 seconds later."
 ```
 
 To enable streaming, simply add `stream: true` to the cell definition.
