@@ -21,9 +21,10 @@ function run(endPoint, body, stepIndex)
     submitButtonSpinToggle();
     resetResults(stepIndex);
 
-    if( $('[data-stream="true"]').eq(stepIndex).length > 0 )
+    // if streamable block, we're going to switch to streaming mode.
+    let block = $('[data-docable="true"]').eq(stepIndex);
+    if( block.length > 0 && block.data('stream') === true )
     {
-        let block = $('[data-docable="true"]').eq(stepIndex);
         let cell = block.parent();
         let output = cell.next('.docable-cell-output');
         output.append(`<span class="docable-stream">STREAM</span>:\n`);
