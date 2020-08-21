@@ -1,3 +1,7 @@
+<!-- 
+setup:
+    docker: command-example
+-->
 
 # Simple command
 
