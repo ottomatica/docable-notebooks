@@ -9,7 +9,7 @@ echo "start..." && sleep 3 && echo "3 seconds later."
 
 To enable streaming, simply add `stream: true` to the cell definition.
 
-~~~
+~~~bash
 ```bash|{type:'command', stream: true}
 ls
 ```
