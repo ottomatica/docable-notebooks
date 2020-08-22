@@ -8,14 +8,37 @@ const isHosted = (runEndpoint === '/runhosted');
 // Initialization
 $(document).ready(function()
 {
-    getAvailableEnvironments().then( function(envs)
+    getAvailableEnvironments().then( function(envResponse)
     {
-        for(const env of envs) {
+        for(const env of envResponse.environments) {
             $('#environment-dropdown').append(new Option(env, env));
         }
+
+        // select default...
+        $("#environment-dropdown").val(envResponse.default);
     });
 
 });
+
+$("#environment-dropdown").change(function () {
+    const selectedEnvironment = $('#environment-dropdown option').filter(':selected').val();
+
+    envSpinToggle();
+    setEnvironment(selectedEnvironment).then(function(response)
+    {
+        envSpinToggle();
+    }).catch( function(err) {
+        $('#docable-error').append( err );
+        envSpinToggle();
+    });
+
+});
+
+let envSettingUp = false;
+function envSpinToggle() {
+    envSettingUp = !envSettingUp;
+    $('#environment-dropdown').toggleClass('spinner-border spinner-border-sm');
+}
 
 
 let running = false;

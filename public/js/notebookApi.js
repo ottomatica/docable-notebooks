@@ -8,6 +8,17 @@ function getAvailableEnvironments() {
     .then(response => response.json());
 }
 
+function setEnvironment(id) {
+    
+    return fetch(`/environments/${id}`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+    .then(response => response.text());
+}
+
+
 
 function executeCells(endPoint, body) {
     

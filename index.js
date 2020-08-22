@@ -79,6 +79,7 @@ if (process.env.NODE_ENV == 'dev') {
     app.post('/runCell', notebook_routes.runCell);
 
     app.get('/environments', workspace_routes.get_environments);
+    app.post('/environments/:id', workspace_routes.set_environment);
 
     if( notebook_dir )
     {
