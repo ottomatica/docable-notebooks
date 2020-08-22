@@ -1,3 +1,14 @@
+function getAvailableEnvironments() {
+    
+    return fetch('/environments', {
+        method: 'GET',
+        mode: 'cors',
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+    .then(response => response.json());
+}
+
+
 function executeCells(endPoint, body) {
     
     return fetch(endPoint, {

@@ -74,10 +74,11 @@ if (process.env.NODE_ENV == 'dev') {
     });
 
     app.post('/run', notebook_routes.runNotebook);
-
     app.post('/viewCell', notebook_routes.viewCell);
     app.post('/editCell', notebook_routes.editCell);
     app.post('/runCell', notebook_routes.runCell);
+
+    app.get('/environments', workspace_routes.get_environments);
 
     if( notebook_dir )
     {

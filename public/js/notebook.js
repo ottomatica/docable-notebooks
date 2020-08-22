@@ -2,6 +2,22 @@ const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runhost
 let exampleName = undefined;
 if(runEndpoint == '/runhosted') exampleName = window.location.pathname.split('/')[2];
 
+const isHosted = (runEndpoint === '/runhosted');
+
+
+// Initialization
+$(document).ready(function()
+{
+    getAvailableEnvironments().then( function(envs)
+    {
+        for(const env of envs) {
+            $('#environment-dropdown').append(new Option(env, env));
+        }
+    });
+
+});
+
+
 let running = false;
 function submitButtonSpinToggle() {
     running = !running;
@@ -93,6 +109,13 @@ $('main').on('click', '.play-btn', function () {
     run(runEndpoint == '/run' ? '/runCell' : '/runhosted', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex, name: exampleName }), stepIndex);
 
 });
+
+/////////////////// ENVIRONMENTS
+
+getAvailableEnvironments
+
+
+////////////////// EDIT
 
 const EditForm = ({stepIndex}) =>
 `<div id="update-cell-form">
