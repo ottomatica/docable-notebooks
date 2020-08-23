@@ -163,3 +163,24 @@
   background-color: green;    
   padding: 1.5px;
 }
+
+.svg-container {
+}
+
+.svg-preview {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    overflow: hidden;    
+}
+
+.svg-content {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+/* 
+    max-width: 100px;
+    max-height: 100px; */
+}
