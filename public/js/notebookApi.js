@@ -28,7 +28,10 @@ function executeCells(endPoint, body) {
         body: body,
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
-    .then(response => response.text());
+    .then(async (response) => {
+        if (!response.ok) throw Error(await response.text());
+        return response.text()
+    });
 }
 
 function streamOutput(body, onProgress) {

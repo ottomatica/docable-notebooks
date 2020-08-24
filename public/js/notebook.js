@@ -91,15 +91,16 @@ function run(endPoint, body, stepIndex)
 
     }
     else {
-        executeCells(endPoint, body).then(function(data) {
-
-            processResults(data);
-            submitButtonSpinToggle();
-        }).catch( function(err) {
-            $('#docable-error').append( err );
-            submitButtonSpinToggle();
-        });
-        }
+        executeCells(endPoint, body)
+            .then(function(data) {
+                processResults(data);
+                submitButtonSpinToggle();
+            })
+            .catch( function(err) {
+                $('#docable-error').append( err.message );
+                submitButtonSpinToggle();
+            });
+    }
 }
 
 function IsJsonString(str) {
