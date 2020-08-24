@@ -73,6 +73,9 @@ if (process.env.NODE_ENV == 'dev') {
         res.render("home", { notebooks_urls, github_imports });
     });
 
+    app.get('/secrets', workspace_routes.secrets);
+    app.post('/setSecret', workspace_routes.setSecret);
+
     app.post('/run', notebook_routes.runNotebook);
     app.post('/viewCell', notebook_routes.viewCell);
     app.post('/editCell', notebook_routes.editCell);
