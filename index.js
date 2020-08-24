@@ -43,7 +43,10 @@ app.use(session({
     resave: true,
     rolling: true,
     saveUninitialized: true,
-    store: new SQLiteStore({db: '.sessions'})
+    store: new SQLiteStore({db: '.sessions'}),
+    cookie: {
+        sameSite: 'lax'
+    }
 }));
  
 app.use(bodyParser.text({ type: 'text/plain' }))
