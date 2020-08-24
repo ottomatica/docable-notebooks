@@ -43,7 +43,10 @@ app.use(session({
     resave: true,
     rolling: true,
     saveUninitialized: true,
-    store: new SQLiteStore({db: '.sessions'})
+    store: new SQLiteStore({db: '.sessions'}),
+    cookie: {
+        sameSite: 'lax'
+    }
 }));
  
 app.use(bodyParser.text({ type: 'text/plain' }))
@@ -54,6 +57,7 @@ app.set('view engine', 'ejs')
 
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/media', express.static(__dirname + '/public/media'));
 
 app.use(express.urlencoded({
     extended: true
