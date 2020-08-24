@@ -30,6 +30,14 @@
     border-bottom-left-radius: 0;
     /* border: 1px solid lightgray; */
     font-size: 14px;
+    /* This gives space for play and overlay buttons to be visible
+    when content reaches end. This way, we give space for buttons 
+    without being on-top of text, but still can overflow content.
+    Shorter content should have no impact.
+    https://stackoverflow.com/a/51845093/547112
+    */
+    padding-right: 80px;
+    border-right: 80px solid #f6f8fa;
 }
 
 .docable-cell-command pre {
