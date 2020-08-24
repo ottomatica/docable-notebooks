@@ -229,4 +229,7 @@ function resetResults(index) {
     output = cell.next('.docable-cell-output');
 
     output.empty();
+
+    // also reset docable-error box
+    $('#docable-error').empty();
 }
