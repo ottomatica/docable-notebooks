@@ -57,6 +57,7 @@ app.set('view engine', 'ejs')
 
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/css', express.static(__dirname + '/public/css'));
+app.use('/media', express.static(__dirname + '/public/media'));
 
 app.use(express.urlencoded({
     extended: true
