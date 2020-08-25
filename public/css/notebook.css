@@ -50,7 +50,7 @@
 }
 
 [data-type="command"][data-privileged="true"]::before {
-    content: '🛡️ $ ';
+    content: '🛡️ # ';
     color: grey;
 }
 
