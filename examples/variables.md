@@ -19,7 +19,7 @@ echo "foo {{bar}}"
 
 Create file with variable content.
 
-```bash|{type:'file', secrets: 'bar', path: 'myfile.txt'}
+```bash|{type:'file', variables: 'bar', path: 'myfile.txt'}
 USER={{bar}}
 ```
 
