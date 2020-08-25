@@ -73,7 +73,8 @@ If restarting the Windows, you may need to run `docker-machine start` after rebo
 
 ## Current Tutorial Issues:
 
-* Streaming output would be good. Install commands are problematic and time out.
+* Streaming output would be good. Install commands are problematic and time out. 
+  privileged commands would require a fix in `sudo-prompt` to expose or access the child process: https://github.com/jorangreef/sudo-prompt/blob/master/index.js
 * Multiline commands are not working well---only first line gets executed. I had to change SETX command block to be oneliner
 * The SETX command isn't ideal either since it has hard-coded path. This should be updated to be dynamic.
 * Finally, reloading server and it's process to handle any change to env... tricky. The `echo %DOCKER_HOST%` command will not have the right environment variable, unless the docable notebook server and the shell it's running in, is restarted.
