@@ -49,6 +49,11 @@
     color: grey;
 }
 
+[data-type="command"][data-privileged="true"]::before {
+    content: '🛡️ $ ';
+    color: grey;
+}
+
 .docable-cell-file-header {
     /*background-color: #e5e5e5;*/
     background-color: coral;
