@@ -101,6 +101,6 @@ cd docable-notebooks && npm install
 
 Run with `prod` NODE_ENV and pm2:
 
-```bash|{type: 'command', cwd: '~/docable-notebooks'}
+```bash|{type: 'command'}
 cd docable-notebooks && npm run prod
 ```
