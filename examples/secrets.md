@@ -17,3 +17,12 @@ This fails, because the annotation specifies `secrets: 'foo,bar`, however a secr
 echo "foo {{bar}}"
 ```
 
+Create file with variable content.
+
+```bash|{type:'file', secrets: 'bar', path: 'myfile.txt'}
+USER={{bar}}
+```
+
+```bash|{type:'command'}
+cat myfile.txt
+```
