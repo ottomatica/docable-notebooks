@@ -3,9 +3,10 @@ setup:
     docker: command-example
 -->
 
-# Using secret variables
+# Using variables
 
-This runs successfully if you have created a secret with slug = foo. You can do that in http://localhost:3000/secrets.
+This runs successfully if you have created a variable called `foo`. You can manage variables on [/variables](/secrets).
+
 ```bash|{type:'command', secrets: 'foo'}
 echo "{{foo}} bar"
 ```
