@@ -43,9 +43,23 @@ Chocolatey is a package manager for Windows.
 Follow the instructions on the [Chocolatey website](https://chocolatey.org/install) to install. 
 Once Chocolatey is installed, you can use it to install other tools on your system using `choco install <package-name>`.  Look for the package name on the Chocolatey website.
 
-Here are some example commands
+
+We will check if we have choco installed.
+
+```bash|{type: 'command'}
+choco --V
 ```
-choco install wget
+
+Important, when running commands that will make changes to your system, you may need to "Run (them) as Adminstrator". Notice, how when we run this command, `choco` warns us that we are not running inside an elevated shell.
+
+```bash|{type: 'command'}
+choco install wget -y
+```
+
+We can try again, but this time, with a shell that has administrative priliveges:
+
+```bash|{type: 'command', privileged: true}
+choco install wget -y
 ```
 
 ## Practice: Installing useful software
