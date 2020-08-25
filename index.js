@@ -59,6 +59,14 @@ app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/css', express.static(__dirname + '/public/css'));
 app.use('/media', express.static(__dirname + '/public/media'));
 
+// Handle rewrite of slugs to file path.
+app.get('/imgs/*', function (req, res)
+{
+    let imgFile = utils.slug2notebook(req.url.replace("/imgs/", ""));
+    let fullPath = path.resolve(path.join(notebook_dir, imgFile ))
+    res.sendFile( fullPath );
+});
+
 app.use(express.urlencoded({
     extended: true
 }));
@@ -104,7 +112,7 @@ if (process.env.NODE_ENV == 'dev') {
 }
 
 app.post('/runhosted', notebook_routes.runHosted);
-app.post('/markdown', notebook_routes.render);
+// app.post('/markdown', notebook_routes.render);
 
 // render specific example
 app.get('/examples/:name', workspace_routes.get_hosted_notebook);
