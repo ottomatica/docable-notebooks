@@ -52,42 +52,32 @@
     <!-- Begin page content -->
     <main role="main" id="main" class="flex-shrink-0"  style="width: 65%; margin: 0 auto; padding: 45px;">
 
-        <h2>Secrets:</h2>
-<!-- 
-        <form id="gh_import" action="/gitImport" method="POST" class="">
-            <div class="row p-1">
-                <div class="col-2 px-1">
-                    <input name="slug" class="form-control" type="text" placeholder="slug" aria-label="Secret slug">
-                </div>
-                <div class="col-8 px-1">
-                    <input name="secret" class="form-control" type="text" placeholder="*****" aria-label="Secret content">
-                </div>
-                <div class="col-1 px-1">
-                    <button class="btn btn-outline-success" type="submit">Add</button>
-                </div>
-            </div>
-        </form> -->
+        <h2>Variables:</h2>
 
-        <table class="table" style="width: 100%">
+        <table class="table" style="width: 100%; text-align: center;">
             <thead>
                 <tr>
                     <th>Slug</th>
-                    <th>Secret</th>
+                    <th>Variable</th>
+                    <th>Secret?</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <% secrets.forEach(s => { %>
+                <% variables.forEach(v => { %>
                     <tr>
                         <td>
                             <div class="form-control" type="text" aria-label="Secret slug">
-                                <%= s.slug %>
+                                <%= v.slug %>
                             </div>
                         </td>
                         <td>
                             <div class="form-control">
-                                <%= s.secret %>
+                                <%= v.value %>
                             </div>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-check-input" <%= v.isSecret ? 'checked' : '' %> >
                         </td>
                         <td>
                             <!-- <button class="btn btn-outline-success" type="submit">Add</button> -->
@@ -96,13 +86,16 @@
                 <% }); %>
                 <tr>
                     <td>
-                        <input form="add_secret" name="slug" class="form-control" type="text" placeholder="slug" aria-label="Secret slug">
+                        <input form="add_variable" name="slug" class="form-control" type="text" placeholder="slug" aria-label="Variable slug">
                     </td>
                     <td>
-                        <input form="add_secret" name="secret" class="form-control" type="text" placeholder="*****" aria-label="Secret content">
+                        <input form="add_variable" name="value" class="form-control" type="text" placeholder="*****" aria-label="Variable value">
                     </td>
                     <td>
-                        <form id="add_secret" action="/setSecret" method="POST">
+                        <input form="add_variable" name="isSecret" type="checkbox" class="form-check-input" >
+                    </td>
+                    <td>
+                        <form id="add_variable" action="/setVariable" method="POST">
                             <button class="btn btn-outline-success" type="submit">Add</button>
                         </form>
                     </td>

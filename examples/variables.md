@@ -7,19 +7,19 @@ setup:
 
 This runs successfully if you have created a variable called `foo`. You can manage variables on [/variables](/secrets).
 
-```bash|{type:'command', secrets: 'foo'}
+```bash|{type:'command', variables: 'foo'}
 echo "{{foo}} world"
 ```
 
 This fails, because the annotation specifies `secrets: 'foo,bar`, however a secret with this slug does not exit.
 
-```bash|{type:'command', secrets: 'foo,bar'}
+```bash|{type:'command', variables: 'foo,bar'}
 echo "foo {{bar}}"
 ```
 
 Create file with variable content.
 
-```bash|{type:'file', secrets: 'bar', path: 'myfile.txt'}
+```bash|{type:'file', variables: 'bar', path: 'myfile.txt'}
 USER={{bar}}
 ```
 
