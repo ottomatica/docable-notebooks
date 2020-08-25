@@ -1,0 +1,21 @@
+    
+- group:
+   description: "Essential development tools"
+   checks:
+     - version:
+         cmd: wget --version
+         range: ^1.19.5
+- group: 
+   description: "Check product-hunt data wrangling task"
+   checks:
+     - reachable: 
+       - product-hunt/posts--2016-04-01_14-36-24-UTC.csv
+     - contains:
+         file: product-hunt/data-a1.txt
+         string: "14"
+     - contains:
+         file: product-hunt/data-a2.txt
+         string: "42"
+     - contains:
+         file: product-hunt/data-a3.txt
+         string: "Startup Stash;A curated directory of 400 resources & tools for startups"
