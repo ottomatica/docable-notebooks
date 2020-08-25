@@ -52,21 +52,7 @@
     <!-- Begin page content -->
     <main role="main" id="main" class="flex-shrink-0"  style="width: 65%; margin: 0 auto; padding: 45px;">
 
-        <h2>Secrets:</h2>
-<!-- 
-        <form id="gh_import" action="/gitImport" method="POST" class="">
-            <div class="row p-1">
-                <div class="col-2 px-1">
-                    <input name="slug" class="form-control" type="text" placeholder="slug" aria-label="Secret slug">
-                </div>
-                <div class="col-8 px-1">
-                    <input name="secret" class="form-control" type="text" placeholder="*****" aria-label="Secret content">
-                </div>
-                <div class="col-1 px-1">
-                    <button class="btn btn-outline-success" type="submit">Add</button>
-                </div>
-            </div>
-        </form> -->
+        <h2>Variables:</h2>
 
         <table class="table" style="width: 100%">
             <thead>
@@ -96,13 +82,13 @@
                 <% }); %>
                 <tr>
                     <td>
-                        <input form="add_secret" name="slug" class="form-control" type="text" placeholder="slug" aria-label="Secret slug">
+                        <input form="add_variable" name="slug" class="form-control" type="text" placeholder="slug" aria-label="Secret slug">
                     </td>
                     <td>
-                        <input form="add_secret" name="secret" class="form-control" type="text" placeholder="*****" aria-label="Secret content">
+                        <input form="add_variable" name="variable" class="form-control" type="text" placeholder="*****" aria-label="Secret content">
                     </td>
                     <td>
-                        <form id="add_secret" action="/setSecret" method="POST">
+                        <form id="add_variable" action="/setVariable" method="POST">
                             <button class="btn btn-outline-success" type="submit">Add</button>
                         </form>
                     </td>
