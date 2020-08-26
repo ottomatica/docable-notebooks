@@ -79,7 +79,7 @@ if (process.env.NODE_ENV == 'dev') {
     logger.info(`Enabling arbitrary md in /notebooks`);
 
     app.get('/', async function (req, res) {
-        let notebooks = await utils.getNotebook(null, notebook_dir);
+        let notebooks = await utils.getNotebookList(notebook_dir);
         let notebooks_urls = notebooks.map( nb => `/notebooks/${utils.notebook2slug(nb)}`);
         let github_imports = config.get('githubImports');
         res.render("home", { notebooks_urls, github_imports });
@@ -98,9 +98,6 @@ if (process.env.NODE_ENV == 'dev') {
 
     if( notebook_dir )
     {
-        // list notebooks
-        app.get('/notebooks/', workspace_routes.notebooks );
-
         // render notebook from notebook dir
         app.get('/notebooks/:name', workspace_routes.get_notebook );
     }
@@ -112,7 +109,6 @@ if (process.env.NODE_ENV == 'dev') {
 }
 
 app.post('/runhosted', notebook_routes.runHosted);
-// app.post('/markdown', notebook_routes.render);
 
 // render specific example
 app.get('/examples/:name', workspace_routes.get_hosted_notebook);

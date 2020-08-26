@@ -136,8 +136,6 @@ $('main').on('click', '.play-btn', function () {
 
 /////////////////// ENVIRONMENTS
 
-getAvailableEnvironments
-
 
 ////////////////// EDIT
 
