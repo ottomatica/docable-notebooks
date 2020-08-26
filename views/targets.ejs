@@ -179,6 +179,14 @@ $(document).ready(function() {
     // New record
     $('#btn-add-target').on('click', function (e) {
         e.preventDefault();
+
+        // Clear modal
+        for( var key of columnNames)
+        {
+            var columnIndex = datatable.column(`${key}:name`).index();
+            $(`[name=${key}]`).val( '' );
+        }
+
         $('#add-edit-dialog').modal()     
     } );
  
