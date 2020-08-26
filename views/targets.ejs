@@ -101,6 +101,7 @@
                                 <input name="port" class="form-control" type="text" placeholder="22" aria-label="port">
                             </div>
                         </div>
+                        <input name="edit" id="edit" type="checkbox" hidden>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -205,6 +206,7 @@ $(document).ready(function() {
             $(`[name=${key}]`).val( val );
         }
 
+        $('#edit').prop('checked', true);
         $('#add-edit-dialog').modal()     
     } );
 
