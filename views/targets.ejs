@@ -2,16 +2,6 @@
 <html lang="en" class="h-100">
 
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112375708-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-112375708-2');
-    </script>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -25,9 +15,26 @@
     <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     <script src="/js/font-awesome.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+
     <style>
         /* th,tr,td {
             padding-left: 3px !important;
@@ -60,95 +67,113 @@
 
         <h2>Targets:</h2>
 
+        <div id="dialog" title="Basic dialog">
+            <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+
+            <form id="add_target" action="/addTarget" method="POST">
+                <input form="add_target" name="slug" class="form-control" type="text" placeholder="slug" aria-label="slug">
+                <textarea form="add_target" name="sshKey" class="form-control" type="text" placeholder="ssh key for this target" aria-label="ssh key"></textarea>
+                <input form="add_target" name="username" class="form-control" type="text" placeholder="username" aria-label="username">
+                <input form="add_target" name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
+                <input form="add_target" name="port" class="form-control" type="text" placeholder="port" aria-label="port">
+    
+                <button class="btn btn-outline-success" type="submit">Add</button>
+            </form>
+        </div>
+           
         <div class="container-fluid">
-            <table class="table" style="width: 100%; text-align: center;">
+            <table class="table" id="example" style="width: 100%; text-align: center;">
                 <thead>
                     <tr>
                         <th>Slug</th>
                         <th>ssh key</th>
                         <th>username</th>
-                        <th>@</th>
                         <th>ip</th>
-                        <th>:</th>
                         <th>port</th>
-                        <th></th>
+                        <th>Edit / Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                     <% targets.forEach(t => { %>
                         <tr>
                             <td>
-                                <div class="form-control" type="text" aria-label="Target slug">
                                     <%= t.slug %>
-                                </div>
                             </td>
                             <td>
-                                <div class="form-control">
                                     <!-- <%= t.sshKey %> -->
                                     *****
-                                </div>
                             </td>
                             <td>
-                                <div class="form-control">
-                                    <%= t.username %>
-                                </div>
+                                <%= t.username %>
                             </td>
                             <td>
-                                @
+                                <%= t.ip %>
                             </td>
                             <td>
-                                <div class="form-control">
-                                    <%= t.ip %>
-                                </div>
+                                <%= t.port %>
                             </td>
                             <td>
-                                :
-                            </td>
-                            <td>
-                                <div class="form-control">
-                                    <%= t.port %>
-                                </div>
-                            </td>
-                            <td>
-                                <!-- <button class="btn btn-outline-success" type="submit">Add</button> -->
+                                <a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>
                             </td>
                         </tr>
                     <% }); %>
-                    <tr>
-
-                        <tr>
-                            <td>
-                                <input form="add_target" name="slug" class="form-control" type="text" placeholder="slug" aria-label="slug">
-                            </td>
-                            <td>
-                                <textarea form="add_target" name="sshKey" class="form-control" type="text" placeholder="ssh key for this target" aria-label="ssh key"></textarea>
-                            </td>
-                            <td>
-                                <input form="add_target" name="username" class="form-control" type="text" placeholder="username" aria-label="username">
-                            </td>
-                            <td>
-                                @
-                            </td>
-                            <td>
-                                <input form="add_target" name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
-                            </td>
-                            <td>
-                                :
-                            </td>
-                            <td>
-                                <input form="add_target" name="port" class="form-control" type="text" placeholder="port" aria-label="port">
-                            </td>
-                            <td>
-                                <form id="add_target" action="/addTarget" method="POST">
-                                    <button class="btn btn-outline-success" type="submit">Add</button>
-                                </form>
-                            </td>
-                        </tr>
-                    </tr>
                 </tbody>
             </table>
         </div>
 
+    <script>
+           
+    
+
+    $(document).ready(function() {
+ 
+    // New record
+    $('a.editor_create').on('click', function (e) {
+        e.preventDefault();
+ 
+        editor.create( {
+            title: 'Create new record',
+            buttons: 'Add'
+        } );
+    } );
+ 
+    // Edit record
+    $('#example').on('click', 'a.editor_edit', function (e) {
+        e.preventDefault();
+ 
+        let row = $(this).closest('tr');
+
+        $( "#dialog" ).dialog("open");
+    } );
+
+    // Edit dialog
+    $( "#dialog" ).dialog({
+        closeOnEscape: true,
+        modal: true,
+        // position: 'top',
+        // width: 800,
+        // height: 600,
+        show: "blind",
+        hide: "explode",
+        autoOpen: false  ///added this line
+    });
+ 
+    // Delete a record
+    $('#example').on('click', 'a.editor_remove', function (e) {
+        e.preventDefault();
+ 
+        editor.remove( $(this).closest('tr'), {
+            title: 'Delete record',
+            message: 'Are you sure you wish to remove this record?',
+            buttons: 'Delete'
+        } );
+    } );
+ 
+    $('#example').DataTable();
+} );
+
+
+        </script>
     </main>
 
     <%- include('templates/footer_analytics'); -%>
