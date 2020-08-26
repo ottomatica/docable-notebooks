@@ -64,34 +64,54 @@
 
         <h2>Targets:</h2>
 
-        <div class="modal fade" id="modal-version">
-            <div class="modal-dialog">
+
+        <div class="modal fade" id="add-edit-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                  <h4 class="modal-title">Modal title</h4>
+                  <h5 class="modal-title" id="exampleModalLabel">Add/Update Target</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
                 </div>
                 <div class="modal-body">
                     <form id="add_target" action="/addTarget" method="POST">
-                        <input form="add_target" name="slug" class="form-control" type="text" placeholder="slug" aria-label="slug">
-                        <textarea form="add_target" name="sshKey" class="form-control" type="text" placeholder="ssh key for this target" aria-label="ssh key"></textarea>
-                        <input form="add_target" name="username" class="form-control" type="text" placeholder="username" aria-label="username">
-                        <input form="add_target" name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
-                        <input form="add_target" name="port" class="form-control" type="text" placeholder="port" aria-label="port">
-            
-                        <button class="btn btn-outline-success" type="submit">Add</button>
+
+                        <div class="form-group">
+                            <label for="slug">Name for target</label>
+                            <input name="slug" class="form-control" type="text" placeholder="my-aws-server" aria-label="slug">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sshKey">Private ssh key</label>
+                            <textarea name="sshKey" class="form-control" type="text" placeholder="" aria-label="ssh key"></textarea>
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted">Your private key will be stored encrypted.</small>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="username">User name</label>
+                                <input name="username" class="form-control" type="text" placeholder="ubuntu" aria-label="username">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="ip">IP address</label>
+                                <input name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="port">Port</label>
+                                <input name="port" class="form-control" type="text" placeholder="22" aria-label="port">
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
-              </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-          </div><!-- /.modal -->
-      
+              </div>
+            </div>
+          </div>
 
-           
+          
         <div class="container-fluid">
             <table class="table" id="example" style="width: 100%; text-align: center;">
                 <thead>
@@ -144,7 +164,7 @@
     // New record
     $('#btn-add-target').on('click', function (e) {
         e.preventDefault();
-        $('#modal-version').modal()     
+        $('#add-edit-dialog').modal()     
     } );
  
     // Edit record
@@ -154,7 +174,7 @@
         let row = $(this).closest('tr');
         //$( "#dialog" ).dialog("open");
 
-        $('#modal-version').modal()     
+        $('#add-edit-dialog').modal()     
     } );
 
     // Delete a record
