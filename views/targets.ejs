@@ -222,7 +222,7 @@ $(document).ready(function() {
             body: JSON.stringify({slug: slug}),
             headers: { "content-type": "application/json; charset=UTF-8" },
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(function(data) {
             row.remove();
         });
