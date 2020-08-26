@@ -1,32 +1,14 @@
-            <!--    Made by Erik Terwan    -->
-            <!--   24th of November 2015   -->
-            <!--        MIT License        -->
-            <div id="menuToggle">
-                <!--
-                A fake / hidden checkbox is used as click reciever,
-                so you can use the :checked selector on it.
-                -->
-                <input type="checkbox" />
-                
-                <!--
-                Some spans to act as a hamburger.
-                
-                They are acting like a real hamburger,
-                not that McDonalds stuff.
-                -->
-                <span></span>
-                <span></span>
-                <span></span>
-                
-                <!--
-                Too bad the menu has to be inside of the button
-                but hey, it's pure CSS magic.
-                -->
-                <ul id="menu">
-                    <a href="/"><li>Home</li></a>
-                    <a href="#"><li>About</li></a>
-                    <a href="/import"><li>Import Notebook from GitHub</li></a>
-                    <a href="/variables"><li>Manage Variables</li></a>
-                    <a href="/targets"><li>Manage Targets</li></a>
-                </ul>
-            </div>
+<div class="btn-group">
+    <button type="button" class="navbar-toggler" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="/">Home</a>
+        <a class="dropdown-item" href="#">About</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" href="/import">Import Notebook from GitHub</a>
+        <a class="dropdown-item" href="/variables">Manage Variables</a>
+        <a class="dropdown-item" href="/targets">Manage Targets</a>
+
+    </div>
+</div>
