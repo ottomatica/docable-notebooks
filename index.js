@@ -110,6 +110,9 @@ if (process.env.NODE_ENV == 'dev') {
 
 }
 
+app.get('/targets', workspace_routes.targets);
+app.post('/addTarget', workspace_routes.addTarget);
+
 app.post('/runhosted', notebook_routes.runHosted);
 
 // render specific example
