@@ -19,9 +19,24 @@
     <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.27.0/dist/skin-win8/ui.fancytree.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
     <script src="/js/font-awesome.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.min.js"></script>
 
 </head>
 
@@ -59,6 +74,24 @@
             <% } %>
         </ul>
 
+        <h2>Your Notebooks (Tree)</h2>
+        <div id="tree"></div>
+        <script>
+            $(document).ready(function()
+            {
+                $("#tree").fancytree({
+                source: [
+                    {title: "Node 1", key: "1"},
+                    {title: "Folder 2", key: "2", folder: true, children: [
+                    {title: "Node 2.1", key: "3"},
+                    {title: "Node 2.2", key: "4"}
+                    ]}
+                ],
+                checkbox: true,  
+                });
+            });
+
+        </script>
 
         <% if (github_imports && github_imports.length > 0) { %>
 
@@ -77,6 +110,9 @@
     </main>
 
     <%- include('templates/footer_analytics'); -%>
+
+
+
 
 </body>
 
