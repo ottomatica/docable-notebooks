@@ -38,6 +38,17 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.min.js"></script>
 
+    <style>
+        .markdown-body ul.fancytree-container {
+          border: none;
+        }
+        .markdown-body ul.fancytree-container a {
+            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -65,30 +76,30 @@
     <main role="main" id="main" class="flex-shrink-0 markdown-body">
 
         <h2>Your Notebooks</h2>
-
-        <ul>
-            <% for(var i=0; i < notebooks_urls.length; i++) { %>
-               <li>
-                 <a href="<%- notebooks_urls[i] %>"><%= notebooks_urls[i] %></a>
-               </li>
-            <% } %>
-        </ul>
-
-        <h2>Your Notebooks (Tree)</h2>
         <div id="tree"></div>
         <script>
+
+            let sortFn = (a, b) => {
+                var x = (a.isFolder() ? "0" : "1") + a.title.toLowerCase(),
+                    y = (b.isFolder() ? "0" : "1") + b.title.toLowerCase();
+                return x === y ? 0 : x > y ? 1 : -1;
+            };
+
             $(document).ready(function()
             {
                 $("#tree").fancytree({
-                source: [
-                    {title: "Node 1", key: "1"},
-                    {title: "Folder 2", key: "2", folder: true, children: [
-                    {title: "Node 2.1", key: "3"},
-                    {title: "Node 2.2", key: "4"}
-                    ]}
-                ],
-                checkbox: true,  
+                source: <%- JSON.stringify(notebook_tree) %>,
+                checkbox: false
                 });
+
+                // $('#tree a').on('click', function(event){
+                //     var node = $.ui.fancytree.getNode(event);
+                //     alert("click" + node);
+                // });
+
+                var node = $.ui.fancytree.getTree("#tree").getRootNode();
+			    node.sortChildren(sortFn, false);
+
             });
 
         </script>
