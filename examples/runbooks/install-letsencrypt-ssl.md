@@ -27,11 +27,11 @@ Fetch your certificates using certbot:
 ./certbot-auto --debug -v certonly --nginx -d {{YOUR_WEBSITE_HERE}}
 ```
 
----
+-----
 
 ### Renewing your certificate
 
-This certificate usually expeires in 90 days, so you will need to renew it once in awhile. 
+This certificate usually expires in 90 days, so you will need to renew it once in awhile. 
 
 To do this first you should stop nginx:
 
