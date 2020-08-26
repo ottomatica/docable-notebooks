@@ -160,7 +160,9 @@
     
 
     $(document).ready(function() {
- 
+
+    let datatable = $('#example').DataTable();
+
     // New record
     $('#btn-add-target').on('click', function (e) {
         e.preventDefault();
@@ -180,13 +182,26 @@
     // Delete a record
     $('#example').on('click', 'a.editor_remove', function (e) {
         e.preventDefault();
- 
-        $(this).closest('tr').remove();
 
+        let row = $(this).closest('tr')
+        let data = datatable.row( row ).data();
+        let slug = data[0];
+
+        return fetch('/deleteTarget', {
+            method: 'POST',
+            mode: 'cors',
+            body: JSON.stringify({slug: slug}),
+            headers: { "content-type": "application/json; charset=UTF-8" },
+        })
+        .then(response => response.json())
+        .then(function(data) {
+            row.remove();
+        });
 
     } );
  
-    $('#example').DataTable();
+    // Post to the provided URL with the specified parameters.
+
 } );
 
 
