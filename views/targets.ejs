@@ -14,23 +14,20 @@
     <link rel="stylesheet" href="/css/notebook.css">
     <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
 
     <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="/js/font-awesome.min.js"></script>
 
@@ -67,19 +64,33 @@
 
         <h2>Targets:</h2>
 
-        <div id="dialog" title="Basic dialog">
-            <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+        <div class="modal fade" id="modal-version">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                  <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="add_target" action="/addTarget" method="POST">
+                        <input form="add_target" name="slug" class="form-control" type="text" placeholder="slug" aria-label="slug">
+                        <textarea form="add_target" name="sshKey" class="form-control" type="text" placeholder="ssh key for this target" aria-label="ssh key"></textarea>
+                        <input form="add_target" name="username" class="form-control" type="text" placeholder="username" aria-label="username">
+                        <input form="add_target" name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
+                        <input form="add_target" name="port" class="form-control" type="text" placeholder="port" aria-label="port">
+            
+                        <button class="btn btn-outline-success" type="submit">Add</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+      
 
-            <form id="add_target" action="/addTarget" method="POST">
-                <input form="add_target" name="slug" class="form-control" type="text" placeholder="slug" aria-label="slug">
-                <textarea form="add_target" name="sshKey" class="form-control" type="text" placeholder="ssh key for this target" aria-label="ssh key"></textarea>
-                <input form="add_target" name="username" class="form-control" type="text" placeholder="username" aria-label="username">
-                <input form="add_target" name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
-                <input form="add_target" name="port" class="form-control" type="text" placeholder="port" aria-label="port">
-    
-                <button class="btn btn-outline-success" type="submit">Add</button>
-            </form>
-        </div>
            
         <div class="container-fluid">
             <table class="table" id="example" style="width: 100%; text-align: center;">
@@ -119,6 +130,9 @@
                     <% }); %>
                 </tbody>
             </table>
+
+            <button class="btn btn-outline-success" id="btn-add-target">Add Target</button>
+
         </div>
 
     <script>
@@ -128,13 +142,9 @@
     $(document).ready(function() {
  
     // New record
-    $('a.editor_create').on('click', function (e) {
+    $('#btn-add-target').on('click', function (e) {
         e.preventDefault();
- 
-        editor.create( {
-            title: 'Create new record',
-            buttons: 'Add'
-        } );
+        $('#modal-version').modal()     
     } );
  
     // Edit record
@@ -142,31 +152,18 @@
         e.preventDefault();
  
         let row = $(this).closest('tr');
+        //$( "#dialog" ).dialog("open");
 
-        $( "#dialog" ).dialog("open");
+        $('#modal-version').modal()     
     } );
 
-    // Edit dialog
-    $( "#dialog" ).dialog({
-        closeOnEscape: true,
-        modal: true,
-        // position: 'top',
-        // width: 800,
-        // height: 600,
-        show: "blind",
-        hide: "explode",
-        autoOpen: false  ///added this line
-    });
- 
     // Delete a record
     $('#example').on('click', 'a.editor_remove', function (e) {
         e.preventDefault();
  
-        editor.remove( $(this).closest('tr'), {
-            title: 'Delete record',
-            message: 'Are you sure you wish to remove this record?',
-            buttons: 'Delete'
-        } );
+        $(this).closest('tr').remove();
+
+
     } );
  
     $('#example').DataTable();
