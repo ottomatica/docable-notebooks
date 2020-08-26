@@ -131,8 +131,7 @@
                                     <%= t.slug %>
                             </td>
                             <td>
-                                    <!-- <%= t.sshKey %> -->
-                                    *****
+                                    <%= t.sshKey %>
                             </td>
                             <td>
                                 <%= t.username %>
@@ -144,7 +143,6 @@
                                 <%= t.port %>
                             </td>
                             <td>
-                                <a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>
                             </td>
                         </tr>
                     <% }); %>
@@ -155,17 +153,40 @@
 
         </div>
 
-    <script>
-           
-    
+<script>
+$(document).ready(function() {
 
-    $(document).ready(function() {
+    let datatable = $('#example').DataTable( {
+        columns: [
+            {name: 'slug'},
+            {
+                name: 'sshKey', 
+                render: function(data, type) {
+                    return "****";
+                }
+            },
+            {name: 'username'},
+            {name: 'ip'},
+            {name: 'port'},
+            {data: null,
+             defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>',
+            }
+        ]
+    });
 
-    let datatable = $('#example').DataTable();
+    let columnNames = datatable.settings().init().columns.map( obj => obj.name );
 
     // New record
     $('#btn-add-target').on('click', function (e) {
         e.preventDefault();
+
+        // Clear modal
+        for( var key of columnNames)
+        {
+            var columnIndex = datatable.column(`${key}:name`).index();
+            $(`[name=${key}]`).val( '' );
+        }
+
         $('#add-edit-dialog').modal()     
     } );
  
@@ -174,7 +195,15 @@
         e.preventDefault();
  
         let row = $(this).closest('tr');
-        //$( "#dialog" ).dialog("open");
+        let data = datatable.row( row ).data();
+
+        // Set values in modal dialog
+        for( var key of columnNames)
+        {
+            var columnIndex = datatable.column(`${key}:name`).index();
+            let val = data[columnIndex];
+            $(`[name=${key}]`).val( val );
+        }
 
         $('#add-edit-dialog').modal()     
     } );
@@ -193,19 +222,15 @@
             body: JSON.stringify({slug: slug}),
             headers: { "content-type": "application/json; charset=UTF-8" },
         })
-        .then(response => response.json())
+        .then(response => response.text())
         .then(function(data) {
             row.remove();
         });
 
     } );
  
-    // Post to the provided URL with the specified parameters.
-
-} );
-
-
-        </script>
+});
+</script>
     </main>
 
     <%- include('templates/footer_analytics'); -%>
