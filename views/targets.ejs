@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-112375708-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-112375708-2');
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Docable Notebook</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/github-markdown.css">
+    <link rel="stylesheet" href="/css/notebook.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+    <script src="/js/font-awesome.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+    <style>
+        /* th,tr,td {
+            padding-left: 3px !important;
+            padding-right: 3px !important;
+        } */
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="/">Docable</a>
+
+            <%- include('templates/docable_menu'); -%>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarCollapse">
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" id="main" class="flex-shrink-0"  style="width: 85%; margin: 0 auto; padding: 45px;">
+
+        <h2>Targets:</h2>
+
+        <div class="container-fluid">
+            <table class="table" style="width: 100%; text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Slug</th>
+                        <th>ssh key</th>
+                        <th>username</th>
+                        <th>@</th>
+                        <th>ip</th>
+                        <th>:</th>
+                        <th>port</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% targets.forEach(t => { %>
+                        <tr>
+                            <td>
+                                <div class="form-control" type="text" aria-label="Target slug">
+                                    <%= t.slug %>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-control">
+                                    <!-- <%= t.sshKey %> -->
+                                    *****
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-control">
+                                    <%= t.username %>
+                                </div>
+                            </td>
+                            <td>
+                                @
+                            </td>
+                            <td>
+                                <div class="form-control">
+                                    <%= t.ip %>
+                                </div>
+                            </td>
+                            <td>
+                                :
+                            </td>
+                            <td>
+                                <div class="form-control">
+                                    <%= t.port %>
+                                </div>
+                            </td>
+                            <td>
+                                <!-- <button class="btn btn-outline-success" type="submit">Add</button> -->
+                            </td>
+                        </tr>
+                    <% }); %>
+                    <tr>
+
+                        <tr>
+                            <td>
+                                <input form="add_target" name="slug" class="form-control" type="text" placeholder="slug" aria-label="slug">
+                            </td>
+                            <td>
+                                <textarea form="add_target" name="sshKey" class="form-control" type="text" placeholder="ssh key for this target" aria-label="ssh key"></textarea>
+                            </td>
+                            <td>
+                                <input form="add_target" name="username" class="form-control" type="text" placeholder="username" aria-label="username">
+                            </td>
+                            <td>
+                                @
+                            </td>
+                            <td>
+                                <input form="add_target" name="ip" class="form-control" type="text" placeholder="x.x.x.x" aria-label="ip address">
+                            </td>
+                            <td>
+                                :
+                            </td>
+                            <td>
+                                <input form="add_target" name="port" class="form-control" type="text" placeholder="port" aria-label="port">
+                            </td>
+                            <td>
+                                <form id="add_target" action="/addTarget" method="POST">
+                                    <button class="btn btn-outline-success" type="submit">Add</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+    <%- include('templates/footer_analytics'); -%>
+    
+</body>
+
+</html>
