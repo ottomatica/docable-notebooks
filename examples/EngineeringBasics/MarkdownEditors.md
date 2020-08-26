@@ -6,8 +6,8 @@ Is a plain text format that can be used to express stylized text rendered as htm
 
 How about an example. The following markdown syntax, would appear as follows:
 
-```
-##### Example Header (like \<h5\>Header\</h5\>)
+```markdown
+##### Example Header (like <h5>Header</h5>)
 
 Paragraphs are separated by a blank line.  A hard break can be created by adding two spaces after a sentance.
 
