@@ -29,6 +29,8 @@ Fetch your certificates using certbot:
 
 ---
 
+### Renewing your certificate
+
 This certificate usually expeires in 90 days, so you will need to renew it once in awhile. 
 
 To do this first you should stop nginx:
