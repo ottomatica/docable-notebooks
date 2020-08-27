@@ -25,13 +25,17 @@
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
     <script src="/js/font-awesome.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
 
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -47,11 +51,11 @@
     </header>
 
     <!-- Begin page content -->
-    <main role="main" id="main" class="flex-shrink-0"  style="width: 65%; margin: 0 auto; padding: 45px;">
+    <main role="main" id="main" class="flex-shrink-0"  style="width: 85%; margin: 0 auto; padding: 45px;">
 
         <h2>Variables:</h2>
 
-        <table class="table" style="width: 100%; text-align: center;">
+        <table class="table" id="variablesTable" style="width: 100%; text-align: center;">
             <thead>
                 <tr>
                     <th>Slug</th>
@@ -61,26 +65,6 @@
                 </tr>
             </thead>
             <tbody>
-                <% variables.forEach(v => { %>
-                    <tr>
-                        <td>
-                            <div class="form-control" type="text" aria-label="Secret slug">
-                                <%= v.slug %>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-control">
-                                <%= v.value %>
-                            </div>
-                        </td>
-                        <td>
-                            <input type="checkbox" class="form-check-input" <%= v.isSecret ? 'checked' : '' %> >
-                        </td>
-                        <td>
-                            <!-- <button class="btn btn-outline-success" type="submit">Add</button> -->
-                        </td>
-                    </tr>
-                <% }); %>
                 <tr>
                     <td>
                         <input form="add_variable" name="slug" class="form-control" type="text" placeholder="slug" aria-label="Variable slug">
@@ -93,13 +77,88 @@
                     </td>
                     <td>
                         <form id="add_variable" action="/setVariable" method="POST">
-                            <button class="btn btn-outline-success" type="submit">Add</button>
+                            <button class="btn" type="submit">Add</button>
                         </form>
                     </td>
                 </tr>
+                <% variables.forEach(v => { %>
+                    <tr>
+                        <td>
+                            <%= v.slug %>
+                        </td>
+                        <td>
+                            <%= v.value %>
+                        </td>
+                        <td>
+                            <input type="checkbox" class="form-check-input" <%= v.isSecret ? 'checked' : '' %> disabled>
+                        </td>
+                        <td>
+                            <a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>
+                            <!-- <button class="btn btn-outline-success" type="submit">Add</button> -->
+                        </td>
+                    </tr>
+                <% }); %>
             </tbody>
         </table>
 
+        <script>
+            $(document).ready(function() {
+            
+                let datatable = $('#variablesTable').DataTable( {
+                    columns: [
+                        {name: 'slug'},
+                        {name: 'variable'},
+                        {name: 'secret'},
+                        {name: 'action'}
+                    ]
+                });
+            
+                let columnNames = datatable.settings().init().columns.map( obj => obj.name );
+
+                // Edit record
+                $("#variablesTable").on('click', "a.editor_edit", function (e) {
+                    e.preventDefault();
+
+                    $(this).text('Done');
+                    var row = $(this).closest("tr");
+
+                    let data = datatable.row(row).data();
+                    
+                    let [slug, variable, isSecret] = data;
+                    isSecret = $($.parseHTML(isSecret)).closest('input').prop('checked');
+
+                    row.html(
+                        `<td><input form="update_variable" class="form-control" type='text' value="${slug}" name="slug"></td>` +
+                        `<td><input form="update_variable" class="form-control" type='text' value="${variable}" name="value"></td>` +
+                        `<td><input form="update_variable" class="form-check-input" type="checkbox" name="isSecret" ${isSecret ? 'checked' : ''} > </td>` +
+                        `<td><form id="update_variable" action="/setVariable" method="POST">
+                            <input name="edit" id="edit" type="checkbox" hidden checked>
+                            <button class="btn" type="submit">Update</button>
+                        </form></td>`
+                    );
+                });
+
+                // Delete a record
+                $('#variablesTable').on('click', 'a.editor_remove', function (e) {
+                    e.preventDefault();
+                    let row = $(this).closest('tr');
+                    let data = datatable.row(row).data();
+                    let slug = data[0];
+
+                    return fetch('/deleteVariable', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: JSON.stringify({ slug }),
+                        headers: { "content-type": "application/json; charset=UTF-8" },
+                    })
+                    .then(response => response.text())
+                    .then(function (data) {
+                        datatable.row(row).remove().draw();
+                    });
+                });
+             
+            });
+        </script>
     </main>
 
     <%- include('templates/footer_analytics'); -%>

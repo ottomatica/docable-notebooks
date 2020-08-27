@@ -89,6 +89,7 @@ if (process.env.NODE_ENV == 'dev') {
 
     app.get('/variables', workspace_routes.variables);
     app.post('/setVariable', workspace_routes.setVariable);
+    app.post('/deleteVariable', workspace_routes.deleteVariable);
 
     app.post('/run', notebook_routes.runNotebook);
     app.post('/viewCell', notebook_routes.viewCell);
