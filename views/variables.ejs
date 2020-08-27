@@ -87,7 +87,7 @@
                             <%= v.slug %>
                         </td>
                         <td>
-                            <%= v.value %>
+                            <%= v.isSecret ? '****' : v.value %>
                         </td>
                         <td>
                             <input type="checkbox" class="form-check-input" <%= v.isSecret ? 'checked' : '' %> disabled>
@@ -130,7 +130,7 @@
                     row.html(
                         `<td><input form="update_variable" class="form-control" type='text' value="${slug}" name="slug"></td>` +
                         `<td><input form="update_variable" class="form-control" type='text' value="${variable}" name="value"></td>` +
-                        `<td><input form="update_variable" class="form-check-input" type="checkbox" name="isSecret" ${isSecret ? 'checked' : ''} > </td>` +
+                        `<td><input form="update_variable" class="form-check-input" type="checkbox" name="isSecret" ${isSecret ? 'checked disabled' : ''} > </td>` +
                         `<td><form id="update_variable" action="/setVariable" method="POST">
                             <input name="edit" id="edit" type="checkbox" hidden checked>
                             <button class="btn" type="submit">Update</button>
