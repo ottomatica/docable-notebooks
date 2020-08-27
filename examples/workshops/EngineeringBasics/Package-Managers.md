@@ -30,17 +30,15 @@ brew install wget
 
 ##### Installing Chocolatey on Windows
 
-Chocolatey is a package manager for Windows. 
+Chocolatey is a package manager for Windows. Once Chocolatey is installed, you can use it to install other tools on your system using `choco install <package-name>`.
 
-Follow the instructions on the [Chocolatey website](https://chocolatey.org/install) to install. 
-Once Chocolatey is installed, you can use it to install other tools on your system using `choco install <package-name>`.  Look for the package name on the Chocolatey website.
+We will check if we have choco installed. If not, you will be redirected to the [Chocolatey Install Notebook](setup/install-choco.md).
 
-
-We will check if we have choco installed.
-
-```bash|{type: 'command', platform:'win32', failed_when:"!stdout.includes('Chocolatey v')"}
+```bash|{type: 'command', platform:'win32', redirect: 'workshops-EngineeringBasics-setup-install--choco.md', failed_when:"!stdout.includes('XChocolatey v')"}
 choco --V
 ```
+
+
 
 Important, when running commands that will make changes to your system, you may need to "Run (them) as Administrator". Notice, how when we run this command, `choco` warns us that we are not running inside an elevated shell.
 
