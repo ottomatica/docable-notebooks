@@ -32,7 +32,7 @@ Set-ExecutionPolicy AllSigned -Scope CurrentUser
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-### Install
+### Ready to Install
 
 We're ready to run the following command in a powershell shell. This will download a powershell script from https://chocolatey.org, and run it.
 
@@ -45,3 +45,5 @@ We should now be able to run `choco`!
 ```bash|{type: 'command', platform:'win32', failed_when:"!stdout.includes('Chocolatey v')"}
 choco --V
 ```
+
+[Next: Package Managers](../Package-managers.md)
