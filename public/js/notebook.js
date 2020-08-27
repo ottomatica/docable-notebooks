@@ -121,6 +121,11 @@ function processResults(data)
         if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
         let selector = block.parent();
 
+        if( result.result.status == false && $(block).data('redirect') )
+        {
+            window.location = $(block).data('redirect');            
+        }
+
         setResults(selector, result.result);
     }    
 }
