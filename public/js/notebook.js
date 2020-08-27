@@ -116,7 +116,7 @@ function processResults(data)
 {
     const results = JSON.parse(data);
     for (const result of results) {
-        // selecting cells using index to adding results
+        // selecting cells using cellid to adding results
         let block = $(`[id="${result.cellid}"]`);
         if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
         let selector = block.parent();
