@@ -31,6 +31,12 @@ If you're using Linux, you typically already have a package manager, such as `yu
 
 Homebrew is a popular package manager for MacOS. To install, open a terminal window and run the install command shown on [http://brew.sh/](http://brew.sh/).
 
+Let's check if we have `brew` installed on the system.
+```bash|{type: 'command', platform:'darwin'}
+brew --version
+```
+
+
 Here is an example of how to install the utility `wget`.
 ```bash|{type: 'command', platform:'darwin'}
 brew install wget
