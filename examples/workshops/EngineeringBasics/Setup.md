@@ -6,7 +6,7 @@ To successfully build software, you need a properly configured environment with 
 
 Whether you're a Mac, Windows, or Linux user---you should be able to find a way to be productive with the tools from this workshop. However, there may be specific tweaks, issues, and accomodatations you may have to make based on your platform.
 
-## An installation philosophy
+### An installation philosophy
 
 > *Avoid manual installation, automate with package managers!*
 
@@ -14,78 +14,6 @@ When possible, using a package manager can allow you to automate and streamline 
 
 *Tip*: Later on, the ability to automate the installation of software environments becomes important in later stages of software development, such as continuous integration, or deployment.
 
-### Package Managers
-
-*Package managers* are tools for installing libraries and tools, which help manage dependencies and configuration of files and environment variables. 
-
-There are generally two flavors of package managers. *Binary* package managers typically install platform specific dependencies, whereas, *source* package managers typically install libraries you can use in your code.
-
-* **Binary**: brew, choco, apt-get  
-* **Source**: npm, pip, maven
-
-### Installing Package Managers
-
-If you're using Linux, you typically already have a package manager, such as `yum` or `apt-get`. You can skip this step.
-
-##### Installing HomeBrew on Mac OS X
-
-Homebrew is a popular package manager for MacOS. To install, open a terminal window and run the install command shown on [http://brew.sh/](http://brew.sh/).
-
-Let's check if we have `brew` installed on the system.
-```bash|{type: 'command', platform:'darwin'}
-brew --version
-```
-
-
-Here is an example of how to install the utility `wget`.
-```bash|{type: 'command', platform:'darwin'}
-brew install wget
-```
-
-##### Installing Chocolatey on Windows
-
-Chocolatey is a package manager for Windows. 
-
-Follow the instructions on the [Chocolatey website](https://chocolatey.org/install) to install. 
-Once Chocolatey is installed, you can use it to install other tools on your system using `choco install <package-name>`.  Look for the package name on the Chocolatey website.
-
-
-We will check if we have choco installed.
-
-```bash|{type: 'command', platform:'win32', failed_when:"!stdout.includes('Chocolatey v')"}
-choco --V
-```
-
-Important, when running commands that will make changes to your system, you may need to "Run (them) as Administrator". Notice, how when we run this command, `choco` warns us that we are not running inside an elevated shell.
-
-```bash|{type: 'command',platform:'win32'}
-choco install wget -y
-```
-
-We can try again, but this time, with a shell that has administrative priliveges:
-
-```bash|{type: 'command', privileged: true, platform:'win32'}
-choco install wget -y
-```
-
-Finally, we can remove `wget` using the `remove` parameter.
-
-```bash|{type: 'command', privileged: true, platform:'win32'}
-choco uninstall wget -y --remove-dependencies
-```
-
-## Practice: Installing useful software
-
-See if you can find the packages for these tools with your package manager and install them (if you do not already have them).
-
-* git
-* node.js
-* python2
-
-Let's check if we have `brew` installed on the system.
-```bash|{type: 'command', platform:'darwin'}
-brew --version
-```
 
 
 ## Optional: Make Windows Just as Awesome
