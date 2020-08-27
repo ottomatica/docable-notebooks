@@ -82,6 +82,12 @@ See if you can find the packages for these tools with your package manager and i
 * node.js
 * python2
 
+Let's check if we have `brew` installed on the system.
+```bash|{type: 'command', platform:'darwin'}
+brew --version
+```
+
+
 ## Optional: Make Windows Just as Awesome
 
 If you have **Windows 10**, you can use the [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/about)!  Follow the [Windows 10 Installation Guide](https://docs.microsoft.com/en-us/windows/wsl/install-win10).
