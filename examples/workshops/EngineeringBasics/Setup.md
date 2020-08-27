@@ -32,7 +32,7 @@ If you're using Linux, you typically already have a package manager, such as `yu
 Homebrew is a popular package manager for MacOS. To install, open a terminal window and run the install command shown on [http://brew.sh/](http://brew.sh/).
 
 Here is an example of how to install the utility `wget`.
-```bash
+```bash|{type: 'command', platform:'darwin'}
 brew install wget
 ```
 
@@ -46,25 +46,25 @@ Once Chocolatey is installed, you can use it to install other tools on your syst
 
 We will check if we have choco installed.
 
-```bash|{type: 'command', failed_when:"!stdout.includes('Chocolatey v')"}
+```bash|{type: 'command', platform:'win32', failed_when:"!stdout.includes('Chocolatey v')"}
 choco --V
 ```
 
 Important, when running commands that will make changes to your system, you may need to "Run (them) as Administrator". Notice, how when we run this command, `choco` warns us that we are not running inside an elevated shell.
 
-```bash|{type: 'command'}
+```bash|{type: 'command',platform:'win32'}
 choco install wget -y
 ```
 
 We can try again, but this time, with a shell that has administrative priliveges:
 
-```bash|{type: 'command', privileged: true}
+```bash|{type: 'command', privileged: true, platform:'win32'}
 choco install wget -y
 ```
 
 Finally, we can remove `wget` using the `remove` parameter.
 
-```bash|{type: 'command', privileged: true}
+```bash|{type: 'command', privileged: true, platform:'win32'}
 choco uninstall wget -y --remove-dependencies
 ```
 
