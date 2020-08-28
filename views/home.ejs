@@ -20,7 +20,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.27.0/dist/skin-win8/ui.fancytree.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/skin-win8/ui.fancytree.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.6.0/skin-awesome/ui.fancytree.css">
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
@@ -32,16 +34,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.glyph.js"></script>
 
     <style>
         .markdown-body ul.fancytree-container {
           border: none;
         }
-        .markdown-body ul.fancytree-container a {
-            font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-            font-size: 16px;
-            line-height: 1.5;
+        .markdown-body ul.fancytree-container .fa-folder {
+            color: #28a745;
+            margin-left: 5px;
         }
+
+        .markdown-body ul.fancytree-container .fa-book-open {
+            color: #C0C0C0;
+            margin-left: 5px;
+        }
+
+
+        .markdown-body .content-separator {
+            padding-left: .5em;
+            padding-right: .5em;
+            color: #C0C0C0;
+        }
+
     </style>
 
 </head>
@@ -62,6 +77,9 @@
     <main role="main" id="main" class="flex-shrink-0 markdown-body">
 
         <h2>Your Notebooks</h2>
+
+        <div><a href="/targets">Environments</a><span class="content-separator">|</span><a href="/variables">Variables</a></div>
+
         <div id="tree"></div>
         <script>
 
@@ -75,16 +93,28 @@
             {
                 $("#tree").fancytree({
                 source: <%- JSON.stringify(notebook_tree) %>,
-                checkbox: false
+                checkbox: false,
+                extensions: ["glyph"],
+                glyph: {
+                    // The preset defines defaults for all supported icon types.
+                    // It also defines a common class name that is prepended (in this case 'fa ')
+                        preset: "awesome5",
+                        map: {
+                        // Override distinct default icons here
+                        folder: "fas fa-folder",
+                        folderOpen: "fas fa-folder-open",
+                        doc: "fas fa-book-open"
+                    }
+                },                
                 });
-
+                
                 // $('#tree a').on('click', function(event){
                 //     var node = $.ui.fancytree.getNode(event);
                 //     alert("click" + node);
                 // });
 
                 var node = $.ui.fancytree.getTree("#tree").getRootNode();
-			    node.sortChildren(sortFn, false);
+			    node.sortChildren(sortFn, true);
 
             });
 
