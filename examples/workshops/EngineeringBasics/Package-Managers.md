@@ -15,9 +15,10 @@ If you're using Linux, you typically already have a package manager, such as `yu
 
 ##### Installing HomeBrew on Mac OS X
 
-Homebrew is a popular package manager for MacOS. To install, open a terminal window and run the install command shown on [http://brew.sh/](http://brew.sh/).
+Homebrew is a popular package manager for MacOS. 
 
-Let's check if we have `brew` installed on the system.
+
+Let's check if we have `brew` installed on the system. If not, you will be redirected to the [Homebrew Install Notebook](setup/install-brew.md).
 ```bash|{type: 'command', platform:'darwin'}
 brew --version
 ```
