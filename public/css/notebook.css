@@ -164,6 +164,8 @@
 
     max-height: 300px;
     overflow: scroll;
+
+    margin-bottom: 20px;
 }
 
 /* pseudo selector for ensuring not displayed when empty.*/
