@@ -24,14 +24,18 @@ We will bypass this interactive prompt, with an automated method. We will create
 echo {{local_admin_password}}
 ```
 
-```bash
-chmod +x ./pw.sh
-```
+### Ready to install
 
- Then the environment variable `SUDO_ASKPASS` is used by the homebrew script to get the password. `HAVE_SUDO_ACCESS` is also provided to help the homebrew script logic use our password script.
+Then the environment variable `SUDO_ASKPASS` is used by the homebrew script to get the password. `HAVE_SUDO_ACCESS` is also provided to help the homebrew script logic use our password script.
 
 ```bash|{type:'command'}
 SUDO_ASKPASS=./pw.sh HAVE_SUDO_ACCESS=0 ./brew.sh
+```
+
+We should now be able to run `brew`!
+
+```bash|{type:'command'}
+brew -v
 ```
 
 Once everything is done, will we clean up a few things.
