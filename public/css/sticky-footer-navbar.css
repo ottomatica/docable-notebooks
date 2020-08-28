@@ -6,6 +6,11 @@ main > .container {
   padding: 60px 15px 0;
 }
 
+/* Account for fixed-top */ 
+body {
+  margin-top: 40px;
+}
+
 .footer {
   background-color: #f5f5f5;
 }
