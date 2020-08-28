@@ -85,3 +85,11 @@ After you've installed the appropriate commands, let's check if we have installe
 ```bash|{type: 'command'}
 git --version
 ```
+
+```bash|{type: 'command'}
+jq --version
+```
+
+```bash|{type: 'command'}
+wget -V
+```
