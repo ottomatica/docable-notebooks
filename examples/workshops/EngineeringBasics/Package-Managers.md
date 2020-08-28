@@ -1,22 +1,21 @@
 [Setup](Setup.md#setup) | [Shells](Shells.md#shells) |  [Git](Git.md#git) | [Markdown and IDEs](MarkdownEditors.md#markdown) |  [Virtual Environments](Environments.md#environments) | [Task Management](OnlineTools.md#online-tools)
 
-### Package Managers
+# Package Managers
 
 *Package managers* are tools for installing libraries and tools, which help manage dependencies and configuration of files and environment variables. 
 
-There are generally two flavors of package managers. *Binary* package managers typically install platform specific dependencies, whereas, *source* package managers typically install libraries you can use in your code.
+There are generally two flavors of package managers. 
 
-* **Binary**: brew, choco, apt-get  
-* **Source**: npm, pip, maven
+* *Binary* package managers typically install platform specific dependencies: (`brew`, `choco`, `apt-get`) 
+* *Source* package managers typically install libraries you can use in your code: (`npm`, `pip`, `maven`)
 
-### Installing Package Managers
+## Install a Package Manager on Your System
 
-If you're using Linux, you typically already have a package manager, such as `yum` or `apt-get`. You can skip this step.
+If you're using Linux, you typically already have a package manager, such as `yum` or `apt-get`. You can skip this section.
 
-##### Installing HomeBrew on Mac OS X
+#### Installing HomeBrew on Mac OS X
 
 Homebrew is a popular package manager for MacOS. 
-
 
 Let's check if we have `brew` installed on the system. If not, you will be redirected to the [Homebrew Install Notebook](setup/install-brew.md).
 ```bash|{type: 'command', platform:'darwin'}
@@ -29,13 +28,13 @@ Here is an example of how to install the utility `wget`.
 brew install wget
 ```
 
-##### Installing Chocolatey on Windows
+#### Installing Chocolatey on Windows
 
 Chocolatey is a package manager for Windows. Once Chocolatey is installed, you can use it to install other tools on your system using `choco install <package-name>`.
 
 We will check if we have choco installed. If not, you will be redirected to the [Chocolatey Install Notebook](setup/install-choco.md).
 
-```bash|{type: 'command', platform:'win32', redirect: 'workshops-EngineeringBasics-setup-install--choco.md', failed_when:"!stdout.includes('XChocolatey v')"}
+```bash|{type: 'command', platform:'win32', redirect: 'workshops-EngineeringBasics-setup-install--choco.md', failed_when:"!stdout.includes('Chocolatey v')"}
 choco --V
 ```
 
@@ -63,11 +62,26 @@ choco uninstall wget -y --remove-dependencies
 
 See if you can find the packages for these tools with your package manager and install them (if you do not already have them).
 
-* git
-* node.js
-* python2
+* `wget`, a tool for performing web requests.
+* `jq`, a tool for querying and manipulating and JSON files.
+* `git`, a tool for man
 
-Let's check if we have `brew` installed on the system.
+We'll help you open up the appropriate shell you will need for you system.
+
+Windows (Admin):
+
+```bash|{type: 'command', platform:'win32', privileged: true}
+start
+```
+
+Mac/Linux:
+
 ```bash|{type: 'command', platform:'darwin'}
-brew --version
+open
+```
+
+After you've installed the appropriate commands, let's check if we have installed these programs on the system...
+
+```bash|{type: 'command'}
+git --version
 ```
