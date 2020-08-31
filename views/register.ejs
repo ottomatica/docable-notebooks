@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Docable Notebook—New User</title>
+    <title>Docable Notebook</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -59,18 +59,18 @@
             <form class="card p-3 bg-light" id="registerForm" action="/register" method="POST" class="row">
 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="your@email.com">
+                  <label for="emailaddress">Email address</label>
+                  <input type="email" class="form-control" name="emailaddress" aria-describedby="emailHelp" placeholder="your@email.com">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <div class="checkbox mb-3">
                     <label>
-                      <input type="checkbox" value="subscribe"> Send me important emails about Docable.
+                      <input type="checkbox" name="subscribe" id="subscribe"> Send me important emails about Docable.
                     </label>
-                  </div>
+                </div>
 
                 <div class="text-center">
                    <button type="submit" class="btn btn-lg btn-success">Register</button>
