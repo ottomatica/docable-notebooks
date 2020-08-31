@@ -27,7 +27,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const notebook_routes = require('./lib/routes/notebook');
 const workspace_routes = require('./lib/routes/workspace');
-
+const user_routes = require('./lib/routes/user');
 
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
@@ -111,6 +111,7 @@ if (process.env.NODE_ENV == 'dev') {
 
 }
 
+app.post('/register', user_routes.register );
 app.get('/register', function(req, res) { res.render("register", {});} );
 
 app.get('/targets', workspace_routes.targets);
