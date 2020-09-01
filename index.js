@@ -111,6 +111,9 @@ if (process.env.NODE_ENV == 'dev') {
 
 }
 
+app.post('/login', user_routes.login );
+app.get('/login', function(req, res) { res.render("login", {});} );
+
 app.post('/register', user_routes.register );
 app.get('/register', function(req, res) { res.render("register", {});} );
 
