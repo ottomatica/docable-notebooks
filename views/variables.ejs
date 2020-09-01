@@ -76,9 +76,7 @@
                         <input form="add_variable" name="isSecret" type="checkbox" class="form-check-input" >
                     </td>
                     <td>
-                        <form id="add_variable" action="/setVariable" method="POST">
-                            <button class="btn" type="submit">Add</button>
-                        </form>
+                        <a href="" class="add_variable">Add</a>
                     </td>
                 </tr>
                 <% variables.forEach(v => { %>
@@ -94,7 +92,6 @@
                         </td>
                         <td>
                             <a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>
-                            <!-- <button class="btn btn-outline-success" type="submit">Add</button> -->
                         </td>
                     </tr>
                 <% }); %>
@@ -109,11 +106,61 @@
                         {name: 'slug'},
                         {name: 'variable'},
                         {name: 'secret'},
-                        {name: 'action'}
+                        {
+                            name: 'action',
+                            defaultContent: '<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>'
+                        }
                     ]
                 });
             
                 let columnNames = datatable.settings().init().columns.map( obj => obj.name );
+
+                function extractRowCells(elem) {
+                    const row = $(elem).closest('tr');
+                    const rowCells = $(datatable.row(row).node()).find('td');
+
+                    let slug = rowCells.eq(0);
+                    let value = rowCells.eq(1);
+                    let isSecret = rowCells.eq(2);
+                    let action = rowCells.eq(3);
+                    
+                    let slugInput = slug.find('input');
+                    let valueInput = value.find('input');
+                    let isSecretInput = isSecret.find('input');
+
+                    return {
+                        slug, value, isSecret,
+                        slugInput, valueInput, isSecretInput,
+                        action
+                    };
+                }
+
+                // Add record
+                $('#variablesTable').on('click', 'a.add_variable', function(e) {
+                    e.preventDefault();
+
+                    const {slugInput, valueInput, isSecretInput} = extractRowCells(this)
+
+                    return fetch('/setVariable', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: JSON.stringify({ slug: slugInput.val(), value: valueInput.val(), isSecret: isSecretInput.prop('checked') }),
+                        headers: { "content-type": "application/json; charset=UTF-8" },
+                    })
+                    .then(response => response.text())
+                    .then(function (data) {
+                        datatable.row.add([
+                            slugInput.val(), 
+                            valueInput.val(), 
+                            `<input type="checkbox" class="form-check-input" ${isSecretInput.prop('checked') ? 'checked': ''} disabled>`, 
+                            ]).draw();
+
+                        slugInput.val('');
+                        valueInput.val('');
+                        isSecretInput.prop('checked', false) 
+                    });
+                });
+
 
                 // Edit record
                 $("#variablesTable").on('click', "a.editor_edit", function (e) {
@@ -121,21 +168,34 @@
 
                     $(this).text('Done');
                     var row = $(this).closest("tr");
-
-                    let data = datatable.row(row).data();
-                    
-                    let [slug, variable, isSecret] = data;
-                    isSecret = $($.parseHTML(isSecret)).closest('input').prop('checked');
+                    const {slug, value, isSecret, slugInput, valueInput, isSecretInput} = extractRowCells(this);
 
                     row.html(
-                        `<td><input form="update_variable" class="form-control" type='text' value="${slug}" name="slug"></td>` +
-                        `<td><input form="update_variable" class="form-control" type='text' value="${variable}" name="value"></td>` +
-                        `<td><input form="update_variable" class="form-check-input" type="checkbox" name="isSecret" ${isSecret ? 'checked disabled' : ''} > </td>` +
-                        `<td><form id="update_variable" action="/setVariable" method="POST">
-                            <input name="edit" id="edit" type="checkbox" hidden checked>
-                            <button class="btn" type="submit">Update</button>
-                        </form></td>`
+                        `<td><input form="update_variable" class="form-control" type='text' value="${slug.text().trim()}" name="slug"></td>` +
+                        `<td><input form="update_variable" class="form-control" type='text' value="${isSecretInput.prop('checked') ? '' : value.text().trim()}" name="value"></td>` +
+                        `<td><input form="update_variable" class="form-check-input" type="checkbox" name="isSecret" ${isSecretInput.prop('checked') ? 'checked disabled' : ''} > </td>` +
+                        `<td><a href="" class="update_variable">Done</a></td>`
                     );
+                });
+
+                $('#variablesTable').on('click', 'a.update_variable', function(e) {
+                    e.preventDefault();
+
+                    const {slug, value, isSecret, action, slugInput, valueInput, isSecretInput} = extractRowCells(this);
+
+                    return fetch('/setVariable', {
+                        method: 'POST',
+                        mode: 'cors',
+                        body: JSON.stringify({ slug: slugInput.val(), value: valueInput.val(), isSecret: isSecretInput.prop('checked'), edit: true }),
+                        headers: { "content-type": "application/json; charset=UTF-8" },
+                    })
+                    .then(response => response.text())
+                    .then(function (data) {
+                        slug.html(`${slugInput.val()}`);
+                        value.html(`${valueInput.val()}`);
+                        isSecret.prop('disabled', true);
+                        action.html('<a href="" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Delete</a>');
+                    });
                 });
 
                 // Delete a record
