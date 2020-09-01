@@ -121,6 +121,16 @@ if (process.env.NODE_ENV == 'dev') {
 
 }
 
+app.post('/account', user_routes.account );
+app.get('/account', function(req, res) { 
+
+    if( !req.session.user ) {res.redirect("/login");}
+    else
+    {
+        res.render("account", {user: req.session.user});
+    }
+});
+
 app.post('/login', user_routes.login );
 app.get('/login', function(req, res) { res.render("login", {});} );
 
