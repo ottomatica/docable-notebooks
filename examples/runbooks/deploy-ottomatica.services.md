@@ -105,7 +105,7 @@ rm -rf ~/ottomatica.services
 
 
 
-## Deployment latest (except around midnight)
+## Deployment latest
 
 Pull latest.
 
@@ -114,12 +114,15 @@ cd ottomatica.services
 git pull
 ```
 
-Checkout latest.
+Checkout latest into staging directory.
 
 ```bash|{type: 'command'}
 cd ottomatica.services
-mkdir -p /srv/services/builds/$(date -d "today" +"%Y%m%d")
-git --work-tree=/srv/services/builds/$(date -d "today" +"%Y%m%d") checkout -f 
+BUILD=$(date -d "today" +"%Y%m%d-%H%M")
+mkdir -p /srv/services/builds/$BUILD
+git --work-tree=/srv/services/builds/$BUILD checkout -f 
+rm -f /srv/services/staging
+ln -s /srv/services/builds/$BUILD /srv/services/staging 
 ```
 
 Examine builds.
@@ -133,18 +136,18 @@ ls -R
 Install npm dependencies for registration service.
 
 ```bash|{type: 'command'}
-cd /srv/services/builds/$(date -d "today" +"%Y%m%d")/registration
+cd /srv/services/staging/registration
 npm install
 ```
 
-Switch over prod link
+Switch over prod link.
 ```bash|{type: 'command'}
 cd /srv/services/
 rm -f current
-ln -s builds/$(date -d "today" +"%Y%m%d") current
+ln -s $(readlink -f staging) current
 ```
 
-Examine
+Examine.
 ```bash|{type: 'command'}
 ls -l /srv/services/
 ```
