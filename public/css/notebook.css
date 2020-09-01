@@ -209,3 +209,41 @@
     max-width: 100px;
     max-height: 100px; */
 }
+
+/* .left-sidebar {
+    width: 250px;
+    padding: 22px 5px 5px 5px;
+    border-right: 0.5px solid #ebebeb;
+} */
+
+/* .table-sidebar {
+    position: fixed;
+    width: 240px;
+    margin: 0 auto;
+    padding: 0 5px 0 5px
+} */
+
+.markdown-body {
+    padding: 30px;
+    margin: 0 auto;
+    position: relative;
+    width: 65%;
+    /* flex: 1 1 100%; */
+}
+
+.notebook-variables {
+    margin: 0 auto;
+    /* background-color: lightgray; */
+    width: 50%;
+    /* height: 100px; */
+    position: relative;
+    margin-top: 30px;
+    opacity: 0.7;
+    /* flex: 1 1 25%; */
+}
+
+td, th {
+    vertical-align: middle !important;
+    padding-left: 5px;
+    padding-right: 5px;
+}

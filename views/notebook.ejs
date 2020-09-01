@@ -48,13 +48,22 @@
     </header>
 
     <!-- Begin page content -->
-    <main role="main" id="main" class="flex-shrink-0 markdown-body">
+    <main role="main" id="main" class="flex-shrink-0" style="display: flex; flex-wrap: wrap;">
 
         <!-- Display major errors here -->
         <div id='docable-error'></div>
 
-        <!-- Rendered notebook content -->
-        <%- notebookHtml %>
+
+        <div class="notebook-variables">
+            <%- include('templates/notebook_variables'); -%>
+        </div>
+
+        <!-- style="flex: 1;" -->
+        <div class="markdown-body">
+            <!-- Rendered notebook content -->
+            <%- notebookHtml %>
+        </div>
+
     </main>
 
     <%- include('templates/footer_analytics'); -%>
