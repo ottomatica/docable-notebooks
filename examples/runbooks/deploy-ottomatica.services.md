@@ -42,7 +42,44 @@ Install Node.JS v12.x:
 sudo apt-get install -y nodejs
 ```
 
-## Clone Docable Notebooks, Install, and Run
+Install `pm2`:
+```bash|{type: 'command', failed_when: 'exitCode!=0'}
+npm install pm2 -g
+```
+
+## Install Mongodb
+
+Install key.
+
+```bash|{type: 'command'}
+wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+```
+
+List.
+
+```bash|{type: 'command'}
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+```
+
+Reload.
+
+```bash|{type: 'command'}
+sudo apt-get update
+```
+
+Install.
+
+```bash|{type: 'command'}
+sudo apt-get install -y mongodb-org
+```
+
+Start service.
+```bash|{type: 'command'}
+sudo systemctl start mongod
+```
+
+
+## Clone Services and Prepare Run Directory
 
 Clone Docable Notebooks repository:
 
@@ -50,11 +87,81 @@ Clone Docable Notebooks repository:
 git clone https://{{gh_user}}:{{gh_pass}}@github.com/ottomatica/ottomatica.services.git
 ```
 
-If already cloned, you can also pull latest changes. `TODO`.
+Prepare directory.
 
-
-Install npm dependencies:
-
-```bash|{type: 'command', failed_when: 'exitCode!=0'}
-cd ottomatica.services && npm install
+```bash|{type: 'command'}
+mkdir -p /srv/services/builds
 ```
+
+For cleanup:
+
+```bash|{type: 'command'}
+ls -l
+```
+
+```bash|{type: 'command'}
+rm -rf ~/ottomatica.services
+```
+
+
+
+## Deployment latest (except around midnight)
+
+Pull latest.
+
+```bash|{type: 'command', failed_when:'exitCode!=0'}
+cd ottomatica.services
+git pull
+```
+
+Checkout latest.
+
+```bash|{type: 'command'}
+cd ottomatica.services
+mkdir -p /srv/services/builds/$(date -d "today" +"%Y%m%d")
+git --work-tree=/srv/services/builds/$(date -d "today" +"%Y%m%d") checkout -f 
+```
+
+Examine builds.
+```bash|{type: 'command'}
+cd /srv/services/
+ls -R
+```
+
+#### Registration service 
+
+Install npm dependencies for registration service.
+
+```bash|{type: 'command'}
+cd /srv/services/builds/$(date -d "today" +"%Y%m%d")/registration
+npm install
+```
+
+Switch over prod link
+```bash|{type: 'command'}
+cd /srv/services/
+rm -f current
+ln -s builds/$(date -d "today" +"%Y%m%d") current
+```
+
+Examine
+```bash|{type: 'command'}
+ls -l /srv/services/
+```
+
+Start service.
+```bash|{type: 'command'}
+cd /srv/services/current/registration
+npm run deploy
+```
+
+List services running.
+```bash|{type: 'command'}
+pm2 list
+```
+
+Stop registration service.
+```bash|{type: 'command'}
+pm2 stop index
+```
+
