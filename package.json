@@ -27,7 +27,7 @@
   "devDependencies": {
     "cross-env": "^7.0.2",
     "nodemon": "^2.0.4",
-    "pino-pretty": "^4.1.0",
+    "pino-pretty": "^4.2.0",
     "pm2": "^4.4.1"
   },
   "dependencies": {
@@ -40,6 +40,7 @@
     "express": "^4.17.1",
     "express-pino-logger": "^5.0.0",
     "express-session": "^1.17.1",
+    "got": "^11.5.2",
     "infra.connectors": "github:ottomatica/infra.connectors",
     "js-yaml": "^3.14.0",
     "jsdom": "^16.4.0",
