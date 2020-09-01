@@ -67,13 +67,13 @@
             <tbody>
                 <tr>
                     <td>
-                        <input form="add_variable" name="slug" class="form-control" type="text" placeholder="slug" aria-label="Variable slug">
+                        <input name="slug" class="form-control" type="text" placeholder="slug" aria-label="Variable slug">
                     </td>
                     <td>
-                        <input form="add_variable" name="value" class="form-control" type="text" placeholder="*****" aria-label="Variable value">
+                        <input name="value" class="form-control" type="text" placeholder="*****" aria-label="Variable value">
                     </td>
                     <td>
-                        <input form="add_variable" name="isSecret" type="checkbox" class="form-check-input" >
+                        <input name="isSecret" type="checkbox" class="form-check-input" >
                     </td>
                     <td>
                         <a href="" class="add_variable">Add</a>
@@ -171,9 +171,9 @@
                     const {slug, value, isSecret, slugInput, valueInput, isSecretInput} = extractRowCells(this);
 
                     row.html(
-                        `<td><input form="update_variable" class="form-control" type='text' value="${slug.text().trim()}" name="slug"></td>` +
-                        `<td><input form="update_variable" class="form-control" type='text' value="${isSecretInput.prop('checked') ? '' : value.text().trim()}" name="value"></td>` +
-                        `<td><input form="update_variable" class="form-check-input" type="checkbox" name="isSecret" ${isSecretInput.prop('checked') ? 'checked disabled' : ''} > </td>` +
+                        `<td><input class="form-control" type='text' value="${slug.text().trim()}" name="slug"></td>` +
+                        `<td><input class="form-control" type='text' value="${isSecretInput.prop('checked') ? '' : value.text().trim()}" name="value"></td>` +
+                        `<td><input class="form-check-input" type="checkbox" name="isSecret" ${isSecretInput.prop('checked') ? 'checked disabled' : ''} > </td>` +
                         `<td><a href="" class="update_variable">Done</a></td>`
                     );
                 });
