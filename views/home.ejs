@@ -67,10 +67,16 @@
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <a class="navbar-brand" href="/">Docable</a>
 
+            <% if (user) { %>
+            <ul class="nav nav-fill ml-auto">
+                <li class="nav-item"><button class="btn btn-outline-light mr-2" onclick="window.location.href='/login'">My Account</button></li>
+            </ul>
+            <% } else { %>
             <ul class="nav nav-fill ml-auto">
                 <li class="nav-item"><button class="btn btn-outline-light mr-2" onclick="window.location.href='/login'">Login</button></li>
                 <li class="nav-item"><button class="btn btn-success mr-2" onclick="window.location.href='/register'">Register</button></li>
             </ul>
+            <% } %>
 
             <%- include('templates/docable_menu'); -%>
 

@@ -84,7 +84,10 @@ if (process.env.NODE_ENV == 'dev') {
         let github_imports = config.get('githubImports');
         let notebook_tree = await utils.getNotebookTree(notebook_dir);
 
-        res.render("home", { github_imports, notebook_tree });
+        let user;
+        if( req.session.user ) { user = {email: req.session.user.email}}
+
+        res.render("home", { github_imports, notebook_tree, user });
     });
 
     app.get('/variables', workspace_routes.variables);
