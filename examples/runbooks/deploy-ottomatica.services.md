@@ -103,6 +103,16 @@ ls -l
 rm -rf ~/ottomatica.services
 ```
 
+## Setup sendgrid token
+
+```bash|{type: 'file', path: '/etc/environment', variables: 'SENDGRID_TOKEN'}
+SENDGRID_TOKEN={{SENDGRID_TOKEN}}
+```
+
+Confirm (will be masked in output cell).
+```bash|{type: 'command'}
+cat /etc/environment
+```
 
 
 ## Deployment latest
@@ -168,3 +178,6 @@ Stop registration service.
 pm2 stop index
 ```
 
+```bash|{type: 'command'}
+cat ~/.pm2/logs/index-error.log
+```
