@@ -29,6 +29,8 @@ const notebook_routes = require('./lib/routes/notebook');
 const workspace_routes = require('./lib/routes/workspace');
 const user_routes = require('./lib/routes/user');
 
+const md5 = require('md5');
+ 
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
@@ -85,7 +87,12 @@ if (process.env.NODE_ENV == 'dev') {
         let notebook_tree = await utils.getNotebookTree(notebook_dir);
 
         let user;
-        if( req.session.user ) { user = {email: req.session.user.email}}
+        if( req.session.user ) 
+        { 
+            user = {email: req.session.user.email};
+            let hash = md5(user.email.toLowerCase());
+            user.gravatar = `https://www.gravatar.com/avatar/${hash}`;
+        }
 
         res.render("home", { github_imports, notebook_tree, user });
     });
