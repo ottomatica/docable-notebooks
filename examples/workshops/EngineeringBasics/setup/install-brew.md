@@ -42,6 +42,7 @@ Once everything is done, will we clean up a few things.
 
 ```bash|{type:'command'}
 rm -f ./brew.sh ./pw.sh
+brew cleanup
 ```
 
 [Next: Package Managers](../Package-managers.md)
