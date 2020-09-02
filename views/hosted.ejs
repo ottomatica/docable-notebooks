@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" class="h-100">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Docable Notebook</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <link rel="icon" 
+    type="image/png"
+    href="/media/favicon.png">
+
+    <link rel="stylesheet" href="/css/github-markdown.css">
+    <link rel="stylesheet" href="/css/notebook.css">
+    <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+    <script src="/js/font-awesome.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .form-register {
+            width: 100%;
+            max-width: 900px;
+            padding: 15px;
+            margin: auto;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column h-100">
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="/">Docable</a>
+
+        </nav>
+
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" id="main" class="form-register">
+
+        <h3>Create a Hosted Docable Server</h3>
+
+        <p class="mx-4">
+            <span class="lead">You can create a hosted server for publishing your notebooks.</span>
+        </p>
+
+        <div class="card w-75">
+            <div class="card-body">
+              <h5 class="card-title">Select server preferences</h5>
+              <p class="card-text">Your notebooks will be available at <code>https://[name].docable.io/[notebook-slug]</code>.
+              </p>
+              <label for="name">Subdomain name</label>
+              <input type="text" class="form-control" name="name" value="" placeholder="fierybashtips">
+
+            </div>
+        </div>
+
+        <div class="card w-75 mt-5">
+            <div class="card-body">
+              <h5 class="card-title">Select server tier</h5>
+              <p class="card-text">
+                  Depending on your notebook activity, you might need different levels of service.
+              </p>
+
+              <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Free</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Standard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Enterprise</a>
+                </li>
+              </ul>
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <ul>
+                        <li>3 months free hosted service.</li>
+                        <li>15 notebook hours per month.</li>
+                    </ul>
+
+                    <strong>Notebook hours</strong>, represent how much active usage your notebooks receive.
+                </div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                    ...
+                </div>
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    Please contact us.
+                </div>
+              </div>
+
+            </div>
+        </div>
+
+        <button class="btn btn-success btn-lg mt-5 w-75">Create Server</button>
+
+
+    </main>
+
+    <%- include('templates/footer_analytics'); -%>
+    
+</body>
+
+</html>
