@@ -49,7 +49,9 @@ function submitButtonSpinToggle() {
 
 $('#submit').click(function () {
 
-    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), name: exampleName }))
+    const pageVariables = getPageVariables();
+
+    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), name: exampleName, pageVariables }))
 
 });
 
@@ -103,6 +105,21 @@ function run(endPoint, body, stepIndex)
     }
 }
 
+function getPageVariables() {
+    let pageVariables = [];
+    $('.missingVariables').each(function (index, element) {
+
+        const slug = $(element).find('input[name="slug"').val();
+        const value = $(element).find('input[name="value"').val();
+        if (value) {
+            pageVariables.push({ slug, value });
+        }
+    });
+
+    return pageVariables;
+}
+
+
 function IsJsonString(str) {
     try {
         JSON.parse(str);
@@ -132,10 +149,12 @@ function processResults(data)
 
 $('main').on('click', '.play-btn', function () {
 
+    const pageVariables = getPageVariables();
+
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    run(runEndpoint == '/run' ? '/runCell' : '/runhosted', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex, name: exampleName }), stepIndex);
+    run(runEndpoint == '/run' ? '/runCell' : '/runhosted', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
 
 });
 
