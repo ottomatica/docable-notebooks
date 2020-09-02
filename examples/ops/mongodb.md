@@ -27,4 +27,14 @@ curl -H "Content-Type: application/json" -X POST --data '{"email":"d@e", "passwo
 curl -H "Content-Type: application/json" -X POST --data '{"email":"d@e", "name": "test account", "password":"password"}' localhost:3333/api/register
 ```
 
+Get:
+```
+curl -H "Content-Type: application/json" -H "Authorization: c1e36225-5978-432b-98a3-a6517a5eb1eb" -X GET localhost:3333/api/account
+```
+
+Update:
+```
+curl -H "Content-Type: application/json" -H "Authorization: c1e36225-5978-432b-98a3-a6517a5eb1eb" -X PUT --data '{"name":"bobe"}' localhost:3333/api/account
+```
+
 

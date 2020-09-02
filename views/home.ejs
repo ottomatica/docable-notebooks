@@ -50,18 +50,21 @@
             margin-left: 5px;
         }
 
-
-        .markdown-body .content-separator {
-            padding-left: .5em;
-            padding-right: .5em;
-            color: #C0C0C0;
+        /* override github markdown rule for li + li*/
+        .breadcrumb-item + .breadcrumb-item {
+            margin-top: 0;
         }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "|";
+        }
+
 
     </style>
 
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -86,11 +89,19 @@
     </header>
 
     <!-- Begin page content -->
-    <main role="main" id="main" class="flex-shrink-0 markdown-body">
+    <main role="main" id="main" class="markdown-body">
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/targets">Environments</a></li>
+              <li class="breadcrumb-item"><a href="/variables">Variables</a></li>
+              <li class="breadcrumb-item"><a href="/hosted">Hosted Notebooks</a></li>
+            </ol>
+        </nav>
+
+        <!-- <div><a href="/targets">Environments</a><span class="content-separator">|</span><a href="/variables">Variables</a></div> -->
 
         <h2>📓 Your Notebooks</h2>
-
-        <div><a href="/targets">Environments</a><span class="content-separator">|</span><a href="/variables">Variables</a></div>
 
         <div id="tree"></div>
         <script>

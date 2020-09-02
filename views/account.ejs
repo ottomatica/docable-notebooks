@@ -55,55 +55,65 @@
         <div class="p-5">
 
             <div class="row mb-5">
-   
-                <div class="col-sm-6">
-                    <div class="rounded border border-success p-5">
-                        <h4>Account Features</h4>
-                        <ul>
+
+                <div class="card w-50">
+                    <div class="card-header text-center">
+                      Your Account Features
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Basic</h5>
+                        <ul class="card-text">
                             <li>Publish Notebooks</li>
                             <li>Unlimited Storage</li>
-                            <li>Docker Connector</li>
                             <li>Digitial Ocean Hosting</li>
                             <li>Custom Domain Name</li>
                             <li>Customer Support</li>                                                                                                                
                         </ul>
-                        <button type="button" class="btn btn-lg btn-success">Add More Features</button>
+                        <div class="text-center">
+                            <a href="#" class="btn btn-success">Get More Features</a>
+                        </div>                        
                     </div>
                 </div>
             </div>
 
-            <form class="rounded-top border border-secondary p-5" id="accountForm" action="/account" method="POST" class="row">
+            <div class="row">
 
-                <h4>Settings</h4>
+                <div class="card  w-100">
+                    <div class="card-header text-center">
+                        Update Your Settings
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">Settings</h5>
+                      <form class="" id="accountForm" action="/account" method="POST" class="row">
+        
+                        <div class="form-group">
+                          <label for="emailaddress">Email address</label>
+                          <input type="email" class="form-control" name="emailaddress" aria-describedby="emailHelp" placeholder="your@email.com" value="<%- user.email %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" value="<%- user.name %>" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" value="" placeholder="Password">
+                        </div>
+                        <div class="checkbox mb-3">
+                            <label>
+                              <input type="checkbox" name="subscribe" id="subscribe"> Send me important emails about Docable.
+                            </label>
+                        </div>
+        
+                        <div class="text-center">
+                           <button type="submit" class="btn btn-secondary">Update</button>
+                        </div>                
+                    </form>
+                    </div>
+                  </div>
+            </div>
 
-                <div class="form-group">
-                  <label for="emailaddress">Email address</label>
-                  <input type="email" class="form-control" name="emailaddress" aria-describedby="emailHelp" placeholder="your@email.com" value="<%- user.email %>">
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Your Name">
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
-                <div class="checkbox mb-3">
-                    <label>
-                      <input type="checkbox" name="subscribe" id="subscribe"> Send me important emails about Docable.
-                    </label>
-                </div>
 
-                <div class="text-center">
-                   <button type="submit" class="btn btn-secondary">Update</button>
-                </div>                
-            </form>
-
-            <p>Please review our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a> before registering.</p>
-
-            <div>Already a member? <a href="/login">Login here</a>.</div>
-            <div>Didn't receive <a href="">confirmation instructions</a>?</div>
-            <div>Didn't receive <a href="">unlock instructions?</a></div>
+            <p>Please review our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a>.</p>
         </div>
         
     </main>

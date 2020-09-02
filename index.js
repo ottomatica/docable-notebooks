@@ -28,6 +28,7 @@ const express = require("express");
 const notebook_routes = require('./lib/routes/notebook');
 const workspace_routes = require('./lib/routes/workspace');
 const user_routes = require('./lib/routes/user');
+const hosted_routes = require('./lib/routes/hosted');
 
 const md5 = require('md5');
  
@@ -121,15 +122,12 @@ if (process.env.NODE_ENV == 'dev') {
 
 }
 
-app.post('/account', user_routes.account );
-app.get('/account', function(req, res) { 
+app.post('/hosted/publish', hosted_routes.publish );
+app.post('/hosted', hosted_routes.updateHosted );
+app.get('/hosted', hosted_routes.getHosted);
 
-    if( !req.session.user ) {res.redirect("/login");}
-    else
-    {
-        res.render("account", {user: req.session.user});
-    }
-});
+app.post('/account', user_routes.updateAccount );
+app.get('/account', user_routes.getAccount);
 
 app.post('/login', user_routes.login );
 app.get('/login', function(req, res) { res.render("login", {});} );
