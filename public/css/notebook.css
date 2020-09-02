@@ -1,3 +1,21 @@
+footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0 !important;
+    min-height: 100%;
+    padding-top: 56px;
+}
+
 /* https://fransdejonge.com/wp-content/uploads/2010/01/sidenotes.html */
 .sideAnnotation {
     float: none;
@@ -232,10 +250,9 @@ main {
 } */
 
 .markdown-body {
-    padding: 30px;
     margin: 0 auto;
     position: relative;
-    width: 90%;
+    width: 80%;
     /* flex: 1 1 100%; */
 }
 
@@ -250,3 +267,4 @@ main {
 tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
     border-color: red !important;
 }
+
