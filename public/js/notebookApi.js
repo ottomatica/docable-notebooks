@@ -21,7 +21,7 @@ function setEnvironment(id) {
 
 
 function executeCells(endPoint, body) {
-    
+
     return fetch(endPoint, {
         method: 'POST',
         mode: 'cors',
