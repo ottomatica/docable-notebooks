@@ -12,7 +12,7 @@ setup:
 Download certbot:
 
 ```bash|{type: 'command'}
-wget https://dl.eff.org/certbot-auto
+wget https://dl.eff.org/certbot-auto --show-progress --progress=bar:force 2>&1
 ```
 
 Give execution permission to certbot script:
@@ -21,11 +21,32 @@ Give execution permission to certbot script:
 chmod a+x certbot-auto
 ```
 
+Install dependencies:
+
+```bash|{type: 'command', user: 'root', variables: 'YOUR_WEBSITE_HERE'}
+apt-get install python3-venv -y
+```
+
 Fetch your certificates using certbot:
 
 ```bash|{type: 'command', user: 'root', variables: 'YOUR_WEBSITE_HERE'}
-./certbot-auto --debug -v certonly --nginx -d {{YOUR_WEBSITE_HERE}}
+USE_PYTHON_3=1 ./certbot-auto --debug -v certonly --nginx -d {{YOUR_WEBSITE_HERE}} --no-bootstrap
 ```
+
+Note, currently, we need to specify `USE_PYTHON_3=1` so that we use python3 on our system, and `--no-bootstrap`, so certbot-auto doesn't try to install python2 version of dependencies.
+
+`TODO`: Current need to specific a prompt response to this:
+
+> Enter email address (used for urgent renewal and security notices)
+> (Enter 'c' to cancel):
+
+Also this:
+
+> (A)gree/(C)ancel:
+
+And:
+
+> (Y)es/(N)o:
 
 -----
 
