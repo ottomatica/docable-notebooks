@@ -29,7 +29,7 @@ Docable cells can be edited and run again.
 
 ### Creating file content, using variables, and more.
 
-Docable has designed after [studying over 600 online tutorials](http://chrisparnin.me/pdf/docable_FSE_20.pdf) and discovering issues that contribute to poor learner experiences. We've designed a few additional features that smooth over these issues for tutorial takers and authors.
+Docable has been designed after [studying over 600 online tutorials](http://chrisparnin.me/pdf/docable_FSE_20.pdf) and discovering issues that contribute to poor learner experiences. We've designed a few additional features that smooth over these issues for tutorial takers and authors.
 
 One of the most common problem was the numerous and inconsistent ways tutorials asked someone to edit a file on a server.
 Docable _file cells_ take care of creating paths, setting file permissions and owners, and filling in variable content—with a simple click.
@@ -90,6 +90,6 @@ Docable has different connectors to run against different kinds of environments.
 
 * **local**: The default environment is your local computer.
 * **Docker**: If there is a running docker service, Docable can create a container to run operations in.
-* **ssh**: Any virtual machine, created locally, or remotely can be targetted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
+* **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
 
 
