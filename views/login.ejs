@@ -67,13 +67,16 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-    <form class="form-signin" action="/login" method="POST">
+    <form id="login-form" class="form-signin" action="/login">
       <h3 class="docable">Docable Notebooks</h3>
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
       <label for="inputPassword" class="sr-only">Password</label>
       <input type="password" name="inputPassword" class="form-control" placeholder="Password" required="">
+      <div class="invalid-feedback">
+        The username and password you entered doesn't match any account. Sign up for an account <a href="/register">here</a>.
+      </div>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
@@ -84,6 +87,30 @@
 
     <%- include('templates/footer_analytics'); -%>
    
+    <script>
+      $('#login-form').submit(function (e) {
+        e.preventDefault();
+
+        let form = $(this);
+
+        $.ajax({
+            url: '/login', 
+            type: 'POST',
+            data: form.serialize(),
+            success: function (data) {
+              console.log(data);
+            },
+            error: function(data) {
+              console.log('err:', data.responseJSON.error.body);
+              // if(data.responseJSON.error.body.includes('not found'))
+                $('input').addClass('is-invalid')
+            }
+        });
+
+      })
+    </script>
 </body>
+
+
 
 </html>
