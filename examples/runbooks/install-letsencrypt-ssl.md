@@ -54,12 +54,6 @@ And:
 
 This certificate usually expires in 90 days, so you will need to renew it once in awhile. 
 
-To do this first you should stop nginx:
-
-```bash|{type: 'command'}
-sudo systemctl stop nginx
-```
-
 Renew the certificate using certbot:
 
 ```bash|{type: 'command'}
@@ -69,7 +63,7 @@ Renew the certificate using certbot:
 And the re-start nginx:
 
 ```bash|{type: 'command'}
-sudo systemctl start nginx
+nginx -t && nginx -s reload
 ```
 
 Now your certificate should be valid for another 90 days!

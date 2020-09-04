@@ -80,3 +80,21 @@ Test configuration and reload nginx service.
 ```bash|{type: 'command', failed_when: 'exitCode!=0'}
 nginx -t && nginx -s reload
 ```
+
+## Deploy Site
+
+```bash|{type: 'command', variables: 'gh_user,gh_pass', failed_when:'exitCode!=0'}
+git clone https://{{gh_user}}:{{gh_pass}}@github.com/ottomatica/ottomatica.io.git
+```
+
+```bash|{type: 'command', failed_when:'exitCode!=0'}
+cd ottomatica.services
+git pull
+```
+
+Checkout latest into staging directory.
+
+```bash|{type: 'command'}
+cd ottomatica.io
+git --work-tree=/var/www/html checkout -f 
+```
