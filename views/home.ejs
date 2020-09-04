@@ -130,31 +130,12 @@
                 },                
                 });
                 
-                // $('#tree a').on('click', function(event){
-                //     var node = $.ui.fancytree.getNode(event);
-                //     alert("click" + node);
-                // });
-
                 var node = $.ui.fancytree.getTree("#tree").getRootNode();
 			    node.sortChildren(sortFn, true);
 
             });
 
         </script>
-
-        <% if (github_imports && github_imports.length > 0) { %>
-
-        <h2>Github Projects</h2>
-
-        <ul>
-            <% for(var i=0; i < github_imports.length; i++) { %>
-               <li>
-                 <a href="<%- '/github/?notebook=' + github_imports[i] %>"><%= github_imports[i] %></a>
-               </li>
-            <% } %>
-        </ul>
-
-        <% } %>
 
     </main>
 
