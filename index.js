@@ -139,34 +139,15 @@ app.get('/targets', workspace_routes.targets);
 app.post('/addTarget', workspace_routes.addTarget);
 app.post('/deleteTarget', workspace_routes.deleteTarget);
 
-app.post('/runhosted', notebook_routes.runHosted);
 
-// render specific example
-app.get('/examples/:name', workspace_routes.get_hosted_notebook);
 
-// get list of available examples
-app.get('/getexamples', async function (req, res) {
-    const examples = (await utils.getExamples()).map(example => path.basename(example, '.md'));
-
-    res.setHeader('Content-Type', 'application/json');
-    res.send(examples);
-});
-
-// get specific example
-app.get('/getexamples/:name', async function (req, res) {
-    const name = req.params.name;
-    try {
-        logger.info(`Finding example: ./examples/${name}.md`);
-        const example = await utils.getExamples(name);
-        res.setHeader('Content-Type', 'text/plain');
-        res.send(example);
-    }
-    catch (err) {
-        logger.warn(err);
-        res.status(404);
-        res.send(`Example ${name} not found!`);
-    }
-});
+if(process.env.NODE_ENV == 'dev') {
+    const examples_routes = require('./lib/hosted/routes/examples');
+    app.post('/runhosted', examples_routes.runHosted);
+    app.get('/examples/:name', examples_routes.get_hosted_notebook);
+    app.get('/getexamples', examples_routes.get_examples);
+    app.get('/getexamples/:name', examples_routes.get_example);
+}
 
 app.listen(port, async () => {
     const conn = Connectors.getConnector('docker', 'foo');

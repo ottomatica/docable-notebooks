@@ -1,0 +1,3 @@
+[submodule "lib/hosted"]
+	path = lib/hosted
+	url = git@github.com:ottomatica/docable-notebooks.hosted.git
