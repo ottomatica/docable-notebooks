@@ -60,7 +60,7 @@ Renew the certificate using certbot:
 ./certbot-auto renew
 ```
 
-And the re-start nginx:
+And then re-start nginx:
 
 ```bash|{type: 'command'}
 nginx -t && nginx -s reload
