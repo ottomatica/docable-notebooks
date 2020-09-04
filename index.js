@@ -28,7 +28,6 @@ const express = require("express");
 const notebook_routes = require('./lib/routes/notebook');
 const workspace_routes = require('./lib/routes/workspace');
 const user_routes = require('./lib/routes/user');
-const hosted_routes = require('./lib/routes/hosted');
 
 const md5 = require('md5');
  
@@ -120,10 +119,6 @@ if (process.env.NODE_ENV == 'dev') {
 
 }
 
-app.post('/hosted/publish', hosted_routes.publish );
-app.post('/hosted', hosted_routes.updateHosted );
-app.get('/hosted', hosted_routes.getHosted);
-
 app.post('/account', user_routes.updateAccount );
 app.get('/account', user_routes.getAccount);
 
@@ -145,6 +140,11 @@ if(process.env.NODE_ENV == 'prod') {
     app.get('/examples/:name', examples_routes.get_hosted_notebook);
     app.get('/getexamples', examples_routes.get_examples);
     app.get('/getexamples/:name', examples_routes.get_example);
+
+    const hosted_routes = require('./lib/hosted/routes/hosted');
+    app.post('/hosted/publish', hosted_routes.publish );
+    app.post('/hosted', hosted_routes.updateHosted );
+    app.get('/hosted', hosted_routes.getHosted);
 }
 
 app.listen(port, async () => {
