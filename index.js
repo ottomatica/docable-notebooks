@@ -141,7 +141,7 @@ app.post('/deleteTarget', workspace_routes.deleteTarget);
 
 
 
-if(process.env.NODE_ENV == 'dev') {
+if(process.env.NODE_ENV == 'prod') {
     const examples_routes = require('./lib/hosted/routes/examples');
     app.post('/runhosted', examples_routes.runHosted);
     app.get('/examples/:name', examples_routes.get_hosted_notebook);
