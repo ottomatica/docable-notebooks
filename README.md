@@ -29,7 +29,7 @@ Docable cells can be edited and run again.
 
 ### Creating file content, using variables, and more.
 
-Docable has designed after [studying over 600 online tutorials](http://chrisparnin.me/pdf/docable_FSE_20.pdf) and discovering issues that contribute to poor learner experiences. We've designed a few additional features that smooth over these issues for tutorial takers.
+Docable has designed after [studying over 600 online tutorials](http://chrisparnin.me/pdf/docable_FSE_20.pdf) and discovering issues that contribute to poor learner experiences. We've designed a few additional features that smooth over these issues for tutorial takers and authors.
 
 One of the most common problem was the numerous and inconsistent ways tutorials asked someone to edit a file on a server.
 Docable _file cells_ take care of creating paths, setting file permissions and owners, and filling in variable content—with a simple click.
@@ -68,4 +68,17 @@ choco install figlet-go -y
 
 ## Installing and Running Docable Notebooks
 
-To install 
+
+Simply clone this repository.
+```bash|{type: 'command'}
+git clone https://github.com/ottomatica/docable-notebooks/
+```
+
+Install dependencies and start server.
+```bash|{type: 'command'}
+npm install
+npm run dev
+```
+
+Your Docable Notebooks can be interacted with at http://localhost:3000.
+
