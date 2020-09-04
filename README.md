@@ -1,13 +1,22 @@
-# Docable Notebooks
+# Docable
 
-Create a VM to host the server and execute the notebook:
+> Next-Generation Interactive Notebooks
 
-```bash
-bakerx run
+`docable` will create an interactive notebook from a Markdown file. Docable works by translating markdown files into interactive cells, which can be run, edited, and shared.
+
+This results in a literate programming environment for markdown files. Markdown files remain  100% compatiable and render normally on GitHub, etc. If done properly, Docable can allow you to design and build interactive tutorials, interactive education and training materials, and simple infrastructure runbooks.
+
+## Using a Docable Notebook
+
+With docable, your markdown will be translated from this:
+
+`figlet` will translate the given text into an ascii banner. Try it out!
+
+```bash|{type: 'command'}
+figlet docable
 ```
 
-### Try a PoC demo
+**Into this**:
 
-Open http://192.168.33.33:3000/ in your browser, click on "browse", upload [`./resources/steps.yml`](./resources/steps.yml), and click on "Run Notebook" button.
+![figlet-demo](docs/img/docable-figlet.gif)
 
-![PoC](https://user-images.githubusercontent.com/9158546/85505163-b3e71880-b5bb-11ea-9564-3371984a9b7c.gif)
