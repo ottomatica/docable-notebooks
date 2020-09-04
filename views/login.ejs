@@ -98,13 +98,13 @@
             type: 'POST',
             data: form.serialize(),
             success: function (data) {
-              console.log(data);
+              window.location.replace('/');
             },
             error: function(data) {
-              console.log('err:', data.responseJSON.error.body);
               // if(data.responseJSON.error.body.includes('not found'))
                 $('input').addClass('is-invalid')
-            }
+            },
+            async: true
         });
 
       })
