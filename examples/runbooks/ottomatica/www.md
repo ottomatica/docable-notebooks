@@ -27,51 +27,38 @@ Set nginx configuration. Remember to define `{{DOMAIN}}` variable.
 
 ```nginx|{type: 'file', path: '/etc/nginx/sites-available/default', variables: 'DOMAIN'}
 server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
     server_name www.{{DOMAIN}} {{DOMAIN}};
-    return 301 $scheme://{{DOMAIN}}$request_uri;
-}
 
-server {
-    listen 443 ssl;
-    ssl_certificate /etc/letsencrypt/live/www.{{DOMAIN}}/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/www.{{DOMAIN}}/privkey.pem; # managed by Certbot
-    server_name www.{{DOMAIN}};
-    return 301 https://{{DOMAIN}}$request_uri;
-}
+    # SSL configuration
+    listen 443 ssl default_server;
 
-server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
+    ssl_certificate /etc/letsencrypt/live/{{DOMAIN}}/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/{{DOMAIN}}/privkey.pem; # managed by Certbot
 
-        # SSL configuration
-        #
-        listen 443 ssl default_server;
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
 
-        ssl_certificate /etc/letsencrypt/live/{{DOMAIN}}/fullchain.pem; # managed by Certbot
-        ssl_certificate_key /etc/letsencrypt/live/{{DOMAIN}}/privkey.pem; # managed by Certbot
+    # Redirect non-https traffic to https
+    if ($scheme != "https") {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
 
-        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    # Note: You should disable gzip for SSL traffic.
+    # See: https://bugs.debian.org/773332
+    #
+    root /var/www/html;
 
-        # Redirect non-https traffic to https
-        if ($scheme != "https") {
-            return 301 https://$host$request_uri;
-        } # managed by Certbot
+    # Add index.php to the list if you are using PHP
+    index index.html index.htm index.nginx-debian.html;
 
-        # Note: You should disable gzip for SSL traffic.
-        # See: https://bugs.debian.org/773332
-        #
-        root /var/www/html;
+    server_name _;
 
-        # Add index.php to the list if you are using PHP
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-
-        location / {
-                # First attempt to serve request as file, then
-                # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
-        }
+    location / {
+            # First attempt to serve request as file, then
+            # as directory, then fall back to displaying a 404.
+            try_files $uri $uri/ =404;
+    }
 }
 ```
 
