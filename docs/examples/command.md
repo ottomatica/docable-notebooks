@@ -1,8 +1,3 @@
-<!-- 
-setup:
-    docker: command-example
--->
-
 # Simple command
 
 List the current directory contents.
