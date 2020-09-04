@@ -36,7 +36,7 @@ Docable _file cells_ take care of creating paths, setting file permissions and o
 
 ![docable-file](docs/img/docable-file.png)
 
-More features have been developed, which can be explored by seeing the [documentation examples](examples/).
+More features have been developed, which can be explored by seeing the [documentation examples](docs/examples/).
 
 ## Creating and Viewing Notebooks
 
