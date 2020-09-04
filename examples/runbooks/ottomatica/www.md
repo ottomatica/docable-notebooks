@@ -88,7 +88,7 @@ git clone https://{{gh_user}}:{{gh_pass}}@github.com/ottomatica/ottomatica.io.gi
 ```
 
 ```bash|{type: 'command', failed_when:'exitCode!=0'}
-cd ottomatica.services
+cd ottomatica.io
 git pull
 ```
 
@@ -97,4 +97,8 @@ Checkout latest into staging directory.
 ```bash|{type: 'command'}
 cd ottomatica.io
 git --work-tree=/var/www/html checkout -f 
+```
+
+```bash|{type: 'command'}
+ls -l /var/www/html 
 ```
