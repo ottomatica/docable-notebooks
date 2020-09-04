@@ -77,11 +77,13 @@ cd ottomatica.io
 git pull
 ```
 
-Checkout latest into staging directory.
+Checkout latest into staging directory. Copy www to nginx serve directory
 
 ```bash|{type: 'command'}
 cd ottomatica.io
-git --work-tree=/var/www/html checkout -f 
+mkdir -p /srv/
+git --work-tree=/srv checkout -f 
+cp -a /srv/www/. /var/www/html
 ```
 
 ```bash|{type: 'command'}
