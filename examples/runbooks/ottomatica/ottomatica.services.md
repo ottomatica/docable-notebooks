@@ -179,5 +179,5 @@ pm2 stop index
 ```
 
 ```bash|{type: 'command'}
-cat ~/.pm2/logs/index-error.log
+tail ~/.pm2/logs/index-error.log -n 200
 ```
