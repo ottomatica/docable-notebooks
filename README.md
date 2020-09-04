@@ -90,6 +90,6 @@ Docable has different connectors to run against different kinds of environments.
 
 * **local**: The default environment is your local computer.
 * **Docker**: If there is a running docker service, Docable can create a container to run operations in.
-* **ssh**: Any virtual machine, created locally, or remotely can be targetted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
+* **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
 
 
