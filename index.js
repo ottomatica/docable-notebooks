@@ -82,8 +82,6 @@ if (process.env.NODE_ENV == 'dev') {
     logger.info(`Enabling arbitrary md in /notebooks`);
 
     app.get('/', async function (req, res) {
-        // let notebooks = await utils.getNotebookList(notebook_dir);
-        // let notebooks_urls = notebooks.map( nb => `/notebooks/${utils.notebook2slug(nb)}`);
         let github_imports = config.get('githubImports');
         let notebook_tree = await utils.getNotebookTree(notebook_dir);
 
