@@ -35,12 +35,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.glyph.js"></script>
-
     <style>
         .markdown-body ul.fancytree-container {
           border: none;
         }
-        .markdown-body ul.fancytree-container .fa-folder {
+        .markdown-body ul.fancytree-container .fa-folder, .fa-folder-open {
             color: #28a745;
             margin-left: 5px;
         }
@@ -48,6 +47,11 @@
         .markdown-body ul.fancytree-container .fa-book-open {
             color: #C0C0C0;
             margin-left: 5px;
+        }
+
+        .fancytree-plain span.fancytree-active span.fancytree-title,
+        .fancytree-plain.fancytree-treefocus.fancytree-container span.fancytree-active pan.fancytree-title{
+            background-color: #e3e3e3;
         }
 
         /* override github markdown rule for li + li*/
@@ -102,6 +106,10 @@
 
         <h2>📓 Your Notebooks</h2>
 
+        <!-- <div class="tree-actions">
+            <button onclick="addFolder()"><i class="fas fa-folder-plus"></i></button>
+            <i class="far fa-plus-square"></i>
+        </div>         -->
         <div id="tree"></div>
         <script>
 
@@ -116,24 +124,32 @@
                 $("#tree").fancytree({
                 source: <%- JSON.stringify(notebook_tree) %>,
                 checkbox: false,
-                extensions: ["glyph"],
+                selectMode: 3,
+                extensions: [ "glyph"],
                 glyph: {
                     // The preset defines defaults for all supported icon types.
                     // It also defines a common class name that is prepended (in this case 'fa ')
-                        preset: "awesome5",
-                        map: {
+                    preset: "awesome5",
+                    map: {
                         // Override distinct default icons here
                         folder: "fas fa-folder",
-                        folderOpen: "fas fa-folder-open",
+                        folderOpen: "fas fa-folder",
+                        // folderOpen: "fas fa-folder-open",
                         doc: "fas fa-book-open"
                     }
-                },                
+                }            
                 });
                 
-                var node = $.ui.fancytree.getTree("#tree").getRootNode();
-			    node.sortChildren(sortFn, true);
+                var root = $.ui.fancytree.getTree("#tree").getRootNode();
+			    root.sortChildren(sortFn, true);
 
+                // root.visit(function(node){
+                //     if(node.getLevel() < 1) {
+                //         node.setExpanded(true);
+                //     }
+                // });
             });
+
 
         </script>
 
