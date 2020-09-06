@@ -34,6 +34,9 @@ const md5 = require('md5');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
+const open = require("open");
+const openEditor = require("open-editor");
+
 const utils = require('./lib/utils');
 
 const Connectors = require('infra.connectors');
@@ -132,6 +135,28 @@ app.get('/targets', workspace_routes.targets);
 app.post('/addTarget', workspace_routes.addTarget);
 app.post('/deleteTarget', workspace_routes.deleteTarget);
 
+app.post("/workspace/open", function(req, res)
+{
+    let dir = req.body.dir;
+    if( dir === "" )
+    {
+        open(notebook_dir);
+    }
+    else {
+        open(dir);
+    }
+});
+
+app.post("/workspace/edit", function(req, res)
+{
+    let dir = req.body.key;
+    let dirToOpen = dir != "" ? dir : notebook_dir;
+    console.log(dirToOpen, dir)
+    openEditor([dirToOpen], {editor: 'vscode'});
+
+    // const {defaultEditor, getEditor, allEditors} = require('env-editor');
+    // console.log( getEditor('vscode') );
+});
 
 
 if(process.env.NODE_ENV == 'prod') {

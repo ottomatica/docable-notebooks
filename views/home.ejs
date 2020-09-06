@@ -30,6 +30,7 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
+    <script src="/js/workspaceApi.js"></script>
     <script src="/js/font-awesome.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
@@ -116,7 +117,7 @@
         <h2>📓 Your Notebooks</h2>
 
         <div class="tree-actions">
-            <button type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open Folder in System">
+            <button id="btn-openFolder" type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open Folder in System">
                 <i class="far fa-folder-open"></i>
             </button>
             <button id="btn-vscode" type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open in Visual Code">
@@ -161,15 +162,41 @@
                 });
                 
                 var root = $.ui.fancytree.getTree("#tree").getRootNode();
-			    root.sortChildren(sortFn, true);
-
+                root.sortChildren(sortFn, true);
+                
                 // root.visit(function(node){
                 //     if(node.getLevel() < 1) {
                 //         node.setExpanded(true);
                 //     }
                 // });
-            });
 
+                $('#btn-openFolder').click(function()
+                {
+                    var tree = $.ui.fancytree.getTree("#tree");
+                    let node = tree.getActiveNode();
+                    let dir="";
+                    if( node )
+                    {
+                        dir = node.key;
+                    }
+                    openDir(dir);
+                    
+                });
+
+                $('#btn-vscode').click(function()
+                {
+                    var tree = $.ui.fancytree.getTree("#tree");
+                    let node = tree.getActiveNode();
+                    let dir="";
+                    if( node )
+                    {
+                        dir = node.key;
+                    }
+                    openEditor(dir);
+                    
+                });
+
+            });
 
         </script>
 
