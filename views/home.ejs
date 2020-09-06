@@ -124,7 +124,6 @@
             </button>
             <button id="btn-vscode" type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open in Visual Code">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" version="1.1" viewBox="0 0 300 300">
-                    <title>BrandVisualStudioCode</title>
                     <path class="icon-canvas-transparent" d="m21.356 278.24v19.119h-19.119v-19.119z" opacity="0" stroke-width=".79661"/>
                     <path class="icon-path" d="m218.62 29.953-105.41 96.92-58.909-44.403l-24.346 14.17 58.068 53.359-58.068 53.359 24.346 14.212 58.909-44.402 105.41 96.878 51.424-24.976v-190.14zm0 63.744v112.6l-74.719-56.302z" fill="#000" stroke-width="17.15"/>
                 </svg>                
@@ -160,7 +159,19 @@
                         // folderOpen: "fas fa-folder-open",
                         doc: "fas fa-book-open"
                     }
-                }            
+                },
+                keydown: function(event, data) {
+                    const ENTER_KEY = 13;
+                    if( event.which === ENTER_KEY ) {
+                        console.log( data.node.data );
+                        if( data.node.data.href )
+                        {
+                            window.location = data.node.data.href;                                
+                            return false;
+                        }
+                    }
+                }
+        
                 });
                 
                 var root = $.ui.fancytree.getTree("#tree").getRootNode();
