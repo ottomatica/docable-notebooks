@@ -5,24 +5,30 @@ setup:
 
 # Using variables
 
-This runs successfully if you have created a variable called `foo`. You can manage variables on [/variables](/secrets).
+This runs successfully if you have created a variable called `foo`.
 
 ```bash|{type:'command', variables: 'foo'}
 echo "{{foo}} world"
 ```
 
-This fails, because the annotation specifies `secrets: 'foo,bar`, however a secret with this slug does not exit.
+If `bar` is not defined, an error will be displayed. 
 
-```bash|{type:'command', variables: 'foo,bar'}
-echo "foo {{bar}}"
+```bash|{type:'command', variables: 'bar'}
+echo "hello {{bar}}"
 ```
 
-Create file with variable content.
+Define `bar` in the box at the top of the page and try to run again. 
+You can also manage variables available in any notebook at [/variables](/variables).
 
-```bash|{type:'file', variables: 'bar', path: 'myfile.txt'}
+### Create file with variable content.
+
+You can also use variables inside `file` cells, which allow you to use notebooks for your custom content.
+
+```ini|{type:'file', variables: 'bar', path: 'myfile.txt'}
 USER={{bar}}
 ```
 
 ```bash|{type:'command'}
 cat myfile.txt
 ```
+
