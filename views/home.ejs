@@ -25,6 +25,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
@@ -44,7 +45,7 @@
             outline: none;
         }
 
-        .markdown-body ul.fancytree-container .fa-folder, .fa-folder-open {
+        .markdown-body ul.fancytree-container .fa-folder {
             color: #28a745;
             margin-left: 5px;
         }
@@ -68,6 +69,9 @@
             content: "|";
         }
 
+        .tree-actions #btn-vscode:hover svg .icon-path {
+            fill: white;
+        }
 
     </style>
 
@@ -111,10 +115,19 @@
 
         <h2>📓 Your Notebooks</h2>
 
-        <!-- <div class="tree-actions">
-            <button onclick="addFolder()"><i class="fas fa-folder-plus"></i></button>
-            <i class="far fa-plus-square"></i>
-        </div>         -->
+        <div class="tree-actions">
+            <button type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open Folder in System">
+                <i class="far fa-folder-open"></i>
+            </button>
+            <button id="btn-vscode" type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open in Visual Code">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" version="1.1" viewBox="0 0 300 300">
+                    <title>BrandVisualStudioCode</title>
+                    <path class="icon-canvas-transparent" d="m21.356 278.24v19.119h-19.119v-19.119z" opacity="0" stroke-width=".79661"/>
+                    <path class="icon-path" d="m218.62 29.953-105.41 96.92-58.909-44.403l-24.346 14.17 58.068 53.359-58.068 53.359 24.346 14.212 58.909-44.402 105.41 96.878 51.424-24.976v-190.14zm0 63.744v112.6l-74.719-56.302z" fill="#000" stroke-width="17.15"/>
+                </svg>                
+            </button>
+        </div>
+
         <div id="tree"></div>
         <script>
 
@@ -126,6 +139,8 @@
 
             $(document).ready(function()
             {
+                $('[data-toggle="tooltip"]').tooltip()
+
                 $("#tree").fancytree({
                 source: <%- JSON.stringify(notebook_tree) %>,
                 checkbox: false,
