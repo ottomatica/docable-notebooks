@@ -32,3 +32,13 @@ USER={{bar}}
 cat myfile.txt
 ```
 
+### Defining variables
+
+To declare a variable, simply provide the name in a comma-seperated list. Then inside the cell body, you can refer to the variable 
+using `{{variable-name}}`.
+
+~~~bash
+```bash|{type:'command', variables: 'foo, bar'}
+echo "{{foo}} world"
+```
+~~~
