@@ -151,8 +151,13 @@ app.post("/workspace/edit", function(req, res)
 {
     let dir = req.body.key;
     let dirToOpen = dir != "" ? dir : notebook_dir;
-    console.log(dirToOpen, dir)
-    openEditor([dirToOpen], {editor: 'vscode'});
+
+    dirToOpen = path.resolve(dirToOpen);
+
+    console.log(dirToOpen, dir, typeof(dirToOpen) )
+    let results = openEditor.make([dirToOpen+":1:1"], {editor: 'vscode'});
+    console.log( results );
+    require('child_process').spawn(results.binary + " " + results.arguments.join(" "), {shell: true})
 
     // const {defaultEditor, getEditor, allEditors} = require('env-editor');
     // console.log( getEditor('vscode') );
