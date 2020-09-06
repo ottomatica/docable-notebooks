@@ -1,17 +1,11 @@
 <% if(variables.length > 0 || missingVariables.length > 0 || sessionVariables.length > 0) { %>
 
-<div class="card">
+<div class="card border-0">
     <div class="card-body">
-        <h5 class="card-title">This notebook uses variables that need to be filled in:</h5>
+        <h6 class="card-title"><em>This notebook uses variables that need to be filled in</em>:</h6>
         <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
 
         <table class="table table-sm  table-bordered" id="variablesTable" style="text-align: center;">
-            <thead>
-                <tr>
-                    <th>Slug</th>
-                    <th>Variable</th>
-                </tr>
-            </thead>
             <tbody>
 
                 <% variables.forEach(v => { %>
