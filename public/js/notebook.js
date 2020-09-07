@@ -45,6 +45,10 @@ let running = false;
 function submitButtonSpinToggle() {
     running = !running;
     $('#submit-button').toggleClass('spinner-border spinner-border-sm');
+    if( running == false )
+    {
+        $('[data-docable="true"]').removeClass('docable-cell-running');
+    }
 }
 
 $('#submit').click(function () {
@@ -153,6 +157,8 @@ $('main').on('click', '.play-btn', function () {
 
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
     let cell = $('[data-docable="true"]').eq(stepIndex);
+
+    cell.addClass( "docable-cell-running" );
 
     run(runEndpoint == '/run' ? '/runCell' : '/runhosted', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
 
