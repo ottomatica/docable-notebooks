@@ -56,7 +56,7 @@
 
             <p class="lead text-center">Create a user account to gain access to exclusive features, cloud storage, and more.</p>
 
-            <form class="card p-3 bg-light" id="register-form" action="/register" method="POST" class="row">
+            <form class="card p-3 bg-light" id="register-form" action="/register" class="row">
 
                 <div class="form-group">
                   <label for="emailaddress">Email address</label>
@@ -102,7 +102,32 @@
                 type: 'POST',
                 data: form.serialize(),
                 success: function (data) {
-                    window.location.replace('/');
+
+                    const subscribe = $('[name="subscribe"').prop('checked');
+                    const email = $('[name="emailaddress"').val();
+
+                    if (subscribe) {
+                        $.ajax({
+                            url: 'https://buttondown.email/api/emails/subscribers/',
+                            type: 'POST',
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            data: JSON.stringify({
+                                email,
+                                referrer_url: 'docable.cloud',
+                                newsletter: '83c0ce6e-34f2-47c5-b638-62e53f32b2ca'
+                            }),
+                            success: function (data) {
+                                window.location.replace('/');
+                            },
+                            error: function (data) { },
+                            async: true
+                        });
+                    }
+                    else {
+                        window.location.replace('/');
+                    }
+
                 },
                 error: function(data) {
                     $('input').addClass('is-invalid')
