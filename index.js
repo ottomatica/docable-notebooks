@@ -38,6 +38,7 @@ const open = require("open");
 const openEditor = require("open-editor");
 
 const utils = require('./lib/utils');
+const notebookSlug = require('./lib/notebook/slug');
 
 const Connectors = require('infra.connectors');
 
@@ -67,7 +68,7 @@ app.use('/media', express.static(__dirname + '/public/media'));
 // Handle rewrite of slugs to file path.
 app.get('/imgs/*', function (req, res)
 {
-    let imgFile = utils.slug2notebook(req.url.replace("/imgs/", ""));
+    let imgFile = notebookSlug.slug2notebook(req.url.replace("/imgs/", ""));
     let fullPath = path.resolve(path.join(notebook_dir, imgFile ))
     res.sendFile( fullPath );
 });
