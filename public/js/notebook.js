@@ -27,6 +27,8 @@ $("#environment-dropdown").change(function () {
     setEnvironment(selectedEnvironment).then(function(response)
     {
         envSpinToggle();
+        // Reload page so we can re-render cells that are platform specific.
+        location.reload();
     }).catch( function(err) {
         $('#docable-error').append( err );
         envSpinToggle();

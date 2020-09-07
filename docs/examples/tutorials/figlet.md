@@ -6,6 +6,11 @@ Install `figlet`. (Mac):
 brew install figlet
 ```
 
+(Linux):
+```bash|{type: 'command', platform: 'linux'}
+apt-get install -y figlet
+```
+
 (Windows):
 
 ```bash|{type: 'command', privileged: true, platform: 'win32'}
