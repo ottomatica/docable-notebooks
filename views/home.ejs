@@ -163,33 +163,33 @@
                 $('[data-toggle="tooltip"]').tooltip()
 
                 $("#tree").fancytree({
-                source: <%- JSON.stringify(notebook_tree) %>,
-                checkbox: false,
-                selectMode: 3,
-                extensions: [ "glyph"],
-                glyph: {
-                    // The preset defines defaults for all supported icon types.
-                    // It also defines a common class name that is prepended (in this case 'fa ')
-                    preset: "awesome5",
-                    map: {
-                        // Override distinct default icons here
-                        folder: "fas fa-folder",
-                        folderOpen: "fas fa-folder",
-                        // folderOpen: "fas fa-folder-open",
-                        doc: "fas fa-book-open"
-                    }
-                },
-                keydown: function(event, data) {
-                    const ENTER_KEY = 13;
-                    if( event.which === ENTER_KEY ) {
-                        console.log( data.node.data );
-                        if( data.node.data.href )
-                        {
-                            window.location = data.node.data.href;                                
-                            return false;
+                    source: <%- JSON.stringify(notebook_tree) %>,
+                    checkbox: false,
+                    selectMode: 3,
+                    extensions: [ "glyph"],
+                    glyph: {
+                        // The preset defines defaults for all supported icon types.
+                        // It also defines a common class name that is prepended (in this case 'fa ')
+                        preset: "awesome5",
+                        map: {
+                            // Override distinct default icons here
+                            folder: "fas fa-folder",
+                            folderOpen: "fas fa-folder",
+                            // folderOpen: "fas fa-folder-open",
+                            doc: "fas fa-book-open"
+                        }
+                    },
+                    keydown: function(event, data) {
+                        const ENTER_KEY = 13;
+                        if( event.which === ENTER_KEY ) {
+                            console.log( data.node.data );
+                            if( data.node.data.href )
+                            {
+                                window.location = data.node.data.href;                                
+                                return false;
+                            }
                         }
                     }
-                }
         
                 });
                 
