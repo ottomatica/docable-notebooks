@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" />
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/skin-win8/ui.fancytree.min.css" /> -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.6.0/skin-awesome/ui.fancytree.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/skin-awesome/ui.fancytree.min.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.6.0/skin-awesome/ui.fancytree.css"> -->
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -53,6 +53,11 @@
             margin-left: 5px;
         }
 
+        .markdown-body ul.fancytree-container .fa-folder-open {
+            color: #28a745;
+            margin-left: 5px;
+        }
+
         .markdown-body ul.fancytree-container .fa-book-open {
             color: #C0C0C0;
             margin-left: 5px;
@@ -61,6 +66,14 @@
         .fancytree-plain span.fancytree-active span.fancytree-title,
         .fancytree-plain.fancytree-treefocus.fancytree-container span.fancytree-active pan.fancytree-title{
             background-color: #e3e3e3;
+        }
+
+        .markdown-body .fancytree-treefocus span.fancytree-active span.fancytree-title {
+            color: inherit;
+        }
+
+        .markdown-body span.fancytree-focused span.fancytree-title {
+            outline: none;
         }
 
         /* override github markdown rule for li + li*/
