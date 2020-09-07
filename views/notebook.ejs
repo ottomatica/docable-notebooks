@@ -27,6 +27,27 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
+    <style>
+
+        @keyframes border-pulsate {
+            0% { outline-color: #ccfacc; }
+            /* 50% { outline-color: #0d7f0d; } */
+            100% { 
+                outline-color: #61EF61; 
+                box-shadow:
+                0 0 3px 1px #fff,  /* inner white */
+                0 0 10px 6px #ccfacc; /* outline bright */
+            } 
+        }
+
+        .docable-cell-running {
+            animation: border-pulsate 2s infinite;
+            outline-style: solid;
+            outline-width: 1px;
+        }
+
+    </style>
+
 </head>
 
 <body class="d-flex flex-column h-100">
