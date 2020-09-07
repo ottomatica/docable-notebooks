@@ -42,3 +42,11 @@ using `{{variable-name}}`.
 echo "{{foo}} world"
 ```
 ~~~
+
+### Secret variables
+
+For sensitive variables, such as passwords, tokens, and ssh keys, you can check the "Secret" checkbox. While all variables are encrpyted when stored on server, when marked secret, they will be masked when displayed in output.
+
+```bash|{type:'command', variables: 'secret_token'}
+echo {{secret_token}}
+```
