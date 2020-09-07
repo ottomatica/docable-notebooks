@@ -167,7 +167,8 @@ app.post("/workspace/edit", function(req, res)
 if(process.env.NODE_ENV == 'prod') {
     const examples_routes = require('./lib/hosted/routes/examples');
     app.post('/runhosted', examples_routes.runHosted);
-    app.get('/examples/:name', examples_routes.get_hosted_notebook);
+    app.get('/examples', examples_routes.get_examples_home);
+    app.get('/examples/:name', examples_routes.get_example_notebook);
     app.get('/getexamples', examples_routes.get_examples);
     app.get('/getexamples/:name', examples_routes.get_example);
 
