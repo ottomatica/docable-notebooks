@@ -1,3 +1,5 @@
+<script src="/js/font-awesome.min.js"></script>
+
 <div class="btn-group">
     <button type="button" class="navbar-toggler" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
@@ -8,7 +10,11 @@
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="/variables">Manage Variables</a>
         <a class="dropdown-item" href="/targets">Manage Targets</a>
-        <a class="dropdown-item" href="/logout">Logout</a>
-
+        <% if (user) { %>
+        <span class="dropdown-item">
+            <i class=" fas fa-sign-out-alt"></i> <a class="" href="/logout">Logout</a>
+        </span>
+        <% } %>
+        
     </div>
 </div>
