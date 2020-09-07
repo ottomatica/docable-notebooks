@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="h-100">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -36,7 +36,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.glyph.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/modules/jquery.fancytree.glyph.js"></script> -->
+    <!-- With selector fix patch: https://github.com/mar10/fancytree/issues/1032-->
+    <script src="js/vendor/PATCH-jquery.fancytree.glyph.js"></script>
+
     <style>
         .markdown-body ul.fancytree-container {
           border: none;
@@ -99,7 +102,7 @@
 
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -165,7 +168,7 @@
                 $("#tree").fancytree({
                     source: <%- JSON.stringify(notebook_tree) %>,
                     checkbox: false,
-                    selectMode: 3,
+                    selectMode: 1,
                     extensions: [ "glyph"],
                     glyph: {
                         // The preset defines defaults for all supported icon types.
@@ -174,8 +177,7 @@
                         map: {
                             // Override distinct default icons here
                             folder: "fas fa-folder",
-                            folderOpen: "fas fa-folder",
-                            // folderOpen: "fas fa-folder-open",
+                            folderOpen: "fas fa-folder-open",
                             doc: "fas fa-book-open"
                         }
                     },
