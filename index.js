@@ -40,8 +40,6 @@ const openEditor = require("open-editor");
 const utils = require('./lib/utils');
 const notebookSlug = require('./lib/notebook/slug');
 
-const Connectors = require('infra.connectors');
-
 const app = express();
 
 app.use(session({
@@ -182,10 +180,9 @@ if(process.env.NODE_ENV == 'prod') {
 }
 
 app.listen(port, async () => {
-    const conn = Connectors.getConnector('docker', 'foo');
-    
-    // logger.info(`Pulling latest version of docker image: ${DOCKER_IMAGE}`);
-    // await conn.pull(DOCKER_IMAGE);
+
+    const envManager = require('./lib/providers/manager');
+    await envManager.addDefaultImage('node:12-buster');
 
     logger.info(`Server started in ${process.env.NODE_ENV} NODE_ENV`);
     logger.info(`Listening to requests on http://localhost:${port}`);
