@@ -16,7 +16,7 @@ const port = process.env.PORT || "3000";
 const env = require('./lib/env');
 env.setup(argv.notebook_dir);
 
-let {config, logger, DOCKER_IMAGE, notebook_dir } = env.vars();
+let {config, logger, notebook_dir } = env.vars();
 
 
 const pino = require('pino');
@@ -184,8 +184,8 @@ if(process.env.NODE_ENV == 'prod') {
 app.listen(port, async () => {
     const conn = Connectors.getConnector('docker', 'foo');
     
-    logger.info(`Pulling latest version of docker image: ${DOCKER_IMAGE}`);
-    await conn.pull(DOCKER_IMAGE);
+    // logger.info(`Pulling latest version of docker image: ${DOCKER_IMAGE}`);
+    // await conn.pull(DOCKER_IMAGE);
 
     logger.info(`Server started in ${process.env.NODE_ENV} NODE_ENV`);
     logger.info(`Listening to requests on http://localhost:${port}`);
