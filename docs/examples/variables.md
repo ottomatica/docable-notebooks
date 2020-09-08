@@ -1,6 +1,8 @@
 <!-- 
 setup:
-    docker: command-example
+    docker: 
+      name: command-example
+      image: node:12-buster
 -->
 
 # Using variables
