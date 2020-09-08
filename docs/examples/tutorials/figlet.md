@@ -7,7 +7,7 @@ brew install figlet
 ```
 
 (Linux):
-```bash|{type: 'command', platform: 'linux'}
+```bash|{type: 'command', platform: 'linux', failed_when: 'exitCode!=0'}
 apt-get update -y
 apt-get install -y figlet
 ```
