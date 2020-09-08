@@ -163,6 +163,13 @@
                 return x === y ? 0 : x > y ? 1 : -1;
             };
 
+            function _svg(className, addClass) {
+                var id = className.replace(/ /g, "-"),
+                    cn = addClass ? " " + addClass : "",
+                    html = '<svg class="svg-inline--fa fa-w-20' + cn + '"><use xlink:href="#' + id + '"></use></svg>';
+                return { html:  html };
+            }
+
             $(document).ready(function()
             {
                 $('[data-toggle="tooltip"]').tooltip()
@@ -182,7 +189,7 @@
                             folderOpen: "fas fa-folder-open",
                             expanderClosed: "fas fa-chevron-right",
                             expanderOpen: "fas fa-chevron-down",
-                            doc: "fas fa-book-open"
+                            doc: _svg("svg-markdown")
                         }
                     },
                     keydown: function(event, data) {
@@ -242,8 +249,12 @@
 
     <%- include('templates/footer_analytics'); -%>
 
-
-
+    <svg style="display: none;"> 
+        <symbol id="svg-markdown">
+        xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path fill="#777" fill-rule="evenodd" clip-rule="evenodd" d="M10.57 1.14L13.85 4.44L14 4.8V14.5L13.5 15H2.5L2 14.5V1.5L2.5 1H10.22L10.57 1.14ZM10 5H13L10 2V5ZM3 2V14H13V6H9.5L9 5.5V2H3ZM5.062 9.533L6.879 7.705L6.17 7L4 9.179V9.886L6.171 12.06L6.878 11.353L5.062 9.533ZM8.8 7.714L9.5 7.005L11.689 9.18V9.889L9.5 12.062L8.795 11.353L10.626 9.533L8.8 7.714Z" />
+        </symbol>            
+    </svg>
 
 </body>
 
