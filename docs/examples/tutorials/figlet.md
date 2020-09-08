@@ -8,6 +8,7 @@ brew install figlet
 
 (Linux):
 ```bash|{type: 'command', platform: 'linux'}
+apt-get update -y
 apt-get install -y figlet
 ```
 
