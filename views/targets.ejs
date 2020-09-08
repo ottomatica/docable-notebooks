@@ -54,8 +54,65 @@
     <!-- Begin page content -->
     <main role="main" id="main" class="flex-shrink-0"  style="width: 85%; margin: 0 auto; padding: 45px;">
 
-        <h2>Targets:</h2>
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">docker images</h5>
+              <p class="card-text">The currently available images are:</p>
 
+            </div>
+        </div>
+
+
+
+        <div class="card mt-5">
+            <div class="card-body">
+              <h5 class="card-title">ssh connections</h5>
+              <p class="card-text">You can specific ssh connections to remote and local VMs here.</p>
+
+              <div class="container-fluid">
+                <table class="table" id="example" style="width: 100%; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th>Slug</th>
+                            <th>ssh key</th>
+                            <th>username</th>
+                            <th>ip</th>
+                            <th>port</th>
+                            <th>Edit / Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% targets.forEach(t => { %>
+                            <tr>
+                                <td>
+                                        <%= t.slug %>
+                                </td>
+                                <td>
+                                        <%= t.sshKey %>
+                                </td>
+                                <td>
+                                    <%= t.username %>
+                                </td>
+                                <td>
+                                    <%= t.ip %>
+                                </td>
+                                <td>
+                                    <%= t.port %>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+        
+                <button class="btn btn-outline-success" id="btn-add-target">Add Target</button>
+              </div>
+
+
+
+            </div>
+          </div>
 
         <div class="modal fade" id="add-edit-dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -105,51 +162,14 @@
           </div>
 
           
-        <div class="container-fluid">
-            <table class="table" id="example" style="width: 100%; text-align: center;">
-                <thead>
-                    <tr>
-                        <th>Slug</th>
-                        <th>ssh key</th>
-                        <th>username</th>
-                        <th>ip</th>
-                        <th>port</th>
-                        <th>Edit / Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% targets.forEach(t => { %>
-                        <tr>
-                            <td>
-                                    <%= t.slug %>
-                            </td>
-                            <td>
-                                    <%= t.sshKey %>
-                            </td>
-                            <td>
-                                <%= t.username %>
-                            </td>
-                            <td>
-                                <%= t.ip %>
-                            </td>
-                            <td>
-                                <%= t.port %>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                    <% }); %>
-                </tbody>
-            </table>
 
-            <button class="btn btn-outline-success" id="btn-add-target">Add Target</button>
-
-        </div>
 
 <script>
 $(document).ready(function() {
 
     let datatable = $('#example').DataTable( {
+        searching: false,
+        dom: "lfrti" // turn of pagination controls.
         columns: [
             {name: 'slug'},
             {
