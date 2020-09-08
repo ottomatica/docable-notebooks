@@ -135,6 +135,7 @@ app.get('/register', function(req, res) { res.render("register", {});} );
 
 app.get('/targets', workspace_routes.targets);
 app.post('/addTarget', workspace_routes.addTarget);
+app.post('/addImage', workspace_routes.addImage);
 app.post('/deleteTarget', workspace_routes.deleteTarget);
 
 app.post("/workspace/open", function(req, res)

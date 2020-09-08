@@ -59,6 +59,20 @@
               <h5 class="card-title">docker images</h5>
               <p class="card-text">The currently available images are:</p>
 
+                <ul>
+                    <% docker_images.forEach(t => { %>
+                    <li> <%- t %> </li>
+                    <% }); %>
+                </ul>
+
+
+                <form id="add_image" action="/addImage" method="POST">
+                    <div class="form-group">
+                        <label for="image">Docker Image</label>
+                        <input name="image" class="form-control" type="text" placeholder="ubuntu:18.04" aria-label="image">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success mt-2" id="btn-add-img">Add docker image</button>
+                </form>
             </div>
         </div>
 
