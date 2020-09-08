@@ -106,7 +106,7 @@
                     </tbody>
                 </table>
         
-                <button class="btn btn-outline-success" id="btn-add-target">Add Target</button>
+                <button class="btn btn-outline-success mt-2" id="btn-add-target">Add ssh connection</button>
               </div>
 
 
@@ -169,7 +169,8 @@ $(document).ready(function() {
 
     let datatable = $('#example').DataTable( {
         searching: false,
-        dom: "lfrti" // turn of pagination controls.
+        paging: false,
+        info: false,
         columns: [
             {name: 'slug'},
             {
