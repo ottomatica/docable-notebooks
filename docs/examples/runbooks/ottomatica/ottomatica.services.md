@@ -13,7 +13,7 @@ whoami
 
 Update the `apt` package index:
 
-```bash|{type: 'command'}
+```bash|{type: 'command', failed_when: 'exitCode!=0'}
 sudo apt update
 ```
 
@@ -145,7 +145,7 @@ ls -R
 
 Install npm dependencies for registration service.
 
-```bash|{type: 'command'}
+```bash|{type: 'command', failed_when: 'exitCode!=0'}
 cd /srv/services/staging/registration
 npm install
 ```
