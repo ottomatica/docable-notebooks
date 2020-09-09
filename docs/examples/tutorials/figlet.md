@@ -2,7 +2,7 @@
 
 Install `figlet`. (Mac):
 
-```bash|{type: 'command', platform: 'darwin', stream: true}
+```bash|{type: 'command', platform: 'darwin', failed_when: 'exitCode!=0', stream: true}
 brew install figlet
 ```
 
