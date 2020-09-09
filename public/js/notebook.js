@@ -39,7 +39,8 @@ $("#environment-dropdown").change(function () {
 let envSettingUp = false;
 function envSpinToggle() {
     envSettingUp = !envSettingUp;
-    $('#environment-dropdown').toggleClass('spinner-border spinner-border-sm');
+    $('#environment-spinner').toggleClass('spinner-border spinner-border-sm');
+    $('#environment-menu').toggleClass('d-none');
 }
 
 
