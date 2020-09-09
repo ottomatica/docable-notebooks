@@ -80,30 +80,29 @@
                     </div>
                     <div class="card-body">
                       <h5 class="card-title">Settings</h5>
-                      <form class="" id="accountForm" action="/account" method="POST" class="row">
+                      <form class="" id="account-form" action="/account" class="row">
         
-                        <div class="form-group">
-                          <label for="emailaddress">Email address</label>
-                          <input type="email" class="form-control" name="emailaddress" aria-describedby="emailHelp" placeholder="your@email.com" value="<%- user.email %>">
-                        </div>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" name="name" value="<%- user.name %>" placeholder="Your Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" name="password" value="" placeholder="Password">
-                        </div>
-                        <div class="checkbox mb-3">
-                            <label>
-                              <input type="checkbox" name="subscribe" id="subscribe"> Send me important emails about Docable.
-                            </label>
-                        </div>
-        
-                        <div class="text-center">
-                           <button type="submit" class="btn btn-secondary">Update</button>
-                        </div>                
-                    </form>
+                            <div class="form-group">
+                                <label for="emailaddress">Email address</label>
+                                <input type="email" class="form-control" name="emailaddress" aria-describedby="emailHelp" placeholder="your@email.com" value="<%- user.email %>">
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="name" value="<%- user.name %>" placeholder="Your Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" name="password" value="" placeholder="Password">
+                            </div>
+                            <div class="checkbox mb-3">
+                                <input type="checkbox" name="subscribe" <%- user.subscribed ? 'checked' : '' %>> 
+                                <label>Send me important emails about Docable.</label>
+                            </div>
+            
+                            <div class="text-center">
+                            <button type="submit" class="btn btn-secondary">Update</button>
+                            </div>
+                        </form>
                     </div>
                   </div>
             </div>
@@ -113,6 +112,87 @@
         </div>
         
     </main>
+
+    <script>
+
+        $('#account-form').submit(function (e) {   
+            e.preventDefault();
+
+            const subscriberID = <%- JSON.stringify(user.subscriberID) %>;
+            const subscribed = <%- JSON.stringify(user.subscribed) %>;
+
+            let form = {
+                name: $('[name="name"]').val(),
+                password: $('[name="password"]').val(),
+                email: $('[name="emailaddress"]').val(),
+                subscribed: $('[name="subscribe"').prop('checked')
+            }
+
+            // if subscribe status changed
+            if (form.subscribed != subscribed) {
+
+                // subscribe
+                if(form.subscribed) {
+                    $.ajax({
+                        url: 'https://buttondown.email/api/emails/subscribers/',
+                        type: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            email: form.email,
+                            referrer_url: 'docable.cloud',
+                            newsletter: '83c0ce6e-34f2-47c5-b638-62e53f32b2ca'
+                        }),
+                        success: function (data) {
+                            updateAccount({...form, subscriberID: data.id});
+                        },
+                        error: function (data) {
+                            $('input').addClass('is-invalid')
+                        },
+                        async: false
+                    });
+                }
+
+                // unsubscribe
+                else {
+                    fetch(`https://buttondown.email/api/emails/unsubscribe/${subscriberID}`, {
+                        method: 'GET',
+                        mode: 'cors',
+                        // headers: { "content-type": "application/json; charset=UTF-8" },
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        updateAccount({...form, subscriberID: ''})
+                    })
+                    .catch(err => {
+                        $('input').addClass('is-invalid')
+                    });
+                }
+            }
+
+            else {
+                updateAccount({...form});
+            }
+
+            function updateAccount(form) {
+                return fetch(`/account`, {
+                    method: 'POST',
+                    mode: 'cors',
+                    body: JSON.stringify(form),
+                    headers: { "content-type": "application/json; charset=UTF-8" },
+                })
+                .then(response => response.text())
+                .then(data => {
+                    window.location.replace('/account');
+                })
+                .catch(err => {
+                    $('input').addClass('is-invalid')
+                });
+            }
+
+        });
+
+    </script>
 
     <%- include('templates/footer_analytics'); -%>
     
