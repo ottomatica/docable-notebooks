@@ -53,6 +53,17 @@ function submitButtonSpinToggle() {
     }
 }
 
+$('#btn-container-reset').click( function() 
+{
+    let id = $('#environment-dropdown').val();
+    envSpinToggle();
+    resetEnvironment(id).then(function(){
+
+        envSpinToggle();
+
+    });
+});
+
 $('#submit').click(function () {
 
     const pageVariables = getPageVariables();

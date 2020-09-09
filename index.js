@@ -108,6 +108,8 @@ if (process.env.NODE_ENV == 'dev') {
 
     app.get('/environments', workspace_routes.get_environments);
     app.post('/environments/:id', workspace_routes.set_environment);
+    app.post('/environments/reset/:id', workspace_routes.reset_environment);
+
 
     if( notebook_dir )
     {

@@ -18,7 +18,14 @@ function setEnvironment(id) {
     .then(response => response.text());
 }
 
-
+function resetEnvironment(id) {
+    return fetch(`/environments/reset/${id}`, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+    .then(response => response.text());
+}
 
 function executeCells(endPoint, body) {
 
