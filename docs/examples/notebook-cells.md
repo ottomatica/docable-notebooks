@@ -19,8 +19,3 @@ and a command cell:
 ```bash|{type:'command'}
 foo
 ```
-
-```diff
-- this is a diff
-+ this is not a diff
-```
