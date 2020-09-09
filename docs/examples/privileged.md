@@ -23,3 +23,24 @@ Extreme stream.
 ```bash|{type:'command', privileged: true, stream: true}
 wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.17.2.tar.xz --show-progress --progress=bar:force
 ```
+
+Testing privileged, pwd.
+```bash|{type:'command', privileged: true}
+pwd
+```
+
+Testing normal command, pwd
+```bash|{type:'command'}
+pwd
+```
+
+Testing variable expansion.
+
+```bash|{type:'command'}
+FOO="$(echo 'vars')"; echo $FOO
+```
+
+Testing variable expansion (privileged)
+```bash|{type:'command', privileged: true}
+FOO="$(echo 'vars')"; echo $FOO
+```
