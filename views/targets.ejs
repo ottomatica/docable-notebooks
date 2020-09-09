@@ -30,13 +30,11 @@
 
     <script src="/js/vendor/font-awesome.min.js"></script>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.js"></script>
 
     <style>
-        /* th,tr,td {
-            padding-left: 3px !important;
-            padding-right: 3px !important;
-        } */
     </style>
+
 </head>
 
 <body class="d-flex flex-column h-100">
@@ -61,17 +59,21 @@
 
                 <ul>
                     <% docker_images.forEach(t => { %>
-                    <li> <%- t %> </li>
+                    <li> 
+                        <span class="docker-image"><%- t %></span>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+                        </div>
+                    </li>
                     <% }); %>
                 </ul>
-
 
                 <form id="add_image" action="/addImage" method="POST">
                     <div class="form-group">
                         <label for="image">Docker Image</label>
                         <input name="image" class="form-control" type="text" placeholder="ubuntu:18.04" aria-label="image">
                     </div>
-                    <button type="submit" class="btn btn-outline-success mt-2" id="btn-add-img">Add docker image</button>
+                    <button type="button" class="btn btn-outline-success mt-2" id="btn-add-img">Add docker image</button>
                 </form>
             </div>
         </div>
@@ -179,7 +181,58 @@
 
 
 <script>
+
+        function addDockerImage(image) {
+
+            return fetch('/addImage', {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify({ image: image }),
+                headers: { "content-type": "application/json; charset=UTF-8" },
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            })
+            .then(response => response.text());
+        }
+
+        let listening;
+        function listenToProgress() {
+            if( listening ) return;
+            listening = true;
+
+            const host = `${window.location.hostname}:3080`;
+            console.log(`Connecting to ${host}`);
+            var socket = io.connect(host, {
+                upgrade: false,
+                transports: ['websocket']
+            });
+
+            socket.on("pullstatus", function(status) 
+            {
+                console.log(JSON.stringify(status));
+
+                for( var image of Object.keys(status) )
+                {
+                    status[image]
+                    let percentage = status[image].total == 0 ? 0: (status[image].points / status[image].total) * 100.0; 
+                    console.log( percentage);
+                    $('.progress-bar').css('width',`${percentage}%`).attr('aria-valuenow', percentage); 
+
+                    // let progress = $('.docker-image').filter(function(){ return $(this).text() == image; })('.progress');
+                }
+            });
+        }
+
+
 $(document).ready(function() {
+
+    $('#btn-add-img').on('click', function(e) {
+        let image = $('[name=image]').val();
+        console.log(`Adding image ${image}`);
+        addDockerImage(image);
+        listenToProgress();
+    });
 
     let datatable = $('#example').DataTable( {
         searching: false,
