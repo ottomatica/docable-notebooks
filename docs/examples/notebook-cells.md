@@ -9,12 +9,12 @@ This shoould _not_ be highlighted
 const a = 'this is highlighted js code but not a docable cell';
 ```
 
-This is a js block which is a docable file cell...
-```js|{type:"file",path:'/tmp/foo.js'}
-const p = require('path');
+This is a docable file cell... that can be used to create file content.
+```js|{type:"file",path:'random_id.js'}
+Math.random().toString(36).substring(2);
 ```
 
-and a command cell:
+and a command cell, that can be run.
 
 ```bash|{type:'command'}
 foo
