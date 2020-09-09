@@ -39,7 +39,8 @@ $("#environment-dropdown").change(function () {
 let envSettingUp = false;
 function envSpinToggle() {
     envSettingUp = !envSettingUp;
-    $('#environment-dropdown').toggleClass('spinner-border spinner-border-sm');
+    $('#environment-spinner').toggleClass('spinner-border spinner-border-sm');
+    $('#environment-menu').toggleClass('d-none');
 }
 
 
@@ -52,6 +53,18 @@ function submitButtonSpinToggle() {
         $('[data-docable="true"]').removeClass('docable-cell-running');
     }
 }
+
+$('#btn-container-reset').click( function() 
+{
+    let id = $('#environment-dropdown').val();
+    envSpinToggle();
+    resetEnvironment(id).then(function(){
+
+        envSpinToggle();
+        resetResults();
+
+    });
+});
 
 $('#submit').click(function () {
 

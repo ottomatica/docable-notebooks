@@ -1,4 +1,17 @@
-<select id="environment-dropdown" class="navbar-nav mr-auto btn btn-outline-success" size="1">
-    <option disabled selected value> -- select an environment -- </option>
-</select>
+<div class="" id="navbarNav"></div>
+    <span id="environment-spinner" class="text-success" role="status" aria-hidden="true"></span>
+    <span class="sr-only" >Loading...</span>
+
+    <ul id="environment-menu" class="navbar-nav">
+        <li class="nav-item">
+            <select id="environment-dropdown" class="btn btn-outline-success" size="1">
+                <option disabled selected value> -- select an environment -- </option>
+            </select>
+        </li>
+        <li class="nav-item">
+            <button id="btn-container-reset" class="btn btn-outline-success border-0" data-toggle="tooltip" data-placement="bottom" title="Reset Container">
+                <i class="fas fa-undo-alt"></i>
+            </button>
+        </li>
+    </ul>
 </div>

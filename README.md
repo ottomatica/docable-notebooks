@@ -55,7 +55,7 @@ Math.random().toString(36).substring(2);
 ```
 ~~~
 
-Special annotations can also be provided on commands, allowing even better experiences.
+Special annotations can also be provided on commands, allowing even better experiences, such as auto-detecting platforms to enable/disable cell execution.
 
 ~~~bash
 ```bash|{type: 'command', privileged: true, platform: 'win32'}
