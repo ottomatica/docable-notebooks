@@ -14,7 +14,7 @@ apt-get install -y figlet
 
 (Windows):
 
-```bash|{type: 'command', privileged: true, platform: 'win32'}
+```bash|{type: 'command', privileged: true, platform: 'win32', stream: true}
 choco install figlet-go -y
 ```
 

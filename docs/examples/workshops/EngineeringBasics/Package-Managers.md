@@ -42,13 +42,13 @@ choco --V
 
 Important, when running commands that will make changes to your system, you may need to "Run (them) as Administrator". Notice, how when we run this command, `choco` warns us that we are not running inside an elevated shell.
 
-```bash|{type: 'command',platform:'win32'}
+```bash|{type: 'command',platform:'win32', stream: true}
 choco install wget -y
 ```
 
 We can try again, but this time, with a shell that has administrative priliveges:
 
-```bash|{type: 'command', privileged: true, platform:'win32'}
+```bash|{type: 'command', privileged: true, platform:'win32', stream: true}
 choco install wget -y
 ```
 
