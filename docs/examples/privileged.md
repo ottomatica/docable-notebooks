@@ -12,6 +12,12 @@ Testing privileged commands with stream.
 echo "hello" && sleep 9 && echo "9 seconds later" && echo "end"
 ```
 
+Testing privileged commands with stream and stderr.
+
+```bash|{type:'command', privileged: true, stream: true}
+echo "hello error" >&2 && sleep 3 && echo "3 seconds later" >&2 && echo "end error" >&2
+```
+
 Extreme stream.
 
 ```bash|{type:'command', privileged: true, stream: true}
