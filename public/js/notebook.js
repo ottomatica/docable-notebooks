@@ -60,6 +60,7 @@ $('#btn-container-reset').click( function()
     resetEnvironment(id).then(function(){
 
         envSpinToggle();
+        resetResults();
 
     });
 });
