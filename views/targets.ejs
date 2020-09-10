@@ -57,13 +57,10 @@
               <h5 class="card-title">docker images</h5>
               <p class="card-text">The currently available images are:</p>
 
-                <ul>
+                <ul id="docker-list">
                     <% docker_images.forEach(t => { %>
                     <li> 
                         <span class="docker-image"><%- t %></span>
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                        </div>
                     </li>
                     <% }); %>
                 </ul>
@@ -182,6 +179,15 @@
 
 <script>
 
+        let dockerImageWithProgress = (image) => `
+        <li> 
+            <span class="docker-image">${image}</span>
+            <div class="progress" data-image="${image}">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+            </div>
+        </li>
+        `;
+
         function addDockerImage(image) {
 
             return fetch('/addImage', {
@@ -193,7 +199,14 @@
             .catch((error) => {
                 console.error('Error:', error);
             })
-            .then(response => response.text());
+            .then(response => response.text())
+            .then(function(data){
+
+                $('#docker-list').append(
+                    dockerImageWithProgress(image)
+                );
+
+            });
         }
 
         let listening;
@@ -214,12 +227,21 @@
 
                 for( var image of Object.keys(status) )
                 {
-                    status[image]
                     let percentage = status[image].total == 0 ? 0: (status[image].points / status[image].total) * 100.0; 
                     console.log( percentage);
-                    $('.progress-bar').css('width',`${percentage}%`).attr('aria-valuenow', percentage); 
 
-                    // let progress = $('.docker-image').filter(function(){ return $(this).text() == image; })('.progress');
+                    let progress = $(`[data-image="${image}"]`);
+                    if( progress.length > 0)
+                    {
+                        let bar = progress.next('.progress-bar');
+                        bar.css('width',`${percentage}%`).attr('aria-valuenow', percentage); 
+
+                        if( status[image].done )
+                        {
+                            console.log("Done...");
+                            $(`[data-image="${image}"]`).remove();
+                        }
+                    }
                 }
             });
         }
