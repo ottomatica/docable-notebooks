@@ -93,3 +93,5 @@ jq --version
 ```bash|{type: 'command'}
 wget -V
 ```
+
+[Next: Preparing your Terminal](configure-shell.md)

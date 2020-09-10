@@ -45,4 +45,4 @@ rm -f ./brew.sh ./pw.sh
 brew cleanup
 ```
 
-[Next: Package Managers](../Package-managers.md)
+[Next: Package Managers](package-managers.md)
