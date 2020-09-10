@@ -118,8 +118,8 @@
         $('#account-form').submit(function (e) {   
             e.preventDefault();
 
-            const subscriberID = <%- JSON.stringify(user.subscriberID) %>;
-            const subscribed = <%- JSON.stringify(user.subscribed) %>;
+            const subscriberID = <%- JSON.stringify(user.subscriberID || '') %>;
+            const subscribed = <%- JSON.stringify(user.subscribed || false) %>;
 
             let form = {
                 name: $('[name="name"]').val(),
