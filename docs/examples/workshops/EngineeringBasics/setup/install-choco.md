@@ -46,4 +46,4 @@ We should now be able to run `choco`!
 choco --V
 ```
 
-[Next: Package Managers](../Package-managers.md)
+[Next: Package Managers](package-managers.md)

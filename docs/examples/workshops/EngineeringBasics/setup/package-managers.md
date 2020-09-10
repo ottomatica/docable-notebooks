@@ -1,4 +1,4 @@
-[Setup](Setup.md#setup) | [Shells](Shells.md#shells) |  [Git](Git.md#git) | [Markdown and IDEs](MarkdownEditors.md#markdown) |  [Virtual Environments](Environments.md#environments) | [Task Management](OnlineTools.md#online-tools)
+[Setup](../Setup.md#setup) > Package Managers
 
 # Package Managers
 
@@ -17,7 +17,7 @@ If you're using Linux, you typically already have a package manager, such as `yu
 
 Homebrew is a popular package manager for MacOS. 
 
-Let's check if we have `brew` installed on the system. If not, you will be redirected to the [Homebrew Install Notebook](setup/install-brew.md).
+Let's check if we have `brew` installed on the system. If not, use the [Homebrew Install Instructions](install-brew.md).
 ```bash|{type: 'command', platform:'darwin'}
 brew --version
 ```
@@ -32,9 +32,9 @@ brew install wget
 
 Chocolatey is a package manager for Windows. Once Chocolatey is installed, you can use it to install other tools on your system using `choco install <package-name>`.
 
-We will check if we have choco installed. If not, you will be redirected to the [Chocolatey Install Notebook](setup/install-choco.md).
+We will check if we have choco installed. If not, use the [Chocolatey Install Instructions](install-choco.md).
 
-```bash|{type: 'command', platform:'win32', redirect: 'workshops-EngineeringBasics-setup-install--choco.md', failed_when:"!stdout.includes('Chocolatey v')"}
+```bash|{type: 'command', platform:'win32', failed_when:"!stdout.includes('Chocolatey v')"}
 choco --V
 ```
 
