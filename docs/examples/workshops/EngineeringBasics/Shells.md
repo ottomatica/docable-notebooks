@@ -4,40 +4,14 @@
 
 A shell is a computing environment where commands can be interpreted, evaluated, and its output displayed (i.e., an instance of a read–eval–print loop (REPL)). A good shell provides access to a rich set of commands and allows simple programming of commands, which can be used to create powerful scripts and tools.
 
-But with great power comes great [bullshittery](http://www.pgbovine.net/command-line-bullshittery.htm). Commands and their options can be terse, inconsistent, and difficult to learn. A steep learning curve often prevents novices from enjoying the eventual payoff.
-
-## Resources
-
-If you've hardly used a command line environment before, you might want to go review this more thorough tutorial:
-http://swcarpentry.github.io/shell-novice/index.html ---this page is more of a collection of pointers, discussion of common tasks and mistakes, and resources.
-
-You may also want to reference the online book, [the Unix Workbench](https://seankross.com/the-unix-workbench/).
-
-### Command Line Fu
-
-A list of command line examples for interesting tasks:  
-http://www.commandlinefu.com/commands/browse
-
-Create a graphical directory tree from your current directory.
-```
+```bash|{type:'command'}
 ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
 ```
 
-### Explain shell
+**But with great power comes great bullshittery**. Commands and their options can be [terse, inconsistent, and difficult to learn](http://www.pgbovine.net/command-line-bullshittery.htm). A steep learning curve often prevents novices from enjoying the eventual payoff. If you've hardly used a command line environment before, you might want to go review this more thorough tutorial:
+[software carpentry: shell-novice](http://swcarpentry.github.io/shell-novice/index.html)---this page is more of a discussion of common tasks and mistakes, advanced topics, and resources.
 
-What does `tar -zxvf ph.tar.gz` do?
-
-http://explainshell.com/explain?cmd=tar+-zxvf
-
-![image](https://cloud.githubusercontent.com/assets/742934/15635713/8fc9cf7e-25b4-11e6-957e-0bb03756b9fb.png)
-
-### Bite Size Command Line Zine
-
-You might find Julia Evan's zine useful: [Bite Size Command Line!](https://jvns.ca/blog/2018/08/05/new-zine--bite-size-command-line/).
-
-Here is an example for the `lsof` command. More examples can be found [here](https://twitter.com/i/moments/1026078161115729920).
-
-![lsof](https://pbs.twimg.com/media/DjFb_FPX4AAOwpa?format=jpg&name=medium)
+You may also want to reference the online book, [the Unix Workbench](https://seankross.com/the-unix-workbench/).
 
 ## Shell Basics
 
@@ -45,20 +19,35 @@ Depending on your operating system and desktop manager, you have many ways to op
 
 ### Accessing and Using Shells
 
-*Mac*: you can run the Terminal in Applications. 
+* **Mac**: you can run the Terminal in Applications and pin to your Dock.
+
+* **Windows**: You access a shell in several ways. You can right click on the Windows Icon in the Task Bar and open a terminal window. You can also type in the name of the shell program in the search bar (e.g., Cmd/Powershell). 
 
 *Tip*: IDES, such as VS Code provide easy access to a terminal (View ⇨ Terminal).
 
-##### Windows
 
-*Windows: Shell options*. In windows, you can use Cmd, Powershell, or emulated shells (Bash for Git, Bash with Linux Subsystem). A downside to using an emulated shell is that you may be limited in accessing other executables/environments on windows.
+### Privileged commands
 
-*Windows: Opening*. You access a shell in several ways. You can right click on the Windows Icon in the Task Bar and open a terminal window. You can type in the name of the shell program in the search bar (e.g., Cmd/Powershell). 
+Some commands require adminstrative or super user privileges.
 
-*Windows: Admin shell*. Some commands require adminstration privileges. If you need to run a command with admin, you must start a shell with admin privilege. There is typically an admin command shell available in the menu when right clicking the Windows Icon on the Task Bar. You can also get one from right clicking the Cmd executable in the search bar.
+* **Mac/Linux**: To access a privileged shell, you simply can run `su` or prepend a command with `sudo`. `sudo` will cache your password, typically for 5 minutes, after successfully running a command. To avoid typing a password at all, you may add your user to `/etc/sudoers`---note it is recommended you make changes to this file using the special utility: [visudo](https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file).
 
-*Tip*: If opening up a cmd shell in admin mode, make sure you do not perform operations, such as `git clone` in your current directory (`C:\WINDOWS\system32`). Otherwise, you will be writing to a location that only admin will have access to which will make it difficult to run the commands/tasks you are intending on doing.
+* **Windows**. If you need to run a command with admin, you must start a shell with admin privilege. There is typically an admin command shell available in the menu when right clicking the Windows Icon on the Task Bar. You can also get one from right clicking the Cmd executable in the search bar.
 
+   *Tip*: If opening up a cmd shell in admin mode, make sure you do not perform operations, such as `git clone` in your current directory (`C:\WINDOWS\system32`). Otherwise, you will be writing to a location that only admin will have access to which will make it difficult to run the commands/tasks you are intending on doing.
+
+### Deciding on a Terminal/Shell for Windows
+
+In windows, you can use Cmd, Powershell, or emulated shells, such as Bash for Git, or Bash with Windows Linux Subsystem (WSL). 
+
+`Cmd` is tried and true, and if you [made windows awesome](setup/configure-shell.md), will mostly what you want to do. The downsides are that interactions such as copy/paste are a little clunky. However, if open up a terminal with Cmd through Code, then this problem is mostly eliminated. `Powershell` is a powerful shell, with great scripting support. However, the syntax is esoteric and inconsistent with any other shell you may use. For example, running common linux commands like `cd ~ && ls` does not work in Powershell.
+
+Enumlated shells are useful for getting a _linux-like_ experience in Windows. Unfortunately, there are **many downsides to using emulated shells**. One downside is that you may be limited in accessing other executables/environments on windows. 
+For example, with `WSL`, you are actually running commands inside a small virtual machine, which limits your ability to run commands from windows. In general, using `WSL`, will turn on Hyper-V, which essentially breaks virtualization for tools, such as VirtualBox. In `Git Bash`, node packages and environment settings you setup will not work as expected when running in Cmd/etc. Furthermore, you never truly escape Windows, for example, Windows style newline endings `'\r\n'` may exist in files you edit, which will break bash scripts. Another common problem is that when you install packages, you will often get libraries for linux binaries, which then will not work when running outside of the emulated shell.
+
+As a result, emulated shells seem helpful, but often create more problems than they solve.
+
+*Tip*: Personal recommendation---stick with `Cmd` for system installation, and use a virtual machine if you truly need a linux environment.
 
 ### Commands
 
@@ -92,7 +81,27 @@ command1 || command2  # do command2 only if command1 fails
 command1 && command2  # do command2 only if command1 succeeds
 ```
 
-Note: In Windows, `;` does not work in Cmd, but does in Powershell. Use `&&` for the most portable operation.
+*Note*: In Windows, `;` does not work in Cmd, but does in Powershell. Use `&&` for the most portable operation.
+
+Try running this command that combines these shell commands.
+
+```bash|{type: 'command'}
+echo "Hello World" > /tmp/test.txt && cat /tmp/test.txt
+```
+
+Now, try using the `||` operator. 
+
+```bash|{type: 'command', }
+cat /tmp/test.txt || echo "backup plan"
+```
+
+See what happens in this case.
+
+```bash|{type: 'command', failed_when: "!stdout.includes('backup plan')"}
+cat /tmp/filedoesnotexist.txt || echo "backup plan"
+```
+
+
 
 ##### Command I/O
 
@@ -112,41 +121,20 @@ A neat trick: Command the value of a file into your clipboard!
 
 Windows: `clip < file.txt` Mac: `pbcopy < file.txt` 
 
-## Activity: Customizing Your Shell
-
-In bash, the environment variable, `PS1`, will contain the text that gets displayed by your prompt, which normally might look like `$ `. For example, setting `PS1="box > "`, will look like this.
-
-```
-box > ▒
-``` 
-
-Of course, more advanced options are [available], through escape code such as these, and even conditional logic and bash commands (by setting another variable `PROMPT_COMMAND`):
-
-* `\H`: the hostname
-* `\u`: the user name
-* `PROMPT_COMMAND="echo -n [$(date +%H:%M)]"`: Print the date in hours and minutes.
-
-Create a local configuration file named `.bash_prompt`:
-```bash
-PROMPT_COMMAND='PS1="\[\033[0;33m\][\!]\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`[\u.\h: \`if [[ `pwd|wc -c|tr -d " "` > 18 ]]; then echo "\\W"; else echo "\\w"; fi\`]\$\[\033[0m\] "; echo -ne "\033]0;`hostname -s`:`pwd`\007"'
+```bash|{type:'command'}
+pbcopy < ~/.ssh/id_rsa
 ```
 
-Then enable your new prompt with:
-
+```bash|{type:'command', platform: 'win32'}
+clip < ~/.ssh/id_rsa
 ```
-source .bash_prompt
-```
-
-Try running a simple command, like `ls`. Notice the green prompt. Now try running a non-existing command, such as `foo`. Notice the red prompt.
-
-**Exercise**: Customize your bash prompt. Use a google search, reference [articles](https://www.maketecheasier.com/8-useful-and-interesting-bash-prompts/), or search on GitHub for "dotfiles" as a source for inspiration.
 
 ## Activity: Data Wrangling with bash
 
 Download data with `wget`.
 
-```bash
-wget -nc https://s3-us-west-2.amazonaws.com/producthunt-downloads/ph-export--2016-04-01.tar.gz
+```bash|{type:'command'}
+wget -nc https://s3-us-west-2.amazonaws.com/producthunt-downloads/ph-export--2016-04-01.tar.gz --show-progress --progress=bar:force 2>&1
 ```
 
 Create a directory to store the tar file contents
@@ -507,3 +495,31 @@ Here is a useful [reference](http://hyperpolyglot.org/multiplexers).
 | send multiplexer command to session _foo_ |	`$ screen -r foo -X command` |	`$ tmux command -t foo` |
 | run `ls` in session _foo_	 | `$ screen -r foo -X stuff "ls $(echo -ne '\015')"`	| `$ tmux send-keys -t foo 'ls' C-m` |
 | run `vi` in new window	| `$ screen vi /etc/motd`	| `$ tmux new-window vi /etc/motd` |
+
+## Resources
+
+### Command Line Fu
+
+A list of command line examples for interesting tasks:  
+http://www.commandlinefu.com/commands/browse
+
+Create a graphical directory tree from your current directory.
+```
+ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
+```
+
+### Explain shell
+
+What does `tar -zxvf ph.tar.gz` do?
+
+http://explainshell.com/explain?cmd=tar+-zxvf
+
+![image](https://cloud.githubusercontent.com/assets/742934/15635713/8fc9cf7e-25b4-11e6-957e-0bb03756b9fb.png)
+
+### Bite Size Command Line Zine
+
+You might find Julia Evan's zine useful: [Bite Size Command Line!](https://jvns.ca/blog/2018/08/05/new-zine--bite-size-command-line/).
+
+Here is an example for the `lsof` command. More examples can be found [here](https://twitter.com/i/moments/1026078161115729920).
+
+![lsof](https://pbs.twimg.com/media/DjFb_FPX4AAOwpa?format=jpg&name=medium)
