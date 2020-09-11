@@ -62,6 +62,45 @@ We can clean things up, taking advantage of our new linux command.
 rm -f addpath.bat
 ```
 
+### Updating bash
+
+MacOS, comes with a fairly old version of bash. Even if you've switched over to `zsh` for your interactive shell, you might still find it useful to upgrade bash for scripts run on your system.
+
+We can upgrade bash using `brew`.
+
+```bash|{type:'command', platform: 'darwin', stream: true}
+brew install bash
+```
+
+Check we have newer bash.
+```bash|{type:'command', platform: 'darwin'}
+/usr/local/bin/bash --version
+```
+
+We need to add our new shell to the list of trusted shells.
+```bash|{type:'command', platform: 'darwin', privileged: true}
+echo "/usr/local/bin/bash" >> /etc/shells
+```
+
+If you want to default to the newer bash, you can run:
+
+```bash|{type:'command', platform: 'darwin', privileged: true}
+chsh -s /usr/local/bin/bash $USER
+```
+
+Our current environment will still use the old bash.
+
+```bash|{type:'command', platform: 'darwin'}
+echo $BASH_VERSION
+```
+
+However, if we open a new terminal window, and run `echo $BASH_VERSION`, we will see we have a newer shell.
+
+```bash|{type:'command', platform: 'darwin'}
+open -a "Terminal" .
+```
+
+
 ## Activity: Customizing Your Shell
 
 In bash, the environment variable, `PS1`, will contain the text that gets displayed by your prompt, which normally might look like `$ `. For example, setting `PS1="box > "`, will look like this.
@@ -72,7 +111,7 @@ box > ░
 
 ```bash|{type:'command'}
 PS1="\u@[\h]: "
-echo "${PS1@P}"
+read -e -p "${PS1@P}"
 ```
 
 ```bash|{type:'command'}
