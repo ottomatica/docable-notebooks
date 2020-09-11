@@ -27,7 +27,7 @@ npm install ottomatica/opunit -g
 You can check your local machine against a course profile, by running the following command:
 
 ```bash|{type:'command'}
-opunit profile CSC-DevOps/profile:510.yml
+opunit profile CSC-DevOps/profile:basics.yml
 ```
 
 Your resulting output might look something like this image below. The green check ✔️ indicates that a check was passed, while the red x ❌ indicates that a check failed.
