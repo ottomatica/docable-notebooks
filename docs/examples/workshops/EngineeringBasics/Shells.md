@@ -165,7 +165,18 @@ Extract a column of text from a file, using `cut`, skip over first line with `ta
 cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
 ```
 
-*Note*: You may notice an error from this last command (exit code:141) or a "write error" message in stderr. This is normal and expected behavior: after processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. If we wanted to know the exit code of different parts of the command chain, we could get an array of exit codes using `echo ${PIPESTATUS[@]}`.
+*Note*: You may notice an error from this last command (`exit code: 141`) or a "write error" message in stderr. This is normal and expected behavior. After processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. Similiarly, we could ignore any warning output by redirecting stderr into `/dev/null`. 
+
+```bash|{type:'command', failed_when: "!stdout.includes('jaime_honaker')"}
+cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 2>/dev/null
+```
+
+In bash, if we wanted to know the exit code of different parts of the command chain, we could get an array of exit codes using `echo ${PIPESTATUS[@]}`. Finally, we can toggle this behavior by setting `set -o pipefail` to turn pipe failure _on_, and `set +o pipefail` to turn it _off_.
+
+In bash:
+```bash|{type:'command'}
+set +o pipefail; cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
+```
 
 #### Exercise: Data Science with Bash
 
