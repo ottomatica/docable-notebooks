@@ -46,10 +46,21 @@ echo %SystemPath%
 REG add "HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" /v PATH /d "%SystemPath%" /f
 ```
 
+Now we can run this command in a privileged shell to add the linux commands to our path.
+
 ```bash|{type:'command', privileged: true, platform: 'win32', refresh: true}
 addpath.bat
 ```
 
+**Awesome**: You can check again and see that `ls` now works (if trying in your own shell, you will need to open up a new window, so that the environment updates take effect). *Caution*: If not running the above commands in a notebook, the environmental changes will not be ready right away. In this case, one simple trick is to visit the Environment Variables settings window, then clicking "Ok" to trigger a refresh.
+
+**Why this way?** Why did we use a script, and not `SETX`, or `REG add` by directly appending `%PATH%`? `SETX` is a great command---however, it will truncate strings longer than 1024 characters, which makes it unsuitable for updating your `%PATH%` variable. Finally, using `REG add` is also problematic, as it will 1) duplicate entries from your User Environment variables, and 2) overwrite paths, such as `%SYSTEM_ROOT%`, with expanded and hard-coded values.
+
+We can clean things up, taking advantage of our new linux command.
+
+```bash|{type:'command', platform: 'win32'}
+rm -f addpath.bat
+```
 
 ## Activity: Customizing Your Shell
 
