@@ -5,7 +5,7 @@
 A shell is a computing environment where commands can be interpreted, evaluated, and its output displayed (i.e., an instance of a read–eval–print loop (REPL)). A good shell provides access to a rich set of commands and allows simple programming of commands, which can be used to create powerful scripts and tools.
 
 ```bash|{type:'command'}
-ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'
+ls -R | grep ":$" | sed -e "s/:$//" -e "s/[^-][^\/]*\//--/g" -e "s/^/ /" -e "s/-/|/"
 ```
 
 **But with great power comes great bullshittery**. Commands and their options can be [terse, inconsistent, and difficult to learn](http://www.pgbovine.net/command-line-bullshittery.htm). A steep learning curve often prevents novices from enjoying the eventual payoff. If you've hardly used a command line environment before, you might want to go review this more thorough tutorial:
@@ -159,15 +159,19 @@ List the column headers inside the "users.*.csv" file
 head -n 1 product-hunt/users--2016-04-01_14-36-26-UTC.csv
 ```
 
-Extract a column of text from a file, using `cut`.
+Extract a column of text from a file, using `cut`, skip over first line with `tail`, and then preview first 10 rows with `head`.
 
 ```bash|{type:'command'}
-cut -f 2 -d ';' product-hunt/users*.csv | head
+cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
 ```
 
-#### Exercise
+*Note*: You may notice an error from this last command (exit code:141) or a "write error" message in stderr. This is normal and expected behavior: after processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. If we wanted to know the exit code of different parts of the command chain, we could get an array of exit codes using `echo ${PIPESTATUS[@]}`.
 
-Using a combination of `cut`, `wc`, `head`, `tail`, `grep`, `sort`, `uniq`, pipes (`|`) and any other unix suitable commands, create a command that calculates the following. For each task, save the answers results in a file named, `data-a1.txt`, `data--a2.txt`, and so on...
+#### Exercise: Data Science with Bash
+
+Using a combination of `cut`, `wc`, `head`, `tail`, `grep`, `sort`, `uniq`, pipes (`|`) and any other unix suitable commands, create a command that calculates the following.
+
+You can try running 
 
 * Count the number of columns inside the "users.*.csv" file. [data-a1.txt]
 * Count the number of times "bitcoin" is referenced inside a the post's file "tagline" column. [data-a2.txt]
