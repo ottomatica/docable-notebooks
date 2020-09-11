@@ -1,3 +1,4 @@
+[Setup](../Setup.md#setup) > Install homebrew
 
 # Install homebrew.
 

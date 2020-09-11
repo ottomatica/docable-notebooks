@@ -1,3 +1,5 @@
+[Setup](../Setup.md#setup) > Install choco
+
 # Install Chocolately
 
 Let's see if we already have `choco` installed?

@@ -109,27 +109,28 @@ In bash, the environment variable, `PS1`, will contain the text that gets displa
 box > ░
 ``` 
 
-```bash|{type:'command', platform: 'darwin'}
+Windows (Opening a Git Bash shell):
+
+```bash|{type:'command', platform: 'win32'}
+start bash
+```
+
+Mac/Linux:
+
+```bash|{type:'command'}
 open -a "Terminal" .
 ```
 
-```bash|{type:'command', platform: 'win32'}
-start
+Type in and try:
+
+```bash
+PS1="box > "
 ```
 
+Or, use an emoji:
 
-```bash|{type:'command'}
-PS1="\u@[\h]: "
-read -e -p "${PS1@P}"
-```
-
-```bash|{type:'command'}
-PROMPT_COMMAND="echo -n [$(date +%H:%M)] >"
-echo "$($PROMPT_COMMAND)"
-```
-
-```bash|{type:'command'}
-start bash
+```bash
+PS1="💻: "
 ```
 
 Of course, more advanced options are [available], through escape code such as these, and even conditional logic and bash commands (by setting another variable `PROMPT_COMMAND`):
@@ -138,8 +139,22 @@ Of course, more advanced options are [available], through escape code such as th
 * `\u`: the user name
 * `PROMPT_COMMAND="echo -n [$(date +%H:%M)]"`: Print the date in hours and minutes.
 
-Create a local configuration file named `.bash_prompt`:
+
+Type in and try:
+
 ```bash
+PS1="\u@[\h]: "
+```
+
+Something more dynamic:
+
+```bash
+PROMPT_COMMAND="echo -n [$(date +%H:%M)] >"
+```
+
+Create a local configuration file named `.bash_prompt`:
+
+```bash|{type:'file',path:'.bash_prompt'}
 PROMPT_COMMAND='PS1="\[\033[0;33m\][\!]\`if [[ \$? = "0" ]]; then echo "\\[\\033[32m\\]"; else echo "\\[\\033[31m\\]"; fi\`[\u.\h: \`if [[ `pwd|wc -c|tr -d " "` > 18 ]]; then echo "\\W"; else echo "\\w"; fi\`]\$\[\033[0m\] "; echo -ne "\033]0;`hostname -s`:`pwd`\007"'
 ```
 
@@ -152,4 +167,8 @@ source .bash_prompt
 Try running a simple command, like `ls`. Notice the green prompt. Now try running a non-existing command, such as `foo`. Notice the red prompt.
 
 **Exercise**: Customize your bash prompt. Use a google search, reference [articles](https://www.maketecheasier.com/8-useful-and-interesting-bash-prompts/), or search on GitHub for "dotfiles" as a source for inspiration.
+
+To keep any change, you like, you can these commands in a configuration file, such as `~/.profile` or `~/.bash_rc`.
+
+[Next: Shells](../Shells.md)  
 

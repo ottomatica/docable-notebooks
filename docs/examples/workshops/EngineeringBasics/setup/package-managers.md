@@ -68,16 +68,16 @@ See if you can find the packages for these tools with your package manager and i
 
 We'll help you open up the appropriate shell you will need for you system.
 
-Windows (Admin):
+Windows (Admin)
 
 ```bash|{type: 'command', platform:'win32', privileged: true}
-start
+start bash
 ```
 
 Mac/Linux:
 
 ```bash|{type: 'command', platform:'darwin'}
-open
+open -a "Terminal" .
 ```
 
 After you've installed the appropriate commands, let's check if we have installed these programs on the system...
