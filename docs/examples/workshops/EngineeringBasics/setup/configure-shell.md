@@ -1,6 +1,6 @@
-[Setup](../Setup.md#setup) > Configure your shell
+[Setup](../Setup.md#setup) > Configure your terminal
 
-# Configure your shell
+# Configure your terminal
 
 Let's check that you can run a bash shell.
 
@@ -84,7 +84,7 @@ echo "/usr/local/bin/bash" >> /etc/shells
 
 If you want to default to the newer bash, you can run:
 
-```bash|{type:'command', platform: 'darwin', privileged: true}
+```bash|{type:'command', platform: 'darwin', privileged: true, failed_when:'exitCode!=0'}
 chsh -s /usr/local/bin/bash $USER
 ```
 
