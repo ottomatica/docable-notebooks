@@ -165,7 +165,7 @@ Extract a column of text from a file, using `cut`, skip over first line with `ta
 cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
 ```
 
-*Note*: You may notice an error from this last command (`exit code: 141`) or a "write error" message in stderr. This is normal and expected behavior. After processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. Similiarly, we could ignore any warning output by redirecting stderr into `/dev/null` or `NUL` for windows. 
+*Note*: You may notice an error from this last command (`exit code: 141`) or a "write error" message in stderr. This is normal and expected behavior. After processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. Similiarly, we could ignore any warning output by redirecting stderr into `/dev/null` or `NUL` in windows. 
 
 ```bash|{type:'command', platform: 'win32'}
 cut -f 4 -d ';' product-hunt/users*.csv 2> NUL | tail -n +2 2> NUL | head 
@@ -176,6 +176,7 @@ In bash, if we wanted to know the exit code of different parts of the command ch
 In bash:
 ```bash|{type:'command'}
 set +o pipefail; cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
+echo ${PIPESTATUS[@]}
 ```
 
 #### Exercise: Data Science with Bash
