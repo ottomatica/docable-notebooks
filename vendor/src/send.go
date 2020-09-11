@@ -38,3 +38,7 @@ func main() {
 	// SendMessageTimeout.Call(0xffff, 26, 0, uintptr(unsafe.Pointer(text)), 0, 5000, uintptr(unsafe.Pointer(&buf[0])));
 	// fmt.Println(buf);
 }
+
+// Notes, Helpful links:
+// https://anubissec.github.io/How-To-Call-Windows-APIs-In-Golang/#
+// Alternative Powershell implementation: https://gist.github.com/alphp/78fffb6d69e5bb863c76bbfc767effda
