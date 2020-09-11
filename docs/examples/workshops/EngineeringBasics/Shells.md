@@ -86,66 +86,67 @@ command1 && command2  # do command2 only if command1 succeeds
 Try running this command that combines these shell commands.
 
 ```bash|{type: 'command'}
-echo "Hello World" > /tmp/test.txt && cat /tmp/test.txt
+echo "Hello World" > shells-test.txt && cat shells-test.txt
 ```
 
 Now, try using the `||` operator. 
 
 ```bash|{type: 'command', }
-cat /tmp/test.txt || echo "backup plan"
+cat shells-test.txt || echo "backup plan"
 ```
 
 See what happens in this case.
 
 ```bash|{type: 'command', failed_when: "!stdout.includes('backup plan')"}
-cat /tmp/filedoesnotexist.txt || echo "backup plan"
+cat filedoesnotexist.txt || echo "backup plan"
 ```
-
-
 
 ##### Command I/O
 
-The UNIX shell commands push data from sources through filters along pipes. In a shell there are three sources of I/O: standard input (stdin), standard output (stout), and standard error (sterr). Standard error is a specialized version of standard out, so we'll focus on standard in and standard out.  The default for standard in is the keyboard and the default for standard out is to print to the shell (or console).
+The UNIX shell commands push data from sources through filters along pipes. Normally, each command runs as a process and reads and writes data the following way:
 
-Pipes and redirects change standard in and standard out from defaults.
+* **Standard input (stdin)**: get information from keyboard.
+* **Standard output (stdout)**: write information as output to console.
+* **Standard error (stderr)**: write error information as output to console.
+
+Pipes and redirects change stdin and stdout from default sources. For example, we can change the stdin of a process to be piped from the output of another process. Or rather than printing to the console, we can get a process to write to a file.
 
 ```bash
 command              # default standard in and standard out
 command < inputFile  # redirect of inputFile contents to command as standard in
 command > outputFile # redirect command output to outputFile as standard out
 command1 | command2  # pipes output of command1 as standard in to command2
-command &            # run in background, typically used for applications
 ```
 
-A neat trick: Command the value of a file into your clipboard!
+**Neat trick**: Copy the value of a file into your clipboard!
 
 Windows: `clip < file.txt` Mac: `pbcopy < file.txt` 
 
-```bash|{type:'command'}
+```bash|{type:'command', platform: 'linux'}
 pbcopy < ~/.ssh/id_rsa
 ```
 
 ```bash|{type:'command', platform: 'win32'}
-clip < ~/.ssh/id_rsa
+clip < %HOME%/.ssh/id_rsa
 ```
 
 ## Activity: Data Wrangling with bash
 
 Download data with `wget`.
 
-```bash|{type:'command'}
+```bash|{type:'command', stream: true}
 wget -nc https://s3-us-west-2.amazonaws.com/producthunt-downloads/ph-export--2016-04-01.tar.gz --show-progress --progress=bar:force 2>&1
 ```
 
 Create a directory to store the tar file contents
 
-```
+```bash|{type:'command'}
 mkdir product-hunt 
 ```
 
 Extract the archive and verify csv files exist inside the product-hunt folder.
 
-```bash
+```bash|{type:'command'}
 tar -zxvf ph-export--2016-04-01.tar.gz -C product-hunt/
 ls product-hunt/
 ```
@@ -154,14 +155,14 @@ Data wrangling.
 
 List the column headers inside the "users.*.csv" file
 
-```bash
+```bash|{type:'command'}
 head -n 1 product-hunt/users--2016-04-01_14-36-26-UTC.csv
 ```
 
 Extract a column of text from a file, using `cut`.
 
-```bash
-cut -f 2 -d ';' product-hunt/posts*.csv | head
+```bash|{type:'command'}
+cut -f 2 -d ';' product-hunt/users*.csv | head
 ```
 
 #### Exercise
