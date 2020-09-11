@@ -62,7 +62,7 @@ We can clean things up, taking advantage of our new linux command.
 rm -f addpath.bat
 ```
 
-### Updating bash
+### Updating bash (MacOS)
 
 MacOS, comes with a fairly old version of bash. Even if you've switched over to `zsh` for your interactive shell, you might still find it useful to upgrade bash for scripts run on your system.
 
