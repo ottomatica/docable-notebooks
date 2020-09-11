@@ -109,6 +109,15 @@ In bash, the environment variable, `PS1`, will contain the text that gets displa
 box > ░
 ``` 
 
+```bash|{type:'command', platform: 'darwin'}
+open -a "Terminal" .
+```
+
+```bash|{type:'command', platform: 'win32'}
+start
+```
+
+
 ```bash|{type:'command'}
 PS1="\u@[\h]: "
 read -e -p "${PS1@P}"
