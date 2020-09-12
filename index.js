@@ -179,6 +179,7 @@ if(process.env.NODE_ENV == 'prod') {
     app.post('/hosted/publish', hosted_routes.publish );
     app.post('/hosted', hosted_routes.updateHosted );
     app.get('/hosted', hosted_routes.getHosted);
+    app.get('/', hosted_routes.home);
 }
 
 app.listen(port, async () => {
