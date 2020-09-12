@@ -299,11 +299,9 @@ $e
 echo "result is: $e"
 ```
 
-**Activity**: Imagine you wanted to write a "dead" startup checker using the product hunt data. Using the script below, you would be able check if a startup's url was still alive.
+**Activity**: Imagine you wanted to write a "dead" startup checker using the product hunt data. Using the script below, you would be able check if a startup's url was still alive. Create an executable file called 'checker.sh', that is `chmod +x checker.sh`.
 
-Save this in a file called `checker.sh`:
-
-```bash
+```bash|{type: 'file', path: 'checker.sh', permission: '+x'}
 #!/bin/bash
 
 # Print error message and exit with error code 1
@@ -345,15 +343,9 @@ while read -r line; do
 done <<< "$RESULTS"
 ```
 
-Make sure the script file is executable:
-
-```bash
-chmod +x checker.sh
-```
-
 Run the script:
 
-```bash
+```bash|{type:'command'}
 ./checker.sh product-hunt/posts--2016-04-01_14-36-24-UTC.csv 3
 ```
 
@@ -368,15 +360,15 @@ Captain Strike (💀): http://www.producthunt.com/l/45fad46fe3f810 => 404
 
 **Exercise**: Try running the script with a larger number of posts to check. How did it go?
 
-**Exercise**: Go throught the script line-by-line by a partner. Do you understand what each line is doing?
+**Exercise**: Go through the script line-by-line with a partner. Do you understand what each line is doing? Which ones are confusing?
 
 ## Weird but useful features and commands in bash
 
 ### Heredoc
 
-In some situations, you might need to send multi-line content as input to a command or to store as a file. `heredoc` is an input mechanism that allows you to enter in text (interactively or in a script), until a delimiter string is reached ('END_DOC'). 
+In some situations, you might need to send multi-line content as input to a command or to store as a file. `heredoc` is an input mechanism that allows you to enter in text (interactively or in a script), until a delimiter string is reached ('END_DOC').  The single quotes in the heredoc marker is important---that will make sure your script commands are properly escaped.
 
-```bash
+```bash|{type:'command', shell: 'bash'}
 cat << 'END_DOC' > .functions
 mostUsed()
 {
@@ -387,7 +379,7 @@ END_DOC
 
 Load the defined function. Then we can see which command you run the most.
 
-```bash
+```bash|{type:'command', shell: 'bash'}
 source .functions
 mostUsed
 ```
@@ -395,9 +387,9 @@ mostUsed
 Heredoc can also be useful for running command on input you'd like to type in manually or paste from your clipboard and don't want to bother placing in a file:
 
 
-Count the number of words and characters in text:
+Count the number of lines, words, and characters in text:
 
-```
+```bash|{type:'command', shell: 'bash'}
 cat << EOF | wc
 Lieutenant-General Sir Adrian Paul Ghislain Carton de Wiart (5 May 1880 – 5 June 1963), was a British Army officer of Belgian and Irish descent. He fought in the Boer War, World War I, and World War II, was shot in the face, head, stomach, ankle, leg, hip and ear, survived a plane crash, tunneled out of a POW camp, and bit off his own fingers when a doctor wouldn’t amputate them. He later said "frankly I had enjoyed the war."
 EOF
