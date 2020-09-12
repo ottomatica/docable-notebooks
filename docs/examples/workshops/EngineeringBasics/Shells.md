@@ -487,6 +487,12 @@ If you try running `./server.sh` in another terminal, it should prevent you from
 ./server.sh
 ```
 
+Let's stop our server.
+```bash|{type:'command'}
+pkill -f ./server.sh
+```
+
+
 
 ## Remote connections
 
