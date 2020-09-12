@@ -497,7 +497,12 @@ If you try running `./server.sh` in another terminal, it should prevent you from
 ./server.sh
 ```
 
-Let's stop our server.
+Let's stop our server (Windows):
+```bash|{type:'command', platform: 'win32', shell: 'powershell'}
+Get-CimInstance Win32_Process -Filter "CommandLine LIKE '%http-server%'" | Remove-CimInstance
+```
+
+Let's stop our server (Mac/Linux)
 ```bash|{type:'command'}
 pkill -f 'http-server'
 ```

@@ -63,6 +63,7 @@ choco uninstall wget -y --remove-dependencies
 See if you can find the packages for these tools with your package manager and install them (if you do not already have them).
 
 * `wget`, a tool for performing web requests.
+* `nc`, a general networking tool (package name might be `netcat`).
 * `jq`, a tool for querying and manipulating and JSON files.
 * `git`, a tool for man
 
@@ -71,7 +72,7 @@ We'll help you open up the appropriate shell you will need for you system.
 Windows (Admin)
 
 ```bash|{type: 'command', platform:'win32', privileged: true}
-start bash
+start
 ```
 
 Mac/Linux:
