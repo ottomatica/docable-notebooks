@@ -471,7 +471,7 @@ while true; do { echo -e "HTTP/1.1 200 OK\n\n$(date)"; } | nc -l 8888; done
 
 This will run a simple bash server that you can send commands to over the network.
 
-```bash|{type:'command', spawn: true}
+```bash|{type:'command', shell: 'bash', spawn: true}
 ./server.sh
 ```
 
