@@ -227,10 +227,9 @@ In addition to editing environment variables in your desktop manager GUI, you ca
 
 In Windows, you can use `set` and `setx` to update environment variables. `set` will update environment variables in your current shell instance, but that will be lost after the shell closes. Using `setx`, you can permanently, set an environment variable for the user or system (use `setx /m`). See the [documentation](https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/setx) for more information.
 
-```
-C:\Users\chris>set DEBUG_MODE=true
-C:\Users\chris>echo %DEBUG_MODE%
-true
+```bash|{type:'command'}
+set DEBUG_MODE=true
+echo "Current DEBUG_MODE=%DEBUG_MODE%"
 ```
 
 Tip: One limitation of using setx is that it cannot store values longer than 1024 characters.
@@ -248,12 +247,13 @@ true
 
 ##### Scoping
 
-You can also define a variable that will only exist inside a subprocess  spawned from the shell. This may not behave the way you expect!
-```
-$ BUG_TEST=true echo $BUG_TEST
+You can also define a variable that will only exist inside a subprocess  spawned from the shell. **This may not behave the way you expect**!
 
+```bash|{type:'command', shell:"bash"}
+BUG_TEST=true echo "BUG_TEST=$BUG_TEST"
+BUG_TEST=true node -e 'console.log(`BUG_TEST=${process.env.BUG_TEST}`);'
 ```
-A blank is printed out because `$BUG_TEST` is expanded before the process executing the echo command is started. On the other hand, if you had code that checked for `BUG_TEST` while running, it would contain `true`.
+A blank is printed out because `$BUG_TEST` is expanded before the process executing the echo command is started. On the other hand, inside the node program, it would contain `true`.
 
 Finally, you can enable access to an environment variable for all processes and subprocesses started in the shell by using `export VAR=VALUE`
 
