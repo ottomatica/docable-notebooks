@@ -168,6 +168,7 @@ app.post("/workspace/edit", function(req, res)
 
 
 if(process.env.NODE_ENV == 'prod') {
+    app.use('/img', express.static('./lib/hosted/public/img'));
     const examples_routes = require('./lib/hosted/routes/examples');
     app.post('/runhosted', examples_routes.runHosted);
     app.get('/examples', examples_routes.get_examples_home);
