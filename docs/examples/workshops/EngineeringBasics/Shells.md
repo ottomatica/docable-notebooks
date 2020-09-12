@@ -174,7 +174,7 @@ cut -f 4 -d ';' product-hunt/users*.csv 2> NUL | tail -n +2 2> NUL | head
 In bash, if we wanted to know the exit code of different parts of the command chain, we could get an array of exit codes using `echo ${PIPESTATUS[@]}`. Finally, we can toggle this behavior by setting `set -o pipefail` to turn pipe failure _on_, and `set +o pipefail` to turn it _off_.
 
 In bash:
-```bash|{type:'command'}
+```bash|{type:'command', shell: 'bash'}
 set +o pipefail
 cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
 echo "Exit codes: ${PIPESTATUS[@]}"
