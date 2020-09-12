@@ -35,11 +35,17 @@
             padding: 15px;
             margin: auto;
         }
+
+        .form-group.required .control-label:after {
+            content:" *";
+            color:red;
+        }
+
     </style>
 
 </head>
 
-<body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100 bg-light">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
@@ -56,22 +62,22 @@
 
             <p class="lead text-center">Create a user account to gain access to exclusive features, cloud storage, and more.</p>
 
-            <form class="card p-3 bg-light" id="register-form" action="/register" class="row">
+            <form class="card p-3" id="register-form" action="/register" class="row">
 
-                <div class="form-group">
-                    <label for="emailaddress">Email address</label>
-                    <input type="email" class="form-control" name="emailaddress" aria-describedby="email" placeholder="your@email.com">
-                </div>
-                <div class="form-group">
-                    <label for="name">Name</label>
+                <div class="form-group required">
+                    <label class="control-label" for="name">Name</label>
                     <input type="text" class="form-control" name="name" placeholder="Your Name">
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
+                <div class="form-group required">
+                    <label class="control-label" for="emailaddress">Email address</label>
+                    <input type="email" class="form-control" name="emailaddress" aria-describedby="email" placeholder="your@email.com">
+                </div>
+                <div class="form-group required">
+                    <label class="control-label" for="password">Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input type="checkbox" name="subscribe" checked> 
+                    <input class="control-label" type="checkbox" name="subscribe" checked> 
                     <label for="subscribe">Send me important emails about Docable.</label>
                 </div>
 
