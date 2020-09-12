@@ -479,13 +479,13 @@ touch $LOCKFILE
 http-server -p 8888
 ```
 
-This will run a simple bash server that you can send commands to over the network.
+This will run a simple webserver, spawned in its own process.
 
 ```bash|{type:'command', shell: 'bash', spawn: true}
 ./server.sh
 ```
 
-In a new terminal window, run:
+To see what's being served, in a new terminal window, run:
 
 ```bash|{type:'command'}
 wget -qO- localhost:8888
@@ -493,7 +493,7 @@ wget -qO- localhost:8888
 
 If you try running `./server.sh` in another terminal, it should prevent you from running again.
 
-```bash|{type:'command'}
+```bash|{type:'command', shell: 'bash'}
 ./server.sh
 ```
 

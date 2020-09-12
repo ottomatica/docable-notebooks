@@ -85,6 +85,12 @@
             <%- notebookHtml %>
         </div>
 
+        <!--- style customization not supported by css -->
+        <script>
+            $("[data-type='command'][data-spawn='true']")
+                .parents('.docable-cell').children('.sideAnnotation').append('🖥️ ');
+        </script>
+
     </main>
 
     <%- include('templates/footer_analytics'); -%>
