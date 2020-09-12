@@ -366,7 +366,7 @@ Captain Strike (💀): http://www.producthunt.com/l/45fad46fe3f810 => 404
 
 ### Heredoc
 
-In some situations, you might need to send multi-line content as input to a command or to store as a file. `heredoc` is an input mechanism that allows you to enter in text (interactively or in a script), until a delimiter string is reached ('END_DOC').  The single quotes in the heredoc marker is important---that will make sure your script commands are properly escaped.
+In some situations, you might need to send multi-line content as input to a command or to store as a file. `heredoc` is an input mechanism that allows you to enter in text (interactively or in a script), until a delimiter string is reached `'END_DOC'`.  The single quotes in the heredoc marker is important---that will make sure your script commands are properly escaped.
 
 ```bash|{type:'command', shell: 'bash'}
 cat << 'END_DOC' > .functions
@@ -384,14 +384,18 @@ source .functions
 mostUsed
 ```
 
-Heredoc can also be useful for running command on input you'd like to type in manually or paste from your clipboard and don't want to bother placing in a file:
+Heredoc can also be useful for running command on input you'd like to type in manually or paste from your clipboard and don't want to bother placing in a file. In this case, we can omit the single quotes for our heredoc marker `EOF`, since we're only processing simple text without bash commands.
 
 
 Count the number of lines, words, and characters in text:
 
 ```bash|{type:'command', shell: 'bash'}
 cat << EOF | wc
-Lieutenant-General Sir Adrian Paul Ghislain Carton de Wiart (5 May 1880 – 5 June 1963), was a British Army officer of Belgian and Irish descent. He fought in the Boer War, World War I, and World War II, was shot in the face, head, stomach, ankle, leg, hip and ear, survived a plane crash, tunneled out of a POW camp, and bit off his own fingers when a doctor wouldn’t amputate them. He later said "frankly I had enjoyed the war."
+Lieutenant-General Sir Adrian Paul Ghislain Carton de Wiart (5 May 1880 – 5 June 1963), 
+was a British Army officer of Belgian and Irish descent. He fought in the Boer War, World War I, and World War II, 
+was shot in the face, head, stomach, ankle, leg, hip and ear, survived a plane crash, tunneled out of a POW camp, 
+and bit off his own fingers when a doctor wouldn’t amputate them. 
+He later said "frankly I had enjoyed the war."
 EOF
 ```
 
@@ -401,13 +405,13 @@ EOF
 
 Create a 1MB file with zeros.
 
-```bash
+```bash|{type:'command', failed_when:'exitCode!=0'}
 dd if=/dev/zero of=zeros.txt count=1024 bs=1024
 ```
 
 Create a 20K file with random bytes.
 
-```bash
+```bash|{type:'command', failed_when:'exitCode!=0'}
 dd if=/dev/urandom of=random.txt bs=2048 count=10
 ```
 
@@ -421,7 +425,7 @@ Just as a simple example, if you ran this code `python -c "print( input('Enter v
 
 By using expect, you can create scripts that automatically response to prompt inputs.
 
-```bash
+```bash|{type:'command', shell: 'bash'}
 expect <<- END
     spawn python -c "print( input('Enter value: ') )"
     expect {
@@ -439,7 +443,7 @@ Using traps for [resource cleanup](http://redsymbol.net/articles/bash-exit-traps
 
 Save the following in 'server.sh' and make it executable.
 
-```
+```bash|{type: 'file', path: 'server.sh', permission: '+x'}
 #!/bin/bash
 
 LOCKFILE=510-bash.lock
@@ -461,23 +465,28 @@ trap cleanup EXIT
 # Create lockfile
 touch $LOCKFILE
 
-# Program (listen on port 5100)
-nc -k -l 5100 | bash
+# Simple web server (listen on port 8888)
+while true; do { echo -e "HTTP/1.1 200 OK\n\n$(date)"; } | nc -l 8888; done
 ```
 
 This will run a simple bash server that you can send commands to over the network.
 
-```bash
+```bash|{type:'command', spawn: true}
 ./server.sh
 ```
 
 In a new terminal window, run:
 
-```bash
-echo "ls" >/dev/tcp/127.0.0.1/5100
+```bash|{type:'command'}
+wget -qO- localhost:8888
 ```
 
-You should see your direct connects appear in your other terminal running the server process. If you try running `./server.sh` in another terminal, it should prevent you from running again.
+If you try running `./server.sh` in another terminal, it should prevent you from running again.
+
+```bash|{type:'command'}
+./server.sh
+```
+
 
 ## Remote connections
 
