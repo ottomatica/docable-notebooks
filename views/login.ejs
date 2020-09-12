@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="/css/notebook.css">
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing/twemoji-amazing.css"/>
+    
     <script src="/js/vendor/font-awesome.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
@@ -66,24 +68,44 @@
 
 </head>
 
-<body class="d-flex flex-column h-100">
-    <form id="login-form" class="form-signin" action="/login">
-      <h3 class="docable">Docable Notebooks</h3>
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" name="inputPassword" class="form-control" placeholder="Password" required="">
-      <div class="invalid-feedback">
-        The username and password you entered doesn't match any account. Sign up for an account <a href="/register">here</a>.
-      </div>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
+<body class="d-flex flex-column h-100 bg-light">
+    
+    <h3 class="docable text-center">
+        <i class="twa twa-ledger display-1"></i> <br>
+        Docable Notebooks 
+    </h3>
+
+    <div class="card" style="width: 25rem; margin-left: auto; margin-right: auto; margin-top: 20px;">
+        <div class="card-body">
+    
+            <form id="login-form" class="form-signin" action="/login">
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required=""
+                    autofocus="">
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" name="inputPassword" class="form-control" placeholder="Password" required="">
+                <div class="invalid-feedback">
+                    The username and password you entered doesn't match any account. Sign up for an account <a
+                        href="/register">here</a>.
+                </div>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="card"  style="width: 25rem; margin-left: auto; margin-right: auto; margin-top: 20px;">
+        <div class="card-body">
+            New to Docable/Ottomatica? <a href="/register">Create an account</a>.
+        </div>
+    </div>
 
     <%- include('templates/footer_analytics'); -%>
    
