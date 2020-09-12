@@ -184,13 +184,31 @@ echo "Exit codes: ${PIPESTATUS[@]}"
 
 Using a combination of `cut`, `wc`, `head`, `tail`, `grep`, `sort`, `uniq`, pipes (`|`) and any other unix suitable commands, create a command that calculates the following.
 
-You can try running 
+**Extend the following commands** to try to accomplish each task:
 
-* Count the number of columns inside the "users.*.csv" file. [data-a1.txt]
-* Count the number of times "bitcoin" is referenced inside a the post's file "tagline" column. [data-a2.txt]
-* Find the row of post with the highest number of upvotes. [data-a3.txt]
+1. Count the number of columns inside the "users.*.csv" file.
 
-Verify answers with `opunit verify local`.
+```bash|{type:'command', shell: 'bash', failed_when:"!stdout.includes('14')"}
+head -n 1 product-hunt/users--2016-04-01_14-36-26-UTC.csv | tr ';' '\n'
+```
+
+2. Count the number of times "bitcoin" is referenced inside a the post's file "tagline" column. Tagline is the 4th column.
+
+```bash|{type:'command', shell: 'bash', failed_when:"!stdout.includes('42')"}
+cut -f 4 -d ';' product-hunt/posts--*.csv | head
+```
+
+3. Find the row of post with the highest number of votes (`votes_count`, 7th column).
+
+```bash|{type:'command', shell: 'bash', failed_when:"!stdout.includes('Startup Stash;A curated directory of 400 resources & tools for startups')"}
+# 
+```
+
+*Warning*: While this can be useful for quick and dirty analysis, for more serious processing, you will want to use a more robust csv parser. For example, using `awk` to count the number of fields (NF) seperated by `;`, we can see, that some data may be incorrect. This is because quoted semi-columns are not being escaped by the bash commands.
+
+```bash|{type:'command', shell: 'bash', failed_when:"!stdout.includes('14')"}
+awk -F';' '{print NF}' product-hunt/users--2016-04-01_14-36-26-UTC.csv | sort | uniq
+```
 
 ## Environment Variables
 
