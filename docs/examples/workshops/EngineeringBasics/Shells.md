@@ -165,7 +165,9 @@ Extract a column of text from a file, using `cut`, skip over first line with `ta
 cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
 ```
 
-*Note*: You may notice an error from this last command (`exit code: 141`) or a "write error" message in stderr. This is normal and expected behavior. After processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. Similiarly, we could ignore any warning output by redirecting stderr into `/dev/null` or `NUL` in windows. 
+*Note*: You may notice an error from this last command (`exit code: 141`) or a "write error" message in stderr. This is normal and expected behavior. After processing the first 10 lines of text, `head` will terminate, meaning that output that the previous commands was sending was suddenly closed, resulting in a `SIGPIPE`. If we wanted to make sure that we only received the contents of the file, and not stray warnings, we could redirect only stdout by using `1>`. 
+
+Similiarly, we could ignore any warning output by redirecting stderr into `/dev/null` or `NUL` in **Windows**: 
 
 ```bash|{type:'command', platform: 'win32'}
 cut -f 4 -d ';' product-hunt/users*.csv 2> NUL | tail -n +2 2> NUL | head 
@@ -345,7 +347,7 @@ done <<< "$RESULTS"
 
 Run the script:
 
-```bash|{type:'command'}
+```bash|{type:'command', shell: 'bash'}
 ./checker.sh product-hunt/posts--2016-04-01_14-36-24-UTC.csv 3
 ```
 
@@ -425,6 +427,8 @@ Just as a simple example, if you ran this code `python -c "print( input('Enter v
 
 By using expect, you can create scripts that automatically response to prompt inputs.
 
+Warning: `expect` is not directly available on Windows.
+
 ```bash|{type:'command', shell: 'bash'}
 expect <<- END
     spawn python -c "print( input('Enter value: ') )"
@@ -497,7 +501,7 @@ If you try running `./server.sh` in another terminal, it should prevent you from
 ./server.sh
 ```
 
-Let's stop our server (Windows):
+Let's stop our server (Windows): *Note*: this is a nice example where powershell's scripting powers come into good use.
 ```bash|{type:'command', platform: 'win32', shell: 'powershell'}
 Get-CimInstance Win32_Process -Filter "CommandLine LIKE '%http-server%'" | Remove-CimInstance
 ```
