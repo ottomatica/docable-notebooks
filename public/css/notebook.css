@@ -90,6 +90,16 @@ main {
     color: grey;
 }
 
+[data-type="command"][data-privileged="true"][data-shell="bash"]::before {
+    content: '🛡️ BASH ';
+    color: grey;
+}
+
+[data-type="command"][data-shell="bash"]::before {
+    content: 'BASH ';
+    color: grey;
+}
+
 .docable-cell-file-header {
     /*background-color: #e5e5e5;*/
     background-color: coral;

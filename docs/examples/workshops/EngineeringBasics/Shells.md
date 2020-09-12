@@ -175,8 +175,9 @@ In bash, if we wanted to know the exit code of different parts of the command ch
 
 In bash:
 ```bash|{type:'command'}
-set +o pipefail; cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
-echo ${PIPESTATUS[@]}
+set +o pipefail
+cut -f 4 -d ';' product-hunt/users*.csv | tail -n +2 | head 
+echo "Exit codes: ${PIPESTATUS[@]}"
 ```
 
 #### Exercise: Data Science with Bash
