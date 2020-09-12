@@ -127,7 +127,7 @@ app.post('/account', user_routes.updateAccount );
 app.get('/account', user_routes.getAccount);
 
 app.post('/login', user_routes.login );
-app.get('/login', function(req, res) { res.render("login", {});} );
+app.get('/login', user_routes.getLogin );
 app.get('/logout', user_routes.logout);
 
 app.post('/register', user_routes.register );

@@ -4,12 +4,22 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="dropdown-menu dropdown-menu-right">
+        <!-- links -->
         <a class="dropdown-item" href="/">Home</a>
         <a class="dropdown-item" href="https://ottomatica.io/">About</a>
+        
         <div class="dropdown-divider"></div>
+        <!-- management -->
+
         <a class="dropdown-item" href="/variables">Manage Variables</a>
         <a class="dropdown-item" href="/targets">Manage Targets</a>
+        
+        <!-- account -->
+
         <% if (locals.user) { %>
+        <div class="dropdown-divider"></div>
+
+        <a class="dropdown-item" href="/account">My Account</a>
         <a class="dropdown-item" href="/logout"> <i class=" fas fa-sign-out-alt"></i> Logout </a>
         <% } %>
         
