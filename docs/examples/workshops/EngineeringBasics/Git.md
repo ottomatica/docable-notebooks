@@ -9,6 +9,32 @@
 
 "Version control is the lab notebook of the digital world: it’s what professionals use to keep track of what they’ve done and to collaborate with other people. Every large software development project relies on it, and most programmers use it for their small jobs as well. And it isn’t just for software: books, papers, small data sets, and anything that changes over time or needs to be shared can and should be stored in a version control system." -- [Version Control with Git](http://swcarpentry.github.io/git-novice/)
 
+
+## Understanding Git
+
+What better way to understand git, then check out git itself. This might take a while...
+
+```bash|{type:'command', stream: true, failed_when:'exitCode != 0'}
+git clone https://github.com/git/git
+```
+
+We'll be working inside the git/ directory set our working state to v2.23.0.
+
+```bash|{type:'command'}
+cd git
+git reset --hard v2.23.0
+```
+
+```bash|{type:'command', path: 'git'}
+git log -1 --abbrev=40
+```
+
+```bash|{type:'command', path: 'git'}
+git cat-file -p 5fa0f523
+```
+
+
+
 ## Practice: Creating a Repo
 
 Let's try the basics. Let's create a new local git repository.
