@@ -9,33 +9,44 @@
 
 "Version control is the lab notebook of the digital world: it’s what professionals use to keep track of what they’ve done and to collaborate with other people. Every large software development project relies on it, and most programmers use it for their small jobs as well. And it isn’t just for software: books, papers, small data sets, and anything that changes over time or needs to be shared can and should be stored in a version control system." -- [Version Control with Git](http://swcarpentry.github.io/git-novice/)
 
-#### Git Tutorial
-
-Work through the following tutorial. This will walk you through the most basic git commands in a simulated web terminal.
-
-https://try.github.io/levels/1/challenges/1
-
-#### Git Branching Playground
-
-We will solve the "Introduction Sequence" levels in:  
-http://pcottle.github.io/learnGitBranching/   
-
-![example](https://cloud.githubusercontent.com/assets/742934/9494425/c4dd4b66-4bd3-11e5-9aac-04bfc8fed771.png)
-
-This will help you visualize the true structure of a git repository and understand how concepts such as branching are implemented.
-
 ## Practice: Creating a Repo
 
-Let's try the basics. Let's create a new local git repository. You can create one inside your course folder (Project0). Inside `Project0`, use the command `git init` to create a new repository. Perform the following steps:
+Let's try the basics. Let's create a new local git repository.
 
-1. Create a new empty file (README.md). There is a useful command: `touch README.md`. Edit the file to say:
-   ```
-   # Project 0
-   Hello!
-   ```
-   Tip: If you want to open a graphical window inside your current shell, you can run `start .` (Windows) or `open .` (Mac/Linux). 
+Create a new directory (Basics) and file (README.md).
 
-2. Commit the file.
+```bash|{type:'file', path: 'Basics/README.md'}
+# Project 0
+Hello!
+```
+
+We are going to create a new git repository, but maybe not the way you've done it before. 
+
+```bash|{type:'command'}
+cd Basics
+git init
+```
+
+`TODO` link to Derricks' git lecture.
+
+This will create a new .git directory to store commits and other objects.
+
+```bash|{type:'command'}
+ls -l Basics/.git
+```
+
+```bash|{type:'command'}
+cd Basics
+git add README.md
+```
+
+Our file is now being staged, but has not been committed to the repository yet.
+
+```bash|{type:'command', path: 'Basics'}
+cd Basics
+git status
+```
+
 
 While having a local git repository is cool, we should connect it to another remote repository. Perform the following steps:
 
@@ -48,6 +59,17 @@ While having a local git repository is cool, we should connect it to another rem
 4. On GitHub, edit the README.md, to say "Hello GitHub!". Commit the changes on GitHub. Now you have changes in your remote (origin), that are missing on your local copy.
 
 5. Run `git pull` and verify you now have the updated changes.
+
+
+#### Git Branching Playground
+
+We will solve the "Introduction Sequence" levels in:  
+http://pcottle.github.io/learnGitBranching/   
+
+![example](https://cloud.githubusercontent.com/assets/742934/9494425/c4dd4b66-4bd3-11e5-9aac-04bfc8fed771.png)
+
+This will help you visualize the true structure of a git repository and understand how concepts such as branching are implemented.
+
 
 
 ## Git Configuration and Security

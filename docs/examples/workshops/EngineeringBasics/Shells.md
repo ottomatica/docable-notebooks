@@ -122,7 +122,7 @@ command1 | command2  # pipes output of command1 as standard in to command2
 
 Windows: `clip < file.txt` Mac: `pbcopy < file.txt` 
 
-```bash|{type:'command', platform: 'linux'}
+```bash|{type:'command', platform: 'darwin'}
 pbcopy < ~/.ssh/id_rsa
 ```
 
@@ -238,7 +238,7 @@ Tip: One limitation of using setx is that it cannot store values longer than 102
 
 In bash/*sh environments, you can set temporary environment variables in two ways:
 
-Like `set`, you can define a variable just for your shell session:
+Like `set`, you can define a variable just for your shell session, but not for running programs.
 
 ```bash|{type:'command'}
 DEBUG_MODE=true
@@ -248,7 +248,7 @@ node -e 'console.log(`DEBUG_MODE=${process.env.DEBUG_MODE}`);'
 
 ##### Scoping
 
-You can also define a variable that will only exist inside a subprocess  spawned from the shell. **This may not behave the way you expect**!
+You can also define a variable that will only exist inside a subprocess spawned from the shell. **This may not behave the way you expect**!
 
 ```bash|{type:'command', shell:"bash"}
 DEBUG_MODE=true echo "DEBUG_MODE=$DEBUG_MODE"
@@ -570,6 +570,14 @@ Here is a useful [reference](http://hyperpolyglot.org/multiplexers).
 
 ## Resources
 
+### Bite Size Command Line Zine
+
+You might find Julia Evan's zine useful: [Bite Size Command Line!](https://jvns.ca/blog/2018/08/05/new-zine--bite-size-command-line/).
+
+Here is an example for the `lsof` command. More examples can be found [here](https://twitter.com/i/moments/1026078161115729920).
+
+![lsof](https://pbs.twimg.com/media/DjFb_FPX4AAOwpa?format=jpg&name=medium)
+
 ### Command Line Fu
 
 A list of command line examples for interesting tasks:  
@@ -587,11 +595,3 @@ What does `tar -zxvf ph.tar.gz` do?
 http://explainshell.com/explain?cmd=tar+-zxvf
 
 ![image](https://cloud.githubusercontent.com/assets/742934/15635713/8fc9cf7e-25b4-11e6-957e-0bb03756b9fb.png)
-
-### Bite Size Command Line Zine
-
-You might find Julia Evan's zine useful: [Bite Size Command Line!](https://jvns.ca/blog/2018/08/05/new-zine--bite-size-command-line/).
-
-Here is an example for the `lsof` command. More examples can be found [here](https://twitter.com/i/moments/1026078161115729920).
-
-![lsof](https://pbs.twimg.com/media/DjFb_FPX4AAOwpa?format=jpg&name=medium)
