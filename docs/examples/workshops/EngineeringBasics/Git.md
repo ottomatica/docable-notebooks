@@ -21,6 +21,7 @@ Hello!
 ```
 
 We are going to create a new git repository, but maybe not the way you've done it before. 
+In the next set of commands, we will be working inside the `Basics/` directory.
 
 ```bash|{type:'command'}
 cd Basics
@@ -31,22 +32,19 @@ git init
 
 This will create a new .git directory to store commits and other objects.
 
-```bash|{type:'command'}
-ls -l Basics/.git
+```bash|{type:'command', path: 'Basics'}
+ls -l .git
 ```
 
-```bash|{type:'command'}
-cd Basics
+```bash|{type:'command', path: 'Basics'}
 git add README.md
 ```
 
 Our file is now being staged, but has not been committed to the repository yet.
 
 ```bash|{type:'command', path: 'Basics'}
-cd Basics
 git status
 ```
-
 
 While having a local git repository is cool, we should connect it to another remote repository. Perform the following steps:
 
