@@ -11,14 +11,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <link rel="icon" 
-    type="image/png"
-    href="/media/favicon.png">
+    <link rel="icon" type="image/png" href="/media/favicon.png">
 
     <link rel="stylesheet" href="/css/github-markdown.css">
     <link rel="stylesheet" href="/css/notebook.css">
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing/twemoji-amazing.css" />
+
     <script src="/js/vendor/font-awesome.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
@@ -37,10 +37,9 @@
         }
 
         .form-group.required .control-label:after {
-            content:" *";
-            color:red;
+            content: " *";
+            color: red;
         }
-
     </style>
 
 </head>
@@ -58,11 +57,18 @@
     <!-- Begin page content -->
     <main role="main" id="main" class="form-register">
 
+        <h3 class="docable text-center">
+            <i class="twa twa-ledger display-1"></i> <br>
+            Docable Notebooks
+        </h3>
+
         <div class="p-5">
 
-            <p class="lead text-center">Create a user account to gain access to exclusive features, cloud storage, and more.</p>
 
-            <form class="card p-3" id="register-form" action="/register" class="row">
+            <p class="lead text-center">Create a user account to gain access to exclusive features, cloud storage, and
+                more.</p>
+
+            <form class="card p-4" id="register-form" action="/register" class="row">
 
                 <div class="form-group required">
                     <label class="control-label" for="name">Name</label>
@@ -70,34 +76,42 @@
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="emailaddress">Email address</label>
-                    <input type="email" class="form-control" name="emailaddress" aria-describedby="email" placeholder="your@email.com">
+                    <input type="email" class="form-control" name="emailaddress" aria-describedby="email"
+                        placeholder="your@email.com">
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="password">Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <input class="control-label" type="checkbox" name="subscribe" checked> 
+                    <input class="control-label" type="checkbox" name="subscribe" checked>
                     <label for="subscribe">Send me important emails about Docable.</label>
                 </div>
 
                 <div class="text-center">
-                   <button type="submit" class="btn btn-lg btn-success">Register</button>
-                </div>                
+                    <button type="submit" class="btn btn-lg btn-success">Register</button>
+                </div>
+
+                <small class="text-muted mt-3">
+                    By creating an account, you agree to the <a href="">Terms of Service</a>
+                    and <a href="">Privacy Policy</a> before registering.
+                </small>
             </form>
 
-            <p>Please review our <a href="">Terms of Service</a> and <a href="">Privacy Policy</a> before registering.</p>
 
-            <div>Already a member? <a href="/login">Login here</a>.</div>
-            <div>Didn't receive <a href="">confirmation instructions</a>?</div>
-            <div>Didn't receive <a href="">unlock instructions?</a></div>
-        </div>
-        
+            <div class="card bg-light text-muted" style="margin-top: 5px;">
+                <div class="card-body">
+
+                    <div>Already a member? <a href="/login">Login here</a>.</div>
+                    <div>Didn't receive <a href="">confirmation instructions</a>?</div>
+                    <div>Didn't receive <a href="">unlock instructions?</a></div>
+                </div>
+            </div>
     </main>
 
     <script>
 
-        $('#register-form').submit(function (e) {   
+        $('#register-form').submit(function (e) {
             e.preventDefault();
 
             // let form = $(this);
@@ -120,7 +134,7 @@
                         newsletter: '83c0ce6e-34f2-47c5-b638-62e53f32b2ca'
                     }),
                     success: function (data) {
-                        register({...form, subscriberID: data.id});
+                        register({ ...form, subscriberID: data.id });
                     },
                     error: function (data) {
                         $('input').addClass('is-invalid')
@@ -141,19 +155,19 @@
                 body: JSON.stringify(form),
                 headers: { "content-type": "application/json; charset=UTF-8" },
             })
-            .then(response => response.text())
-            .then(data => {
-                window.location.replace('/');
-            })
-            .catch(err => {
-                $('input').addClass('is-invalid')
-            });
+                .then(response => response.text())
+                .then(data => {
+                    window.location.replace('/');
+                })
+                .catch(err => {
+                    $('input').addClass('is-invalid')
+                });
         }
 
     </script>
 
     <%- include('templates/footer_analytics'); -%>
-    
+
 </body>
 
 </html>
