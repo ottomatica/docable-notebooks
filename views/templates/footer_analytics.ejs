@@ -3,7 +3,7 @@
         <span class="text-muted"><a class="text-muted" href="https://github.com/ottomatica/">ottomatica.io</a></span>
         <span class="mt-5 mb-3 text-muted">
             ©
-            <script>document.write(new Date().getFullYear())</script>
+            <span id="year"></span>
         </span>
     </div>
 </footer>
@@ -19,4 +19,6 @@
     gtag('config', 'UA-112375708-2', {
         cookie_flags: 'max-age=7200;samesite=lax'
     });
+
+    document.getElementById('year').innerText = new Date().getFullYear();
 </script>
