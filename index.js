@@ -183,6 +183,10 @@ if(process.env.NODE_ENV == 'prod') {
     app.get('/', hosted_routes.home);
 }
 
+app.get('*', function (req, res) {
+    res.status(404).render('404');
+});
+
 app.listen(port, async () => {
 
     const envManager = require('./lib/providers/manager');
