@@ -33,6 +33,15 @@ git log -1 --abbrev=40
 git cat-file -p 5fa0f523
 ```
 
+Notice no file name.
+```bash|{type:'command', path: 'git'}
+git cat-file -p 5fa073a885
+```
+
+This is a tree, it has file names.
+```bash|{type:'command', path: 'git'}
+git cat-file -p 5fa01e75a3
+```
 
 
 ## Practice: Creating a Repo
