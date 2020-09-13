@@ -169,18 +169,9 @@ app.post("/workspace/edit", function(req, res)
 
 if(process.env.NODE_ENV == 'prod') {
     app.use('/img', express.static('./lib/hosted/public/img'));
-    const examples_routes = require('./lib/hosted/routes/examples');
-    app.post('/runhosted', examples_routes.runHosted);
-    app.get('/examples', examples_routes.get_examples_home);
-    app.get('/examples/:name', examples_routes.get_example_notebook);
-    app.get('/getexamples', examples_routes.get_examples);
-    app.get('/getexamples/:name', examples_routes.get_example);
 
-    const hosted_routes = require('./lib/hosted/routes/hosted');
-    app.post('/hosted/publish', hosted_routes.publish );
-    app.post('/hosted', hosted_routes.updateHosted );
-    app.get('/hosted', hosted_routes.getHosted);
-    app.get('/', hosted_routes.home);
+    const hostedRoutes = require('./lib/hosted/routes');
+    app.use('/', hostedRoutes);
 }
 
 app.get('*', function (req, res) {
