@@ -185,6 +185,25 @@ function processResults(data)
             </div>`);
 
         }
+
+        if ( block.data('highlight') )
+        {
+            let h = block.data('highlight');
+            let output = cell.next('.docable-cell-output');
+            let title  = h.title;
+
+            var innerHTML = output.html();
+            var index = innerHTML.indexOf(h.word);
+            if (index >= 0) { 
+             innerHTML = innerHTML.substring(0,index) + 
+                `<span class='badge badge-warning' style='font-size:100%' data-toggle="tooltip" title="${title}">` + innerHTML.substring(index,index+h.word.length) + "</span>" + innerHTML.substring(index + h.word.length);
+             output.html(innerHTML);
+            }
+          
+            ;
+
+        }
+        
         
 
         
