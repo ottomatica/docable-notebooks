@@ -30,6 +30,10 @@ git log -1 --abbrev=40
 ```
 
 ```bash|{type:'command', path: 'git'}
+git cat-file -p 5fa0
+```
+
+```bash|{type:'command', path: 'git'}
 git cat-file -p 5fa0f523
 ```
 
@@ -40,9 +44,13 @@ git cat-file -p 5fa073a885
 
 This is a tree, it has file names.
 ```bash|{type:'command', path: 'git'}
-git cat-file -p 5fa01e75a3
+git cat-file -p 5fa02bff4e
 ```
 
+graph
+```bash|{type:'command', path: 'git'}
+git log --graph --oneline
+```
 
 ## Practice: Creating a Repo
 
