@@ -1,3 +1,4 @@
+
 const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runhosted' : '/run';
 let exampleName = undefined;
 if(runEndpoint == '/runhosted') exampleName = window.location.pathname.split('/')[2];
@@ -155,14 +156,39 @@ function processResults(data)
         // selecting cells using cellid to adding results
         let block = $(`[id="${result.cellid}"]`);
         if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
-        let selector = block.parent();
+        let cell = block.parent();
 
         if( result.result.status == false && $(block).data('redirect') )
         {
             window.location = $(block).data('redirect');            
         }
 
-        setResults(selector, result.result);
+        setResults(cell, result.result);
+
+        // highlight 
+        if ( block.data('block') )
+        {
+            let b = block.data('block');
+            let output = cell.next('.docable-cell-output');
+            let top = `${b.top}px`;
+            let left = `${b.left}px`;
+            let width = `${b.width}px`;
+            let height = `${b.height}px`;
+            let title  = b.title;
+
+            output.before(`
+            <div class="docable-cell-highlight"
+                style="border: 3px solid #FF0000; position: absolute;
+                margin-top: ${top}; left: ${left}; width: ${width}; height: ${height};"
+                data-toggle="tooltip" title="${title}"
+            >
+            </div>`);
+
+        }
+        
+
+        
+
     }    
 }
 
