@@ -239,10 +239,11 @@ Tip: One limitation of using setx is that it cannot store values longer than 102
 In bash/*sh environments, you can set temporary environment variables in two ways:
 
 Like `set`, you can define a variable just for your shell session:
-```
-$ DEBUG_MODE=true
-$ echo $DEBUG_MODE
-true
+
+```bash|{type:'command'}
+DEBUG_MODE=true
+echo $DEBUG_MODE
+node -e 'console.log(`DEBUG_MODE=${process.env.DEBUG_MODE}`);'
 ```
 
 ##### Scoping
@@ -250,12 +251,18 @@ true
 You can also define a variable that will only exist inside a subprocess  spawned from the shell. **This may not behave the way you expect**!
 
 ```bash|{type:'command', shell:"bash"}
-BUG_TEST=true echo "BUG_TEST=$BUG_TEST"
-BUG_TEST=true node -e 'console.log(`BUG_TEST=${process.env.BUG_TEST}`);'
+DEBUG_MODE=true echo "DEBUG_MODE=$DEBUG_MODE"
+DEBUG_MODE=true node -e 'console.log(`DEBUG_MODE=${process.env.DEBUG_MODE}`);'
 ```
-A blank is printed out because `$BUG_TEST` is expanded before the process executing the echo command is started. On the other hand, inside the node program, it would contain `true`.
+A blank is printed out because `$DEBUG_MODE` is expanded before the process executing the echo command is started. On the other hand, inside the node program, the process inherits the shell's environment variables, including the DEBUG_MODE variable.
 
 Finally, you can enable access to an environment variable for all processes and subprocesses started in the shell by using `export VAR=VALUE`
+
+```bash|{type:'command'}
+export DEBUG_MODE=true
+echo $DEBUG_MODE
+node -e 'console.log(`DEBUG_MODE=${process.env.DEBUG_MODE}`);'
+```
 
 > *Permenant environment variables are actually more tricky in Mac/Linux shells!*
 
