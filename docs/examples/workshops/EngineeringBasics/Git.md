@@ -46,6 +46,12 @@ Our file is now being staged, but has not been committed to the repository yet.
 git status
 ```
 
+We will commit our staged changes into the repository.
+
+```bash|{type:'command', path: 'Basics'}
+git commit -m "initial commit"
+```
+
 While having a local git repository is cool, we should connect it to another remote repository. Perform the following steps:
 
 1. Create a repo on GitHub (If you are a NCSU student, use GitHub Enterprise: https://github.ncsu.edu). 
