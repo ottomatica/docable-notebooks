@@ -31,81 +31,97 @@
         crossorigin="anonymous"></script>
 
     <style>
-        .docable {
-            color: #28a745;
-            font-variant: small-caps;
-        }
         .form-signin {
-        width: 100%;
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;
+            width: 100%;
+            max-width: 550px;
+            padding: 15px;
+            margin: auto;
         }
+    
         .form-signin .checkbox {
-        font-weight: 400;
+            font-weight: 400;
         }
+    
         .form-signin .form-control {
-        position: relative;
-        box-sizing: border-box;
-        height: auto;
-        padding: 10px;
-        font-size: 16px;
+            height: auto;
         }
+    
         .form-signin .form-control:focus {
-        z-index: 2;
+            z-index: 2;
         }
+    
         .form-signin input[type="email"] {
-        margin-bottom: -1px;
-        border-bottom-right-radius: 0;
-        border-bottom-left-radius: 0;
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
         }
+    
         .form-signin input[type="password"] {
-        margin-bottom: 10px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
         }
     </style>
 
 </head>
 
 <body class="d-flex flex-column h-100 bg-light">
-    
-    <h3 class="docable text-center">
-        <i class="twa twa-ledger display-1"></i> <br>
-        Docable Notebooks 
-    </h3>
+    <!-- <header>
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <a class="navbar-brand" href="/">Docable</a>
+        </nav>
+    </header> -->
 
-    <div class="card" style="width: 25rem; margin-left: auto; margin-right: auto; margin-top: 20px;">
-        <div class="card-body">
-    
-            <form id="login-form" class="form-signin" action="/login">
-                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required=""
-                    autofocus="">
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="inputPassword" class="form-control" placeholder="Password" required="">
-                <div class="invalid-feedback">
-                    The username and password you entered doesn't match any account. Sign up for an account <a
-                        href="/register">here</a>.
+    <main role="main" id="main" class="form-signin">
+
+        <h3 class="text-center pt-5">
+            <i class="twa twa-ledger display-1"></i> <br>
+            Docable Notebooks
+        </h3>
+
+        <div class="p-5">
+
+            <div class="card p-4">
+                <div class="card-body">
+
+                    <form id="login-form" class="form-group " action="/login">
+                        <p class="h3 mb-3 font-weight-normal">Please sign in</p>
+
+
+                        <label for="inputEmail" class="sr-only">Email address</label>
+                        <input type="email" name="inputEmail" class="form-control" placeholder="Email address"
+                            autofocus="" required>
+
+                        <label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" name="inputPassword" class="form-control" placeholder="Password"
+                            required>
+
+                        <div class="invalid-feedback mb-3">
+                            The username and password you entered doesn't match any account.
+                        </div>
+
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+                    </form>
+
                 </div>
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
+
+            </div>
+
+            <div class="card" style="width: 25rem; margin-left: auto; margin-right: auto; margin-top: 20px;">
+                <div class="card-body bg-light text-muted">
+                    New to Docable/Ottomatica? <a href="/register">Create an account</a>.
                 </div>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            </form>
+            </div>
 
         </div>
 
-    </div>
-
-    <div class="card"  style="width: 25rem; margin-left: auto; margin-right: auto; margin-top: 20px;">
-        <div class="card-body">
-            New to Docable/Ottomatica? <a href="/register">Create an account</a>.
-        </div>
-    </div>
+    </main>
 
     <%- include('templates/footer_analytics'); -%>
    
@@ -132,7 +148,5 @@
       })
     </script>
 </body>
-
-
 
 </html>
