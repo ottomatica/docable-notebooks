@@ -43,7 +43,7 @@ git cat-file -p 5fa073a885
 ```
 
 This is a tree, it has file names.
-```bash|{type:'command', path: 'git'}
+```bash|{type:'command', path: 'git', block: {top:32, left:52, width:40, height: 98, title: 'A tree can contain blobs and other trees'}}
 git cat-file -p 5fa02bff4e
 ```
 
