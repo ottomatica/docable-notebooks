@@ -206,7 +206,7 @@ function processResults(data)
                 style="border: 3px solid #FF0000; position: absolute;
                 background-color: rgba(131,46,35,.3);
                 margin-top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px;"
-                data-toggle="popover" title="Information" data-content="${title}"
+                data-toggle="popover" title="ℹ️: Note" data-content="${title}"
             >
             </div>`);
 
@@ -222,7 +222,7 @@ function processResults(data)
 
             fnInsertMarker( output, h.word, 
                 `<span class='badge badge-warning' style='font-size:100%' 
-                data-toggle="popover" data-content="some content" title="${title}">`
+                data-toggle="popover" data-content="${title}" title="ℹ️: Note">`
             );
             $('[data-toggle="popover"]').popover();
 
