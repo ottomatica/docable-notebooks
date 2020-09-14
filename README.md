@@ -68,6 +68,7 @@ choco install figlet-go -y
 
 ## Installing and Running Docable Notebooks
 
+Requires [node.js >= 12.x](https://nodejs.org/en/).
 
 Simply clone this repository.
 ```bash|{type: 'command'}
@@ -76,6 +77,7 @@ git clone https://github.com/ottomatica/docable-notebooks/
 
 Install dependencies and start server.
 ```bash|{type: 'command'}
+cd docable-notebooks
 npm install
 npm run dev
 ```
