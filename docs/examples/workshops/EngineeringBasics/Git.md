@@ -25,32 +25,106 @@ cd git
 git reset --hard v2.23.0
 ```
 
-```bash|{type:'command', path: 'git', highlight: {word: '5fa0f5238b0cd46cfe7f6fa76c3f526ea98148d9', title:'a smart observation about this commit sha'}}
+### Git's Object Model: Content-Addressable Data Store.
+
+![git object model](resources/imgs/git-object-model.png)
+
+* Every object has a SHA-1 hash: 40 hex characters.
+* Given 40 hex characters, we can find the unique object with that hash.
+
+Let's examine a single commit.
+
+```bash|{type:'command', path: 'git', highlight: {word: '5fa0f5238b0cd46cfe7f6fa76c3f526ea98148d9', title:'This 40 hex id allows us to find this object inside the git object store.'}}
 git log -1 --abbrev=40
 ```
 
-```bash|{type:'command', path: 'git', block: {word: 'commit', title:'look here', rows: 5}}
+### Object Types: Blobs, Trees, Commits
+
+We will use the `git cat-file` command to help us search for objects inside the store.
+If we provide git with a partial hash, it will attempt to find a unique match, and if it is unable to, it will provide a list of those that did match.
+
+```bash|{type:'command', path: 'git', block: {word: 'commit', title:'There are actually several types of objects in the data-store. For example, a tree object contains folder contents.', rows: 5}}
 git cat-file -p 5fa0
 ```
 
-```bash|{type:'command', path: 'git'}
-git cat-file -p 5fa0f523
-```
+#### Blobs
 
-Notice no file name.
-```bash|{type:'command', path: 'git'}
+Let's examine a **blob** object. A blob contains _file contents_. 
+![img](resources/imgs/git-blob.png)
+
+```bash|{type:'command', path: 'git', highlight: {word: "Here are the topics that have been cooking", title:"Note: the file name is not part of the object! It is just the text or binary contents."}}
 git cat-file -p 5fa073a885
 ```
 
-This is a tree, it has file names.
-```bash|{type:'command', path: 'git', block: {word: 'blob', rows: 8, title: 'A tree can contain blobs and other trees'}}
+#### Trees
+
+Let's examine a **tree** object. A tree contains _folder contents_. 
+![img](resources/imgs/git-tree.png)
+
+```bash|{type:'command', path: 'git', block: {word: 'CodingGuidelines', rows: 8, title: 'A tree can contain blobs and other trees. Notice that RelNotes is another tree with additional folder content.'}}
 git cat-file -p 5fa02bff4e
 ```
+Example representation of folder contents contained by a tree: 
 
-graph
+![img](resources/imgs/git-tree-folder.png)
+
+#### Commits 
+
+Perhaps one of the most important type of object inside the object model is a commit. A **commit** contains many things:
+
+* A root **tree**
+* A list of **parent commits**
+* A commit message
+* An author name, email, time.
+* A committer name, email, time.
+
+![git commit](resources/imgs/git-commit.png)
+
+
+Let's examine an example commit.
+
+```bash|{type:'command', path: 'git', highlight: {word: "committer", title: "A committer can differ from an author, for example, a committer may be merging a pull request from another author."}}
+git cat-file -p 5fa00a4dcf
+```
+
+We can examine the commit graph.
+
 ```bash|{type:'command', path: 'git'}
 git log --graph --oneline
 ```
+
+#### Diffs
+
+Diffs are not part of the object model!
+
+> **Commits are NOT diffs**
+
+Instead, diffs are dynamically calculated from the commit graph inside the object store. For example, even object attributes, such as _file renames_ are not represented inside the datastore and must be calculated dynamically.
+
+Let's examine a diff.
+
+```bash|{type:'command', path: 'git'}
+git diff --raw v2.22.0 v2.23.0
+```
+
+#### Merkle Trees
+
+To enable efficient representation and fast computations of git operations, _merkle trees_ provide forward references within the graph to blobs.
+
+![merkle-tree](resources/imgs/git-merkle-tree.png)
+
+### Branches
+
+_Branches_ are simply pointers to commits. _Tags_ are pointers to anything (commits, trees, blobs).
+
+![git-branches](resources/imgs/git-branches.png)
+
+#### Move between branches with git switch
+
+`git switch` is a new feature in v2.23.0 of git. It essentially replaces and does less work than `git checkout`. Primarily, `git switch` will:
+
+* Change `HEAD` to point to a new branch.
+* Updates the working directory to match the commit's tree.
 
 ## Practice: Creating a Repo
 
