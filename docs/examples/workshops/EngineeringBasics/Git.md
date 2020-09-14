@@ -29,7 +29,7 @@ git reset --hard v2.23.0
 git log -1 --abbrev=40
 ```
 
-```bash|{type:'command', path: 'git'}
+```bash|{type:'command', path: 'git', block: {word: 'commit', title:'look here', rows: 5}}
 git cat-file -p 5fa0
 ```
 

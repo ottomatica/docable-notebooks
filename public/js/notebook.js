@@ -1,4 +1,3 @@
-
 const runEndpoint = window.location.pathname.startsWith('/examples') ? '/runhosted' : '/run';
 let exampleName = undefined;
 if(runEndpoint == '/runhosted') exampleName = window.location.pathname.split('/')[2];
@@ -168,21 +167,40 @@ function processResults(data)
 
         setResults(cell, result.result);
 
+        let fnInsertMarker = function(output, word, marker)
+        {
+            var innerHTML = output.html();
+            var index = innerHTML.indexOf(word);
+            if (index >= 0) { 
+             innerHTML = innerHTML.substring(0,index) + 
+                marker + 
+                innerHTML.substring(index,index+word.length) + "</span>" + innerHTML.substring(index + word.length);
+
+             output.html(innerHTML);
+            }
+        };
+
         // highlight 
         if ( block.data('block') )
         {
             let b = block.data('block');
             let output = cell.next('.docable-cell-output');
-            let top = `${b.top}px`;
-            let left = `${b.left}px`;
-            let width = `${b.width}px`;
-            let height = `${b.height}px`;
             let title  = b.title;
+
+            fnInsertMarker( output, b.word, 
+                `<span class='docable-block-marker'>`
+            );
+            $('[data-toggle="popover"]').popover();
+
+            let left = $('.docable-block-marker').position().left - 3;
+            let top = $('.docable-block-marker').position().top - $('.docable-block-marker').parents('.docable-cell-output').position().top - 3;
+            let width = $('.docable-block-marker').width()+6;
+            let height = ($('.docable-block-marker').css('line-height').replace("px", "") * b.rows) + 3;
 
             output.before(`
             <div class="docable-cell-highlight"
                 style="border: 3px solid #FF0000; position: absolute;
-                margin-top: ${top}; left: ${left}; width: ${width}; height: ${height};"
+                margin-top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px;"
                 data-toggle="popover" title="Information" data-content="${title}"
             >
             </div>`);
@@ -197,24 +215,13 @@ function processResults(data)
             let output = cell.next('.docable-cell-output');
             let title  = h.title;
 
-            var innerHTML = output.html();
-            var index = innerHTML.indexOf(h.word);
-            if (index >= 0) { 
-             innerHTML = innerHTML.substring(0,index) + 
+            fnInsertMarker( output, h.word, 
                 `<span class='badge badge-warning' style='font-size:100%' 
-                data-toggle="popover" data-content="some content" title="${title}">` + 
-                innerHTML.substring(index,index+h.word.length) + "</span>" + innerHTML.substring(index + h.word.length);
+                data-toggle="popover" data-content="some content" title="${title}">`
+            );
+            $('[data-toggle="popover"]').popover();
 
-             output.html(innerHTML);
-            }
-
-            $('[data-toggle="popover"]').popover();          
         }
-        
-        
-
-        
-
     }    
 }
 
