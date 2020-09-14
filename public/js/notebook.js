@@ -86,10 +86,13 @@ function run(endPoint, body, stepIndex)
 
     // if streamable block, we're going to switch to streaming mode.
     let block = $('[data-docable="true"]').eq(stepIndex);
+
+    // $('.docable-cell-output').empty();
+
     if( block.length > 0 && block.data('stream') === true )
     {
         let cell = block.parent();
-        let output = cell.next('.docable-cell-output');
+        let output = cell.find('.docable-cell-output');
         output.append(`<span class="docable-stream">STREAM</span>:\n`);
 
         let results='';
@@ -190,16 +193,18 @@ function processResults(data)
             fnInsertMarker( output, b.word, 
                 `<span class='docable-block-marker'>`
             );
-            $('[data-toggle="popover"]').popover();
 
-            let left = $('.docable-block-marker').position().left - 3;
-            let top = $('.docable-block-marker').position().top - $('.docable-block-marker').parents('.docable-cell-output').position().top - 3;
-            let width = $('.docable-block-marker').width()+6;
-            let height = ($('.docable-block-marker').css('line-height').replace("px", "") * b.rows) + 3;
+            let marker = $(output).find('.docable-block-marker');
+
+            let left = marker.position().left - 3;
+            let top = marker.position().top - output.position().top - 3;
+            let width = marker.width()+6;
+            let height = (marker.css('line-height').replace("px", "") * b.rows) + 3;
 
             output.before(`
             <div class="docable-cell-highlight"
                 style="border: 3px solid #FF0000; position: absolute;
+                background-color: rgba(131,46,35,.3);
                 margin-top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px;"
                 data-toggle="popover" title="Information" data-content="${title}"
             >
@@ -319,8 +324,6 @@ function _setFailing(cell, response) {
 }
 
 function resetResults(index) {
-    let output;
-
     let input = $('[data-docable="true"]')    
     if (index) input = input.eq(index);
         
@@ -328,9 +331,9 @@ function resetResults(index) {
     cell.removeClass("failing");
     cell.removeClass("passing");
 
-    output = cell.next('.docable-cell-output');
+    let output = cell.next('.docable-cell-output');    
+    $(output).empty();
 
-    output.empty();
 
     // also reset docable-error box
     $('#docable-error').empty();
