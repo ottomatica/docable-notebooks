@@ -234,12 +234,15 @@ $('main').on('click', '.play-btn', function () {
 
     const pageVariables = getPageVariables();
 
+    let cell = $(this).closest('.docable-cell');
+    let block = cell.find('[data-docable="true"]');
+    // let id = cell
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
-    let cell = $('[data-docable="true"]').eq(stepIndex);
+    // let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    cell.addClass( "docable-cell-running" );
+    block.addClass( "docable-cell-running" );
 
-    run(runEndpoint == '/run' ? '/runCell' : '/runhosted', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
+    run(runEndpoint == '/run' ? '/runCell' : '/runhosted', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
 
 });
 
@@ -289,11 +292,11 @@ $('main').on('click', '.btn-more', function () {
     });
 });
 
-new ClipboardJS('.copy-btn', {
-    text: function (trigger) {
-        return $(trigger).siblings('pre[data-docable="true"]').text();
-    }
-});
+// new ClipboardJS('.copy-btn', {
+//     text: function (trigger) {
+//         return $(trigger).siblings('pre[data-docable="true"]').text();
+//     }
+// });
 
 
 function setResults(selector, result) {
@@ -331,9 +334,9 @@ function resetResults(index) {
     cell.removeClass("failing");
     cell.removeClass("passing");
 
+    cell.next('.docable-cell-highlight').remove();
     let output = cell.next('.docable-cell-output');    
-    $(output).empty();
-
+    output.empty();
 
     // also reset docable-error box
     $('#docable-error').empty();
