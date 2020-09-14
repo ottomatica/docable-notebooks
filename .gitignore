@@ -2,3 +2,4 @@ node_modules/
 .sessions
 docable-notebooks.log
 *.swp
+.DS_Store
