@@ -9,6 +9,9 @@ const isHosted = (runEndpoint === '/runhosted');
 // Initialization
 $(document).ready(function()
 {
+    // $('[data-toggle="tooltip"]').tooltip();
+    $().tooltip({trigger: 'click hover'})
+
     getAvailableEnvironments().then( function(envResponse)
     {
         for(const env of envResponse.environments) {
@@ -180,9 +183,11 @@ function processResults(data)
             <div class="docable-cell-highlight"
                 style="border: 3px solid #FF0000; position: absolute;
                 margin-top: ${top}; left: ${left}; width: ${width}; height: ${height};"
-                data-toggle="tooltip" title="${title}"
+                data-toggle="popover" title="Information" data-content="${title}"
             >
             </div>`);
+
+            $('[data-toggle="popover"]').popover();          
 
         }
 
@@ -196,12 +201,14 @@ function processResults(data)
             var index = innerHTML.indexOf(h.word);
             if (index >= 0) { 
              innerHTML = innerHTML.substring(0,index) + 
-                `<span class='badge badge-warning' style='font-size:100%' data-toggle="tooltip" title="${title}">` + innerHTML.substring(index,index+h.word.length) + "</span>" + innerHTML.substring(index + h.word.length);
+                `<span class='badge badge-warning' style='font-size:100%' 
+                data-toggle="popover" data-content="some content" title="${title}">` + 
+                innerHTML.substring(index,index+h.word.length) + "</span>" + innerHTML.substring(index + h.word.length);
+
              output.html(innerHTML);
             }
-          
-            ;
 
+            $('[data-toggle="popover"]').popover();          
         }
         
         
