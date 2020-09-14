@@ -126,6 +126,24 @@ _Branches_ are simply pointers to commits. _Tags_ are pointers to anything (comm
 * Change `HEAD` to point to a new branch.
 * Updates the working directory to match the commit's tree.
 
+We can switch our branch to the maintenance branch.
+```bash|{type:'command', path: 'git'}
+git switch maint
+```
+
+Let's confirm.
+
+```bash|{type:'command', path: 'git'}
+git status
+```
+
+We can return to the main branch.
+
+```bash|{type:'command', path: 'git'}
+git switch master
+```
+
+
 ## Practice: Creating a Repo
 
 Let's try the basics. Let's create a new local git repository.
