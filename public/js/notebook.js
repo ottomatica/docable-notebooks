@@ -92,7 +92,7 @@ function run(endPoint, body, stepIndex)
     if( block.length > 0 && block.data('stream') === true )
     {
         let cell = block.parent();
-        let output = cell.find('.docable-cell-output');
+        let output = cell.next('.docable-cell-output');
         output.append(`<span class="docable-stream">STREAM</span>:\n`);
 
         let results='';
