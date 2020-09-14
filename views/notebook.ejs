@@ -58,7 +58,7 @@
             <a class="navbar-brand" href="/">Docable</a>
 
             <!-- Local environments can pick their environment -->
-            <% if (!this.isHosted) { %>
+            <% if (!locals.isHosted) { %>
                 <%- include('templates/environment'); -%>
             <% } %>
 
