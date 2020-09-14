@@ -25,7 +25,7 @@ cd git
 git reset --hard v2.23.0
 ```
 
-```bash|{type:'command', path: 'git'}
+```bash|{type:'command', path: 'git', highlight: {word: '5fa0f5238b0cd46cfe7f6fa76c3f526ea98148d9', title:'a smart observation about this commit sha'}}
 git log -1 --abbrev=40
 ```
 
