@@ -155,7 +155,7 @@ brew install visual-studio-code
 
 ## Practice: Create an About Me Page
 
-Update your README.md. Using your new markdown skills, include the following details:
+Update your README.md in 'Basics/' in your favorite editor. Using your new markdown skills, include the following details:
 
 * Something about you.
 * Where you are from.
@@ -163,7 +163,7 @@ Update your README.md. Using your new markdown skills, include the following det
 * A list of skills
 * If brave, a table and a favorite code snippet.
 
-Commit and push the code to your Project0.
+Commit and push the code to your remote repository.
 
 ## Advanced: Creating a WebPage using GitHub Pages
 
@@ -187,9 +187,7 @@ You should see html output on the console. Before we try keeping this content, l
 
 You can create a new branch using `git branch gh-pages`. Do you remember which command we should use to switch branches?
 
-...
-
-Use `git checkout gh-pages`. You should see that you have switched to the gh-pages branch. Confirm with `git branch`. You should see an asterisk next to gh-pages.
+Use `git switch gh-pages`. You should see that you have switched to the gh-pages branch. Confirm with `git branch`. You should see an asterisk next to gh-pages.
 
 Using the stdout redirect operator `>`, you should be able to run `pandoc` again, but write to a new file `index.html`. Stage and commit the new file.
 
