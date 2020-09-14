@@ -158,27 +158,25 @@ Hello!
 We are going to create a new git repository, but maybe not the way you've done it before. 
 In the next set of commands, we will be working inside the `Basics/` directory.
 
+This will create a new .git directory to store commits and other objects.
+
 ```bash|{type:'command'}
 cd Basics
 git init
 ```
 
-`TODO` link to Derricks' git lecture.
-
-This will create a new .git directory to store commits and other objects.
+We can quickly inspect the contents of the git's directory and object store.
 
 ```bash|{type:'command', path: 'Basics'}
 ls -l .git
+echo "objects:"
+ls -l .git/objects
 ```
+
+Before adding a file to the repository, it must first be staged.
 
 ```bash|{type:'command', path: 'Basics'}
 git add README.md
-```
-
-Our file is now being staged, but has not been committed to the repository yet.
-
-```bash|{type:'command', path: 'Basics'}
-git status
 ```
 
 We will commit our staged changes into the repository.
@@ -187,9 +185,68 @@ We will commit our staged changes into the repository.
 git commit -m "initial commit"
 ```
 
+Nice work!
+
+### Stage, unstage, and discard changes
+
+Changes flow from our working tree, to staging index, and into repository.
+
+![git-staging](resources/imgs/git-staging.png)
+
+
+**Exercise**: Use the following sets of steps and execute them in any order you wish. Observe what happens to the _working tree_ and _index_, by running the `git status` step.
+
+Update the README.md and stage our change.
+
+```bash|{type:'command', path: 'Basics', shell: 'bash'}
+echo " Update: $(date)" >> README.md
+cat README.md
+git add README.md
+```
+
+View the current state of our **working tree** and **index**.
+
+```bash|{type:'command', path: 'Basics'}
+git status
+```
+
+Unstage file (remove from index), but keep changes in working tree.
+
+```bash|{type:'command', path: 'Basics'}
+git restore --staged README.md
+```
+
+Discard changes in worktree (we will lose our work!). This will restore changes to both the index and the working tree based on the latest version in the repo.
+
+```bash|{type:'command', path: 'Basics'}
+git restore --source=HEAD --staged --worktree README.md
+```
+
+### Remotes
+
 While having a local git repository is cool, we should connect it to another remote repository. In other words, we have no place to `git push` to...
 
-Perform the following steps:
+![git-remote](resources/imgs/git-remote.png)
+
+#### Remote operations
+
+* Get new data: `git fetch <remote> [branch]`
+* Upload your data: `git push <remote> <branch>`
+* Get new data and merge into working tree: `git pull <remote> <refspec>`
+
+*Hot Take*: Avoid `git pull` on large repositories! You may want to handle merges yourself into your target branch instead of having git mess with your working tree.
+
+**Exercise**: Let's open a terminal and perform the following steps.
+
+Windows:
+```bash|{type:'command', path: 'Basics', platform: 'win32'}
+start bash
+```
+
+Mac/Linux:
+```bash|{type:'command', path: 'Basics'}
+open -a "Terminal" .
+```
 
 1. Create a repo on GitHub (If you are a NCSU student, use GitHub Enterprise: https://github.ncsu.edu). 
 
@@ -202,15 +259,14 @@ Perform the following steps:
 5. Run `git pull` and verify you now have the updated changes.
 
 
-#### Git Branching Playground
+## Git Branching Playground
+
+Manipulating the commit graph can get quite complicated! This interactive visualization is very useful for getting a deeper understanding of how operations such as branches, merges, cherry-picking, and more work!
 
 We will solve the "Introduction Sequence" levels in:  
 http://pcottle.github.io/learnGitBranching/   
 
 ![example](https://cloud.githubusercontent.com/assets/742934/9494425/c4dd4b66-4bd3-11e5-9aac-04bfc8fed771.png)
-
-This will help you visualize the true structure of a git repository and understand how concepts such as branching are implemented.
-
 
 
 ## Git Configuration and Security
