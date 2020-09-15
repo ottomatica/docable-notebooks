@@ -309,18 +309,40 @@ function setResults(selector, result) {
     return result;
 }
 
+function ansi2html(result)
+{
+    let txt = ansiparse(result).map( atom => {
+
+        let foreground = (a) => a.foreground ? `color:${a.foreground};` : '';
+        let background = (a) => a.background ? `background-color:${a.background};` : '';
+        let font = (a) => {
+            let css = '';
+            if(a.bold ) {
+                css += 'font-weight: bold;'
+            }
+            if( a.italic) {
+                css += 'font-style: italic;'
+            }
+            if( a.underline ) {
+                css += 'text-decoration: underline;'          
+            }
+            return css;
+        }
+        let style = `${foreground(atom)}${background(atom)}${font(atom)}`;
+        if( style )
+           return `<span style="${style}">${atom.text}</span>`;
+        return atom.text;
+    }).join('');    
+    return txt;
+}
+
 function _setPassing(cell, response) {
     cell.addClass('passing');
 
     let output = cell.next('.docable-cell-output');
-    let txt = ansiparse(response.stdout).map( atom => {
-        if( atom.foreground ) {
-            return `<span style="color:${atom.foreground}">${atom.text}</span>`;
-        }
-        return atom.text;
-    }).join('');
-    console.log( txt );
-    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${txt}</span>`);
+
+    let stdout = ansi2html(response.stdout);
+    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${stdout}</span>`);
     output.append(`<span>${response.stderr}</span>\n`);
 }
 
@@ -328,8 +350,12 @@ function _setFailing(cell, response) {
     cell.addClass('failing');
 
     let output = cell.next('.docable-cell-output');
-    output.append(`<span class="docable-error">️ERROR</span>:\n<span>${response.stderr}</span>\n`);
-    output.append(`<span>${response.stdout}</span>\n`);
+
+    let stderr = ansi2html(response.stderr);
+    let stdout = ansi2html(response.stdout);
+
+    output.append(`<span class="docable-error">️ERROR</span>:\n<span>${stderr}</span>\n`);
+    output.append(`<span>${stdout}</span>\n`);
     output.append(`<span>exit code: ${response.exitCode}</span>\n`);
 }
 
