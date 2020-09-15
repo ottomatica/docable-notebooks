@@ -1,13 +1,25 @@
 
 # Run commands in shell
 
-Run in bash shell.
+List the current directory contents.
 
-```bash|{type:'command', shell: 'bash'}
+```bash|{type:'command', shell:'bash'}
+ls
+```
+
+```bash|{type:'command', shell:'bash'}
+echo "'hello'" | grep -c "'hello'"
+```
+
+```bash|{type:'command', shell:'bash'}
+ls -R | grep ":$" | sed -e "s/:$//" -e "s/[^-][^\/]*\//--/g" -e "s/^/ /" -e "s/-/|/"
+```
+
+```bash|{type:'command', shell:'bash'}
 tmpfile=$(mktemp)
-cat << 'DOCABLE_END_DOC' > $tmpfile
+cat << 'END_DOC' > $tmpfile
 Temp file content
-DOCABLE_END_DOC
+END_DOC
 echo $tmpfile
 cat $tmpfile
 ```
