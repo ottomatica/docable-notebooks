@@ -313,7 +313,14 @@ function _setPassing(cell, response) {
     cell.addClass('passing');
 
     let output = cell.next('.docable-cell-output');
-    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${response.stdout}</span>`);
+    let txt = ansiparse(response.stdout).map( atom => {
+        if( atom.foreground ) {
+            return `<span style="color:${atom.foreground}">${atom.text}</span>`;
+        }
+        return atom.text;
+    }).join('');
+    console.log( txt );
+    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${txt}</span>`);
     output.append(`<span>${response.stderr}</span>\n`);
 }
 
