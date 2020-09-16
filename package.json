@@ -48,7 +48,7 @@
     "open": "^7.2.1",
     "open-editor": "^2.0.1",
     "pino": "^6.6.1",
-    "prettier": "^2.1.1",
+    "prettier": "^2.1.2",
     "pug": "^3.0.0",
     "simple-git": "^2.20.1",
     "socket.io": "^2.3.0",
