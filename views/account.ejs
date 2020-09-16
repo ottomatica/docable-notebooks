@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="/css/github-markdown.css">
     <link rel="stylesheet" href="/css/notebook.css">
     <link rel="stylesheet" href="/css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing/twemoji-amazing.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
     <script src="/js/vendor/font-awesome.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
@@ -52,7 +53,23 @@
     <!-- Begin page content -->
     <main role="main" id="main" class="form-register">
 
-        <div class="p-5">
+        <div class="p-2 w-75 mx-auto">
+
+            <% if (!locals.verified) { %>
+
+                <div class="row mb-2">
+                    <div class="card alert alert-warning w-100 text-center lead">
+                        <span>
+                            Your account is not verified!
+                        </span>
+                        <span>
+                            An email was sent to <%= user.email %> with a verification link.
+                            <i class="twa twa-open-mailbox-with-raised-flag h3"></i>
+                        </span>
+                    </div>
+                </div>
+
+            <% } %>
 
             <div class="row mb-5">
 
