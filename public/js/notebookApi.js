@@ -43,7 +43,7 @@ function executeCells(endPoint, body) {
 
 function streamOutput(body, onProgress) {
     return new Promise(function(resolve, reject) {
-        fetch('/runCell', {
+        fetch(isHosted ? '/published/runCell' : '/runCell', {
             method: 'POST',
             mode: 'cors',
             body: body,
