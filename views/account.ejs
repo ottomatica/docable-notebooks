@@ -83,6 +83,11 @@
                       <form class="" id="account-form" action="/account" class="row">
         
                             <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" name="username" value="<%- user.username %>" disabled>
+                                <p class="ml-1 mt-1 text-muted small">* username cannot be changed</p>
+                            </div>
+                            <div class="form-group">
                                 <label for="emailaddress">Email address</label>
                                 <input type="email" class="form-control" name="emailaddress" aria-describedby="emailHelp" placeholder="your@email.com" value="<%- user.email %>">
                             </div>
