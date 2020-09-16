@@ -71,8 +71,8 @@
             <form class="card p-4" id="register-form" action="/register" class="row">
 
                 <div class="form-group required">
-                    <label class="control-label" for="name">Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="Your Name">
+                    <label class="control-label" for="username">Username</label>
+                    <input type="text" class="form-control" name="username" placeholder="myusername123">
                 </div>
                 <div class="form-group required">
                     <label class="control-label" for="emailaddress">Email address</label>
@@ -116,7 +116,7 @@
 
             // let form = $(this);
             let form = {
-                name: $('[name="name"]').val(),
+                username: $('[name="username"]').val(),
                 password: $('[name="password"]').val(),
                 email: $('[name="emailaddress"]').val(),
                 subscribed: $('[name="subscribe"').prop('checked')
