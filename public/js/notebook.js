@@ -90,6 +90,9 @@ function run(endPoint, body, stepIndex)
 
     // if streamable block, we're going to switch to streaming mode.
     let block = $('[data-docable="true"]').eq(stepIndex);
+
+    // $('.docable-cell-output').empty();
+
     if( block.length > 0 && block.data('stream') === true )
     {
         let cell = block.parent();
@@ -171,22 +174,43 @@ function processResults(data)
 
         setResults(cell, result.result);
 
+        let fnInsertMarker = function(output, word, marker)
+        {
+            var innerHTML = output.html();
+            var index = innerHTML.indexOf(word);
+            if (index >= 0) { 
+             innerHTML = innerHTML.substring(0,index) + 
+                marker + 
+                innerHTML.substring(index,index+word.length) + "</span>" + innerHTML.substring(index + word.length);
+
+             output.html(innerHTML);
+            }
+        };
+
         // highlight 
         if ( block.data('block') )
         {
             let b = block.data('block');
             let output = cell.next('.docable-cell-output');
-            let top = `${b.top}px`;
-            let left = `${b.left}px`;
-            let width = `${b.width}px`;
-            let height = `${b.height}px`;
             let title  = b.title;
+
+            fnInsertMarker( output, b.word, 
+                `<span class='docable-block-marker'>`
+            );
+
+            let marker = $(output).find('.docable-block-marker');
+
+            let left = marker.position().left - 3;
+            let top = marker.position().top - output.position().top - 3;
+            let width = marker.width()+6;
+            let height = (marker.css('line-height').replace("px", "") * b.rows) + 3;
 
             output.before(`
             <div class="docable-cell-highlight"
                 style="border: 3px solid #FF0000; position: absolute;
-                margin-top: ${top}; left: ${left}; width: ${width}; height: ${height};"
-                data-toggle="popover" title="Information" data-content="${title}"
+                background-color: rgba(131,46,35,.3);
+                margin-top: ${top}px; left: ${left}px; width: ${width}px; height: ${height}px;"
+                data-toggle="popover" title="ℹ️: Note" data-content="${title}"
             >
             </div>`);
 
@@ -200,24 +224,13 @@ function processResults(data)
             let output = cell.next('.docable-cell-output');
             let title  = h.title;
 
-            var innerHTML = output.html();
-            var index = innerHTML.indexOf(h.word);
-            if (index >= 0) { 
-             innerHTML = innerHTML.substring(0,index) + 
+            fnInsertMarker( output, h.word, 
                 `<span class='badge badge-warning' style='font-size:100%' 
-                data-toggle="popover" data-content="some content" title="${title}">` + 
-                innerHTML.substring(index,index+h.word.length) + "</span>" + innerHTML.substring(index + h.word.length);
+                data-toggle="popover" data-content="${title}" title="ℹ️: Note">`
+            );
+            $('[data-toggle="popover"]').popover();
 
-             output.html(innerHTML);
-            }
-
-            $('[data-toggle="popover"]').popover();          
         }
-        
-        
-
-        
-
     }    
 }
 
@@ -225,12 +238,15 @@ $('main').on('click', '.play-btn', function () {
 
     const pageVariables = getPageVariables();
 
+    let cell = $(this).closest('.docable-cell');
+    let block = cell.find('[data-docable="true"]');
+    // let id = cell
     let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
-    let cell = $('[data-docable="true"]').eq(stepIndex);
+    // let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    cell.addClass( "docable-cell-running" );
+    block.addClass( "docable-cell-running" );
 
-    run(isHosted ? '/published/runCell' : '/runCell', JSON.stringify({ text: $(cell)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
+    run(isHosted ? '/published/runCell' : '/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
 
 });
 
@@ -280,11 +296,11 @@ $('main').on('click', '.btn-more', function () {
     });
 });
 
-new ClipboardJS('.copy-btn', {
-    text: function (trigger) {
-        return $(trigger).siblings('pre[data-docable="true"]').text();
-    }
-});
+// new ClipboardJS('.copy-btn', {
+//     text: function (trigger) {
+//         return $(trigger).siblings('pre[data-docable="true"]').text();
+//     }
+// });
 
 
 function setResults(selector, result) {
@@ -297,11 +313,40 @@ function setResults(selector, result) {
     return result;
 }
 
+function ansi2html(result)
+{
+    let txt = ansiparse(result).map( atom => {
+
+        let foreground = (a) => a.foreground ? `color:${a.foreground};` : '';
+        let background = (a) => a.background ? `background-color:${a.background};` : '';
+        let font = (a) => {
+            let css = '';
+            if(a.bold ) {
+                css += 'font-weight: bold;'
+            }
+            if( a.italic) {
+                css += 'font-style: italic;'
+            }
+            if( a.underline ) {
+                css += 'text-decoration: underline;'          
+            }
+            return css;
+        }
+        let style = `${foreground(atom)}${background(atom)}${font(atom)}`;
+        if( style )
+           return `<span style="${style}">${atom.text}</span>`;
+        return atom.text;
+    }).join('');    
+    return txt;
+}
+
 function _setPassing(cell, response) {
     cell.addClass('passing');
 
     let output = cell.next('.docable-cell-output');
-    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${response.stdout}</span>`);
+
+    let stdout = ansi2html(response.stdout);
+    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${stdout}</span>`);
     output.append(`<span>${response.stderr}</span>\n`);
 }
 
@@ -309,14 +354,16 @@ function _setFailing(cell, response) {
     cell.addClass('failing');
 
     let output = cell.next('.docable-cell-output');
-    output.append(`<span class="docable-error">️ERROR</span>:\n<span>${response.stderr}</span>\n`);
-    output.append(`<span>${response.stdout}</span>\n`);
+
+    let stderr = ansi2html(response.stderr);
+    let stdout = ansi2html(response.stdout);
+
+    output.append(`<span class="docable-error">️ERROR</span>:\n<span>${stderr}</span>\n`);
+    output.append(`<span>${stdout}</span>\n`);
     output.append(`<span>exit code: ${response.exitCode}</span>\n`);
 }
 
 function resetResults(index) {
-    let output;
-
     let input = $('[data-docable="true"]')    
     if (index) input = input.eq(index);
         
@@ -324,8 +371,8 @@ function resetResults(index) {
     cell.removeClass("failing");
     cell.removeClass("passing");
 
-    output = cell.next('.docable-cell-output');
-
+    cell.next('.docable-cell-highlight').remove();
+    let output = cell.next('.docable-cell-output');    
     output.empty();
 
     // also reset docable-error box

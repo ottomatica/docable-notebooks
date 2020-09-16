@@ -2,7 +2,7 @@
 
 # Markdown
 
-Is a plain text format that can be used to express stylized text rendered as html (or even pdf). It is commonly used in online tools such as Github to make it easier to report issues or write documentation. You can mix and match html with markdown, but there are limits, e.g. including a link to a css file.
+*Markdown*, is a plain text format that can be used to express stylized text. Often other programs or tools will render markdown as html (or even pdf). It is also commonly used in platforms, such as Github, to format issues, and homepages for repositories. You can mix and match html with markdown, but there are limits, as tags such as `<script></script>` are often stripped.
 
 How about an example. The following markdown syntax, would appear as follows:
 
@@ -14,16 +14,35 @@ Paragraphs are separated by a blank line.  A hard break can be created by adding
 2nd paragraph. *Italic*, **bold**, and `monospace` (inline code). 
 ```
 
+➡️ Renders as: ➡️ 
+
 ##### Example Header (like \<h5\>Header\</h5\>)
 
 Paragraphs are separated by a blank line.  A hard break can be created by adding two spaces after a sentance.
 
 2nd paragraph. *Italic*, **bold**, and `monospace` (inline code). 
 
-### Lists, Blockquotes, Hrefs, and Images
+## Lists, Blockquotes, Hrefs, and Images
 
-You can do more advanced things, such as creating lists
+You can do more advanced things, such as creating lists.
+
+```markdown
+Itemized lists look like:
+
+  * this one
+  * that one
+  * the other one
+
+> Block quotes are
+> written like so.
+
+Hrefs have an anchor in brackets [] and (link in parens): See [Markdown format](https://daringfireball.net/projects/markdown/)
+
+Embedded Image: ![img](https://http.cat/100)
 ```
+
+➡️ Renders as: ➡️
+
 Itemized lists look like:
 
   * this one
@@ -35,21 +54,9 @@ Itemized lists look like:
 
 Hrefs have an anchor in brackets [] and (link in parens): [Markdown format](https://daringfireball.net/projects/markdown/)
 
-Embedded Image: ![img](http://jsforcats.com/images/customers3.png)
-```
-Itemized lists look like:
+Embedded Image: ![img](https://http.cat/100)
 
-  * this one
-  * that one
-  * the other one
-
-> Block quotes are
-> written like so.
-
-Hrefs have an anchor in brackets [] and (link in parens): [Markdown format](https://daringfireball.net/projects/markdown/)
-
-Embedded Image: ![img](http://jsforcats.com/images/customers3.png)
-### Code
+## Code
 
 ```
 Code (`inline code`):
@@ -57,14 +64,14 @@ Code (`inline code`):
     print “Code is just indented four spaces”;
 ```
 
+➡️ Renders as: ➡️
 
 Code (`inline code`):
 
     print “Code is just indented four spaces”;
 
 
-
-You can also create code using "code fences" 
+You can also create code using "code fences".
 
     ```python
     n = 50 # We want to find prime numbers between 2 and 50
@@ -72,6 +79,7 @@ You can also create code using "code fences"
     print sorted(set(range(2,n+1)).difference(set((p * f) for p in range(2,int(n**0.5) + 2) for f in range(2,(n/p)+1))))
     ```
 
+➡️ Renders as: ➡️
 
 ```python
 n = 50 # We want to find prime numbers between 2 and 50
@@ -80,7 +88,7 @@ print sorted(set(range(2,n+1)).difference(set((p * f) for p in range(2,int(n**0.
 ```
 
 
-### Tables
+## Tables
 
 There are many different "flavors" of markdown. [Github-flavored markdown](https://help.github.com/articles/organizing-information-with-tables/) supports "tables". Which can be nice to report data results:
 
@@ -105,7 +113,7 @@ There are many different "flavors" of markdown. [Github-flavored markdown](https
 | Memory usage per node | 100 MB | 250 MB | 100 MB |
 | Input per node | 5 GB | 6 GB | 3GB |
 
-### Markdown editors
+## Markdown editors
 
 * Online: Github's built in editors are great for simple Markdown editing!
 * Online: Also see: http://dillinger.io/
@@ -116,20 +124,11 @@ There are many different "flavors" of markdown. [Github-flavored markdown](https
 
 
 
-## Integrated development environments (IDEs)
+### Integrated development environments (IDEs)
 
 > *If you're still opening and editing files in Notepad.exe, let's show you a better way!*
 
 IDEs are an important part of a professional programming environment. You can perform many tasks such as editing, refactoring, compiling, testing, and debugging. IDEs also usually support an extensive set of plugins that help you integrate with other tools, such as maven, or performing style checking of your code.
-
-**Action: Install Eclipse**
-
-Install the latest version of Eclipse, selecting the version `Eclipse IDE for Java EE Developers `. https://www.eclipse.org/downloads/packages/
-
-You can see more steps for configuring Eclipse [here, under Phase 4: Eclipse Setup](https://pages.github.ncsu.edu/engr-csc326-staff/326-course-page/install/).
-
-**Action: Practice with Eclipse**
-When you're done, [practice](https://github.ncsu.edu/kpresle-tools/EclipseTutorial) some of the neat features that Eclipse offers with a workshop we've put together.
 
 #### Lightweight IDEs/editors
 
@@ -141,12 +140,22 @@ If you need to quickly edit code scripts, html, or markdown, features such as sy
 
 * [Code](https://code.visualstudio.com/)
 * [Atom](https://atom.io/)
-* Level up vim: Put some of these stuff in [your vimrc](http://amix.dk/vim/vimrc.html).
+* Level up vim: Put some of these stuff in [your vimrc](https://github.com/thoughtbot/dotfiles/blob/master/vimrc).
 * ... Missing something? Send a pull request.
+
+**Exercise**: Install VSCode!
+
+```bash|{type:'command', privileged: true, platform: 'win32'}
+choco install vscode -y
+```
+
+```bash|{type:'command', platform: 'darwin'}
+brew install visual-studio-code
+```
 
 ## Practice: Create an About Me Page
 
-Update your README.md. Using your new markdown skills, include the following details:
+Update your README.md in 'Basics/' in your favorite editor. Using your new markdown skills, include the following details:
 
 * Something about you.
 * Where you are from.
@@ -154,7 +163,7 @@ Update your README.md. Using your new markdown skills, include the following det
 * A list of skills
 * If brave, a table and a favorite code snippet.
 
-Commit and push the code to your Project0.
+Commit and push the code to your remote repository.
 
 ## Advanced: Creating a WebPage using GitHub Pages
 
@@ -178,9 +187,7 @@ You should see html output on the console. Before we try keeping this content, l
 
 You can create a new branch using `git branch gh-pages`. Do you remember which command we should use to switch branches?
 
-...
-
-Use `git checkout gh-pages`. You should see that you have switched to the gh-pages branch. Confirm with `git branch`. You should see an asterisk next to gh-pages.
+Use `git switch gh-pages`. You should see that you have switched to the gh-pages branch. Confirm with `git branch`. You should see an asterisk next to gh-pages.
 
 Using the stdout redirect operator `>`, you should be able to run `pandoc` again, but write to a new file `index.html`. Stage and commit the new file.
 

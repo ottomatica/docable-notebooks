@@ -18,15 +18,23 @@ To use a computing environment, you can use your host operating system to write 
 
 To accomplish this, we use a set of tools to enable you to map files and program between your host environment and computing environment. 
 
-## Creating a Virtual Machine
+## Setting up Virtualization
 
 [VirtualBox](https://www.virtualbox.org/wiki/Downloads) is a lightweight virtualization provider. It is very effective for creating *headless* virtual machines that run without any GUI/Desktop interface.
 
 Install VirtualBox.
 
-> Windows: If you're running Hyper-V and VirtualBox, and you're experiencing crashes when you try to start a VM, you may need to [turn off Hyper-V](https://superuser.com/questions/540055/convenient-way-to-enable-disable-hyper-v-in-windows-8) (which exclusively locks use of CPU for virtualization).
+```bash|{command:'type', privileged: true, platform: 'win32'}
+choco install virtualbox -y
+```
 
-> Linux: If you run `vboxmanage list vms` command and you get `WARNING: The vboxdrv kernel module is not loaded...` error, see the dicussion [here](https://askubuntu.com/a/229908) for how to fix it.
+```bash|{command:'type', platform: 'darwin'}
+brew cask install virtualbox
+```
+
+> Mac: `virtualbox` requires a kernel extension to work.
+> If the installation fails, retry after you enable it in:
+>    System Preferences → Security & Privacy → General
 
 ### Ensure virtualization is enabled
 
@@ -47,46 +55,58 @@ Ensure virtualization (Intel VT-x or AMD-V) is enabled on your system using the 
    ```
    <img src="resources/imgs/linux-cpu-flags.png" data-canonical-src="resources/imgs/linux-cpu-flags.png" width="600" />
 
-#### Manual creation
+### Debugging virtualization issues
+
+> Windows: If you're running Hyper-V and VirtualBox, and you're experiencing crashes when you try to start a VM, you may need to [turn off Hyper-V](https://superuser.com/questions/540055/convenient-way-to-enable-disable-hyper-v-in-windows-8) (which exclusively locks use of CPU for virtualization).
+
+> Linux: If you run `vboxmanage list vms` command and you get `WARNING: The vboxdrv kernel module is not loaded...` error, see the dicussion [here](https://askubuntu.com/a/229908) for how to fix it.
+
+## Creating a Virtual Machine
 
 While it is possible to use the VirtualBox GUI to manually install a virtual machine (and run through the OS installation script); this is not an effective automation approach!
 
-#### bakerx
+### Install bakerx
 
+`bakerx` is a simple tool for creating and managing virtual machines.
 
-## Installations
-
-```
+```bash|{type:'command'}
 npm install ottomatica/bakerx -g
 ```
 
-## Using `bakerx`
+### Using `bakerx`
 
-### Pulling images
+#### Pulling images
 
 First, you need to pull an existing virtual machine image from a registry. Registries are basically the assets in a GitHub repository releases. Then you can pull an image by running the following commands:
 
-```
+```bash|{type:'command'}
 bakerx pull ottomatica/slim#images alpine3.9-simple
 ```
 
 See [slim](https://github.com/ottomatica/slim) for instructions on how to create and publish an image. 
 
-### Creating VMs
+#### Creating VMs
 
 After pulling images, you can create VMs that run those images. Simply run the command below:
 
-```
+```bash|{type:'command', stream: true, failed_when:'exitCode!=0'}
 bakerx run example_alpine_vm alpine3.9-simple --memory 1024
 ```
 
 > The `--memory | -m` flag is optional, and can be used to set the amount of shared memory with your virtual machine.
 
-### Connecting to VMs
+#### Connecting to VMs
 
 Finally, bakerx will give you an `ssh` command similar to what is shown below, which you can use to connect to the VM.
-```
+
+```bash|{type:'command', interactive: true}
 bakerx ssh example_alpine_vm
 ```
 
-> bakerx uses port forwarding to connect to the VMs, so you need to specify the port, `-p`, when directly running the ssh command. 
+#### Deleting VMs
+
+When you're done, you can stop and delete the VM.
+
+```bash|{type:'command'}
+bakerx delete vm example_alpine_vm
+```

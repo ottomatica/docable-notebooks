@@ -310,7 +310,7 @@ echo "result is: $e"
 
 **Activity**: Imagine you wanted to write a "dead" startup checker using the product hunt data. Using the script below, you would be able check if a startup's url was still alive. Create an executable file called 'checker.sh', that is `chmod +x checker.sh`.
 
-```bash|{type: 'file', path: 'checker.sh', permission: '+x'}
+```bash|{type: 'file', path: 'checker.sh', permission: '+x', range: {start:3, end: 6}}
 #!/bin/bash
 
 # Print error message and exit with error code 1

@@ -68,6 +68,7 @@ choco install figlet-go -y
 
 ## Installing and Running Docable Notebooks
 
+Requires [node.js >= 12.x](https://nodejs.org/en/).
 
 Simply clone this repository.
 ```bash|{type: 'command'}
@@ -76,11 +77,16 @@ git clone https://github.com/ottomatica/docable-notebooks/
 
 Install dependencies and start server.
 ```bash|{type: 'command'}
+cd docable-notebooks
 npm install
 npm run dev
 ```
 
 Your Docable Notebooks can be interacted with at http://localhost:3000.
+
+#### Install help
+
+* If you have problems with `gyp` on MacOs, [see this simple guide](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d) for setting up/reinstalling CommandLineTools.
 
 ## Advanced Features
 
