@@ -57,7 +57,7 @@
 
             <% if (!locals.verified) { %>
 
-                <div class="row mb-2">
+                <div class="d-flex flex-row mb-2">
                     <div class="card alert alert-warning w-100 text-center lead">
                         <span>
                             Your account is not verified!
@@ -71,9 +71,23 @@
 
             <% } %>
 
-            <div class="row mb-3">
+            <div class="d-flex flex-row mb-2">
 
-                <div class="card w-50">
+                <div class="card flex-fill mr-1 w-50">
+                    <div class="card-header text-center">
+                      Your publishing SSH key
+                    </div>
+                    <div class="card-body">
+                        Download your private key for publishing notebooks below:
+                        <div class="text-center mt-3">
+                            <a href="https://ottomatica.io/" class="btn btn-lg btn-secondary align-middle active">
+                                <i class="fas fa-cloud-download-alt"></i>
+                            </a>
+                        </div>                        
+                    </div>
+                </div>
+
+                <div class="card flex-fill ml-1 w-50">
                     <div class="card-header text-center">
                       Your Account Features
                     </div>
@@ -89,7 +103,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="d-flex flex-row">
 
                 <div class="card w-100">
                     <div class="card-header text-center">
