@@ -1,9 +1,9 @@
 
-const runEndpoint = window.location.pathname.startsWith('/published') ? '/published/run' : '/run';
+const runEndpoint = '/run'; //window.location.pathname.startsWith('/published') ? '/published/run' : '/run';
 let exampleName = undefined;
 if(runEndpoint.startsWith('/published')) exampleName = window.location.pathname.split('/')[2];
 
-const isHosted = runEndpoint.startsWith('/published');
+const isHosted = false;//runEndpoint.startsWith('/published');
 
 // Initialization
 $(document).ready(function()
@@ -77,7 +77,11 @@ $('#submit').click(function () {
 
     const pageVariables = getPageVariables();
 
-    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), name: exampleName, pageVariables }))
+    const username = window.location.pathname.split('/')[1];
+    const notebookName = window.location.pathname.split('/')[2];
+    const slug = window.location.pathname.split('/')[3];
+
+    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), username, slug, notebookName, pageVariables }))
 
 });
 
@@ -166,6 +170,9 @@ function processResults(data)
         let block = $(`[id="${result.cellid}"]`);
         if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
         let cell = block.parent();
+        // ae82dea6-cd76-4583-8e06-8b8669b32b76
+
+        console.log('result = ', result)
 
         if( result.result.status == false && $(block).data('redirect') )
         {
