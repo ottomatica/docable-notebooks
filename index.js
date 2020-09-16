@@ -110,7 +110,6 @@ if (process.env.NODE_ENV == 'dev') {
     app.post('/environments/:id', workspace_routes.set_environment);
     app.post('/environments/reset/:id', workspace_routes.reset_environment);
 
-
     if( notebook_dir )
     {
         // render notebook from notebook dir
@@ -121,6 +120,35 @@ if (process.env.NODE_ENV == 'dev') {
     app.post('/gitImport', workspace_routes.gitImport);
     app.get('/github', workspace_routes.get_github_imports);
 
+    app.post("/workspace/open", function (req, res) {
+        let dir = req.body.dir;
+        if (dir === "") {
+            open(notebook_dir);
+        }
+        else {
+            open(dir);
+        }
+    });
+
+    app.post("/workspace/edit", function (req, res) {
+        let dir = req.body.key;
+        let dirToOpen = dir != "" ? dir : notebook_dir;
+
+        dirToOpen = path.resolve(dirToOpen);
+
+        console.log(dirToOpen, dir, typeof (dirToOpen))
+        let results = openEditor.make([dirToOpen + ":1:1"], { editor: 'vscode' });
+        console.log(results);
+        require('child_process').spawn(results.binary + " " + results.arguments.join(" "), { shell: true })
+
+        // const {defaultEditor, getEditor, allEditors} = require('env-editor');
+        // console.log( getEditor('vscode') );
+    });
+
+    app.get('/targets', workspace_routes.targets);
+    app.post('/addTarget', workspace_routes.addTarget);
+    app.post('/addImage', workspace_routes.addImage);
+    app.post('/deleteTarget', workspace_routes.deleteTarget);
 }
 
 app.post('/account', user_routes.updateAccount );
@@ -132,40 +160,6 @@ app.get('/logout', user_routes.logout);
 
 app.post('/register', user_routes.register );
 app.get('/register', function(req, res) { res.render("register", {});} );
-
-app.get('/targets', workspace_routes.targets);
-app.post('/addTarget', workspace_routes.addTarget);
-app.post('/addImage', workspace_routes.addImage);
-app.post('/deleteTarget', workspace_routes.deleteTarget);
-
-app.post("/workspace/open", function(req, res)
-{
-    let dir = req.body.dir;
-    if( dir === "" )
-    {
-        open(notebook_dir);
-    }
-    else {
-        open(dir);
-    }
-});
-
-app.post("/workspace/edit", function(req, res)
-{
-    let dir = req.body.key;
-    let dirToOpen = dir != "" ? dir : notebook_dir;
-
-    dirToOpen = path.resolve(dirToOpen);
-
-    console.log(dirToOpen, dir, typeof(dirToOpen) )
-    let results = openEditor.make([dirToOpen+":1:1"], {editor: 'vscode'});
-    console.log( results );
-    require('child_process').spawn(results.binary + " " + results.arguments.join(" "), {shell: true})
-
-    // const {defaultEditor, getEditor, allEditors} = require('env-editor');
-    // console.log( getEditor('vscode') );
-});
-
 
 if(process.env.NODE_ENV == 'prod') {
     app.use('/img', express.static('./lib/hosted/public/img'));
