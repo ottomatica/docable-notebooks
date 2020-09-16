@@ -1,9 +1,4 @@
 
-const runEndpoint = '/run'; //window.location.pathname.startsWith('/published') ? '/published/run' : '/run';
-let exampleName = undefined;
-if(runEndpoint.startsWith('/published')) exampleName = window.location.pathname.split('/')[2];
-
-const isHosted = false;//runEndpoint.startsWith('/published');
 
 // Initialization
 $(document).ready(function()
@@ -11,7 +6,6 @@ $(document).ready(function()
     // $('[data-toggle="tooltip"]').tooltip();
     $().tooltip({trigger: 'click hover'})
 
-    if(!isHosted) {
 
         getAvailableEnvironments().then( function(envResponse)
         {
@@ -22,8 +16,6 @@ $(document).ready(function()
             // select default...
             $("#environment-dropdown").val(envResponse.default);
         });
-
-    }
 
 });
 
@@ -81,7 +73,7 @@ $('#submit').click(function () {
     const notebookName = window.location.pathname.split('/')[2];
     const slug = window.location.pathname.split('/')[3];
 
-    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), username, slug, notebookName, pageVariables }))
+    run('/run', JSON.stringify({ notebook: $('main').html(), username, slug, notebookName, pageVariables }))
 
 });
 
@@ -253,8 +245,11 @@ $('main').on('click', '.play-btn', function () {
 
     block.addClass( "docable-cell-running" );
 
-    run(isHosted ? '/published/runCell' : '/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
+    const username = window.location.pathname.split('/')[1];
+    const notebookName = window.location.pathname.split('/')[2];
+    const slug = window.location.pathname.split('/')[3];
 
+    run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, slug, notebookName, pageVariables }), stepIndex);
 });
 
 /////////////////// ENVIRONMENTS
