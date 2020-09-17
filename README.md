@@ -87,6 +87,7 @@ Your Docable Notebooks can be interacted with at http://localhost:3000.
 #### Install help
 
 * If you have problems with `gyp` on MacOs, [see this simple guide](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d) for setting up/reinstalling CommandLineTools.
+* If updating existing repository, make sure to run `npm update && npm install` to get updates from modules.
 
 ## Advanced Features
 
