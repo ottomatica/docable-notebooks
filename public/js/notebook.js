@@ -111,7 +111,7 @@ function run(endPoint, body, stepIndex)
                 }
             }
             else {
-                output.append(`<span>${data}</span>\n`);
+                output.append(`<span>${data}</span>`);
             }
 
         });
