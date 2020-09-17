@@ -57,7 +57,7 @@
 
             <% if (!locals.verified) { %>
 
-                <div class="row mb-2">
+                <div class="d-flex flex-row mb-2">
                     <div class="card alert alert-warning w-100 text-center lead">
                         <span>
                             Your account is not verified!
@@ -71,9 +71,29 @@
 
             <% } %>
 
-            <div class="row mb-3">
+            <div class="d-flex flex-row mb-2">
 
-                <div class="card w-50">
+                <div class="card flex-fill mr-1 w-50">
+                    <div class="card-header text-center">
+                      Your publishing SSH key
+                    </div>
+                    <div class="card-body">
+                            Download your publishing key <i class="twa twa-key"></i>:
+                        <div class="text-center mt-3 mb-2">
+                            <button id="getKey" class="btn btn-lg btn-secondary align-middle active" <%= !locals.verified ? 'disabled' : '' %>>
+                                <i class="fas fa-cloud-download-alt"></i>
+                            </button>
+                        </div>                        
+
+                        <% if (!locals.verified) { %>
+                            <div class="w-100 text-center text-danger  "> 
+                                * Verify your email to activate publishing and download your key.
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+
+                <div class="card flex-fill ml-1 w-50">
                     <div class="card-header text-center">
                       Your Account Features
                     </div>
@@ -89,7 +109,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="d-flex flex-row">
 
                 <div class="card w-100">
                     <div class="card-header text-center">
@@ -122,7 +142,7 @@
                             </div>
             
                             <div class="text-center mb-3">
-                                <button type="submit" class="btn btn-secondary">Update</button>
+                                <button type="submit" class="btn btn-secondary active">Update</button>
                             </div>
 
                             <small class="text-muted">
