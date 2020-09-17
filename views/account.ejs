@@ -78,12 +78,18 @@
                       Your publishing SSH key
                     </div>
                     <div class="card-body">
-                        Download your private key for publishing notebooks below:
-                        <div class="text-center mt-3">
-                            <a href="https://ottomatica.io/" class="btn btn-lg btn-secondary align-middle active">
+                            Download your publishing key <i class="twa twa-key"></i>:
+                        <div class="text-center mt-3 mb-2">
+                            <button id="getKey" class="btn btn-lg btn-secondary align-middle active" <%= !locals.verified ? 'disabled' : '' %>>
                                 <i class="fas fa-cloud-download-alt"></i>
-                            </a>
+                            </button>
                         </div>                        
+
+                        <% if (!locals.verified) { %>
+                            <div class="w-100 text-center text-danger  "> 
+                                * Verify your email to activate publishing and download your key.
+                            </div>
+                        <% } %>
                     </div>
                 </div>
 
@@ -136,7 +142,7 @@
                             </div>
             
                             <div class="text-center mb-3">
-                                <button type="submit" class="btn btn-secondary">Update</button>
+                                <button type="submit" class="btn btn-secondary active">Update</button>
                             </div>
 
                             <small class="text-muted">

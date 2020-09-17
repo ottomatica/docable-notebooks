@@ -1,9 +1,4 @@
 
-const runEndpoint = window.location.pathname.startsWith('/published') ? '/published/run' : '/run';
-let exampleName = undefined;
-if(runEndpoint.startsWith('/published')) exampleName = window.location.pathname.split('/')[2];
-
-const isHosted = runEndpoint.startsWith('/published');
 
 // Initialization
 $(document).ready(function()
@@ -11,7 +6,6 @@ $(document).ready(function()
     // $('[data-toggle="tooltip"]').tooltip();
     $().tooltip({trigger: 'click hover'})
 
-    if(!isHosted) {
 
         getAvailableEnvironments().then( function(envResponse)
         {
@@ -22,8 +16,6 @@ $(document).ready(function()
             // select default...
             $("#environment-dropdown").val(envResponse.default);
         });
-
-    }
 
 });
 
@@ -77,7 +69,11 @@ $('#submit').click(function () {
 
     const pageVariables = getPageVariables();
 
-    run(runEndpoint, JSON.stringify({ notebook: $('main').html(), name: exampleName, pageVariables }))
+    const username = window.location.pathname.split('/')[1];
+    const notebookName = window.location.pathname.split('/')[2];
+    const slug = window.location.pathname.split('/')[3];
+
+    run('/run', JSON.stringify({ notebook: $('main').html(), username, slug, notebookName, pageVariables }))
 
 });
 
@@ -115,7 +111,7 @@ function run(endPoint, body, stepIndex)
                 }
             }
             else {
-                output.append(`<span>${data}</span>\n`);
+                output.append(`<span>${data}</span>`);
             }
 
         });
@@ -166,6 +162,9 @@ function processResults(data)
         let block = $(`[id="${result.cellid}"]`);
         if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
         let cell = block.parent();
+        // ae82dea6-cd76-4583-8e06-8b8669b32b76
+
+        console.log('result = ', result)
 
         if( result.result.status == false && $(block).data('redirect') )
         {
@@ -246,8 +245,11 @@ $('main').on('click', '.play-btn', function () {
 
     block.addClass( "docable-cell-running" );
 
-    run(isHosted ? '/published/runCell' : '/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex: stepIndex, name: exampleName, pageVariables }), stepIndex);
+    const username = window.location.pathname.split('/')[1];
+    const notebookName = window.location.pathname.split('/')[2];
+    const slug = window.location.pathname.split('/')[3];
 
+    run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, slug, notebookName, pageVariables }), stepIndex);
 });
 
 /////////////////// ENVIRONMENTS
@@ -266,35 +268,38 @@ const EditForm = ({stepIndex}) =>
 </div>
 `;
 
-// We use the parent, with child selector because if cells are dynamically updated, then they will not be registered.
-$('main').on('click', '.btn-more', function () {
-    let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
-    let cell = $('[data-docable="true"]').eq(stepIndex);
+if( !isHosted )
+{
+    // We use the parent, with child selector because if cells are dynamically updated, then they will not be registered.
+    $('main').on('click', '.btn-more', function () {
+        let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+        let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    let cell_overlay = $(this).parent();
-    $(cell_overlay).hide();
+        let cell_overlay = $(this).parent();
+        $(cell_overlay).hide();
 
-    cell_overlay.parent().append( EditForm({stepIndex}) );
+        cell_overlay.parent().append( EditForm({stepIndex}) );
 
-    $('#btn-cancel-cell').on('click', function () {
-        $("#update-cell-form").remove();
-        $(cell_overlay).show();
-    });
+        $('#btn-cancel-cell').on('click', function () {
+            $("#update-cell-form").remove();
+            $(cell_overlay).show();
+        });
 
-    $('#btn-update-cell').on('click', function () {
-        editCell($(`textarea[id="docable-edit-area-${stepIndex}"`).val())
+        $('#btn-update-cell').on('click', function () {
+            editCell($(`textarea[id="docable-edit-area-${stepIndex}"`).val())
+            .then(data => {
+                let cell = $('[data-docable="true"]').eq(stepIndex);
+                cell.parent().parent().replaceWith( data );
+            });
+        });
+
+        viewCell($(cell)[0].outerHTML, stepIndex)
         .then(data => {
-            let cell = $('[data-docable="true"]').eq(stepIndex);
-            cell.parent().parent().replaceWith( data );
+            console.log(data);
+            $(`#docable-edit-area-${stepIndex}`).val(data.cell);
         });
     });
-
-    viewCell($(cell)[0].outerHTML, stepIndex)
-    .then(data => {
-        console.log(data);
-        $(`#docable-edit-area-${stepIndex}`).val(data.cell);
-    });
-});
+}
 
 // new ClipboardJS('.copy-btn', {
 //     text: function (trigger) {
@@ -333,8 +338,9 @@ function ansi2html(result)
             return css;
         }
         let style = `${foreground(atom)}${background(atom)}${font(atom)}`;
-        if( style )
+        if( style.length > 0 )
            return `<span style="${style}">${atom.text}</span>`;
+        // return `<span>${atom.text}</span>`;
         return atom.text;
     }).join('');    
     return txt;
@@ -346,7 +352,7 @@ function _setPassing(cell, response) {
     let output = cell.next('.docable-cell-output');
 
     let stdout = ansi2html(response.stdout);
-    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${stdout}</span>`);
+    output.append(`<span class="docable-success">SUCCESS</span>:\n${stdout}`);
     output.append(`<span>${response.stderr}</span>\n`);
 }
 
