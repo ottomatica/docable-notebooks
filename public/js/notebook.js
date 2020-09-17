@@ -333,8 +333,9 @@ function ansi2html(result)
             return css;
         }
         let style = `${foreground(atom)}${background(atom)}${font(atom)}`;
-        if( style )
+        if( style.length > 0 )
            return `<span style="${style}">${atom.text}</span>`;
+        // return `<span>${atom.text}</span>`;
         return atom.text;
     }).join('');    
     return txt;
@@ -346,7 +347,7 @@ function _setPassing(cell, response) {
     let output = cell.next('.docable-cell-output');
 
     let stdout = ansi2html(response.stdout);
-    output.append(`<span class="docable-success">SUCCESS</span>:\n<span>${stdout}</span>`);
+    output.append(`<span class="docable-success">SUCCESS</span>:\n${stdout}`);
     output.append(`<span>${response.stderr}</span>\n`);
 }
 
