@@ -1,9 +1,3 @@
-<!--
-setup:
-    ssh: 
-        host: user@ip
-        privateKey: ~/.ssh/id_rsa
--->
 
 # Install Let's encrypt SSL for a nginx webserver
 

@@ -64,10 +64,14 @@
                 <%- include('templates/environment'); -%>
             <% } %>
 
+            <!-- Turn off whole notebook execution when hosted -->
+            <% if (!locals.isHosted) { %>
             <button type="button" class="ml-auto btn btn-outline-success" id="submit">
                 <span class="" role="status" id="submit-button" aria-hidden="true"></span>
                 Run Notebook
             </button>
+            <% } %>
+
         </nav>
     </header>
 
@@ -88,8 +92,10 @@
             <%- notebookHtml %>
         </div>
 
-        <!--- style customization not supported by css -->
+        <!--- init and style customization not supported by css -->
         <script>
+            var isHosted = locals.isHosted;
+
             $("[data-type='command'][data-spawn='true']")
                 .parents('.docable-cell').children('.sideAnnotation').append('🖥️ ');
             $("[data-type='script'][data-lang='js']")

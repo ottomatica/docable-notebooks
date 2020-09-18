@@ -111,7 +111,7 @@ function run(endPoint, body, stepIndex)
                 }
             }
             else {
-                output.append(`<span>${data}</span>\n`);
+                output.append(`<span>${data}</span>`);
             }
 
         });
@@ -268,35 +268,38 @@ const EditForm = ({stepIndex}) =>
 </div>
 `;
 
-// We use the parent, with child selector because if cells are dynamically updated, then they will not be registered.
-$('main').on('click', '.btn-more', function () {
-    let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
-    let cell = $('[data-docable="true"]').eq(stepIndex);
+if( !isHosted )
+{
+    // We use the parent, with child selector because if cells are dynamically updated, then they will not be registered.
+    $('main').on('click', '.btn-more', function () {
+        let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+        let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    let cell_overlay = $(this).parent();
-    $(cell_overlay).hide();
+        let cell_overlay = $(this).parent();
+        $(cell_overlay).hide();
 
-    cell_overlay.parent().append( EditForm({stepIndex}) );
+        cell_overlay.parent().append( EditForm({stepIndex}) );
 
-    $('#btn-cancel-cell').on('click', function () {
-        $("#update-cell-form").remove();
-        $(cell_overlay).show();
-    });
+        $('#btn-cancel-cell').on('click', function () {
+            $("#update-cell-form").remove();
+            $(cell_overlay).show();
+        });
 
-    $('#btn-update-cell').on('click', function () {
-        editCell($(`textarea[id="docable-edit-area-${stepIndex}"`).val())
+        $('#btn-update-cell').on('click', function () {
+            editCell($(`textarea[id="docable-edit-area-${stepIndex}"`).val())
+            .then(data => {
+                let cell = $('[data-docable="true"]').eq(stepIndex);
+                cell.parent().parent().replaceWith( data );
+            });
+        });
+
+        viewCell($(cell)[0].outerHTML, stepIndex)
         .then(data => {
-            let cell = $('[data-docable="true"]').eq(stepIndex);
-            cell.parent().parent().replaceWith( data );
+            console.log(data);
+            $(`#docable-edit-area-${stepIndex}`).val(data.cell);
         });
     });
-
-    viewCell($(cell)[0].outerHTML, stepIndex)
-    .then(data => {
-        console.log(data);
-        $(`#docable-edit-area-${stepIndex}`).val(data.cell);
-    });
-});
+}
 
 // new ClipboardJS('.copy-btn', {
 //     text: function (trigger) {

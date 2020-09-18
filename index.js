@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const path = require("path");
 
 const yargs = require('yargs');
@@ -41,6 +42,8 @@ const utils = require('./lib/utils');
 const notebookSlug = require('./lib/notebook/slug');
 
 const app = express();
+
+const isHosted = process.env.prod ? true: false;
 
 app.use(session({
     secret: "Shh, its a secret!",
@@ -94,7 +97,7 @@ if (process.env.NODE_ENV == 'dev') {
             user.gravatar = `https://www.gravatar.com/avatar/${hash}`;
         }
 
-        res.render("home", { github_imports, notebook_tree, user });
+        res.render("home", { github_imports, notebook_tree, user, isHosted });
     });
 
     app.get('/variables', workspace_routes.variables);

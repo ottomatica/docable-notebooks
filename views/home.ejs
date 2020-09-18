@@ -144,6 +144,7 @@
         <h2>📓 Your Notebooks</h2>
 
         <div class="tree-actions">
+            <% if (!locals.isHosted) { %>
             <button id="btn-openFolder" type="button" data-toggle="tooltip" data-placement="right" class="btn btn-outline-dark py-0" title="Open Folder in System">
                 <i class="far fa-folder-open"></i>
             </button>
@@ -153,6 +154,7 @@
                     <path class="icon-path" d="m218.62 29.953-105.41 96.92-58.909-44.403l-24.346 14.17 58.068 53.359-58.068 53.359 24.346 14.212 58.909-44.402 105.41 96.878 51.424-24.976v-190.14zm0 63.744v112.6l-74.719-56.302z" fill="#000" stroke-width="17.15"/>
                 </svg>                
             </button>
+            <% } %>
         </div>
 
         <div id="tree"></div>
@@ -216,6 +218,8 @@
                 //     }
                 // });
 
+                <% if (!locals.isHosted) { %>
+
                 $('#btn-openFolder').click(function()
                 {
                     var tree = $.ui.fancytree.getTree("#tree");
@@ -241,6 +245,7 @@
                     openEditor(dir);
                     
                 });
+                <% } %>
 
             });
 
