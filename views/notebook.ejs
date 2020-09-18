@@ -94,7 +94,7 @@
 
         <!--- init and style customization not supported by css -->
         <script>
-            var isHosted = locals.isHosted;
+            var isHosted = <%- locals.isHosted %>;
 
             $("[data-type='command'][data-spawn='true']")
                 .parents('.docable-cell').children('.sideAnnotation').append('🖥️ ');
