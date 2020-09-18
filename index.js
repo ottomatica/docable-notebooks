@@ -113,7 +113,8 @@ if (process.env.NODE_ENV == 'dev') {
     if( notebook_dir )
     {
         // render notebook from notebook dir
-        app.get('/notebooks/:name', workspace_routes.get_notebook );
+        app.get('/notebooks/*.md', workspace_routes.get_notebook);
+        app.get('/notebooks/*.(jpg|png)', workspace_routes.get_notebook_imgs);
     }
 
     app.get('/import', workspace_routes.import);
