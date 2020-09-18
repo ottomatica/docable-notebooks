@@ -70,6 +70,10 @@ main {
     border-left: 5px solid cornflowerblue;
 }
 
+.docable-cell-script pre {
+    border-left: 5px solid fuchsia;
+}
+
 [data-type="command"]::before {
     content: '$ ';
     color: grey;
