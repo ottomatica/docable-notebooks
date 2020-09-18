@@ -24,11 +24,11 @@ To accomplish this, we use a set of tools to enable you to map files and program
 
 Install VirtualBox.
 
-```bash|{command:'type', privileged: true, platform: 'win32'}
+```bash|{type:'command', privileged: true, platform: 'win32'}
 choco install virtualbox -y
 ```
 
-```bash|{command:'type', platform: 'darwin'}
+```bash|{type:'command', platform: 'darwin'}
 brew cask install virtualbox
 ```
 
