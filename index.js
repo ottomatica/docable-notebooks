@@ -43,7 +43,7 @@ const notebookSlug = require('./lib/notebook/slug');
 
 const app = express();
 
-const isHosted = process.env.prod ? true: false;
+const isHosted = process.env.NODE_ENV == "prod" ? true: false;
 
 app.use(session({
     secret: "Shh, its a secret!",
