@@ -144,7 +144,7 @@ server {
       proxy_pass          http://127.0.0.1:3333;
       proxy_read_timeout  90;
 
-      proxy_redirect      http://127.0.0.1:3333 https://services.ottomatica.com;
+      proxy_redirect      http://127.0.0.1:3333 https://services.ottomatica.io;
     }
 }
 ```
