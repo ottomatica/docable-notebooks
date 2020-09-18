@@ -1,9 +1,4 @@
-<!--
-setup:
-    ssh: 
-        host: user@ip
-        privateKey: ~/.ssh/id_rsa
--->
+
 
 
 # Deploy Docable Notebooks (Ubuntu)
