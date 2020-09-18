@@ -73,7 +73,7 @@ $('#submit').click(function () {
     const notebookName = window.location.pathname.split('/')[2];
     const slug = window.location.pathname.split('/')[3];
 
-    run('/run', JSON.stringify({ notebook: $('main').html(), username, slug, notebookName, pageVariables }))
+    run('/run', JSON.stringify({ notebook: $('main').html(), username, notebookPath: window.location.pathname, notebookName, pageVariables }))
 
 });
 
@@ -249,7 +249,7 @@ $('main').on('click', '.play-btn', function () {
     const notebookName = window.location.pathname.split('/')[2];
     const slug = window.location.pathname.split('/')[3];
 
-    run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, slug, notebookName, pageVariables }), stepIndex);
+    run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
 });
 
 /////////////////// ENVIRONMENTS
