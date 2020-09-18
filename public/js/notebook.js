@@ -6,7 +6,8 @@ $(document).ready(function()
     // $('[data-toggle="tooltip"]').tooltip();
     $().tooltip({trigger: 'click hover'})
 
-
+    if( !isHosted )
+    {
         getAvailableEnvironments().then( function(envResponse)
         {
             for(const env of envResponse.environments) {
@@ -16,6 +17,8 @@ $(document).ready(function()
             // select default...
             $("#environment-dropdown").val(envResponse.default);
         });
+    }
+
 
 });
 
@@ -162,9 +165,8 @@ function processResults(data)
         let block = $(`[id="${result.cellid}"]`);
         if (block.data('type') == 'file' && result.result.status) result.result.stdout = 'Created file successfully.';
         let cell = block.parent();
-        // ae82dea6-cd76-4583-8e06-8b8669b32b76
 
-        console.log('result = ', result)
+        // console.log('result = ', result)
 
         if( result.result.status == false && $(block).data('redirect') )
         {
