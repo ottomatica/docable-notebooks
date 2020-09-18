@@ -87,7 +87,7 @@ if (process.env.NODE_ENV == 'dev') {
 
     app.get('/', async function (req, res) {
         let github_imports = config.get('githubImports');
-        let notebook_tree = await utils.getNotebookTree(notebook_dir);
+        let notebook_tree = await utils.getNotebookTree(notebook_dir, '/notebooks');
 
         let user;
         if( req.session.user ) 
