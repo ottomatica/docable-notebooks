@@ -82,7 +82,7 @@ app.use(express.json());
 
 app.use(expressLogger);
 
-if (process.env.NODE_ENV == 'dev') {
+if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
     logger.info(`Enabling arbitrary md in /notebooks`);
 
     app.get('/', async function (req, res) {
