@@ -7,6 +7,7 @@ const argv = yargs
     alias: 'd',
     description: 'Serve notebooks from this directory on /notebooks',
     type: 'string',
+    default: '.'
 }).help()
 .alias('help', 'h')
 .argv;
