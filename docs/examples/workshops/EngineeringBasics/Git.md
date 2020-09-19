@@ -87,10 +87,10 @@ Let's examine an example commit.
 git cat-file -p 5fa00a4dcf
 ```
 
-We can examine the commit graph.
+We can examine the commit graph (but only the first part!).
 
-```bash|{type:'command', path: 'git'}
-git log --graph --oneline
+```bash|{type:'command', path: 'git', tty: true}
+PAGER='head -n 80' git log --graph --oneline
 ```
 
 #### Diffs
