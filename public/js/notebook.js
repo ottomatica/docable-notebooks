@@ -232,6 +232,63 @@ function processResults(data)
             $('[data-toggle="popover"]').popover();
 
         }
+
+        if( block.data('graph') ) 
+        {
+            let title = "Runs Per Day";
+            let output = cell.next('.docable-cell-output');
+            let points = output.text().trim().split('\n').splice(1);
+            //let points = [1600717125, 1600717125, 1600717125];
+
+            points = points.map( pt => moment( parseInt(pt), 'x' ));
+            const groupByDay = points.reduce((acc, it) => {
+                acc[it.format("YYYY-MM-DD")] = acc[it.format("YYYY-MM-DD")] + 1 || 1;
+                return acc;
+                }, {});
+
+            points = Object.keys(groupByDay).map( (key) => {
+                return {t: moment(key, "YYYY-MM-DD"), y: groupByDay[key] };
+            });
+
+            output.before(`
+            <canvas id="myChart" width="400" height="200"></canvas>
+            <script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [{
+            label: ['${title}'],
+            data:${JSON.stringify(points)},
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'time',
+                distribution: 'series',
+                time: {
+                    unit: 'day'
+                },
+                ticks: {
+                    autoSkip: true,
+                    maxTicksLimit: 20,
+                    beginAtZero: true   // minimum value will be 0.                    
+                }            
+            }]
+        }
+    }
+});
+</script>
+            `);
+        }
     }    
 }
 
