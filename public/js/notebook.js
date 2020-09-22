@@ -233,9 +233,10 @@ function processResults(data)
 
         }
 
-        if( block.data('graph') ) 
+        if( block.data('chart') ) 
         {
-            let title = "Runs Per Day";
+            let chart = block.data('chart');
+            let title = chart.title;
             let output = cell.next('.docable-cell-output');
             let points = output.text().trim().split('\n').splice(1);
             //let points = [1600717125, 1600717125, 1600717125];
