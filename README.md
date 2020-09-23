@@ -24,6 +24,8 @@ figlet docable
 
 ![banner](docs/img/banner.png)
 
+See more features by exploring the [documentation examples](docs/examples/).
+
 ### Editing Cells
 
 Docable cells can be edited and run again.
@@ -38,8 +40,6 @@ One of the most common problem was the numerous and inconsistent ways tutorials 
 Docable _file cells_ take care of creating paths, setting file permissions and owners, and filling in variable content—with a simple click.
 
 ![docable-file](docs/img/docable-file.png)
-
-More features have been developed, which can be explored by seeing the [documentation examples](docs/examples/).
 
 ## Creating and Viewing Notebooks
 
@@ -70,7 +70,7 @@ choco install figlet-go -y
 
 ### Notebook Treeview
 
-![tree](docs/img/docable-tree.png)
+<img src="docs/img/docable-tree.png" width="200px">
 
 ### Target Environments
 
@@ -81,7 +81,6 @@ Docable has different connectors to run against different kinds of environments.
 * **local**: The default environment is your local computer.
 * **Docker**: If there is a running docker service, Docable can create a container to run operations in.
 * **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
-
 
 ### Variables
 
