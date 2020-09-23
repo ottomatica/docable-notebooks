@@ -154,3 +154,4 @@ Experimental features:
   - `block`: Select text in output, and create a box, with height rows.
   - `range`: Select lines from cell to highlight. Useful for calling attention.
   - `svg`: Render content as svg.
+  - `tty`: Run command with pty.

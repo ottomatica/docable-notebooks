@@ -12,3 +12,8 @@ tty
 # export TERM=xterm-256color
 ls --color=auto / 
 ```
+
+Get the weather.
+```bash |{type:'command', tty: true}
+curl http://wttr.in
+```
