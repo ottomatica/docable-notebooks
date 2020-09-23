@@ -20,6 +20,9 @@ figlet docable
 
 ![figlet-demo](docs/img/docable-figlet.gif)
 
+### Example Notebooks
+
+![banner](docs/img/banner.png)
 
 ### Editing Cells
 
@@ -65,6 +68,29 @@ choco install figlet-go -y
 
 ![privileged](docs/img/docable-privileged.png)
 
+### Notebook Treeview
+
+![tree](docs/img/docable-tree.png)
+
+### Target Environments
+
+Docable has different connectors to run against different kinds of environments. Use the dropdown menu to select an environment.
+
+![docable-env](docs/img/docable-env.png)
+
+* **local**: The default environment is your local computer.
+* **Docker**: If there is a running docker service, Docable can create a container to run operations in.
+* **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
+
+
+### Variables
+
+Notebooks can ask for variables, such as a `HOSTNAME` or `RELEASE_TAGS`.
+
+![vars](docs/img/docable-vars.png)
+
+For sensitive variables, such as passwords, tokens, and ssh keys, these can be stored on the server and they will be masked when displayed in output.
+
 ## Installing and Running Docable Notebooks
 
 Requires [node.js >= 12.x](https://nodejs.org/en/).
@@ -88,9 +114,7 @@ Your Docable Notebooks can be interacted with at http://localhost:3000.
 * If you have problems with `gyp` on MacOs, [see this simple guide](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d) for setting up/reinstalling CommandLineTools.
 * If updating existing repository, make sure to run `npm update && npm install` to get updates from modules.
 
-## Writing Notebooks
-
-**Quick Reference**:
+## Quick Reference
 
 * Run commands in cell: `{type: 'command'}`.
 * Command modifiers.
@@ -123,16 +147,3 @@ Experimental features:
   - `block`: Select text in output, and create a box, with height rows.
   - `range`: Select lines from cell to highlight. Useful for calling attention.
   - `svg`: Render content as svg.
-
-
-## Advanced Features
-
-### Target Environments
-
-Docable has different connectors to run against different kinds of environments. Use the dropdown menu to select an environment.
-
-* **local**: The default environment is your local computer.
-* **Docker**: If there is a running docker service, Docable can create a container to run operations in.
-* **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
-
-
