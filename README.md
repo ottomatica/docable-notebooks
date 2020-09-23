@@ -106,7 +106,15 @@ npm install
 npm run dev
 ```
 
-Your Docable Notebooks can be interacted with at http://localhost:3000.
+Your Docable Notebooks can be interacted with at http://localhost:3000. You can set `PORT=4000` to use a different address.
+
+You can also run directly, which will serve up notebooks in the current directory. You can change this with `notebook_dir=<path>`.
+
+```bash|{type: 'command'}
+cd docable-notebooks
+npm link
+docable-notebooks
+```
 
 #### Install help
 
