@@ -20,6 +20,11 @@ figlet docable
 
 ![figlet-demo](docs/img/docable-figlet.gif)
 
+### Example Notebooks
+
+![banner](docs/img/banner.png)
+
+See more features by exploring the [documentation examples](docs/examples/).
 
 ### Editing Cells
 
@@ -35,8 +40,6 @@ One of the most common problem was the numerous and inconsistent ways tutorials 
 Docable _file cells_ take care of creating paths, setting file permissions and owners, and filling in variable content—with a simple click.
 
 ![docable-file](docs/img/docable-file.png)
-
-More features have been developed, which can be explored by seeing the [documentation examples](docs/examples/).
 
 ## Creating and Viewing Notebooks
 
@@ -65,6 +68,27 @@ choco install figlet-go -y
 
 ![privileged](docs/img/docable-privileged.png)
 
+### Notebook Treeview
+
+<img src="docs/img/docable-tree.png" width="200px">
+
+### Target Environments
+
+Docable has different connectors to run against different kinds of environments. Use the dropdown menu to select an environment.
+
+![docable-env](docs/img/docable-env.png)
+
+* **local**: The default environment is your local computer.
+* **Docker**: If there is a running docker service, Docable can create a container to run operations in.
+* **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
+
+### Variables
+
+Notebooks can ask for variables, such as a `HOSTNAME` or `RELEASE_TAGS`.
+
+![vars](docs/img/docable-vars.png)
+
+For sensitive variables, such as passwords, tokens, and ssh keys, these can be stored on the server and they will be masked when displayed in output.
 
 ## Installing and Running Docable Notebooks
 
@@ -82,21 +106,52 @@ npm install
 npm run dev
 ```
 
-Your Docable Notebooks can be interacted with at http://localhost:3000.
+Your Docable Notebooks can be interacted with at http://localhost:3000. You can set `PORT=4000` to use a different address.
+
+You can also run directly, which will serve up notebooks in the current directory. You can change this with `notebook_dir=<path>`.
+
+```bash|{type: 'command'}
+cd docable-notebooks
+npm link
+docable-notebooks
+```
 
 #### Install help
 
 * If you have problems with `gyp` on MacOs, [see this simple guide](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d) for setting up/reinstalling CommandLineTools.
 * If updating existing repository, make sure to run `npm update && npm install` to get updates from modules.
 
-## Advanced Features
+## Quick Reference
 
-### Target Environments
+* Run commands in cell: `{type: 'command'}`.
+* Command modifiers.
+   - `stream`: if `true`, then stdout/stderr is printed in output block as available.
+   - `shell`: If given, then run command in provided shell. Supported: `'bash'`, `'powershell'`
+   - `path`: set working directory of command.
+   - `privileged`: Ask permission for an admin shell---useful for local installation. Only supported in local connections.
+   - `user`: run command as as given user.
+* File content: `{type: 'file'}`.
+* File modifiers:
+   - `path`: **Required**. The path to place contents.
+   - `permission`: Set permissions of file, use any format given by supported by chmod (`'u+x'`, `'700'`).
+   - `user`: Owner of file.
+   - `mode`: If `'append'`, will add content to file instead of overwriting.
 
-Docable has different connectors to run against different kinds of environments. Use the dropdown menu to select an environment.
+* Script content: `{type: script}`.
+   - Execute content using the language of content in the first part of fence infostring. Supported: `js`. Create issue if another language is needed!
 
-* **local**: The default environment is your local computer.
-* **Docker**: If there is a running docker service, Docable can create a container to run operations in.
-* **ssh**: Any virtual machine, created locally, or remotely can be targeted. You can use configure a new ssh connection at http://localhost:3000/targets, and then select in the dropdown menu of your notebook.
+* Conditions:
+  - `platform`: Allow cell to be executed only if connection is to given platform. Supported: `win32`, `darwin`, `linux`. 
+  - `failed_when`: Node.js expression to evaluate whether command succeeded or not. For example, `'!stdout.includes("download completed.")'`.
+  
+* Variables:
+  - `variables`: A comma seperated list of variables referenced in cell content. Inside cell block, use `{{variable_name}}`.
+     
 
-
+Experimental features:
+  - `chart`: Create chart from cell output. 
+  - `highlight`: Select text in output, and create a popover with more information.
+  - `block`: Select text in output, and create a box, with height rows.
+  - `range`: Select lines from cell to highlight. Useful for calling attention.
+  - `svg`: Render content as svg.
+  - `tty`: Run command with pty.
