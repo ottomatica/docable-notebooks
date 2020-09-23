@@ -97,12 +97,12 @@ Your Docable Notebooks can be interacted with at http://localhost:3000.
    - `stream`: if `true`, then stdout/stderr is printed in output block as available.
    - `shell`: If given, then run command in provided shell. Supported: `'bash'`, `'powershell'`
    - `path`: set working directory of command.
-   - `privileged`: Ask permission for an admin prompt---useful for local installation. Only supported in local connections.
+   - `privileged`: Ask permission for an admin shell---useful for local installation. Only supported in local connections.
    - `user`: run command as as given user.
 * File content: `{type: 'file'}`.
 * File modifiers:
    - `path`: **Required**. The path to place contents.
-   - `permission`: Set permissions of file, use any format given by supported by chmod (`u+x`, `700`).
+   - `permission`: Set permissions of file, use any format given by supported by chmod (`'u+x'`, `'700'`).
    - `user`: Owner of file.
    - `mode`: If `'append'`, will add content to file instead of overwriting.
 
@@ -111,7 +111,7 @@ Your Docable Notebooks can be interacted with at http://localhost:3000.
 
 * Conditions:
   - `platform`: Allow cell to be executed only if connection is to given platform. Supported: `win32`, `darwin`, `linux`. 
-  - `failed_when`: Node.js expression to evaluate whether command succeeded or not. For example, `'!stdout.includes("download completed.")'.
+  - `failed_when`: Node.js expression to evaluate whether command succeeded or not. For example, `'!stdout.includes("download completed.")'`.
      
 
 Experimental features:
