@@ -112,6 +112,9 @@ Your Docable Notebooks can be interacted with at http://localhost:3000.
 * Conditions:
   - `platform`: Allow cell to be executed only if connection is to given platform. Supported: `win32`, `darwin`, `linux`. 
   - `failed_when`: Node.js expression to evaluate whether command succeeded or not. For example, `'!stdout.includes("download completed.")'`.
+  
+* Variables:
+  - `variables`: A comma seperated list of variables referenced in cell content. Inside cell block, use `{{variable_name}}`.
      
 
 Experimental features:
