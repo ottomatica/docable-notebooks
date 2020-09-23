@@ -65,7 +65,6 @@ choco install figlet-go -y
 
 ![privileged](docs/img/docable-privileged.png)
 
-
 ## Installing and Running Docable Notebooks
 
 Requires [node.js >= 12.x](https://nodejs.org/en/).
@@ -88,6 +87,40 @@ Your Docable Notebooks can be interacted with at http://localhost:3000.
 
 * If you have problems with `gyp` on MacOs, [see this simple guide](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d) for setting up/reinstalling CommandLineTools.
 * If updating existing repository, make sure to run `npm update && npm install` to get updates from modules.
+
+## Writing Notebooks
+
+**Quick Reference**:
+
+* Run commands in cell: `{type: 'command'}`.
+* Command modifiers.
+   - `stream`: if `true`, then stdout/stderr is printed in output block as available.
+   - `shell`: If given, then run command in provided shell. Supported: `'bash'`, `'powershell'`
+   - `path`: set working directory of command.
+   - `privileged`: Ask permission for an admin prompt---useful for local installation. Only supported in local connections.
+   - `user`: run command as as given user.
+* File content: `{type: 'file'}`.
+* File modifiers:
+   - `path`: **Required**. The path to place contents.
+   - `permission`: Set permissions of file, use any format given by supported by chmod (`u+x`, `700`).
+   - `user`: Owner of file.
+   - `mode`: If `'append'`, will add content to file instead of overwriting.
+
+* Script content: `{type: script}`.
+   - Execute content using the language of content in the first part of fence infostring. Supported: `js`. Create issue if another language is needed!
+
+* Conditions:
+  - `platform`: Allow cell to be executed only if connection is to given platform. Supported: `win32`, `darwin`, `linux`. 
+  - `failed_when`: Node.js expression to evaluate whether command succeeded or not. For example, `'!stdout.includes("download completed.")'.
+     
+
+Experimental features:
+  - `chart`: Create chart from cell output. 
+  - `highlight`: Select text in output, and create a popover with more information.
+  - `block`: Select text in output, and create a box, with height rows.
+  - `range`: Select lines from cell to highlight. Useful for calling attention.
+  - `svg`: Render content as svg.
+
 
 ## Advanced Features
 
