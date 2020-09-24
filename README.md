@@ -6,9 +6,11 @@
 
 This results in a literate programming environment for markdown files. Markdown files remain 100% compatible and render normally on GitHub, etc. If done properly, Docable can allow you to design and build interactive tutorials, interactive education and training materials, and simple infrastructure runbooks.
 
-You can also run your markdown files with the [docable CLI](https://github.com/ottomatica/docable), allowing you to run your notebooks in CI/CD or gitops workflows.
+You can also run your markdown files with the [docable CLI](https://github.com/ottomatica/docable), allowing you to run your notebooks in CI/CD or gitops workflows: 
 
-![docable cli](docs/img/docable-cli.png)
+`$ docable report server-test.md`
+
+<img src="docs/img/docable-cli.png" width=300px>
 
 ## Using a Docable Notebook
 
