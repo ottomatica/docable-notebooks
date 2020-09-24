@@ -6,11 +6,20 @@
 
 This results in a literate programming environment for markdown files. Markdown files remain 100% compatible and render normally on GitHub, etc. If done properly, Docable can allow you to design and build interactive tutorials, interactive education and training materials, and simple infrastructure runbooks.
 
-You can also run your markdown files with the [docable CLI](https://github.com/ottomatica/docable), allowing you to run your notebooks in CI/CD or gitops workflows: 
+## Contents
 
-`$ docable report server-test.md`
-
-<img src="docs/img/docable-cli.png" width=300px>
+* [Using a Docable Notebooks](https://github.com/ottomatica/docable-notebooks#using-a-docable-notebook)
+  - [Example notebooks](https://github.com/ottomatica/docable-notebooks#example-notebooks)
+  - [Editing Cells](https://github.com/ottomatica/docable-notebooks#editing-cells)
+  - [Creating file content, using variables](https://github.com/ottomatica/docable-notebooks#creating-file-content-using-variables-and-more)
+  - [Cell format](https://github.com/ottomatica/docable-notebooks#Cell-format)
+  - [Docable CLI](https://github.com/ottomatica/docable-notebooks#docable-cli)
+* [Notebook Server](https://github.com/ottomatica/docable-notebooks#notebook-server)
+  - [Notebook treeview](https://github.com/ottomatica/docable-notebooks#notebook-treeview)
+  - [Managing environments](https://github.com/ottomatica/docable-notebooks#target-environments)
+  - [Managing variables](https://github.com/ottomatica/docable-notebooks#variables)
+* [Installing and Running Notebooks](https://github.com/ottomatica/docable-notebooks#installing-and-running-docable-notebooks)
+* [Quick Reference](https://github.com/ottomatica/docable-notebooks#quick-reference)
 
 ## Using a Docable Notebook
 
@@ -47,7 +56,7 @@ Docable _file cells_ take care of creating paths, setting file permissions and o
 
 ![docable-file](docs/img/docable-file.png)
 
-## Creating and Viewing Notebooks
+## Cell Format
 
 To create a notebook, you simply create a markdown file and provide a few annotations on code blocks.
 
@@ -74,7 +83,21 @@ choco install figlet-go -y
 
 ![privileged](docs/img/docable-privileged.png)
 
+### Docable CLI
+
+You can also run your markdown files with the [docable CLI](https://github.com/ottomatica/docable), allowing you to run your notebooks in CI/CD or gitops workflows: 
+
+`$ docable report server-test.md`
+
+<img src="docs/img/docable-cli.png" width=300px>
+
+## Notebook Server
+
+The notebook server can run locally and allow you to interact with your notebooks in your web browser.
+
 ### Notebook Treeview
+
+To access your notebooks, you can browse and click on a notebook in the tree.
 
 <img src="docs/img/docable-tree.png" width="200px">
 
