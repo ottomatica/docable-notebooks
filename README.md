@@ -39,7 +39,7 @@ figlet docable
 
 ![banner](docs/img/banner.png)
 
-See more features by exploring the [documentation examples](docs/examples/) or try a [online notebook](https://docable.cloud/).
+See more features by exploring the [documentation examples](docs/examples/) or try an [online notebook](https://docable.cloud/).
 
 ### Editing Cells
 
