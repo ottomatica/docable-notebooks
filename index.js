@@ -118,7 +118,7 @@ if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
     {
         // render notebook from notebook dir
         app.get('/notebooks/*.md', workspace_routes.get_notebook);
-        app.get('/notebooks/*.(jpg|png)', workspace_routes.get_notebook_imgs);
+        app.get('/notebooks/*.(jpg|png|gif)', workspace_routes.get_notebook_imgs);
     }
 
     app.get('/import', workspace_routes.import);
@@ -184,6 +184,9 @@ app.listen(port, async () => {
 
     logger.info(`Server started in ${process.env.NODE_ENV} NODE_ENV`);
     logger.info(`Listening to requests on http://localhost:${port}`);
+
+    console.log(`Server started in ${process.env.NODE_ENV} NODE_ENV`);
+    console.log(`Listening to requests on http://localhost:${port}`);
 });
 
 process.on('uncaughtException', pino.final(logger, (err, finalLogger) => {
