@@ -46,8 +46,12 @@ If using Cmd shell, you can run the following, but it will only be valid for the
 
 To make those settings stick, you need to run:
 
-```bash|{type:'command'}
-SETX DOCKER_TLS_VERIFY 1 & SETX DOCKER_HOST tcp://192.168.99.100:2376 & SETX DOCKER_CERT_PATH C:\Users\chris\.docker\machine\machines\default & SETX DOCKER_MACHINE_NAME default & SETX COMPOSE_CONVERT_WINDOWS_PATHS true
+```bash|{type:'command', refresh: true}
+SETX DOCKER_TLS_VERIFY 1
+SETX DOCKER_HOST tcp://192.168.99.101:2376
+SETX DOCKER_CERT_PATH %USERPROFILE%\.docker\machine\machines\default
+SETX DOCKER_MACHINE_NAME default
+SETX COMPOSE_CONVERT_WINDOWS_PATHS true
 ```
 
 Because the variables may change slightly over time, you can get the exact command by running. Remember to replace `SET => SETX`. 
