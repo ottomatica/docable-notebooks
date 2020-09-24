@@ -8,9 +8,9 @@ This results in a literate programming environment for markdown files. Markdown 
 
 ## Contents
 
-* [Using a Docable Notebooks](https://github.com/ottomatica/docable-notebooks#using-a-docable-notebook)
+* [Using Docable Notebooks](https://github.com/ottomatica/docable-notebooks#using-docable-notebooks)
   - [Example notebooks](https://github.com/ottomatica/docable-notebooks#example-notebooks)
-  - [Editing Cells](https://github.com/ottomatica/docable-notebooks#editing-cells)
+  - [Editing cells](https://github.com/ottomatica/docable-notebooks#editing-cells)
   - [Creating file content, using variables](https://github.com/ottomatica/docable-notebooks#creating-file-content-using-variables-and-more)
   - [Cell format](https://github.com/ottomatica/docable-notebooks#Cell-format)
   - [Docable CLI](https://github.com/ottomatica/docable-notebooks#docable-cli)
@@ -21,7 +21,7 @@ This results in a literate programming environment for markdown files. Markdown 
 * [Installing and Running Notebooks](https://github.com/ottomatica/docable-notebooks#installing-and-running-docable-notebooks)
 * [Quick Reference](https://github.com/ottomatica/docable-notebooks#quick-reference)
 
-## Using a Docable Notebook
+## Using Docable Notebooks
 
 With docable, your markdown will be translated from this:
 
@@ -31,7 +31,7 @@ With docable, your markdown will be translated from this:
 figlet docable
 ```
 
-**Into this**:
+**Into this** ✨:
 
 ![figlet-demo](docs/img/docable-figlet.gif)
 
