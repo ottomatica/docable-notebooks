@@ -126,6 +126,10 @@ main {
     border-left: 5px solid coral;
 }
 
+.docable-cell-copy pre {
+    border-left: 5px solid coral;
+}
+
 .markdown-body .docable-cell .failing pre {
     border-left: 5px solid red;
 }
