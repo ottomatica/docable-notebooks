@@ -44,12 +44,14 @@ Ensure virtualization (Intel VT-x or AMD-V) is enabled on your system using the 
   <img src="resources/imgs/win-taskmanager.jpg" data-canonical-src="resources/imgs/win-taskmanager.jpg" width="600" />
 
 - **Mac:** run the command below to see the list of supported CPU flags. If you see **VMX**, your machine supports hardware virtualization:  
-   ```
+
+   ```bash |{type:'command', platform: 'darwin'}
    sysctl -a | grep machdep.cpu.features | grep VMX
    ```
    <img src="resources/imgs/mac-cpu-flags.png" data-canonical-src="resources/imgs/mac-cpu-flags.png" width="600" />
    
 - **Linux:** run the command below to see the list of supported CPU flags. If you see **VMX** or **SVM** flag, youre machine supports hardware virtualization:
+
    ```
    grep -E "vmx|svm" /proc/cpuinfo
    ```
