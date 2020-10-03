@@ -80,7 +80,7 @@ npm install ottomatica/bakerx -g
 First, you need to pull an existing virtual machine image from a registry. Registries are basically the assets in a GitHub repository releases. Then you can pull an image by running the following commands:
 
 ```bash|{type:'command'}
-bakerx pull ottomatica/slim#images alpine3.9-simple
+bakerx pull alpine3.9-simple ottomatica/slim#images 
 ```
 
 See [slim](https://github.com/ottomatica/slim) for instructions on how to create and publish an image. 

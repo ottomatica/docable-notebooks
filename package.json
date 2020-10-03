@@ -29,7 +29,7 @@
     "cross-env": "^7.0.2",
     "nodemon": "^2.0.4",
     "pino-pretty": "^4.2.1",
-    "pm2": "^4.4.1"
+    "pm2": "^4.5.0"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.3",
@@ -46,7 +46,7 @@
     "js-yaml": "^3.14.0",
     "jsdom": "^16.4.0",
     "marked": "^1.2.0",
-    "open": "^7.2.1",
+    "open": "^7.3.0",
     "open-editor": "^2.0.1",
     "pino": "^6.6.1",
     "prettier": "^2.1.2",
