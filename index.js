@@ -41,6 +41,7 @@ const openEditor = require("open-editor");
 
 const utils = require('./lib/utils');
 const notebookSlug = require('./lib/notebook/slug');
+const { fstat } = require("fs");
 
 const app = express();
 
@@ -99,6 +100,22 @@ if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
         }
 
         res.render("home", { github_imports, notebook_tree, user, isHosted });
+    });
+
+    app.post('/notebook_dir', function(req, res)
+    {
+        let dir = require('child_process').execSync(`osascript -l JavaScript -e "var app = Application('Chrome');
+        app.includeStandardAdditions = true;
+        app.chooseFolder().toString();"`);
+
+        console.log( `Results ${dir}`)
+        dir = dir.toString().trim();
+        if( dir && require('fs').existsSync(dir) )
+        {
+            notebook_dir = dir;
+            env.updateNotebookDir(dir);
+        }
+        res.redirect("/");
     });
 
     app.get('/variables', workspace_routes.variables);

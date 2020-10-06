@@ -141,6 +141,14 @@
 
         <!-- <div><a href="/targets">Environments</a><span class="content-separator">|</span><a href="/variables">Variables</a></div> -->
 
+        <div>
+            <form method="POST" action="/notebook_dir">
+            <button id="btnPickFolder" type="submit" class="btn btn-outline-dark py-0" title="Pick Folder">
+                Pick Folder <i class="far fa-folder-open"></i>
+            </button>
+            </form>
+        </div>
+
         <h2>📓 Your Notebooks</h2>
 
         <div class="tree-actions">
@@ -219,6 +227,23 @@
                 // });
 
                 <% if (!locals.isHosted) { %>
+
+                // $('#btnPickFolder').submit(function(e)
+                // {
+                //     e.preventDefault();
+
+                //     return fetch(`/notebook_dir`, {
+                //         method: 'POST',
+                //         mode: 'cors',
+                //         body: JSON.stringify({}),
+                //         headers: { "content-type": "application/json; charset=UTF-8" },
+                //     })
+                //     .then(response => response.text())
+                //     .then(data => {
+                //     })
+                //     .catch(err => {
+                //     });
+                // });
 
                 $('#btn-openFolder').click(function()
                 {
