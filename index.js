@@ -41,8 +41,6 @@ const openEditor = require("open-editor");
 
 const utils = require('./lib/utils');
 const notebookSlug = require('./lib/notebook/slug');
-const { fstat } = require("fs");
-const slash = require("slash");
 
 const app = express();
 
@@ -128,11 +126,8 @@ if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
             else 
             {
                 console.log(result);
-                dir = slash(result[0]);
+                dir = result[0];
             }
-            // .then(result => {
-            // })
-            // .catch(err => console.error(err))      
         }
 
         console.log( `Results ${dir}`)
