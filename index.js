@@ -42,6 +42,7 @@ const openEditor = require("open-editor");
 const utils = require('./lib/utils');
 const notebookSlug = require('./lib/notebook/slug');
 const { fstat } = require("fs");
+const slash = require("slash");
 
 const app = express();
 
@@ -102,14 +103,39 @@ if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
         res.render("home", { github_imports, notebook_tree, user, isHosted });
     });
 
-    app.post('/notebook_dir', function(req, res)
+    app.post('/notebook_dir', async function(req, res)
     {
-        let dir = require('child_process').execSync(`osascript -l JavaScript -e "var app = Application('Chrome');
-        app.includeStandardAdditions = true;
-        app.chooseFolder().toString();"`);
+        let dir = "";
+
+        if( require('os').platform() == 'darwin' )
+        {
+            dir = require('child_process').execSync(`osascript -l JavaScript -e "var app = Application('Chrome');
+            app.includeStandardAdditions = true;
+            app.chooseFolder().toString();"`);
+            dir = dir.toString().trim();
+        }
+        else if( require('os').platform() == 'win32' )
+        {
+            const root = 'c:/'; // default c://
+            const multiSelect = 0; // default 0
+            const checkFileExists = 1; // default 1
+            const description = "Pick folder";
+
+            let selectFolder = require('./lib/providers/pick');
+            let result = await selectFolder({root, multiSelect, checkFileExists, description})
+            if (result === 'cancelled')
+            { console.log('Cancelled by user');}
+            else 
+            {
+                console.log(result);
+                dir = slash(result[0]);
+            }
+            // .then(result => {
+            // })
+            // .catch(err => console.error(err))      
+        }
 
         console.log( `Results ${dir}`)
-        dir = dir.toString().trim();
         if( dir && require('fs').existsSync(dir) )
         {
             notebook_dir = dir;
