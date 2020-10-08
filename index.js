@@ -16,8 +16,10 @@ const argv = yargs
 .command('import <url>', 'import url into your home directory.', {}, async function(yargs)
 {
     let url = yargs.url;
+    url = url.replace("docable://", "https://");   
     console.log( `Importing ${url} into ${NOTEBOOK_HOME}`);
     const utils = require('./lib/utils');
+
     await utils.githubImport(NOTEBOOK_HOME, url);
 })
 .help()
