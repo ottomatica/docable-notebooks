@@ -21,6 +21,7 @@ const argv = yargs
     const utils = require('./lib/utils');
 
     await utils.githubImport(NOTEBOOK_HOME, url);
+    process.exit();
 })
 .help()
 .alias('help', 'h')
