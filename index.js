@@ -1,6 +1,10 @@
 #! /usr/bin/env node
 const path = require("path");
 
+const os = require('os');
+
+const NOTEBOOK_HOME = path.join(os.homedir(), "docable");
+
 const yargs = require('yargs');
 const argv = yargs
 .option('notebook_dir', {
@@ -8,7 +12,15 @@ const argv = yargs
     description: 'Serve notebooks from this directory on /notebooks',
     type: 'string',
     default: '.'
-}).help()
+})
+.command('import <url>', 'import url into your home directory.', {}, async function(yargs)
+{
+    let url = yargs.url;
+    console.log( `Importing ${url} into ${NOTEBOOK_HOME}`);
+    const utils = require('./lib/utils');
+    await utils.githubImport(NOTEBOOK_HOME, url);
+})
+.help()
 .alias('help', 'h')
 .argv;
 
