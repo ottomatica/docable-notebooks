@@ -20,7 +20,13 @@
     "devops"
   ],
   "pkg": {
-    "assets": ["views/**/*", "docs/**/*", "public/js/**/*", "public/css/**/*", "public/media/**/*"]
+    "assets": [
+      "views/**/*",
+      "docs/**/*",
+      "public/js/**/*",
+      "public/css/**/*",
+      "public/media/**/*"
+    ]
   },
   "author": "ottomatica",
   "license": "Apache-2.0",
