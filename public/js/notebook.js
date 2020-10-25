@@ -19,6 +19,9 @@ $(document).ready(function()
         });
     }
 
+    $('[data-docable="true"]').focusout(function () {
+        $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
+    })
 
 });
 
