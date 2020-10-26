@@ -349,11 +349,10 @@ if( !isHosted )
         });
 
         $('#btn-update-cell').on('click', function () {
-            let attributes = JSON.stringify(JSON.parse($(`textarea[id="docable-edit-area-${stepIndex}"`).val()));
-            let highlight = getHighlightClass(cell);
-            let content = "```" + highlight + "|" + attributes + "\n" + 
+            let attributes = JSON.parse($(`textarea[id="docable-edit-area-${stepIndex}"`).val());
+            let content = "```" + attributes.lang + "|" + JSON.stringify(attributes) + "\n" + 
                             cell.text() + "\n```";
-            
+
             editCell(content)
             .then(data => {
                 let cell = $('[data-docable="true"]').eq(stepIndex);
@@ -369,17 +368,6 @@ if( !isHosted )
         //     console.log(cell.data());
         // });
     });
-}
-
-
-const getHighlightClass = function(node) {
-    let value = node.attr('class')
-    for( let klass of value.split(' '))
-    {
-        if( klass.indexOf('language-') == 0 )
-            return klass.replace("language-", "");
-    }
-    return "";
 }
 
 // new ClipboardJS('.copy-btn', {
