@@ -159,7 +159,7 @@ if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
     app.post('/deleteVariable', workspace_routes.deleteVariable);
 
     app.post('/run', notebook_routes.runNotebook);
-    app.post('/viewCell', notebook_routes.viewCell);
+    app.post('/viewCell', notebook_routes.viewCell); // #obsolete
     app.post('/editCell', notebook_routes.editCell);
     app.post('/runCell', notebook_routes.runCell);
 

@@ -323,7 +323,7 @@ $('main').on('click', '.play-btn', function () {
 const EditForm = ({stepIndex}) =>
 `<div id="update-cell-form" class="py-2">
     <div class="form-group">
-        <label for="docable-edit-area-${stepIndex}">Edit Cell</label>
+        <label for="docable-edit-area-${stepIndex}">Edit Attributes</label>
         <textarea rows="5" name="text" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
     </div>
     <button id="btn-cancel-cell" type="submit" class="btn btn-secondary">Cancel</button>
@@ -349,19 +349,37 @@ if( !isHosted )
         });
 
         $('#btn-update-cell').on('click', function () {
-            editCell($(`textarea[id="docable-edit-area-${stepIndex}"`).val())
+            let attributes = JSON.stringify(JSON.parse($(`textarea[id="docable-edit-area-${stepIndex}"`).val()));
+            let highlight = getHighlightClass(cell);
+            let content = "```" + highlight + "|" + attributes + "\n" + 
+                            cell.text() + "\n```";
+            
+            editCell(content)
             .then(data => {
                 let cell = $('[data-docable="true"]').eq(stepIndex);
                 cell.parent().parent().replaceWith( data );
             });
         });
 
-        viewCell($(cell)[0].outerHTML, stepIndex)
-        .then(data => {
-            console.log(data);
-            $(`#docable-edit-area-${stepIndex}`).val(data.cell);
-        });
+        $(`#docable-edit-area-${stepIndex}`).val(JSON.stringify(cell.data(), null, 2));
+        // viewCell($(cell)[0].outerHTML, stepIndex)
+        // .then(data => {
+        //     console.log(data);
+        //     $(`#docable-edit-area-${stepIndex}`).val(data.cell);
+        //     console.log(cell.data());
+        // });
     });
+}
+
+
+const getHighlightClass = function(node) {
+    let value = node.attr('class')
+    for( let klass of value.split(' '))
+    {
+        if( klass.indexOf('language-') == 0 )
+            return klass.replace("language-", "");
+    }
+    return "";
 }
 
 // new ClipboardJS('.copy-btn', {
