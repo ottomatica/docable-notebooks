@@ -321,7 +321,7 @@ $('main').on('click', '.play-btn', function () {
 ////////////////// EDIT
 
 const EditForm = ({stepIndex}) =>
-`<div id="update-cell-form">
+`<div id="update-cell-form" class="py-2">
     <div class="form-group">
         <label for="docable-edit-area-${stepIndex}">Edit Cell</label>
         <textarea rows="5" name="text" class="form-control" id="docable-edit-area-${stepIndex}"></textarea>
