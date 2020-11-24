@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 const path = require("path");
-
+const fs = require('fs');
 const os = require('os');
 
 const NOTEBOOK_HOME = path.join(os.homedir(), "docable");
@@ -98,6 +98,16 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 app.use(expressLogger);
+
+// init repl submodule if present
+if (fs.existsSync(path.join(__dirname, './modules/repl'))) {
+    console.log('Init submodule: repl');
+
+    const Repl = require('./modules/repl');
+    app.use('/modules/repl/js', express.static(__dirname + '/modules/repl/public/js'));
+
+    const io = Repl(sessionMiddleware);
+}
 
 if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
     logger.info(`Enabling arbitrary md in /notebooks`);

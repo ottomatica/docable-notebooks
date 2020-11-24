@@ -1,3 +1,6 @@
 [submodule "lib/hosted"]
 	path = lib/hosted
 	url = ../docable-notebooks.hosted.git
+[submodule "modules/repl"]
+	path = modules/repl
+	url = ../docable-notebooks.repl.git
