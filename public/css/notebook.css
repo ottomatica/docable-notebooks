@@ -289,3 +289,6 @@ tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
     border-color: red !important;
 }
 
+.terminal.xterm {
+    margin-bottom: 16px;
+}
