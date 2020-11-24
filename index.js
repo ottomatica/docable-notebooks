@@ -50,6 +50,16 @@ const md5 = require('md5');
  
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
+const sessionMiddleware = session({
+    secret: "Shh, its a secret!",
+    resave: true,
+    rolling: true,
+    saveUninitialized: true,
+    store: new SQLiteStore({db: '.sessions'}),
+    cookie: {
+        sameSite: 'lax'
+    }
+});
 
 const open = require("open");
 const openEditor = require("open-editor");
@@ -61,16 +71,7 @@ const app = express();
 
 const isHosted = process.env.NODE_ENV == "prod" ? true: false;
 
-app.use(session({
-    secret: "Shh, its a secret!",
-    resave: true,
-    rolling: true,
-    saveUninitialized: true,
-    store: new SQLiteStore({db: '.sessions'}),
-    cookie: {
-        sameSite: 'lax'
-    }
-}));
+app.use(sessionMiddleware);
  
 app.use(bodyParser.text({ type: 'text/plain' }))
 
