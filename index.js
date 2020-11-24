@@ -100,7 +100,7 @@ app.use(express.json());
 app.use(expressLogger);
 
 // init repl submodule if present
-if (fs.existsSync(path.join(__dirname, './modules/repl'))) {
+if (fs.existsSync(path.join(__dirname, './modules/repl/.git'))) {
     console.log('Init submodule: repl');
 
     const Repl = require('./modules/repl');
