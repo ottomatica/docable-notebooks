@@ -33,7 +33,7 @@ const port = process.env.PORT || "3000";
 const env = require('./lib/env');
 env.setup(argv.notebook_dir);
 
-let {config, logger, notebook_dir } = env.vars();
+let { config, logger, notebook_dir, configPath } = env.vars();
 
 
 const pino = require('pino');
@@ -55,7 +55,7 @@ const sessionMiddleware = session({
     resave: true,
     rolling: true,
     saveUninitialized: true,
-    store: new SQLiteStore({db: '.sessions'}),
+    store: new SQLiteStore({ db: path.join(configPath, '.sessions') }),
     cookie: {
         sameSite: 'lax'
     }
