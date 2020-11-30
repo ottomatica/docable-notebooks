@@ -55,7 +55,7 @@ const sessionMiddleware = session({
     resave: true,
     rolling: true,
     saveUninitialized: true,
-    store: new SQLiteStore({ db: path.join(configPath, '.sessions') }),
+    store: new SQLiteStore({ dir: configPath, db: '.sessions' }),
     cookie: {
         sameSite: 'lax'
     }
