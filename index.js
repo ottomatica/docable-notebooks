@@ -49,7 +49,7 @@ const user_routes = require('./lib/routes/user');
 
 let hostedRoutes, sessionMiddleware;
 if (isHosted) {
-    ({hostedRoutes, sessionMiddleware} = require('./lib/hosted/routes'))
+    ({hostedRoutes, sessionMiddleware} = require('./modules/hosted/routes'))
 }
 
 const md5 = require('md5');
