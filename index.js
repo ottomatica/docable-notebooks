@@ -41,7 +41,6 @@ const pino = require('pino');
 const expressPino = require('express-pino-logger');
 const expressLogger = expressPino({ logger });
 
-const bodyParser = require("body-parser");
 const express = require("express");
 const notebook_routes = require('./lib/routes/notebook');
 const workspace_routes = require('./lib/routes/workspace');
@@ -76,7 +75,7 @@ sessionMiddleware = sessionMiddleware || session({
 
 app.use(sessionMiddleware);
  
-app.use(bodyParser.text({ type: 'text/plain' }))
+app.use(express.text({ type: 'text/plain' }))
 
 // edit view:
 app.set("views", path.join(__dirname, "views"));
