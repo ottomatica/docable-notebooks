@@ -234,7 +234,7 @@ app.post('/register', user_routes.register );
 app.get('/register', function(req, res) { res.render("register", {});} );
 
 if(process.env.NODE_ENV == 'prod') {
-    app.use('/img', express.static('./lib/hosted/public/img'));
+    app.use('/img', express.static('./modules/hosted/public/img'));
 
     app.use('/', hostedRoutes);
 }
