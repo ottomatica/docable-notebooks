@@ -54,6 +54,7 @@
     "infra.connectors": "github:ottomatica/infra.connectors",
     "js-yaml": "^3.14.0",
     "jsdom": "^16.4.0",
+    "md5": "^2.3.0",
     "open": "^7.3.0",
     "open-editor": "^2.0.1",
     "pino": "^6.6.1",
