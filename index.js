@@ -28,6 +28,7 @@ const argv = yargs
 .argv;
 
 const port = process.env.PORT || "3000";
+const isHosted = process.env.NODE_ENV == "prod" ? true: false;
 
 // Initialize configure store and logger.
 const env = require('./lib/env');
@@ -46,20 +47,14 @@ const notebook_routes = require('./lib/routes/notebook');
 const workspace_routes = require('./lib/routes/workspace');
 const user_routes = require('./lib/routes/user');
 
+let hostedRoutes, sessionMiddleware;
+if (isHosted) {
+    ({hostedRoutes, sessionMiddleware} = require('./lib/hosted/routes'))
+}
+
 const md5 = require('md5');
  
 const session = require('express-session');
-const SQLiteStore = require('connect-sqlite3')(session);
-const sessionMiddleware = session({
-    secret: "Shh, its a secret!",
-    resave: true,
-    rolling: true,
-    saveUninitialized: true,
-    store: new SQLiteStore({ dir: configPath, db: '.sessions' }),
-    cookie: {
-        sameSite: 'lax'
-    }
-});
 
 const open = require("open");
 const openEditor = require("open-editor");
@@ -69,7 +64,15 @@ const notebookSlug = require('./lib/notebook/slug');
 
 const app = express();
 
-const isHosted = process.env.NODE_ENV == "prod" ? true: false;
+sessionMiddleware = sessionMiddleware || session({
+    secret: "Shh, its a secret!",
+    resave: true,
+    rolling: true,
+    saveUninitialized: true,
+    cookie: {
+        sameSite: 'lax'
+    }
+});
 
 app.use(sessionMiddleware);
  
@@ -233,7 +236,6 @@ app.get('/register', function(req, res) { res.render("register", {});} );
 if(process.env.NODE_ENV == 'prod') {
     app.use('/img', express.static('./lib/hosted/public/img'));
 
-    const hostedRoutes = require('./lib/hosted/routes');
     app.use('/', hostedRoutes);
 }
 
