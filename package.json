@@ -8,7 +8,7 @@
     "dev": "cross-env LOG_LEVEL=debug NODE_ENV=dev nodemon ./index.js --notebook_dir docs/examples/ | pino-pretty",
     "prod": "cross-env LOG_LEVEL=debug NODE_ENV=prod pm2 start ./index.js -- --notebook_dir docs/examples/ ",
     "deploy": "NODE_ENV=prod pm2 start index.js",
-    "init-modules": "git submodule update --init --recursive && cd modules/repl && npm i",
+    "init-modules": "git submodule update --init --recursive; git submodule foreach 'npm install'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
