@@ -26,10 +26,12 @@ $(document).ready(function()
         $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
         
         // triggering file cell play-btn if content is modified
-        let cellId = $(this).attr('id');
-        if (isDirty[cellId]) {
-            $(this).siblings('.play-btn').trigger('click');
-            isDirty[cellId] = false;
+        if ($(this).data('type') == 'file') {
+            let cellId = $(this).attr('id');
+            if (isDirty[cellId]) {
+                $(this).siblings('.play-btn').trigger('click');
+                isDirty[cellId] = false;
+            }
         }
     })
 
