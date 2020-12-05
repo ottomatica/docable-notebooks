@@ -21,6 +21,9 @@ $(document).ready(function()
 
     $('[data-docable="true"]').focusout(function () {
         $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
+        
+        // triggering file cell play-btn
+        $(this).siblings('.play-btn').trigger('click');
     })
 
 });
