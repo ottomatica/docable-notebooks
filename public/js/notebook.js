@@ -19,15 +19,26 @@ $(document).ready(function()
         });
     }
 
+    // keeping track of file cell content changes
+    let isDirty = {};
+
     $('[data-docable="true"]').focusout(function () {
         $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
         
-        // triggering file cell play-btn
-        $(this).siblings('.play-btn').trigger('click');
+        // triggering file cell play-btn if content is modified
+        let cellId = $(this).attr('id');
+        if (isDirty[cellId]) {
+            $(this).siblings('.play-btn').trigger('click');
+            isDirty[cellId] = false;
+        }
     })
 
     // making contenteditable behave more like text area
     $('pre[contenteditable]').keydown(function (e) {
+
+        // content of cell is modified
+        isDirty[$(this).attr('id')] = true;
+
         // trap the return key being pressed
         if (e.keyCode === 13) {
             // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
