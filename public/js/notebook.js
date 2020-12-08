@@ -38,14 +38,20 @@ $(document).ready(function()
     // making contenteditable behave more like text area
     $('pre[contenteditable]').keydown(function (e) {
 
-        // content of cell is modified
-        isDirty[$(this).attr('id')] = true;
+        if ($(this).data('type') == 'file') {
+            // content of cell is modified
+            isDirty[$(this).attr('id')] = true;
 
-        // trap the return key being pressed
-        if (e.keyCode === 13) {
-            // insert 2 br tags (if only one br tag is inserted the cursor won't go to the next line)
-            document.execCommand('insertHTML', false, '\n');
-            // prevent the default behaviour of return key pressed
+            // trap the return key being pressed
+            if (e.keyCode === 13) {
+                document.execCommand('insertHTML', false, '\n');
+                return false;
+            }
+        }
+
+        // trap the tab key being pressed
+        if (e.keyCode === 9) {
+            document.execCommand('insertHTML', false, '\t');
             return false;
         }
     });
