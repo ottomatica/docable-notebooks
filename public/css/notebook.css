@@ -122,6 +122,9 @@ main {
     border-left: 5px solid coral;
 } */
 
+pre { -moz-tab-size: 4; } /* Firefox */
+pre { tab-size: 4; }
+
 .docable-cell-edit pre {
     border-left: 5px solid coral;
 }
