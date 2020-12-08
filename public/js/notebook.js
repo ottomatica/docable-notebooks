@@ -49,6 +49,11 @@ $(document).ready(function()
             }
         }
 
+        if ($(this).data('type') == 'command') {
+            if (e.ctrlKey && e.keyCode == 13)
+                $(this).siblings('.play-btn').trigger('click');
+        }
+
         // trap the tab key being pressed
         if (e.keyCode === 9) {
             document.execCommand('insertHTML', false, '\t');
