@@ -50,8 +50,10 @@ $(document).ready(function()
         }
 
         if ($(this).data('type') == 'command') {
-            if (e.ctrlKey && e.keyCode == 13)
+            if (e.ctrlKey && e.keyCode == 13) {
                 $(this).siblings('.play-btn').trigger('click');
+                return false;
+            }
         }
 
         // trap the tab key being pressed
