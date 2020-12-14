@@ -63,6 +63,12 @@ $(document).ready(function()
         }
     });
 
+    $('pre[contenteditable]').on('paste', function (e) {
+        var text = e.originalEvent.clipboardData.getData('text/plain');
+        document.execCommand('insertText', false, text);
+        e.preventDefault();
+    })
+
 });
 
 $("#environment-dropdown").change(function () {
