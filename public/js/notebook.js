@@ -49,7 +49,7 @@ $(document).ready(function()
             }
         }
 
-        if ($(this).data('type') == 'command') {
+        if ($(this).data('type') == 'command' || $(this).data('type') == 'script') {
             if (e.ctrlKey && e.keyCode == 13) {
                 $(this).siblings('.play-btn').trigger('click');
                 return false;
