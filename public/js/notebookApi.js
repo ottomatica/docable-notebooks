@@ -103,3 +103,13 @@ function viewCell(text, stepIndex) {
     .then(response => response.json());
 
 }
+
+function notebookHtml2Md(notebookHtml, blob = false) {
+    return fetch(`/notebookHtml2Md`, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ notebookHtml }),
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+        .then(response => blob ? response.blob() : response.text());
+}

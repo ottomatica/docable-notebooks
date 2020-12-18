@@ -129,6 +129,25 @@ $('#submit').click(function () {
 
 });
 
+$('#downloadNotebook').click(function () {
+    const notebookHtml = $('main>div.markdown-body').html();
+    notebookHtml2Md(notebookHtml, true).then(blob => {
+        const url  = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+
+        a.download = `${window.location.pathname.replace('/', '').replaceAll('/', '-')}`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+    })
+    .catch((err) => {
+        $('#docable-error').empty();
+        $('#docable-error').append('failed to export this notebook to a markdown file :(');
+    });
+})
+
 function run(endPoint, body, stepIndex)
 {
     if (running) return;

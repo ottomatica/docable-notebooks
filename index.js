@@ -218,6 +218,8 @@ function startServer(argv) {
         app.post('/deleteTarget', workspace_routes.deleteTarget);
     }
 
+    app.post('/notebookHtml2Md', notebook_routes.notebookHtml2Md);
+
     app.post('/account', user_routes.updateAccount);
     app.get('/account', user_routes.getAccount);
 
