@@ -41,12 +41,12 @@ $(document).ready(function()
         if ($(this).data('type') == 'file') {
             // content of cell is modified
             isDirty[$(this).attr('id')] = true;
+        }
 
-            // trap the return key being pressed
-            if (e.keyCode === 13) {
-                document.execCommand('insertHTML', false, '\n');
-                return false;
-            }
+        // trap the return key being pressed
+        if (e.keyCode === 13) {
+            document.execCommand('insertHTML', false, '\n');
+            // return false;
         }
 
         if ($(this).data('type') == 'command' || $(this).data('type') == 'script') {
