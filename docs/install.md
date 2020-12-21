@@ -16,19 +16,16 @@ Run the docable-tray app to start Docable Notebooks server in the background.
 
 You can confirm the Docable Notebook has started successfully, by righ-clicking on the Docable icon in Windows Taskbar and clicking on "Open Docable...".
 
+<img src="img/docable-tray-win-run.gif"  width="63%">
+
 Your default browser should now open `http://localhost:3000/`.
-
-<img align="left" src="img/docable-tray-win-run.gif"  width="62%">
-
-<br>
-<br>
 
 # macOS
 
 Run docable-tray app to start Docable server in the background. Then you can confirm the Docable Notebooks has started successfully, by right-clicking on the Docable icon in macOS menu bar and clicking on "Open Docable...".
 
 <p align="center">
-  <img src="img/docable-tray-macos-run.gif"  width="62%">
+  <img src="img/docable-tray-macos-run.gif"  width="50%">
 </p>
 
 Your default browser should now open `http://localhost:3000/` which is the Docable Notebooks home page.
