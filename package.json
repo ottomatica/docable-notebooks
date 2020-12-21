@@ -26,7 +26,11 @@
       "docs/**/*",
       "public/js/**/*",
       "public/css/**/*",
-      "public/media/**/*"
+      "public/media/**/*",
+      "modules/repl/public/js/**/*"
+    ],
+    "scripts": [
+      "modules/repl/node_modules/**/*.js"
     ]
   },
   "author": "ottomatica",
