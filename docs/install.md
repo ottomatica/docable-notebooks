@@ -10,15 +10,18 @@ After running the installer, you should be able to find the docable-tray app ico
 
 # Windows
 
-Run the docable-tray app to start Docable Notebooks server in the background. 
+<img align="right" src="img/docable-tray-win.png"  width="31%">
 
-![docable tray windows app](img/docable-tray-win.png)
+Run the docable-tray app to start Docable Notebooks server in the background. 
 
 You can confirm the Docable Notebook has started successfully, by righ-clicking on the Docable icon in Windows Taskbar and clicking on "Open Docable...".
 
-![docable tray windows app running](img/docable-tray-win-run.gif)
-
 Your default browser should now open `http://localhost:3000/`.
+
+<img align="left" src="img/docable-tray-win-run.gif"  width="62%">
+
+<br>
+<br>
 
 # macOS
 
@@ -28,3 +31,7 @@ TODO.
 # Updating
 
 To update the docable-tray app, download and run the latest installers from [installation section]() above.
+
+
+
+
