@@ -28,9 +28,6 @@
       "public/css/**/*",
       "public/media/**/*",
       "modules/repl/public/js/**/*"
-    ],
-    "scripts": [
-      "modules/repl/node_modules/**/*.js"
     ]
   },
   "author": "ottomatica",
