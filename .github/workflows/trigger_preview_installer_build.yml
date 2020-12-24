@@ -18,24 +18,6 @@ jobs:
         upload_url=$(curl -sL https://api.github.com/repos/${{github.repository}}/releases?access_token=${{ secrets.GITHUB_TOKEN }} | jq -r --arg TAG "$tag" '.[] | select(.tag_name==$TAG) | .upload_url')
         echo ::set-output name=upload_url::$upload_url
 
-    - name: Remove old release assets
-      continue-on-error: true
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: preview
-        assets: |
-          docable-tray.exe
-
-    - name: Remove old release assets
-      continue-on-error: true
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: preview
-        assets: |
-          docable-tray.dmg
-
     - run: |
         curl -H "Accept: application/vnd.github.everest-preview+json" \
               -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
