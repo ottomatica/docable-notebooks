@@ -2,8 +2,8 @@
 
 Download and run the installer for your operating system from the links below:
 
-- [Windows]()
-- [macOS]()
+- Windows: [`stable`](https://github.com/ottomatica/docable-notebooks/releases/latest/download/docable-tray.exe) - [`preview`](https://github.com/ottomatica/docable-notebooks/releases/download/preview/docable-tray.exe)
+- macOS: [`stable`](https://github.com/ottomatica/docable-notebooks/releases/latest/download/docable-tray.dmg) - [`preview`](https://github.com/ottomatica/docable-notebooks/releases/download/preview/docable-tray.exe)
 - [Linux]()
 
 After running the installer, you should be able to find the docable-tray app icon in your application list:
@@ -32,7 +32,7 @@ Your default browser should now open `http://localhost:3000/` which is the Docab
 
 # Updating
 
-To update the docable-tray app, download and run the latest installers from [installation section]() above.
+To update the docable-tray app, download and run the latest installers from [installation section](#installing-and-running-docable-notebooks-tray-app) above.
 
 
 
