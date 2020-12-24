@@ -19,6 +19,7 @@ jobs:
         echo ::set-output name=upload_url::$upload_url
 
     - name: Remove old release assets
+      continue-on-error: true
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -27,6 +28,7 @@ jobs:
           docable-tray.exe
 
     - name: Remove old release assets
+      continue-on-error: true
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
