@@ -1,0 +1,42 @@
+name: Build preview installers
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build release binary
+    runs-on: ubuntu-latest
+    steps:
+
+    - id: get_release_upload_url
+      name: Compute needed variables
+      run: |
+        tag="preview"
+        echo "::set-output name=tag::$tag"
+        upload_url=$(curl -sL https://api.github.com/repos/${{github.repository}}/releases?access_token=${{ secrets.GITHUB_TOKEN }} | jq -r --arg TAG "$tag" '.[] | select(.tag_name==$TAG) | .upload_url')
+        echo ::set-output name=upload_url::$upload_url
+
+    - name: Remove old release assets
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: preview
+        assets: |
+          docable-tray.exe
+
+    - name: Remove old release assets
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: preview
+        assets: |
+          docable-tray.dmg
+
+    - run: |
+        curl -H "Accept: application/vnd.github.everest-preview+json" \
+              -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+              --request POST \
+              --data '{"event_type": "build_preview_installers", "client_payload": { "upload_url": "${{ steps.get_release_upload_url.outputs.upload_url }}"}}' \
+              https://api.github.com/repos/ottomatica/docable.app/dispatches

@@ -1,0 +1,26 @@
+name: Build installers
+
+on:
+  release:
+    types: [ created ]
+
+jobs:
+  build:
+    name: Build release binary
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get release
+        id: get_release
+        uses: bruceadams/get-release@v1.2.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          curl -H "Accept: application/vnd.github.everest-preview+json" \
+                -H "Authorization: token ${{ secrets.GH_TOKEN }}" \
+                --request POST \
+                --data '{"event_type": "build_release_installers", "client_payload": { "upload_url": "${{ steps.get_release.outputs.upload_url }}"}}' \
+                https://api.github.com/repos/ottomatica/docable.app/dispatches
