@@ -17,14 +17,14 @@
 Download the Windows installer [[`stable`](https://github.com/ottomatica/docable-notebooks/releases/latest/download/docable-tray.exe) - [`preview`](https://github.com/ottomatica/docable-notebooks/releases/download/preview/docable-tray.exe)] and run it.
 
 To allow Windows smartscreen to continue with the installation, click on "_More info_". Then, proceed to the installation by selecting "_Run anyway_".
-<p>
+<p align="center">
   <img src="img/docable-tray/docable-tray-win-smartscreen1.png" width="45%">
   <img src="img/docable-tray/docable-tray-win-smartscreen2.png"  width="45%">
 </p>
 
 You will be presented with the installer, we recommend to continue with the default setting which installs Docable Tray only for your user. 
 
-<p>
+<p align="center">
   <img src="img/docable-tray/docable-tray-win-install1.png"  width="47%">
   <img src="img/docable-tray/docable-tray-win-install2.png"  width="47%">
 </p>
@@ -110,7 +110,7 @@ To use Docable Notebooks, start the docable-tray app from your operating system'
 You can confirm the Docable Notebook has started successfully, by righ-clicking on the Docable icon in Windows Taskbar and clicking on "Open Docable...".
 Then, your default browser should now open `http://localhost:3000/`.
 
-<p>
+<p align="center">
   <img src="img/docable-tray/docable-tray-win-run.gif" width="50%">
   <img src="img/docable-tray/docable-tray-macos-run.gif" width="45%">
 </p>
