@@ -113,3 +113,19 @@ function notebookHtml2Md(notebookHtml, blob = false) {
     })
         .then(response => blob ? response.blob() : response.text());
 }
+
+function runQuizAPI(selectedAnswers, attributes) {
+    return fetch(`/runQuiz`, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ ...attributes, selectedAnswers }),
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+        .then(async (response) => {
+            response = await response.json();
+            return response;
+        });
+}

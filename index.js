@@ -219,6 +219,7 @@ function startServer(argv) {
     }
 
     app.post('/notebookHtml2Md', notebook_routes.notebookHtml2Md);
+    app.post('/runQuiz', notebook_routes.runQuiz);
 
     app.post('/account', user_routes.updateAccount);
     app.get('/account', user_routes.getAccount);

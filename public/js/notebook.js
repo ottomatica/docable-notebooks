@@ -22,7 +22,7 @@ $(document).ready(function()
     // keeping track of file cell content changes
     let isDirty = {};
 
-    $('[data-docable="true"]').focusout(function () {
+    $('[data-docable="true"]:not([data-type="quiz"])').focusout(function () {
         $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
         
         // triggering file cell play-btn if content is modified
@@ -201,6 +201,56 @@ function run(endPoint, body, stepIndex)
     }
 }
 
+async function runQuiz(selectedAnswers, attributes, quizForm) {
+    runQuizAPI(selectedAnswers, attributes, quizForm)
+        .then(function (result) {
+            setQuizResults(quizForm, result);
+        })
+        .catch(function (err) {
+            $('#docable-error').append(err.message);
+        });
+}
+
+
+function setQuizResults(cell, result) {
+
+    _reset(cell);
+    if (result.result.status)
+        _setPassing(cell, result);
+    else
+        _setFailing(cell, result);
+
+    function _setPassing(cell, result) {
+        cell.addClass('passing');
+
+        let output = cell.parent().next('.docable-cell-output');
+
+        output.append(`<span class="docable-success">SUCCESS</span>:\n`);
+        output.append(`<span>Correct.</span>\n`);
+    }
+
+    function _setFailing(cell, result) {
+        cell.addClass('failing');
+
+        let output = cell.parent().next('.docable-cell-output');
+
+        output.append(`<span class="docable-error">️ERROR</span>:\n`);
+        output.append(`<span>Incorrect, correct answers:</span>\n`);
+        output.append(`<span>${result.result.correctAnswers}</span>\n`);
+    }
+
+    function _reset(cell) {
+        cell.removeClass("failing");
+        cell.removeClass("passing");
+
+        let output = cell.parent().next('.docable-cell-output');
+        output.empty();
+
+        // also reset docable-error box
+        $('#docable-error').empty();
+    }
+}
+
 function getPageVariables() {
     let pageVariables = [];
     $('.missingVariables').each(function (index, element) {
@@ -363,21 +413,35 @@ var myChart = new Chart(ctx, {
 
 $('main').on('click', '.play-btn', function () {
 
-    const pageVariables = getPageVariables();
+    // run quiz cell
+    if ($(this).siblings('[data-type="quiz"]').length > 0) {
+        const quizForm = $(this).siblings('form[data-type="quiz"]');
+        const selectedAnswers = [];
+        quizForm.find('input').each(function (index, element) {
+            if ($(element).is(':checked')) selectedAnswers.push(index);
+        });
 
-    let cell = $(this).closest('.docable-cell');
-    let block = cell.find('[data-docable="true"]');
-    // let id = cell
-    let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
-    // let cell = $('[data-docable="true"]').eq(stepIndex);
+        runQuiz(selectedAnswers, { quiz_type: quizForm.data('quiz_type'), quiz_answers: String(quizForm.data('quiz_answers')) }, quizForm);
+    }
 
-    block.addClass( "docable-cell-running" );
+    // run non-quiz cell
+    else {
+        const pageVariables = getPageVariables();
 
-    const username = window.location.pathname.split('/')[1];
-    const notebookName = window.location.pathname.split('/')[2];
-    const slug = window.location.pathname.split('/')[3];
+        let cell = $(this).closest('.docable-cell');
+        let block = cell.find('[data-docable="true"]');
+        // let id = cell
+        let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+        // let cell = $('[data-docable="true"]').eq(stepIndex);
 
-    run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
+        block.addClass( "docable-cell-running" );
+
+        const username = window.location.pathname.split('/')[1];
+        const notebookName = window.location.pathname.split('/')[2];
+        const slug = window.location.pathname.split('/')[3];
+
+        run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
+    }
 });
 
 /////////////////// ENVIRONMENTS
