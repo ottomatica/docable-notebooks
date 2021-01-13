@@ -125,7 +125,7 @@ function startServer(argv) {
             if (req.session.user) {
                 user = { email: req.session.user.email };
                 let hash = md5(user.email.toLowerCase());
-                user.gravatar = await utils.githubAvatarUrl(req.session.user.username) ?? `https://www.gravatar.com/avatar/${hash}`;
+                user.gravatar = await utils.githubAvatarUrl(req.session.user.username) || `https://www.gravatar.com/avatar/${hash}`;
             }
 
             res.render("home", { github_imports, notebook_tree, user, isHosted });
