@@ -104,6 +104,8 @@ function startServer(argv) {
 
     app.use(expressLogger);
 
+    let server = app; // default if not using repl module
+
     // init repl submodule if present
     if (fs.existsSync(path.join(__dirname, './modules/repl/.git'))) {
         console.log('Init submodule: repl');
@@ -111,7 +113,8 @@ function startServer(argv) {
         const Repl = require('./modules/repl');
         app.use('/modules/repl/js', express.static(__dirname + '/modules/repl/public/js'));
 
-        const io = Repl(sessionMiddleware);
+        const { io, httpServer } = Repl(app, sessionMiddleware);
+        server = httpServer;
     }
 
     if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
@@ -241,7 +244,7 @@ function startServer(argv) {
         res.status(404).render('404');
     });
 
-    app.listen(port, async () => {
+    server.listen(port, async () => {
 
         const envManager = require('./lib/providers/manager');
         await envManager.addDefaultImage('node:12-buster');
