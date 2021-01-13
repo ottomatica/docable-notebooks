@@ -44,7 +44,7 @@ $(document).ready(function()
         }
 
         // trap the return key being pressed
-        if (e.keyCode === 13) {
+        if (!e.ctrlKey && e.keyCode === 13) {
             document.execCommand('insertHTML', false, '\n');
             // return false;
         }
