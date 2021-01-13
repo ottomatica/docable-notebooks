@@ -225,8 +225,8 @@ function setQuizResults(cell, result) {
 
         let output = cell.parent().next('.docable-cell-output');
 
-        output.append(`<span class="docable-success">SUCCESS</span>:\n`);
-        output.append(`<span>Correct.</span>\n`);
+        output.addClass('card bg-success p-3');
+        output.append(`Correct.\n`);
     }
 
     function _setFailing(cell, result) {
@@ -234,9 +234,8 @@ function setQuizResults(cell, result) {
 
         let output = cell.parent().next('.docable-cell-output');
 
-        output.append(`<span class="docable-error">️ERROR</span>:\n`);
-        output.append(`<span>Incorrect, correct answers:</span>\n`);
-        output.append(`<span>${result.result.correctAnswers}</span>\n`);
+        output.addClass('card bg-danger p-3');
+        output.append(`Incorrect, correct answers: ${result.result.correctAnswers}`);
     }
 
     function _reset(cell) {
@@ -245,6 +244,9 @@ function setQuizResults(cell, result) {
 
         let output = cell.parent().next('.docable-cell-output');
         output.empty();
+
+        output.removeClass(['bg-danger', 'bg-success'])
+        output.css('overflow', 'auto')
 
         // also reset docable-error box
         $('#docable-error').empty();
