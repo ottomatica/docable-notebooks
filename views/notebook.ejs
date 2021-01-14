@@ -87,28 +87,50 @@
             </button>
             <% } %>
 
-            <button type="button" class="ml-1 btn btn-outline-success" id="downloadNotebook">
-                <i class="fas fa-download"></i>
-            </button>
         </nav>
     </header>
 
     <!-- Begin page content -->
-    <main role="main" id="main" class="flex-shrink-0 pb-5" style="display: flex; flex-wrap: wrap; flex-direction: column;">
+    <main role="main" id="main" class="my-3">
 
         <!-- Display major errors here -->
         <div id='docable-error' class="alert alert-danger shadow p-3 rounded"></div>
 
+        <nav class="px-3">
+            <ol class="breadcrumb ">
+                <i class="fas fa-book-open text-dark m-1 mr-2"></i>
+                <li class="breadcrumb-item active">ssmirr</li>
+                <li class="breadcrumb-item active">examples</li>
 
-        <div class="notebook-variables">
-            <%- include('templates/notebook_variables'); -%>
+                <div class="d-flex flex-row flex-row-reverse flex-fill m-0" id="downloadNotebook">
+                    <i class="fas fa-download text-dark m-1" type="button" ></i>
+                </div>
+            </ol>
+        </nav>
+
+        <div class="w-100 px-3 d-flex flex-row justify-content-between">
+
+            <div id="sidebar" class="w-25 pr-1">
+                <div class="card d-flex flex-column w-100 h-100 p-1">
+                    <div id="notebook-variables" class="notebook-variables">
+                        <%- include('templates/notebook_variables'); -%>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- style="flex: 1;" -->
+            <div id="notebook-area" class="w-75 pl-1 align-self-stretch flex-fill">
+                <div class="card d-flex flex-row p-3">
+                    <div class="markdown-body flex-fill mr-2" style="margin-left: 120px;">
+                        <!-- Rendered notebook content -->
+                        <%- notebookHtml %>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <!-- style="flex: 1;" -->
-        <div class="markdown-body">
-            <!-- Rendered notebook content -->
-            <%- notebookHtml %>
-        </div>
 
         <!--- init and style customization not supported by css -->
         <script>

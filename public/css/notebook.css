@@ -30,9 +30,10 @@ body {
 }
 
 main {
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
+    /* width: 75%;
+    max-width: 650px; */
+    /* margin-left: auto;
+    margin-right: auto; */
 }
 
 #docable-error {
@@ -274,17 +275,17 @@ pre { tab-size: 4; }
 } */
 
 .markdown-body {
-    margin: 0 auto;
-    position: relative;
-    width: 80%;
+    /* margin: 0 auto; */
+    /* position: relative; */
+    /* width: 80%; */
     /* flex: 1 1 100%; */
 }
 
 .notebook-variables {
-    margin: 0 auto;
-    width: 75%;
-    position: relative;
-    margin-top: 30px;
+    /* margin: 0 auto; */
+    /* width: 75%; */
+    /* position: relative; */
+    /* margin-top: 30px; */
     /* flex: 1 1 25%; */
 }
 

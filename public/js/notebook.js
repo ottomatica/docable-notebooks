@@ -130,7 +130,7 @@ $('#submit').click(function () {
 });
 
 $('#downloadNotebook').click(function () {
-    const notebookHtml = $('main>div.markdown-body').html();
+    const notebookHtml = $('.markdown-body').html();
     notebookHtml2Md(notebookHtml, true).then(blob => {
         const url  = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
