@@ -48,7 +48,6 @@ function startServer(argv) {
     const express = require("express");
     const notebook_routes = require('./lib/routes/notebook');
     const workspace_routes = require('./lib/routes/workspace');
-    const user_routes = require('./lib/routes/user');
 
     let hostedRoutes, sessionMiddleware;
     if (isHosted) {
@@ -223,16 +222,6 @@ function startServer(argv) {
 
     app.post('/notebookHtml2Md', notebook_routes.notebookHtml2Md);
     app.post('/runQuiz', notebook_routes.runQuiz);
-
-    app.post('/account', user_routes.updateAccount);
-    app.get('/account', user_routes.getAccount);
-
-    app.post('/login', user_routes.login);
-    app.get('/login', user_routes.getLogin);
-    app.get('/logout', user_routes.logout);
-
-    app.post('/register', user_routes.register);
-    app.get('/register', function (req, res) { res.render("register", {}); });
 
     if (process.env.NODE_ENV == 'prod') {
         app.use('/img', express.static('./modules/hosted/public/img'));
