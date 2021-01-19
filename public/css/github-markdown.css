@@ -103,6 +103,10 @@
     font-family: monospace,monospace;
     font-size: 1em;
   }
+
+  .markdown-body div>code {
+    font-size: 1em!important;
+  }
   
   .markdown-body hr {
     box-sizing: initial;
