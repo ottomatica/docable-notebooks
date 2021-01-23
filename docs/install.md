@@ -59,6 +59,11 @@ You will be presented with a prompt which now gives you an option to open the ap
   <img src="img/docable-tray/docable-tray-macos-prompt2.png"  width="40%">
 </p>
 
+If it is the first time you are running Docable tray and `/usr/local/bin` [permissions on your system](https://support.apple.com/en-us/HT204899) are not updated to allow write permission to your user, Docable tray will automatically fix this permissions for you, but to this, it needs privilege escalation as shown below. Enter password to continue:
+
+<p align="center">
+  <img src="img/docable-tray/docable-tray-macos-permission prompt.png" width="40%">
+</p>
 
 After the installation is completed, continue to [Components](#Components) and [Usage](#Usage) sections below.
 ### Linux
