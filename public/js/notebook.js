@@ -22,9 +22,10 @@ $(document).ready(function()
     // keeping track of file cell content changes
     let isDirty = {};
 
-    $('[data-docable="true"]:not([data-type="quiz"])').focusout(function () {
+    $('[data-docable="true"]:not([data-type="quiz"],[data-type="file"],[data-type="script"])').focusout(function () {
         $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
         
+        // TODO: should be fixed after adding editor
         // triggering file cell play-btn if content is modified
         if ($(this).data('type') == 'file') {
             let cellId = $(this).attr('id');
@@ -49,6 +50,7 @@ $(document).ready(function()
             // return false;
         }
 
+        // TODO: should be fixed after adding editor
         if ($(this).data('type') == 'command' || $(this).data('type') == 'script') {
             if (e.ctrlKey && e.keyCode == 13) {
                 $(this).siblings('.play-btn').trigger('click');
@@ -442,7 +444,15 @@ $('main').on('click', '.play-btn', function () {
         const notebookName = window.location.pathname.split('/')[2];
         const slug = window.location.pathname.split('/')[3];
 
-        run('/runCell', JSON.stringify({ text: $(block)[0].outerHTML, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
+        let text = '';
+        if ($(this).siblings('[data-type="file"],[data-type="script"]').length > 0) {
+            text = $(block).clone().empty().append($(block).find('textarea').val())[0].outerHTML;
+        }
+        else {
+            text = $(block)[0].outerHTML;
+        }
+
+        run('/runCell', JSON.stringify({ text, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
     }
 });
 

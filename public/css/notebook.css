@@ -144,10 +144,20 @@ pre { tab-size: 4; }
 }
 
 /* Overlay dark effect */
-.docable-cell-overlay:hover {
-    -webkit-filter: brightness(90%);
-    filter: brightness(90%);
-    transition: all 600ms;
+/* only for cells other than file & script */
+.docable-cell-overlay>:not([data-type=file], [data-type=script]):hover {
+    -webkit-filter: brightness(98%);
+    filter: brightness(98%);
+    transition: all 500ms;
+}
+
+[data-type="file"], [data-type="script"] {
+    border: 1px solid #eee;
+}
+
+/* .hover-contents .code-hover-contents  */
+.monaco-hover-content {
+    z-index: 99 !important;
 }
 
 /* base overlay button */
