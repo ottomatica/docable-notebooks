@@ -444,15 +444,16 @@ $('main').on('click', '.play-btn', function () {
         const notebookName = window.location.pathname.split('/')[2];
         const slug = window.location.pathname.split('/')[3];
 
-        let text = '';
+        let blockhtml = '';
         if ($(this).siblings('[data-type="file"],[data-type="script"]').length > 0) {
-            text = $(block).clone().empty().append($(block).find('textarea').val())[0].outerHTML;
+            const editorValue = window[`m_${block.attr('id').replace(/-/g, '')}`].getValue();
+            blockhtml = $(block).clone().empty().append(editorValue)[0].outerHTML;
         }
         else {
-            text = $(block)[0].outerHTML;
+            blockhtml = $(block)[0].outerHTML;
         }
 
-        run('/runCell', JSON.stringify({ text, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
+        run('/runCell', JSON.stringify({ text: blockhtml, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
     }
 });
 
