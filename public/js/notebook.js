@@ -23,7 +23,8 @@ $(document).ready(function()
     let isDirty = {};
 
     $('[data-docable="true"]:not([data-type="quiz"],[data-type="file"],[data-type="script"])').focusout(function () {
-        $('[data-docable="true"]').each(function (i, e) { hljs.highlightBlock(e) });
+        // highlight block on focusout (if != quiz != script)
+        hljs.highlightBlock(this);
         
         // TODO: should be fixed after adding editor
         // triggering file cell play-btn if content is modified
