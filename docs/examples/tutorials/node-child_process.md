@@ -39,9 +39,9 @@ Now that we showed some basics usage of `child_process.execSync()`, lets try som
 ```js | {type:'script'}
 const child_process = require('child_process');
 
-run('date');
+await run('date');
 
-function run(cmd) {
+async function run(cmd) {
     child_process.exec(cmd, (error, stdout, stderr) => {
         console.log( 'stdout is:', stdout );
         console.log( 'stderr is:', stderr );
