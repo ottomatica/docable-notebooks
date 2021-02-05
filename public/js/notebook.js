@@ -567,7 +567,7 @@ function _setPassing(cell, response) {
     output.append(`<span class="docable-success">SUCCESS</span>:\n${stdout}`);
     output.append(`<span>${response.stderr}</span>\n`);
 
-    const successMessage = $(cell.find('[data-docable="true"]')[0]).data('successmessage');
+    const successMessage = $(cell.find('[data-docable="true"]')[0]).data('success_message');
     if (successMessage) output.after(`<span class="success-failure-message card bg-success p-3 mb-3 unselectable">${successMessage}</span>`)
 
 }
@@ -584,7 +584,7 @@ function _setFailing(cell, response) {
     output.append(`<span>${stdout}</span>\n`);
     output.append(`<span>exit code: ${response.exitCode}</span>\n`);
 
-    const failureMessage = $(cell.find('[data-docable="true"]')[0]).data('failuremessage');
+    const failureMessage = $(cell.find('[data-docable="true"]')[0]).data('failure_message');
     if (failureMessage) output.after(`<span class="success-failure-message card bg-danger p-3 mb-3 unselectable">${failureMessage}</span>`)
 }
 
