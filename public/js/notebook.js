@@ -580,7 +580,7 @@ function _setFailing(cell, response) {
     let stderr = ansi2html(response.stderr);
     let stdout = ansi2html(response.stdout);
 
-    output.append(`<span class="docable-error">️ERROR</span>:\n<span>${stderr}</span>\n`);
+    output.append(`<span class="docable-error">ERROR</span>:\n<span>${stderr}</span>\n`);
     output.append(`<span>${stdout}</span>\n`);
     output.append(`<span>exit code: ${response.exitCode}</span>\n`);
 
