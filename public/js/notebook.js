@@ -566,6 +566,10 @@ function _setPassing(cell, response) {
     let stdout = ansi2html(response.stdout);
     output.append(`<span class="docable-success">SUCCESS</span>:\n${stdout}`);
     output.append(`<span>${response.stderr}</span>\n`);
+
+    const successMessage = $(cell.find('[data-docable="true"]')[0]).data('successmessage');
+    if (successMessage) output.after(`<span class="success-failure-message card bg-success p-3 mb-3 unselectable">${successMessage}</span>`)
+
 }
 
 function _setFailing(cell, response) {
@@ -579,6 +583,9 @@ function _setFailing(cell, response) {
     output.append(`<span class="docable-error">️ERROR</span>:\n<span>${stderr}</span>\n`);
     output.append(`<span>${stdout}</span>\n`);
     output.append(`<span>exit code: ${response.exitCode}</span>\n`);
+
+    const failureMessage = $(cell.find('[data-docable="true"]')[0]).data('failuremessage');
+    if (failureMessage) output.after(`<span class="success-failure-message card bg-danger p-3 mb-3 unselectable">${failureMessage}</span>`)
 }
 
 function resetResults(index) {
@@ -592,6 +599,9 @@ function resetResults(index) {
     cell.next('.docable-cell-highlight').remove();
     let output = cell.next('.docable-cell-output');    
     output.empty();
+
+    let message = output.siblings('.success-failure-message');
+    message.remove();
 
     // also reset docable-error box
     $('#docable-error').empty();
