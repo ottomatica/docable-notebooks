@@ -99,20 +99,36 @@
     </header>
 
     <!-- Begin page content -->
-    <main role="main" id="main" class="flex-shrink-0 pb-5" style="display: flex; flex-wrap: wrap; flex-direction: column;">
+    <main role="main" id="main" class="my-3">
 
         <!-- Display major errors here -->
         <div id='docable-error' class="alert alert-danger shadow p-3 rounded"></div>
 
+        <div class="mx-auto w-75 px-3 d-flex flex-column">
 
-        <div class="notebook-variables">
-            <%- include('templates/notebook_variables'); -%>
-        </div>
+            <% if(locals.breadcrumb) { %>
+                <nav class="">
+                    <ol class="breadcrumb">
+                        <i class="fas fa-book-open text-dark m-1 mr-2"></i>
+                        <!-- <i class="far fa-file-alt text-dark m-1 mr-2"></i> -->
+                        <% breadcrumb.forEach(item => { %>
+                            <li class="breadcrumb-item active"><%= item %></li>
+                        <% }) %>
+                    </ol>
+                </nav>
+            <% } %>
 
-        <!-- style="flex: 1;" -->
-        <div class="markdown-body">
-            <!-- Rendered notebook content -->
-            <%- notebookHtml %>
+            <div id="notebook-area" class="card align-content-stretch">
+
+                    <div id="notebook-variables" class="notebook-variables" style="margin-left: 120px;">
+                        <%- include('templates/notebook_variables'); -%>
+                    </div>
+
+                    <div class="pt-4 pb-4 pr-4 markdown-body" style="padding-left: 125px;">
+                            <!-- Rendered notebook content -->
+                            <%- notebookHtml %>
+                    </div>
+            </div>
         </div>
 
         <!--- init and style customization not supported by css -->

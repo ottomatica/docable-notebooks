@@ -29,12 +29,6 @@ body {
     color: lightsteelblue;
 }
 
-main {
-    width: 75%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 #docable-error {
     position: fixed;
     z-index: 1;
@@ -283,20 +277,6 @@ pre { tab-size: 4; }
     padding: 0 5px 0 5px
 } */
 
-.markdown-body {
-    margin: 0 auto;
-    position: relative;
-    width: 80%;
-    /* flex: 1 1 100%; */
-}
-
-.notebook-variables {
-    margin: 0 auto;
-    width: 75%;
-    position: relative;
-    margin-top: 30px;
-    /* flex: 1 1 25%; */
-}
 
 tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
     border-color: red !important;
