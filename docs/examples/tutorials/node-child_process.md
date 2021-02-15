@@ -1,7 +1,7 @@
 <!--
-setup:
-  local:
-    cwd: .
+targets:
+    - type: local
+      cwd: .
 -->
 
 # Child Processes

@@ -1,6 +1,6 @@
 <!-- 
-setup:
-    docker: 
+targets:
+    - type: docker
       name: command-example
       image: node:12-buster
 -->
