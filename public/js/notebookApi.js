@@ -1,8 +1,9 @@
 function getAvailableEnvironments() {
     
     return fetch('/environments', {
-        method: 'GET',
+        method: 'POST',
         mode: 'cors',
+        body: JSON.stringify({ notebookUrl: window.location.pathname }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.json());
@@ -13,6 +14,7 @@ function setEnvironment(id) {
     return fetch(`/environments/${id}`, {
         method: 'POST',
         mode: 'cors',
+        body: JSON.stringify({ notebookUrl: window.location.pathname }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text());
@@ -22,6 +24,7 @@ function resetEnvironment(id) {
     return fetch(`/environments/reset/${id}`, {
         method: 'POST',
         mode: 'cors',
+        body: JSON.stringify({ notebookUrl: window.location.pathname }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .then(response => response.text());
@@ -79,7 +82,7 @@ function editCell(text) {
     return fetch('/editCell', {
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ text: text }),
+        body: JSON.stringify({ text, notebookUrl: window.location.pathname }),
         headers: { "content-type": "application/json; charset=UTF-8" },
     })
     .catch((error) => {

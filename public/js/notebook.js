@@ -11,11 +11,11 @@ $(document).ready(function()
         getAvailableEnvironments().then( function(envResponse)
         {
             for(const env of envResponse.environments) {
-                $('#environment-dropdown').append(new Option(env, env));
+                $('#environment-dropdown').append(new Option(env.slug, env.id));
             }
 
             // select default...
-            $("#environment-dropdown").val(envResponse.default);
+            $("#environment-dropdown").val(envResponse.default.id);
         });
     }
 

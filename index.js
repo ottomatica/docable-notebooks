@@ -175,7 +175,7 @@ function startServer(argv) {
         app.post('/editCell', notebook_routes.editCell);
         app.post('/runCell', notebook_routes.runCell);
 
-        app.get('/environments', workspace_routes.get_environments);
+        app.post('/environments', workspace_routes.get_environments);
         app.post('/environments/:id', workspace_routes.set_environment);
         app.post('/environments/reset/:id', workspace_routes.reset_environment);
 
