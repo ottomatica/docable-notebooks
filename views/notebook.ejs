@@ -150,7 +150,10 @@
 
     </main>
 
-    <%- include('templates/footer_analytics'); -%>
+    <% processStartDate = locals.processStartDate || undefined %>
+    <% DocableNotebookVersion = locals.DocableNotebookVersion || undefined %>
+
+    <%- include('templates/footer_analytics', { processStartDate, DocableNotebookVersion }); -%>
 
     <script src="/js/notebookApi.js"></script>
     <script src="/js/notebook.js"></script>
