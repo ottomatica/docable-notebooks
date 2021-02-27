@@ -1,6 +1,6 @@
 {
   "name": "docable-notebooks",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Notebooks for CM and DevOps",
   "main": "index.js",
   "bin": "index.js",
