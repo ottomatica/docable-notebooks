@@ -178,6 +178,7 @@ function startServer(argv) {
         app.post('/environments', workspace_routes.get_environments);
         app.post('/environments/:id', workspace_routes.set_environment);
         app.post('/environments/reset/:id', workspace_routes.reset_environment);
+        app.post('/environmentStatus', workspace_routes.get_target_status);
 
         if (notebook_dir) {
             // render notebook from notebook dir

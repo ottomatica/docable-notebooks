@@ -9,6 +9,17 @@ function getAvailableEnvironments() {
     .then(response => response.json());
 }
 
+function getEnvironmentsStatus() {
+
+    return fetch('/environmentStatus', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ notebookUrl: window.location.pathname }),
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+        .then(response => response.json());
+}
+
 function setEnvironment(id) {
     
     return fetch(`/environments/${id}`, {

@@ -18,6 +18,49 @@ $(document).ready(function()
             $("#environment-dropdown").val(envResponse.default.id);
         });
     }
+    
+    // Environment status
+    {
+        setTimeout(() => {
+            getEnvironmentsStatus().then(targets => {
+                setStatus(targets);
+            });
+        }, 500)
+
+        // update target status every 5s
+        setInterval(() => {
+            getEnvironmentsStatus().then(targets => {
+                updateStatus(targets);
+            });
+        }, 5000)
+
+        const targetStatusTrue = '<i class="fas fa-check-circle text-success"></i>';
+        const targetStatusFalse = '<i class="fas fa-times-circle text-danger"></i>';
+
+        function setStatus(targets) {
+            $('#target_status').html('');
+
+            for (const target of targets) {
+                $('#target_status').append(
+                    `<li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>
+                            ${target.slug || target.type + ':unnamed'} ${target.default ? '<span class="badge badge-pill badge-info">Default</span>' : ''}
+                        </span>
+                        <span id="target-status-${target.name}">
+                            ${target.status ? targetStatusTrue : targetStatusFalse}
+                        </span>
+                     </li>`
+                );
+            }
+        }
+
+        function updateStatus(targets) {
+            for (const target of targets) {
+                console.log(target.status, `#target-status-${target.name}`, target.status ? targetStatusTrue : targetStatusFalse)
+                $(`#target-status-${target.name}`).html(target.status ? targetStatusTrue : targetStatusFalse);
+            }
+        }
+    }
 
     // keeping track of file cell content changes
     let isDirty = {};
