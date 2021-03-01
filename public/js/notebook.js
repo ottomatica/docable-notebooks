@@ -32,7 +32,7 @@ $(document).ready(function()
             getEnvironmentsStatus().then(targets => {
                 updateStatus(targets);
             });
-        }, 5000)
+        }, 30000)
 
         const targetStatusTrue = '<i class="fas fa-check-circle text-success"></i>';
         const targetStatusFalse = '<i class="fas fa-times-circle text-danger"></i>';
