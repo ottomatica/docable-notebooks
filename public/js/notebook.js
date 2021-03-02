@@ -97,7 +97,7 @@ $(document).ready(function()
         // TODO: should be fixed after adding editor
         if ($(this).data('type') == 'command' || $(this).data('type') == 'script') {
             if (e.ctrlKey && e.keyCode == 13) {
-                $(this).siblings('.play-btn').trigger('click');
+                $(this).siblings('.docable-overlay-btn-container').children('.play-btn').trigger('click');
                 return false;
             }
         }
@@ -462,8 +462,8 @@ var myChart = new Chart(ctx, {
 $('main').on('click', '.play-btn', function () {
 
     // run quiz cell
-    if ($(this).siblings('[data-type="quiz"]').length > 0) {
-        const quizForm = $(this).siblings('form[data-type="quiz"]');
+    if ($(this).parent().siblings('[data-type="quiz"]').length > 0) {
+        const quizForm = $(this).parent().siblings('form[data-type="quiz"]');
         const selectedAnswers = [];
         quizForm.find('input').each(function (index, element) {
             if ($(element).is(':checked')) selectedAnswers.push(index);
@@ -476,10 +476,10 @@ $('main').on('click', '.play-btn', function () {
     else {
         const pageVariables = getPageVariables();
 
-        let cell = $(this).closest('.docable-cell');
+        let cell = $(this).parent().closest('.docable-cell');
         let block = cell.find('[data-docable="true"]');
         // let id = cell
-        let stepIndex = $('pre[data-docable="true"]').index($(this).siblings('pre[data-docable="true"]'));
+        let stepIndex = $('pre[data-docable="true"]').index($(this).parent().siblings('pre[data-docable="true"]'));
         // let cell = $('[data-docable="true"]').eq(stepIndex);
 
         block.addClass( "docable-cell-running" );
@@ -489,7 +489,7 @@ $('main').on('click', '.play-btn', function () {
         const slug = window.location.pathname.split('/')[3];
 
         let blockhtml = '';
-        if ($(this).siblings('[data-type="file"],[data-type="script"]').length > 0) {
+        if ($(this).parent().siblings('[data-type="file"],[data-type="script"]').length > 0) {
             const editorValue = window[`m_${block.attr('id').replace(/-/g, '')}`].getValue();
             blockhtml = $(block).clone().empty().append(editorValue)[0].outerHTML;
         }
@@ -640,7 +640,8 @@ function resetResults(index) {
     cell.removeClass("passing");
 
     cell.next('.docable-cell-highlight').remove();
-    let output = cell.next('.docable-cell-output');    
+    let output = cell.next('.docable-cell-output');
+    console.log('output cell ==> ', output)
     output.empty();
 
     let message = output.siblings('.success-failure-message');

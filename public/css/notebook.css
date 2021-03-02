@@ -56,8 +56,8 @@ body {
     Shorter content should have no impact.
     https://stackoverflow.com/a/51845093/547112
     */
-    padding-right: 80px;
-    border-right: 80px solid #f6f8fa;
+    padding-right: 55px;
+    border-right: 55px solid #f6f8fa;
 }
 
 .docable-cell-command pre {
@@ -154,17 +154,24 @@ pre { tab-size: 4; }
     z-index: 99 !important;
 }
 
-/* base overlay button */
-.docable-overlay-btn {
-    position: absolute;
-    top: 10px;
-    font-size: 1.75rem;
-    color: lightgray
+.docable-overlay-btn-container {
+    height: 100%;
+    padding: 10px;
+    padding-left: 20px;
 }
 
+/* base overlay button */
+.docable-overlay-btn {
+    font-size: 1.75rem;
+    color: lightgray;
+    margin-left: 5px;
+}
+
+/* .docable-cell-overlay:hover .docable-overlay-btn-wrap {
+    background-image: linear-gradient(to right, rgba(255,0,0,0), #f6f8fa, #f6f8fa, #f6f8fa, #f6f8fa);
+} */
+
 .docable-overlay-btn-reveal {
-    position: absolute;
-    top: 10px;
     font-size: 1.75rem;
     /* button is not visible by default */
     display: none;
@@ -173,6 +180,7 @@ pre { tab-size: 4; }
     background-color: transparent;
     /* svg property is grey */
     color: lightgray;
+    margin-left: 5px;
 }
 
 .docable-cell-overlay:hover .docable-overlay-btn-reveal
@@ -190,18 +198,6 @@ pre { tab-size: 4; }
     color: #28a745;
     opacity: 1;
     transition: all .2s;
-}
-
-.btn-more {
-    right:10px; 
-    width: 20px;
-    height: 32px;
-}
-
-.play-btn {
-    right: 30px;
-    width: 32px;
-    height: 32px;
 }
 
 .docable-cell-output {
