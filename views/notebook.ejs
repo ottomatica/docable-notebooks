@@ -86,10 +86,10 @@
 
             <!-- Turn off whole notebook execution when hosted -->
             <% if (!locals.isHosted) { %>
-            <button type="button" class="ml-auto btn btn-outline-success" id="submit">
-                <span class="" role="status" id="submit-button" aria-hidden="true"></span>
-                Run Notebook
-            </button>
+                <div class="text-success d-none ml-auto" id="submit-button">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    Runing Notebook
+                </div>
             <% } %>
 
             <!-- <button type="button" class="ml-1 btn btn-outline-success" id="downloadNotebook">

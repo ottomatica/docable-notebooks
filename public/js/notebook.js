@@ -144,7 +144,7 @@ function envSpinToggle() {
 let running = false;
 function submitButtonSpinToggle() {
     running = !running;
-    $('#submit-button').toggleClass('spinner-border spinner-border-sm');
+    $('#submit-button').toggleClass('d-none');
     if( running == false )
     {
         $('[data-docable="true"]').removeClass('docable-cell-running');
