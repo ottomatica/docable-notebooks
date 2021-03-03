@@ -44,7 +44,7 @@ $(document).ready(function()
                 $('#target_status').append(
                     `<li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>
-                            ${target.slug || target.type + ':unnamed'} ${target.default ? '<span class="badge badge-pill badge-info">Default</span>' : ''}
+                            ${target.slug || target.type} ${target.default ? '<span class="badge badge-pill badge-info">Default</span>' : ''}
                         </span>
                         <span id="target-status-${target.name}">
                             ${target.status ? targetStatusTrue : targetStatusFalse}
