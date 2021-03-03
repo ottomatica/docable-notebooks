@@ -1,22 +1,17 @@
 <footer class="footer mt-auto py-3" style="user-select: none;">
-    <div class="d-flex">
+    <div class="mx-auto">
+        <span class="text-muted"><a class="text-muted" href="https://github.com/ottomatica/">ottomatica.io</a></span>
+        <span class="mt-5 mb-3 text-muted">
+            ©
+            <span id="year"></span>
+        </span>
+    </div>
 
-        <div class="w-25"></div>
-        <div class="w-100">
-            <span class="text-muted"><a class="text-muted" href="https://github.com/ottomatica/">ottomatica.io</a></span>
-            <span class="mt-5 mb-3 text-muted">
-                ©
-                <span id="year"></span>
-            </span>
-        </div>
-
-        <div class="flex-shrink-1 w-25" style="color: #adadad;">
-            <small>
-                <%= locals.processStartDate && processStartDate %>
-                <%= locals.DocableNotebookVersion && DocableNotebookVersion %>
-            </small>
-        </div>
-
+    <div class="position-absolute mr-2 d-sm-none d-md-block" style="color: #adadad; top: 25%; right: 0;">
+        <small>
+            <%= locals.processStartDate && processStartDate %>
+            <%= locals.DocableNotebookVersion && DocableNotebookVersion %>
+        </small>
     </div>
 </footer>
 
