@@ -183,7 +183,7 @@ function startServer(argv) {
         if (notebook_dir) {
             // render notebook from notebook dir
             app.get('/notebooks/*.md', workspace_routes.get_notebook);
-            app.get('/notebooks/*.(jpg|png|gif)', workspace_routes.get_notebook_imgs);
+            app.get('/notebooks/*.(jpg|png|gif|mp3)', workspace_routes.get_notebook_imgs);
         }
 
         app.get('/import', workspace_routes.import);

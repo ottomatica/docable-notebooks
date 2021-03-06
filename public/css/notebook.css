@@ -216,6 +216,7 @@ pre { tab-size: 4; }
     overflow: scroll;
 
     margin-bottom: 20px;
+    position: relative;
 }
 
 /* pseudo selector for ensuring not displayed when empty.*/
@@ -290,3 +291,12 @@ tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
           -ms-user-select: none;
               user-select: none;
 }
+
+.playing-pulse { 
+    /* width: 25%; */
+    /* box-shadow: 5px 5px 20px rgba(0,0, 0, 0.2); */
+    /* box-shadow: 0 0 0 0 rgba(0,0, 0, .2); */
+    border-radius: 90px;
+    transform: scale(1.05);
+    animation: border-pulsate 2s 5;
+} 

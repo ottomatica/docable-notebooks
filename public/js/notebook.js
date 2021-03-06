@@ -339,7 +339,9 @@ function processResults(data)
             window.location = $(block).data('redirect');            
         }
 
-        setResults(cell, result.result);
+        const audio = {playOnFailure: $(block).data('playonfailure')};
+        console.log('audio = ', audio)
+        setResults(cell, result.result, audio);
 
         let fnInsertMarker = function(output, word, marker)
         {
@@ -563,13 +565,13 @@ if( !isHosted )
 // });
 
 
-function setResults(selector, result) {
+function setResults(selector, result, audio) {
     if (!result) return;
 
     if (result.status)
-        _setPassing(selector, result);
+        _setPassing(selector, result, audio);
     else
-        _setFailing(selector, result);
+        _setFailing(selector, result, audio);
     return result;
 }
 
@@ -601,7 +603,7 @@ function ansi2html(result)
     return txt;
 }
 
-function _setPassing(cell, response) {
+function _setPassing(cell, response, audio) {
     cell.addClass('passing');
 
     let output = cell.next('.docable-cell-output');
@@ -612,10 +614,19 @@ function _setPassing(cell, response) {
 
     const successMessage = $(cell.find('[data-docable="true"]')[0]).data('success_message');
     if (successMessage) output.after(`<span class="success-failure-message card bg-success p-3 mb-3 unselectable">${successMessage}</span>`)
-
+    if (audio.playOnSuccess) {
+        output.after(`
+        <div class="position-absolute unselectable" style="bottom: -10px; right: 10px;">
+            <audio controls autoplay class="playing-pulse">
+                <source src="${audio.playOnSuccess}">
+                Your browser does not support the audio element.
+            </audio>
+        </div>`);
+        output.css('padding-bottom', '40px');
+    }
 }
 
-function _setFailing(cell, response) {
+function _setFailing(cell, response, audio) {
     cell.addClass('failing');
 
     let output = cell.next('.docable-cell-output');
@@ -629,6 +640,16 @@ function _setFailing(cell, response) {
 
     const failureMessage = $(cell.find('[data-docable="true"]')[0]).data('failure_message');
     if (failureMessage) output.after(`<span class="success-failure-message card bg-danger p-3 mb-3 unselectable">${failureMessage}</span>`)
+    if (audio.playOnFailure) {
+        output.append(`
+        <div class="position-absolute unselectable" style="bottom: -10px; right: 10px;">
+            <audio controls autoplay class="playing-pulse">
+                <source src="${audio.playOnFailure}">
+                Your browser does not support the audio element.
+            </audio>
+        </div>`)
+        output.css('padding-bottom', '40px');
+    }
 }
 
 function resetResults(index) {
