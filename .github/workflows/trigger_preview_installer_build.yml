@@ -8,6 +8,7 @@ jobs:
   build:
     name: Build release binary
     runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '#preview')
     steps:
 
     - id: get_release_upload_url
