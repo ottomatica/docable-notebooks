@@ -33,11 +33,20 @@ figlet docable
 
 **Into this** ✨:
 
+
+<kbd>
+
 ![figlet-demo](docs/img/docable-figlet.gif)
+
+</kbd>
 
 ### Example Notebooks
 
+<kbd>
+
 ![banner](docs/img/banner.png)
+
+</kbd>
 
 See more features by exploring the [documentation examples](docs/examples/) or try an [online notebook](https://docable.cloud/).
 
@@ -45,7 +54,11 @@ See more features by exploring the [documentation examples](docs/examples/) or t
 
 Docable cells can be edited and run again.
 
-![docable-edit](docs/img/docable-edit.png)
+<kbd>
+
+[![docable-edit](docs/img/docable-edit.png)](https://docable.cloud/)
+
+</kbd>
 
 ### Creating file content, using variables, and more.
 
@@ -54,7 +67,11 @@ Docable has been designed after [studying over 600 online tutorials](http://chri
 One of the most common problem was the numerous and inconsistent ways tutorials asked someone to edit a file on a server.
 Docable _file cells_ take care of creating paths, setting file permissions and owners, and filling in variable content—with a simple click.
 
+<kbd>
+
 ![docable-file](docs/img/docable-file.png)
+
+</kbd>
 
 ## Cell Format
 
@@ -81,7 +98,11 @@ choco install figlet-go -y
 ```
 ~~~
 
+<kbd>
+
 ![privileged](docs/img/docable-privileged.png)
+
+</kbd>
 
 ### Docable CLI
 
@@ -89,7 +110,11 @@ You can also run your markdown files with the [docable CLI](https://github.com/o
 
 `$ docable report server-test.md`
 
+<kbd>
+
 <img src="docs/img/docable-cli.png" width=300px>
+
+</kbd>
 
 ## Notebook Server
 
@@ -99,13 +124,21 @@ The notebook server can run locally and allow you to interact with your notebook
 
 To access your notebooks, you can browse and click on a notebook in the tree.
 
+<kbd>
+
 <img src="docs/img/docable-tree.png" width="200px">
+
+</kbd>
 
 ### Target Environments
 
 Docable has different connectors to run against different kinds of environments. Use the dropdown menu to select an environment.
 
+<kbd>
+
 ![docable-env](docs/img/docable-env.png)
+
+</kbd>
 
 * **local**: The default environment is your local computer.
 * **Docker**: If there is a running docker service, Docable can create a container to run operations in.
@@ -115,7 +148,11 @@ Docable has different connectors to run against different kinds of environments.
 
 Notebooks can ask for variables, such as a `HOSTNAME` or `RELEASE_TAGS`.
 
+<kbd>
+
 ![vars](docs/img/docable-vars.png)
+
+</kbd>
 
 For sensitive variables, such as passwords, tokens, and ssh keys, these can be stored on the server and they will be masked when displayed in output.
 
