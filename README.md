@@ -158,7 +158,7 @@ For sensitive variables, such as passwords, tokens, and ssh keys, these can be s
 
 ## Installing and Running Docable Notebooks
 
-You can run Docable Notebooks by installing either the Docable tray app or the CLI server from source. We recommend trying our (tray app)[] since it includes closed-source features not included in this repository.
+You can run Docable Notebooks by installing either the Docable tray app or the CLI server from source. We recommend trying our [tray app](#docable-tray-app-recommended) since it includes closed-source features not included in this repository.
 
 ### Docable Tray App (recommended)
 
