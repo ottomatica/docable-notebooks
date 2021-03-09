@@ -185,7 +185,7 @@
 
                 </main>
 
-                <% processStartDate = locals.processStartDate || undefined %>
+                <% processUptime = locals.processUptime || undefined %>
                 <% DocableNotebookVersion = locals.DocableNotebookVersion || undefined %>
 
             </div>
@@ -193,7 +193,7 @@
 
     </div>
 
-    <%- include('templates/footer_analytics', { processStartDate, DocableNotebookVersion }); -%>
+    <%- include('templates/footer_analytics', { processUptime, DocableNotebookVersion }); -%>
 
     <script src="/js/notebookApi.js"></script>
     <script src="/js/notebook.js"></script>

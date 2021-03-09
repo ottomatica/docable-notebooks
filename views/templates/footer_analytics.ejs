@@ -7,10 +7,12 @@
         </span>
     </div>
 
-    <div class="position-absolute mr-2 d-sm-none d-md-block" style="color: #adadad; top: 25%; right: 0;">
-        <small>
-            <%= locals.processStartDate && processStartDate %>
+    <div class="position-absolute mr-2 d-sm-none d-md-block" style="color: #cfcfcf; top: 33%; right: 0;">
+        <small class="d-flex flex-row">
             <%= locals.DocableNotebookVersion && DocableNotebookVersion %>
+            <% if(locals.processUptime) { %>
+                , uptime = <%= processUptime %>m
+            <% } %>
         </small>
     </div>
 </footer>
