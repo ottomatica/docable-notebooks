@@ -290,3 +290,23 @@ tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
           -ms-user-select: none;
               user-select: none;
 }
+
+.sidebar-buttons:hover .sidebar-buttons-menu {
+    display: block!important;
+    /* background-color: #28a745; */
+    /* margin-top: 0; */
+ }
+
+ .sidebar-buttons {
+    float: none;
+    width: 40px;
+    top: 33%;
+    right: 0;
+    margin-right: -45px;
+    /* margin-top: 0; */
+    /* padding: 3px; */
+    /* text-align: right; */
+    position: absolute;
+    user-select: none;
+    color: lightsteelblue;
+}
