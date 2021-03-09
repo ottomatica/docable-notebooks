@@ -158,6 +158,14 @@ For sensitive variables, such as passwords, tokens, and ssh keys, these can be s
 
 ## Installing and Running Docable Notebooks
 
+You can run Docable Notebooks by installing either the Docable tray app or the CLI server from source. We recommend trying our (tray app)[] since it includes closed-source features not included in this repository.
+
+### Docable Tray App (recommended)
+
+You can find [installation instructions here](./docs/install.md). Docable tray is a GUI app which runs in your operating system's menu bar and allows you control (start/stop) the Docable server. This is the recommended method of running Docable Notebooks which includes the Terminal cell feature.
+
+### Install from source
+
 Requires [node.js >= 12.x](https://nodejs.org/en/).
 
 Simply clone this repository.
@@ -174,7 +182,7 @@ npm run dev
 
 Your Docable Notebooks can be interacted with at http://localhost:3000. You can set `PORT=4000` to use a different address.
 
-You can also run directly, which will serve up notebooks in the current directory. You can change this with `notebook_dir=<path>`.
+You can also run directly, which will serve up notebooks in the current directory. You can change this with `--notebook_dir <path>`.
 
 ```bash|{type: 'command'}
 cd docable-notebooks
@@ -182,29 +190,39 @@ npm link
 docable-notebooks
 ```
 
-#### Install help
-
+_Installation help for running from source:_
 * If you have problems with `gyp` on MacOs, [see this simple guide](https://medium.com/flawless-app-stories/gyp-no-xcode-or-clt-version-detected-macos-catalina-anansewaa-38b536389e8d) for setting up/reinstalling CommandLineTools.
 * If updating existing repository, make sure to run `npm update && npm install` to get updates from modules.
 
 ## Quick Reference
 
 * Run commands in cell: `{type: 'command'}`.
-* Command modifiers.
-   - `stream`: if `true`, then stdout/stderr is printed in output block as available.
-   - `shell`: If given, then run command in provided shell. Supported: `'bash'`, `'powershell'`
-   - `path`: set working directory of command.
-   - `privileged`: Ask permission for an admin shell---useful for local installation. Only supported in local connections.
-   - `user`: run command as as given user.
-* File content: `{type: 'file'}`.
-* File modifiers:
-   - `path`: **Required**. The path to place contents.
-   - `permission`: Set permissions of file, use any format given by supported by chmod (`'u+x'`, `'700'`).
-   - `user`: Owner of file.
-   - `mode`: If `'append'`, will add content to file instead of overwriting.
+    * Command modifiers.
+        - `stream`: if `true`, then stdout/stderr is printed in output block as available.
+        - `shell`: If given, then run command in provided shell. Supported: `'bash'`, `'powershell'`
+        - `path`: set working directory of command.
+        - `privileged`: Ask permission for an admin shell---useful for local installation. Only supported in local connections.
+        - `user`: run command as as given user.
 
-* Script content: `{type: script}`.
+* Create file with given content: `{type: 'file'}`.
+    * File modifiers:
+        - `path`: **Required**. The path to place contents.
+        - `permission`: Set permissions of file, use any format given by supported by chmod (`'u+x'`, `'700'`).
+        - `user`: Owner of file.
+        - `mode`: If `'append'`, will add content to file instead of overwriting.
+
+* Script content: `{type: 'script'}`.
    - Execute content using the language of content in the first part of fence infostring. Supported: `js`. Create issue if another language is needed!
+
+* Multiple-choice quiz: `{type: 'quiz'}`
+    * Quiz modifiers:
+        - `quiz_type`: This can be set to either `multichoice` or `singlechoice`.
+        - `quiz_answers`: Specify the correct answer for the quiz, using index of your choices starting from 0. If more than one choice, separate by comma `0,1`.
+        - content of cell should be checkbox bulletpoint `- [ ] foo` 
+
+* Embed interactive terminal: `{type: 'terminal'}`.
+    * Terminal modifiers:
+        - `command`: The command to start your interactive shell. For example, this can be `bash` for bash shell or `node` for starting a node.js REPL.
 
 * Conditions:
   - `platform`: Allow cell to be executed only if connection is to given platform. Supported: `win32`, `darwin`, `linux`. 
