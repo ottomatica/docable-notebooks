@@ -39,6 +39,7 @@
   "homepage": "https://github.com/ottomatica/docable-notebooks#readme",
   "devDependencies": {
     "cross-env": "^7.0.2",
+    "dotenv": "^8.2.0",
     "nodemon": "^2.0.4",
     "pino-pretty": "^4.2.1",
     "pm2": "^4.5.0"
