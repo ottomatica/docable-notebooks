@@ -49,31 +49,57 @@
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.36.1/dist/skin-awesome/ui.fancytree.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.38.0/jquery.fancytree-all.min.js" integrity="sha512-MLyoOvLMqfCQ08Oou5ocrsCeDt2r4I9GWhnRChmn9LKEBgZFaCPKGYmMC40t0atAQahHzTikc8HZKUQ92rUPGQ==" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.3/min/vs/loader.min.js" integrity="sha512-j47Wt2DyLew93/YrYsgqsiHgjcFrvg1fWJIzoQbgywkkbhJLu/n/tUTdpoiEz0pCo3f+Uk3OJzhNlsljA8gU5A==" crossorigin="anonymous"></script>
     <script>
         require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.3/min/vs' } });
     </script>
 
-    <style>
-
-        @keyframes border-pulsate {
-            0% { outline-color: #ccfacc; }
-            /* 50% { outline-color: #0d7f0d; } */
+<style>
+    @keyframes border-pulsate {
+        0% { outline-color: #ccfacc; }
+        /* 50% { outline-color: #0d7f0d; } */
+        100% { 
             100% { 
+        100% { 
+            100% { 
+        100% { 
+            100% { 
+        100% { 
+            outline-color: #61EF61; 
                 outline-color: #61EF61; 
-                box-shadow:
-                0 0 3px 1px #fff,  /* inner white */
-                0 0 10px 6px #ccfacc; /* outline bright */
-            } 
-        }
+            outline-color: #61EF61; 
+                outline-color: #61EF61; 
+            outline-color: #61EF61; 
+                outline-color: #61EF61; 
+            outline-color: #61EF61; 
+            box-shadow:
+            0 0 3px 1px #fff,  /* inner white */
+            0 0 10px 6px #ccfacc; /* outline bright */
+        } 
+    }
 
-        .docable-cell-running {
-            animation: border-pulsate 2s infinite;
-            outline-style: solid;
-            outline-width: 1px;
-        }
+    .docable-cell-running {
+        animation: border-pulsate 2s infinite;
+        outline-style: solid;
+        outline-width: 1px;
+    }
+</style>
 
-    </style>
+
+<style>
+    .fancytree-container {
+        border: none !important;
+        background-color: transparent !important;;
+    }
+
+    .fancytree-treefocus {
+        outline: none;
+    }
+</style>
 
 </head>
 
@@ -106,6 +132,7 @@
     <div class="d-flex flex-row"> 
 
         <!-- Sidebar -->
+        <!-- style="overflow-y:scroll;" -->
         <div class="h-100 position-fixed w-25">
             <div class="h-100 d-flex flex-row">
         
@@ -115,7 +142,7 @@
                 </div>
         
                 <!-- Notebook Targets tab -->
-                <div class="flex-grow-1 bg-light p-3 bg-light" style="transition: none; width: 15%!important;">
+                <div class="flex-grow-1 bg-light p-3" style="transition: none; width: 15%!important;">
         
                     <div class="w-100 card">
                         <div class="card-header h5 bg-white">
@@ -129,9 +156,13 @@
                             </div>
                         </ul>
                     </div>
+
+                    <div class="w-100 my-2">
+                        <div id="tree" class="p-1"></div>
+                    </div>
         
                 </div>
-        
+
             </div>
         </div>
 
@@ -202,6 +233,108 @@
     <script src="/js/notebookApi.js"></script>
     <script src="/js/notebook.js"></script>
     <script src="/js/ansiparse.js"></script>
+
+    <script>
+        let sortFn = (a, b) => {
+            var x = (a.isFolder() ? "0" : "1") + a.title.toLowerCase(),
+                y = (b.isFolder() ? "0" : "1") + b.title.toLowerCase();
+            return x === y ? 0 : x > y ? 1 : -1;
+        };
+
+        function _svg(className, addClass) {
+            var id = className.replace(/ /g, "-"),
+                cn = addClass ? " " + addClass : "",
+                html = '<svg class="svg-inline--fa fa-w-20' + cn + '"><use xlink:href="#' + id + '"></use></svg>';
+            return { html:  html };
+        }
+
+        $(document).ready(function()
+        {
+            $('[data-toggle="tooltip"]').tooltip()
+
+            $("#tree").fancytree({
+                source: <%- JSON.stringify(notebook_tree) %>,
+                checkbox: false,
+                selectMode: 1,
+                extensions: [ "glyph"],
+                glyph: {
+                    // The preset defines defaults for all supported icon types.
+                    // It also defines a common class name that is prepended (in this case 'fa ')
+                    preset: "awesome5",
+                    map: {
+                        // Override distinct default icons here
+                        folder: "d-none",
+                        folderOpen: "d-none",
+                        expanderClosed: "fas fa-chevron-right",
+                        expanderOpen: "fas fa-chevron-down",
+                        // doc: "fas fa-book-open",
+                    }
+                },
+                icon: function (event, data) {
+                    let title = data.node.title;
+
+                    {
+                        // yml => yaml
+                        title = title.replaceAll('.yml', '.yaml');
+
+                        // .sh
+                        title = title.replaceAll('.sh', '.shell');
+
+                        // .txt
+                        title = title.replaceAll('.txt', '.log');
+
+                        // png, jpg, jpeg
+                        const imageExt = ['png', 'jpg', 'jpeg']
+                        imageExt.forEach(ext => title = title.replace(`.${ext}`, '.image'));
+                    }
+
+                    if (!data.node.folder) {
+                        if (title.startsWith('<')) {
+                            return { html: getIcon('js') }
+                        }
+                        else {
+                            const ext = title.slice((title.lastIndexOf('.') - 1 >>> 0) + 2);
+                            if (ext != '')
+                                return { html: getIcon(ext) };
+                            else
+                                return { html: getDefaultIcon() };
+                        }
+                    }
+                },
+                keydown: function (event, data) {
+                    const ENTER_KEY = 13;
+                    if (event.which === ENTER_KEY) {
+                        console.log(data.node.data);
+                        if (data.node.data.href) {
+                            window.location = data.node.data.href;
+                            return false;
+                        }
+                    }
+                }
+            })
+
+            var root = $.ui.fancytree.getTree("#tree").getRootNode();
+            root.sortChildren(sortFn, true);
+
+            root.visit(function (node) {
+                if (node.getLevel() < 3) {
+                    node.setExpanded(true);
+                }
+            });
+
+            function getIcon(ext) {
+                const LightSrc = `https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_light_${ext}.svg`;
+                return `<img src="${LightSrc}" onerror="this.onerror=null;this.src='${LightSrc.replace('_light', '')}';" alt="">`;
+            }
+            
+            function getDefaultIcon() {
+                return `<img src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/default_file.svg" alt="">`;
+            }
+
+            // $(".fancytree-container").addClass("fancytree-connectors");
+        });
+
+    </script>
 
 </body>
 
