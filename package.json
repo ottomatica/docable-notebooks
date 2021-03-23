@@ -39,7 +39,6 @@
   "homepage": "https://github.com/ottomatica/docable-notebooks#readme",
   "devDependencies": {
     "cross-env": "^7.0.2",
-    "dotenv": "^8.2.0",
     "nodemon": "^2.0.4",
     "pino-pretty": "^4.2.1",
     "pm2": "^4.5.0"
@@ -48,6 +47,7 @@
     "cheerio": "^1.0.0-rc.3",
     "configstore": "^5.0.1",
     "docable": "github:ottomatica/docable",
+    "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "escape-goat": "^3.0.0",
     "express": "^4.17.1",
