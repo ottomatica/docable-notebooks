@@ -290,7 +290,7 @@
 
                     if (!data.node.folder) {
                         if (title.startsWith('<')) {
-                            return { html: getIcon('js') }
+                            return { html: getIcon('markdown') }
                         }
                         else {
                             const ext = title.slice((title.lastIndexOf('.') - 1 >>> 0) + 2);
