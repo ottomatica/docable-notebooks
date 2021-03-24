@@ -56,6 +56,9 @@
         require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.21.3/min/vs' } });
     </script>
 
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+
 <style>
     @keyframes border-pulsate {
         0% { outline-color: #ccfacc; }
@@ -181,6 +184,13 @@
                                     <% breadcrumb.forEach(item => { %>
                                         <li class="breadcrumb-item active"><%= item %></li>
                                     <% }) %>
+
+                                    <% if(locals.views) { %>
+                                        <div class="text-muted unselectable ml-auto">
+                                            <i class="bi bi-eye"></i>
+                                            <%= views %>
+                                        </div>
+                                    <% } %>
                                 </ol>
                             </nav>
                         <% } %>
