@@ -185,12 +185,19 @@
                                         <li class="breadcrumb-item active"><%= item %></li>
                                     <% }) %>
 
-                                    <% if(locals.views) { %>
-                                        <div class="text-muted unselectable ml-auto" title="Unique views">
-                                            <i class="bi bi-eye"></i>
-                                            <%= views %>
-                                        </div>
-                                    <% } %>
+                                    <div class="ml-auto d-flex flex-row">
+                                        <% if(locals.views) { %>
+                                            <div class="text-muted unselectable mr-2" title="Unique views">
+                                                <i class="bi bi-eye mr-1"></i><%= views %>
+                                            </div>
+                                        <% } %>
+                                        
+                                        <% if(locals.executions) { %>
+                                            <div class="text-muted unselectable" title="Executions">
+                                                <i class="bi bi-lightning-charge"></i><%= executions %>
+                                            </div>
+                                        <% } %>
+                                    </div>
                                 </ol>
                             </nav>
                         <% } %>
