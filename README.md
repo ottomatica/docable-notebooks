@@ -1,64 +1,65 @@
 # Docable
 
-> Next-Generation Interactive Notebooks
+> Next-Generation Interactive Notebooks 📒
 
-`docable` will create an interactive notebook from a Markdown file. Docable works by translating markdown files into interactive cells, which can be run, edited, and shared.
+`Docable` notebooks provide a literate programming environments which works great for writing and publishing interactive tutorials, training material for courses, blogs, or simple infrastructure runbooks. 
 
-This results in a literate programming environment for markdown files. Markdown files remain 100% compatible and render normally on GitHub, etc. If done properly, Docable can allow you to design and build interactive tutorials, interactive education and training materials, and simple infrastructure runbooks.
+✨The interactive components include specialized cells for terminals, commands, scripts, files contents, quizes, and more. These interactive cells can be customized using several parameters and allow the reader to modify and execute the document.
+
+✍ Authoring a `Docable` notebook is as easy as writing a Markdown file. The Markdown file, when opened in `Docable` will be rendered into interactive cells, which can be run, edited, and shared. This results in a literate programming environment for Markdown files. `Docable` notebook Markdown files remain 100% compatible and render normally on GitHub, etc.
+
+---
 
 ## Contents
 
-* [Using Docable Notebooks](https://github.com/ottomatica/docable-notebooks#using-docable-notebooks)
-  - [Example notebooks](https://github.com/ottomatica/docable-notebooks#example-notebooks)
-  - [Editing cells](https://github.com/ottomatica/docable-notebooks#editing-cells)
-  - [Creating file content, using variables](https://github.com/ottomatica/docable-notebooks#creating-file-content-using-variables-and-more)
-  - [Cell format](https://github.com/ottomatica/docable-notebooks#Cell-format)
-  - [Docable CLI](https://github.com/ottomatica/docable-notebooks#docable-cli)
-* [Notebook Server](https://github.com/ottomatica/docable-notebooks#notebook-server)
-  - [Notebook treeview](https://github.com/ottomatica/docable-notebooks#notebook-treeview)
-  - [Managing environments](https://github.com/ottomatica/docable-notebooks#target-environments)
-  - [Managing variables](https://github.com/ottomatica/docable-notebooks#variables)
-* [Installing and Running Notebooks](https://github.com/ottomatica/docable-notebooks#installing-and-running-docable-notebooks)
-* [Quick Reference](https://github.com/ottomatica/docable-notebooks#quick-reference)
+* [Using Docable Notebooks](#using-docable-notebooks)
+  - [Example notebooks](#example-notebooks)
+  - [Editing cells](#editing-cells)
+  - [Creating file content, using variables](#creating-file-content-using-variables-and-more)
+  - [Cell format](#Cell-format)
+  - [Docable CLI](#docable-cli)
+* [Notebook Server](#notebook-server)
+  - [Notebook treeview](#notebook-treeview)
+  - [Managing environments](#target-environments)
+  - [Managing variables](#variables)
+* [Installing and Running Notebooks](#installing-and-running-docable-notebooks)
+* [Quick Reference](#quick-reference)
 
 ## Using Docable Notebooks
 
 With docable, your markdown will be translated from this:
 
-`figlet` will translate the given text into an ascii banner. Try it out!
+<p align="center">
+  <img src="docs/img/docable-figlet-md.png"  width="65%">
+</p>
 
-```bash|{type: 'command'}
-figlet docable
-```
+Into this ✨:
 
-**Into this** ✨:
+<p align="center">
+  <img src="docs/img/docable-figlet.gif"  width="65%">
+</p>
 
+Docable's interactive cells can be created the same way you make a code block in your Markdown (using ```) files. Except for docable, you should _also_ specify some properties which defines the type of your cell and other details about how it should be executed as a JSON. In the example above, we created a command cell by adding `|{type: 'command'}`. 
 
-<kbd>
+✨ _These code blocks are 100% compatible with GitHub's Markdown rendering and the JSON is simply ignored. So you can update your existing `README.md` or other documentation files to make them executable by Docable while they still look the same as before when viewed on GitHub!_
 
-![figlet-demo](docs/img/docable-figlet.gif)
-
-</kbd>
+For a list of supported cells and supported modifiers for each type see [quick reference](#quick-reference) section below.
 
 ### Example Notebooks
 
-<kbd>
+You can find example for most of the supported features in the [documentation examples](docs/examples/) or try an [online notebook](https://docable.cloud/):
 
-![banner](docs/img/banner.png)
-
-</kbd>
-
-See more features by exploring the [documentation examples](docs/examples/) or try an [online notebook](https://docable.cloud/).
+<p align="center">
+  <img src="docs/img/banner.png"  width="90%">
+</p>
 
 ### Editing Cells
 
-Docable cells can be edited and run again.
+All Docable cells can be edited and run again. Additionally, the `script` and `file` cells provide the same code editor you use on VSCode which include syntax highlighting and [intellisense](https://code.visualstudio.com/docs/editor/intellisense) documentation. 
 
-<kbd>
-
-[![docable-edit](docs/img/docable-edit.png)](https://docable.cloud/)
-
-</kbd>
+<p align="center">
+  <img src="docs/img/docable-edit.gif"  width="65%">
+</p>
 
 ### Creating file content, using variables, and more.
 
