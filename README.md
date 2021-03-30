@@ -29,17 +29,22 @@
 
 With docable, your markdown will be translated from this:
 
-<p align="center">
-  <img src="docs/img/docable-figlet-md.png"  width="65%">
-</p>
+~~~
+`figlet` will translate the given text into an ascii banner. Try it out!
+
+```bash| {type: 'command'}
+figlet docable
+```
+~~~
+
 
 Into this ✨:
 
 <p align="center">
-  <img src="docs/img/docable-figlet.gif"  width="65%">
+  <img src="docs/img/docable-figlet.gif"  width="75%">
 </p>
 
-Docable's interactive cells can be created the same way you make a code block in your Markdown (using ```) files. Except for docable, you should _also_ specify some properties which defines the type of your cell and other details about how it should be executed as a JSON. In the example above, we created a command cell by adding `|{type: 'command'}`. 
+Docable's interactive cells are simply Markdown code block (```) with addition of a few annotations as a JSON which defines the type of the cell and other details about how it should be executed. In the example above, we created a command cell by adding `|{type: 'command'}`. 
 
 ✨ _These code blocks are 100% compatible with GitHub's Markdown rendering and the JSON is simply ignored. So you can update your existing `README.md` or other documentation files to make them executable by Docable while they still look the same as before when viewed on GitHub!_
 
@@ -58,7 +63,8 @@ You can find example for most of the supported features in the [documentation ex
 All Docable cells can be edited and run again. Additionally, the `script` and `file` cells provide the same code editor you use on VSCode which include syntax highlighting and [intellisense](https://code.visualstudio.com/docs/editor/intellisense) documentation. 
 
 <p align="center">
-  <img src="docs/img/docable-edit.gif"  width="65%">
+  <img src="docs/img/docable-edit-script.gif"  width="49%">
+  <img src="docs/img/docable-edit.gif"  width="49%">
 </p>
 
 ### Creating file content, using variables, and more.
@@ -66,13 +72,13 @@ All Docable cells can be edited and run again. Additionally, the `script` and `f
 Docable has been designed after [studying over 600 online tutorials](http://chrisparnin.me/pdf/docable_FSE_20.pdf) and discovering issues that contribute to poor learner experiences. We've designed a few additional features that smooth over these issues for tutorial takers and authors.
 
 One of the most common problem was the numerous and inconsistent ways tutorials asked someone to edit a file on a server.
-Docable _file cells_ take care of creating paths, setting file permissions and owners, and filling in variable content—with a simple click.
+Docable _`file` cells_ take care of creating paths, setting file permissions and owners, and filling in variable content with a simple click.
 
-<kbd>
+<p align="center">
+  <img src="docs/img/docable-variable.gif"  width="75%">
+</p>
 
-![docable-file](docs/img/docable-file.png)
-
-</kbd>
+_Variables can be stored securely in Docable Notebook server and automatically masked in the outputs. See [#variables](#variables) section below for more details._
 
 ## Cell Format
 
@@ -119,17 +125,25 @@ You can also run your markdown files with the [docable CLI](https://github.com/o
 
 ## Notebook Server
 
-The notebook server can run locally and allow you to interact with your notebooks in your web browser.
+The notebook server can run locally and allow you to interact with your notebooks in your web browser. Run the command below to start the server in your current working directory:
+
+```bash
+# if using the Docable tray app
+docable-server .
+
+# if installed from source
+docable-notebooks .
+```
+
+Then you will be able to browse your notebooks on `http://localhost:3000/`. On the home page you will see the notebook treeview which allows you navigate and open different pages.
 
 ### Notebook Treeview
 
 To access your notebooks, you can browse and click on a notebook in the tree.
 
-<kbd>
-
-<img src="docs/img/docable-tree.png" width="200px">
-
-</kbd>
+<p align="center">
+  <img src="docs/img/docable-tree.png"  width="75%">
+</p>
 
 ### Target Environments
 
@@ -147,15 +161,15 @@ Docable has different connectors to run against different kinds of environments.
 
 ### Variables
 
-Notebooks can ask for variables, such as a `HOSTNAME` or `RELEASE_TAGS`.
+As we showed above, Docable supports variables in the notebooks. These variables can be stored in the notebook server to be reused in the future and in multiple notebooks. 
 
-<kbd>
+<p align="center">
+  <img src="docs/img/docable-variables-secrets.png"  width="75%">
+</p>
 
-![vars](docs/img/docable-vars.png)
 
-</kbd>
 
-For sensitive variables, such as passwords, tokens, and ssh keys, these can be stored on the server and they will be masked when displayed in output.
+🔐 Sometimes these variables contain sensitive information such as API tokens, passwords and ssh keys. Notebook server can encrypt and store these variables for future reuse. As shown above, Docable automatically masks these values when they are displaying anywhere in the notebook or the execution outputs. 
 
 ## Installing and Running Docable Notebooks
 
@@ -167,7 +181,7 @@ You can find [installation instructions here](./docs/install.md). Docable tray i
 
 ### Install from source
 
-Requires [node.js >= 12.x](https://nodejs.org/en/).
+Requires [node.js >= 12.x](https://nodejs.org/).
 
 Simply clone this repository.
 ```bash|{type: 'command'}
