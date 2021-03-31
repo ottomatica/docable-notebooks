@@ -8,6 +8,10 @@
 
 ✍ Authoring a `Docable` notebook is as easy as writing a Markdown file. The Markdown file, when opened in `Docable` will be rendered into interactive cells, which can be run, edited, and shared. This results in a literate programming environment for Markdown files. `Docable` notebook Markdown files remain 100% compatible and render normally on GitHub, etc.
 
+Here is a preview of a markdown vs. GitHub vs. how the notebook works:
+
+![](docs/img/md_docable_github.png)
+
 ---
 
 ## Contents
