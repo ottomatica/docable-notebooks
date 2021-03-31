@@ -64,12 +64,6 @@
         0% { outline-color: #ccfacc; }
         /* 50% { outline-color: #0d7f0d; } */
         100% { 
-            100% { 
-        100% { 
-            100% { 
-        100% { 
-            100% { 
-        100% { 
             outline-color: #61EF61; 
                 outline-color: #61EF61; 
             outline-color: #61EF61; 
@@ -88,6 +82,29 @@
         outline-style: solid;
         outline-width: 1px;
     }
+
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+        opacity: 0.5;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: rgb(136, 136, 136, 0.5);
+        opacity: 0.5;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(119, 119, 119, 0.5);
+    }
 </style>
 
 
@@ -104,7 +121,7 @@
 
 </head>
 
-<body class="d-flex flex-column">
+<body class="d-flex flex-column h-100">
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm shadow">
@@ -130,11 +147,11 @@
     </header>
 
 
-    <div class="d-flex flex-row"> 
+    <div class="h-100 d-flex flex-row"> 
 
         <!-- Sidebar -->
         <!-- style="overflow-y:scroll;" -->
-        <div class="h-100 position-fixed w-25">
+        <div class="h-100 w-25  d-none d-lg-block">
             <div class="h-100 d-flex flex-row">
         
                 <div class="d-flex flex-column px-2 shadow-sm" style="background-color: #e9ecef; color: #bfbfbf;">
@@ -143,7 +160,7 @@
                 </div>
         
                 <!-- Notebook Targets tab -->
-                <div class="flex-grow-1 bg-light p-3" style="transition: none; width: 15%!important;">
+                <div class="flex-grow-1 bg-light p-3" style="transition: none; overflow: auto; overflow-x: hidden;">
         
                     <div class="w-100 card">
                         <div class="card-header h5 bg-white">
@@ -167,7 +184,7 @@
             </div>
         </div>
 
-        <div class="w-75 my-3" style="margin-left: 25%;">
+        <div class="h-100 w-75 my-3 mx-auto">
             <div class="d-flex flex-column">
 
                 <main>
