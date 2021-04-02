@@ -151,7 +151,8 @@
 
         <!-- Sidebar -->
         <!-- style="overflow-y:scroll;" -->
-        <div class="h-100 w-25  d-none d-lg-block">
+        <!-- d-none d-lg-block -->
+        <div class="h-100 w-25 position-fixed">
             <div class="h-100 d-flex flex-row">
         
                 <div class="d-flex flex-column px-2 shadow-sm" style="background-color: #e9ecef; color: #bfbfbf;">
@@ -160,7 +161,7 @@
                 </div>
         
                 <!-- Notebook Targets tab -->
-                <div class="flex-grow-1 bg-light p-3" style="transition: none; overflow: auto; overflow-x: hidden;">
+                <div class="flex-grow-1 bg-light p-3" style="transition: none; overflow: auto; overflow-x: hidden; margin-bottom: 75px!important;">
         
                     <div class="w-100 card">
                         <div class="card-header h5 bg-white">
@@ -184,7 +185,7 @@
             </div>
         </div>
 
-        <div class="h-100 w-75 my-3 mx-auto">
+        <div class="h-100 w-75 my-3 mx-auto" style="margin-left: 25%!important">
             <div class="d-flex flex-column">
 
                 <main>
@@ -220,7 +221,7 @@
                         <% } %>
 
                         <!-- border-light -->
-                        <div id="notebook-area" class="card p-3">
+                        <div id="notebook-area" class="card p-3 mb-5">
                             <div id="notebook-variables" class="notebook-variables" style="margin-left: 120px;">
                                 <%- include('templates/notebook_variables'); -%>
                             </div>

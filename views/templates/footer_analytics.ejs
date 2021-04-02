@@ -1,4 +1,4 @@
-<footer class="footer mt-auto py-3" style="user-select: none;">
+<footer class="footer mt-auto py-1 position-fixed" style="user-select: none; bottom: 0;">
     <div class="mx-auto">
         <span class="text-muted"><a class="text-muted" href="https://github.com/ottomatica/">ottomatica.io</a></span>
         <span class="mt-5 mb-3 text-muted">
@@ -7,7 +7,7 @@
         </span>
     </div>
 
-    <div class="position-absolute mr-2 d-sm-none d-md-block" style="color: #cfcfcf; top: 33%; right: 0;">
+    <div class="position-absolute mr-2 d-sm-none d-md-block" style="color: #cfcfcf; top: 15%; right: 0;">
         <small class="d-flex flex-row">
             <%= locals.DocableNotebookVersion && DocableNotebookVersion %>
             <% if(locals.processUptime) { %>
