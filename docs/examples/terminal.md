@@ -48,7 +48,12 @@ Here is a node REPL as example:
 ```|{type:'terminal', command: 'node'}
 ```
 
-And here is a python REPL:
+Here is a python REPL:
 
 ```|{type:'terminal', command: 'python'}
+```
+
+And here is a Ruby REPL (irb):
+
+```|{type:'terminal', command: 'irb'}
 ```
