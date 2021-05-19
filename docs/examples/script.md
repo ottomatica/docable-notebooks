@@ -53,3 +53,25 @@ let keyboard = (_=>[..."`1234567890-=~~QWERTYUIOP[]\\~ASDFGHJKL;'~~ZXCVBNM,./~"]
 
 console.log(keyboard);
 ```
+
+# Other languages
+
+In the section above you saw examples of `script` cells and JavaScript language. Here are more examples for Python, Ruby, and Java. Feel free to modify the cell and run your snippet:
+
+## Python
+
+```python |{type:'script'}
+print("hello world!");
+```
+
+## Java
+
+```java |{type:'script'}
+System.out.println("hello world!");
+```
+
+## Ruby
+
+```ruby |{type:'script'}
+print 'hello world!'
+```
