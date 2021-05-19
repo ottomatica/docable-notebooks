@@ -11,9 +11,11 @@
         <div class="dropdown-divider"></div>
         <!-- management -->
 
+        <% if (!locals.isHosted) { %>
         <a class="dropdown-item" href="/variables">Manage Variables</a>
         <a class="dropdown-item" href="/targets">Manage Targets</a>
-        
+        <% } %>
+
         <!-- account -->
 
         <% if (locals.user) { %>
