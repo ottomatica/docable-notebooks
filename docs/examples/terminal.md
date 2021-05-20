@@ -53,7 +53,12 @@ Here is a python REPL:
 ```|{type:'terminal', command: 'python'}
 ```
 
-And here is a Ruby REPL (irb):
+Here is a Ruby REPL (irb):
 
 ```|{type:'terminal', command: 'irb'}
+```
+
+And here is a Java REPL (JShell):
+
+```|{type:'terminal', command: 'jshell'}
 ```
