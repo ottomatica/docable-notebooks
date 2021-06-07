@@ -68,16 +68,6 @@ $(document).ready(function()
     $('[data-docable="true"]:not([data-type="quiz"],[data-type="file"],[data-type="script"])').focusout(function () {
         // highlight block on focusout (if != quiz != script)
         hljs.highlightBlock(this);
-        
-        // TODO: should be fixed after adding editor
-        // triggering file cell play-btn if content is modified
-        if ($(this).data('type') == 'file') {
-            let cellId = $(this).attr('id');
-            if (isDirty[cellId]) {
-                $(this).siblings('.play-btn').trigger('click');
-                isDirty[cellId] = false;
-            }
-        }
     })
 
     // making contenteditable behave more like text area
