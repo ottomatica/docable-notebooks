@@ -155,15 +155,19 @@
         <div class="h-100 w-25 position-fixed">
             <div class="h-100 d-flex flex-row">
         
-                <div class="d-flex flex-column px-2 shadow-sm" style="background-color: #e9ecef; color: #bfbfbf;">
-                    <i class="fas fa-info-circle fa-2x mt-3 text-muted" data-target=".multi-collapse" aria-expanded="false"
-                        aria-controls="target_status" title="Status of notebook targets"></i>
+                <div class="d-flex flex-column shadow-none" style="background-color: #e9ecef; color: #bfbfbf;">
+                    <div id="sidebar-targets-btn" class="sidebar-tab-btn px-2 py-2" title="Status of notebook targets" data-target="#sidebar-targets">
+                        <i class="fas fa-server fa-2x" aria-expanded="false"></i>
+                    </div>
+                    <div id="sidebar-filetree-btn" class="sidebar-tab-btn px-2 py-2" title="File tree" data-target="#sidebar-filetree">
+                        <i class="far fa-copy fa-2x" aria-expanded="false"></i>
+                    </div>
                 </div>
         
                 <!-- Notebook Targets tab -->
-                <div class="flex-grow-1 bg-light p-3" style="transition: none; overflow: auto; overflow-x: hidden; margin-bottom: 75px!important;">
+                <div class="flex-grow-1 bg-light p-3 d-none" style="transition: none; overflow: auto; overflow-x: hidden; margin-bottom: 75px!important;" id="sidebar-tabs">
         
-                    <div class="w-100 card">
+                    <div class="w-100 card d-none sidebar-tab unselectable" id="sidebar-targets">
                         <div class="card-header h5 bg-white">
                             Notebook Targets
                         </div>
@@ -176,7 +180,7 @@
                         </ul>
                     </div>
 
-                    <div class="w-100 my-2">
+                    <div class="w-100 my-2 d-none sidebar-tab" id="sidebar-filetree">
                         <div id="tree" class="p-1"></div>
                     </div>
         
@@ -185,7 +189,7 @@
             </div>
         </div>
 
-        <div class="h-100 w-75 my-3 mx-auto" style="margin-left: 25%!important">
+        <div class="h-100 w-75 my-3 mx-auto" id="notebook-area">
             <div class="d-flex flex-column">
 
                 <main>

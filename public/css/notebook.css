@@ -290,3 +290,11 @@ tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
           -ms-user-select: none;
               user-select: none;
 }
+
+.sidebar-tab-btn {
+    color: darkgray;
+}
+
+.sidebar-tab-btn:hover {
+    color: gray!important;
+}

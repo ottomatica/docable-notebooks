@@ -3,6 +3,30 @@
 // Initialization
 $(document).ready(function()
 {
+    // collapsible sidebar
+    $('.sidebar-tab-btn').click(function () {
+        const target = $(this).data('target');
+        console.log('target', target, $(this).data('target'), $(this).attr('data-target'))
+        $('.sidebar-tab-btn').css({ 'border-left': 'none', 'color': 'darkgray' });
+
+        if ($(target).hasClass('d-none')) {
+            // enable
+            $('.sidebar-tab').addClass('d-none');
+            $(`${target} , #sidebar-tabs`).removeClass('d-none');
+            $(this).css({ 'border-left': 'solid gray', 'color': 'gray' });
+        }
+        else {
+            $(`${target} , #sidebar-tabs`).toggleClass('d-none');
+        }
+
+        if ($('#sidebar-tabs').hasClass('d-none')) {
+            $('#notebook-area').css({ 'margin-left': '0' });
+        }
+        else {
+            $('#notebook-area').attr('style', 'margin-left: 25%!important');
+        }
+    });
+
     // $('[data-toggle="tooltip"]').tooltip();
     $().tooltip({trigger: 'click hover'})
 
