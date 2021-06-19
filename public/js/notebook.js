@@ -27,6 +27,14 @@ $(document).ready(function()
         }
     });
 
+    // warning if closing an edited page
+    window.addEventListener("beforeunload", function (e) {
+        if (window.isDirty) {
+            e.preventDefault();
+            e.returnValue = 'It looks like you have been editing the code on this page. If you leave this page, your changes will be lost.';
+        }
+    });
+
     // $('[data-toggle="tooltip"]').tooltip();
     $().tooltip({trigger: 'click hover'})
 
