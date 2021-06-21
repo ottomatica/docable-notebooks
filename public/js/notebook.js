@@ -513,7 +513,7 @@ $('main').on('click', '.play-btn', function () {
         let blockhtml = '';
         if ($(this).parent().siblings('[data-type="file"],[data-type="script"]').length > 0) {
             const editorValue = window[`m_${block.attr('id').replace(/-/g, '')}`].getValue();
-            blockhtml = $(block).clone().empty().append(editorValue)[0].outerHTML;
+            blockhtml = $(block).clone().empty().text(editorValue)[0].outerHTML;
         }
         else {
             blockhtml = $(block)[0].outerHTML;
