@@ -230,6 +230,7 @@ function startServer(argv) {
 
     if (process.env.NODE_ENV == 'prod') {
         app.use('/img', express.static('./modules/hosted/public/img'));
+        app.use('/media', express.static('./modules/hosted/public/media'));
 
         app.use('/', hostedRoutes);
         initNotebookHeartbeatWS(sessionMiddleware, server);
