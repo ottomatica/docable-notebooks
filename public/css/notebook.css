@@ -19,7 +19,7 @@ body {
 /* https://fransdejonge.com/wp-content/uploads/2010/01/sidenotes.html */
 .sideAnnotation {
     float: none;
-    width: 100px;
+    width: 110px;
     margin-left: -120px;
     margin-top: 0;
     padding: 3px;
