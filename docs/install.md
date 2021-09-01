@@ -99,13 +99,13 @@ This is the GUI component, which handles running Docable Notebooks server in the
 For example, you can import notebooks from cli by running:
 
 ```bash
-$ docable-server import https://github.com/ottomatica/docable-notebooks
+docable-server import https://github.com/ottomatica/docable-notebooks
 ```
 
 Or you can even start Docable Notebooks server, without using the GUI component. [_Note: if Docable Tray app (GUI component) is started, server is already running in the background, so this command will fail._]
 
 ```bash
-$ docable-server -d ~/docable
+docable-server -d ~/docable
 ```
 
 ## Usage
