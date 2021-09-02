@@ -672,3 +672,8 @@ function resetResults(index) {
     // also reset docable-error box
     $('#docable-error').empty();
 }
+
+function htmlDecode(input) {
+    let doc = new DOMParser().parseFromString(input, "text/html");
+    return doc.documentElement.textContent;
+}
