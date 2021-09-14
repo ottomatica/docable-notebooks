@@ -1,4 +1,4 @@
-
+const execEvent = new CustomEvent("RUNNING", {});
 
 // Initialization
 $(document).ready(function()
@@ -219,6 +219,9 @@ $('#downloadNotebook').click(function () {
 function run(endPoint, body, stepIndex)
 {
     if (running) return;
+
+    // trigger 'running' event to auto reload playground preview
+    document.dispatchEvent(execEvent);
 
     submitButtonSpinToggle();
     resetResults(stepIndex);
