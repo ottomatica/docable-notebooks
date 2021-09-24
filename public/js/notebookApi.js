@@ -55,6 +55,20 @@ function executeCells(endPoint, body) {
     });
 }
 
+function checkPlayground(body) {
+    // console.log('sending body ==> ', body)
+    return fetch('/checkPlayground', {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(body),
+        headers: { "content-type": "application/json; charset=UTF-8" },
+    })
+    .then(async (response) => {
+        if (!response.ok) throw Error(await response.text());
+        return response.text()
+    });
+}
+
 function streamOutput(body, onProgress) {
     return new Promise(function(resolve, reject) {
         fetch('/runCell', {

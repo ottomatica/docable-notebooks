@@ -523,6 +523,28 @@ $('main').on('click', '.play-btn', function () {
     }
 });
 
+$('main').on('click', '.check-playground-btn', function () {
+    const playground_preview = $(this).parent().parent().find('.playground-preview');
+    const grade_this_check = $(this).parent().parent().find('[data-docable="true"]').data('grade_this_check');
+    const grade_this_result = $(this).parent().find('.check-playground-result');
+
+    if (playground_preview.length > 0) {
+        const playground_preview_html = playground_preview.contents().find("html")[0].outerHTML;
+
+        checkPlayground({ playground_preview_html, grade_this_check })
+            .then(function (result) {
+                console.log('result', result, grade_this_result);
+                grade_this_result.text(`Points submitted to moodle: ${result ? 1 : 0}`);
+            })
+            .catch(function (err) {
+                $('#docable-error').text(err.message);
+                setTimeout(() => {
+                    $('#docable-error').empty();
+                }, 5000)
+            });
+    }
+});
+
 /////////////////// ENVIRONMENTS
 
 
