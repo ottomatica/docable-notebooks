@@ -537,7 +537,7 @@ $('main').on('click', '.check-playground-btn', function () {
         checkPlayground({ playground_preview_html, grade_this_check })
             .then(function (result) {
                 console.log('result', result, grade_this_result);
-                grade_this_result.text(`Points submitted to moodle: ${result ? 1 : 0}`);
+                grade_this_result.text(`Points submitted to moodle: ${result == 'true' ? 1 : 0}`);
             })
             .catch(function (err) {
                 $('#docable-error').text(err.message);
