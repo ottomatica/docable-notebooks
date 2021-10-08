@@ -147,12 +147,12 @@
     </header>
 
 
-    <div class="h-100 d-flex flex-row"> 
+    <div class="h-100 d-flex flex-row"  style="padding-left: 48px">
 
         <!-- Sidebar -->
         <!-- style="overflow-y:scroll;" -->
         <!-- d-none d-lg-block -->
-        <div class="h-100 w-25 position-fixed">
+        <div class="h-100 w-25 position-fixed" style="left: 0">
             <div class="h-100 d-flex flex-row">
         
                 <div class="d-flex flex-column shadow-none" style="background-color: #e9ecef; color: #bfbfbf;">
@@ -189,7 +189,7 @@
             </div>
         </div>
 
-        <div class="h-100 w-75 my-3 mx-auto" id="notebook-area">
+        <div class="h-100 my-3 mx-auto" id="notebook-area">
             <div class="d-flex flex-column">
 
                 <main>
@@ -225,7 +225,7 @@
                         <% } %>
 
                         <!-- border-light -->
-                        <div id="notebook-area" class="card p-3 mb-5">
+                        <div class="card p-3 mb-5">
                             <div id="notebook-variables" class="notebook-variables" style="margin-left: 120px;">
                                 <%- include('templates/notebook_variables'); -%>
                             </div>

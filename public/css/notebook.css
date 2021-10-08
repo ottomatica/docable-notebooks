@@ -298,3 +298,15 @@ tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
 .sidebar-tab-btn:hover {
     color: gray!important;
 }
+
+@media screen and (min-width: 1080px) {
+    #notebook-area {
+        width:95%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    #notebook-area {
+        width:75%;
+    }
+}
