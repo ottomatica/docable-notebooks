@@ -18,13 +18,13 @@ body {
 
 /* https://fransdejonge.com/wp-content/uploads/2010/01/sidenotes.html */
 .sideAnnotation {
-    float: none;
+    /* float: none; */
     width: 110px;
-    margin-left: -120px;
+    /* margin-left: -120px; */
     margin-top: 0;
     padding: 3px;
-    text-align: right;
-    position: absolute;
+    text-align: left;
+    /* position: absolute; */
     user-select: none;
     color: lightsteelblue;
 }
