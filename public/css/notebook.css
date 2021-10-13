@@ -299,14 +299,7 @@ tr.missingVariables > td:nth-child(2) > input:placeholder-shown {
     color: gray!important;
 }
 
-@media screen and (min-width: 1080px) {
-    #notebook-area {
-        width:95%;
-    }
-}
-
-@media screen and (min-width: 1440px) {
-    #notebook-area {
-        width:75%;
-    }
+#notebook-area {
+    width: 100%;
+    max-width: 1440px;
 }
