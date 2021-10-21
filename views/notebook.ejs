@@ -59,6 +59,43 @@
     <!-- bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
 
+    <!--- init and style customization not supported by css -->
+    <script>
+        var isHosted = <%- locals.isHosted %>;
+
+        $("[data-type='command'][data-spawn='true']")
+            .parents('.docable-cell').children('.sideAnnotation').append('🖥️ ');
+        $("[data-type='script'][data-lang='js']")
+            .parents('.docable-cell').children('.sideAnnotation').append(
+                `<div>
+                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_node.svg" alt="">
+                </div>
+            `);
+
+        $("[data-type='script'][data-lang='java']")
+            .parents('.docable-cell').children('.sideAnnotation').append(
+                `<div>
+                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_java.svg" alt="">
+                </div>
+            `);
+
+        $("[data-type='script'][data-lang='python']")
+            .parents('.docable-cell').children('.sideAnnotation').append(
+                `<div>
+                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_python.svg" alt="">
+                </div>
+            `);
+
+        $("[data-type='script'][data-lang='ruby']")
+            .parents('.docable-cell').children('.sideAnnotation').append(
+                `<div>
+                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_ruby.svg" alt="">
+                </div>
+            `);
+    </script>
+
+    <script src="/js/notebookApi.js"></script>
+    <script src="/js/notebook.js"></script>
 <style>
     @keyframes border-pulsate {
         0% { outline-color: #ccfacc; }
@@ -237,42 +274,6 @@
                         </div>
                     </div>
 
-
-                    <!--- init and style customization not supported by css -->
-                    <script>
-                        var isHosted = <%- locals.isHosted %>;
-
-                        $("[data-type='command'][data-spawn='true']")
-                            .parents('.docable-cell').children('.sideAnnotation').append('🖥️ ');
-                        $("[data-type='script'][data-lang='js']")
-                            .parents('.docable-cell').children('.sideAnnotation').append(
-                                `<div>
-                                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_node.svg" alt="">
-                                </div>
-                            `);
-
-                        $("[data-type='script'][data-lang='java']")
-                            .parents('.docable-cell').children('.sideAnnotation').append(
-                                `<div>
-                                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_java.svg" alt="">
-                                </div>
-                            `);
-
-                        $("[data-type='script'][data-lang='python']")
-                            .parents('.docable-cell').children('.sideAnnotation').append(
-                                `<div>
-                                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_python.svg" alt="">
-                                </div>
-                            `);
-
-                        $("[data-type='script'][data-lang='ruby']")
-                            .parents('.docable-cell').children('.sideAnnotation').append(
-                                `<div>
-                                    <img style="height: 20px; width: 20px" src="https://cdn.jsdelivr.net/gh/vscode-icons/vscode-icons/icons/file_type_ruby.svg" alt="">
-                                </div>
-                            `);
-                    </script>
-
                 </main>
 
                 <% processUptime = locals.processUptime || undefined %>
@@ -285,8 +286,6 @@
 
     <%- include('templates/footer_analytics', { processUptime, DocableNotebookVersion }); -%>
 
-    <script src="/js/notebookApi.js"></script>
-    <script src="/js/notebook.js"></script>
     <script src="/js/ansiparse.js"></script>
 
     <script>
