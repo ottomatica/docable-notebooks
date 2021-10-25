@@ -4,6 +4,7 @@ require('dotenv').config();
 const path = require("path");
 const fs = require('fs');
 const os = require('os');
+const http = require('http');
 
 const NOTEBOOK_HOME = path.join(os.homedir(), "docable");
 
@@ -105,7 +106,7 @@ function startServer(argv) {
 
     app.use(expressLogger);
 
-    let server = app; // default if not using repl module
+    const server = http.Server(app);
 
     // init repl submodule if present
     if (fs.existsSync(path.join(__dirname, './modules/repl/.git'))) {
@@ -114,8 +115,7 @@ function startServer(argv) {
         const Repl = require('./modules/repl');
         app.use('/modules/repl/js', express.static(__dirname + '/modules/repl/public/js'));
 
-        const { io, httpServer } = Repl(app, sessionMiddleware);
-        server = httpServer;
+        const { io } = Repl(server, sessionMiddleware);
     }
 
     if (process.env.NODE_ENV == 'dev' || process.env.NODE_ENV == undefined) {
