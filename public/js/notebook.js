@@ -193,7 +193,12 @@ $('#submit').click(function () {
     const notebookName = window.location.pathname.split('/')[2];
     const slug = window.location.pathname.split('/')[3];
 
-    run('/run', JSON.stringify({ notebook: $('main').html(), username, notebookPath: window.location.pathname, notebookName, pageVariables }))
+    if (isHosted) {
+        runWS({ notebook: $('main').html(), username, notebookPath: window.location.pathname, notebookName, pageVariables })
+    }
+    else {
+        run('/run', JSON.stringify({ notebook: $('main').html(), username, notebookPath: window.location.pathname, notebookName, pageVariables }))
+    }
 
 });
 
@@ -215,6 +220,51 @@ $('#downloadNotebook').click(function () {
         $('#docable-error').append('failed to export this notebook to a markdown file :(');
     });
 })
+
+
+const notebookWS = io(`${window.location.hostname}:${window.location.port}`, { transports: ['websocket'], secure: false, path: '/notebook' });
+notebookWS.on('connect', () => {
+    notebookWS.on('out', (results) => {
+        const cell = $(`#${results.id}`).parent();
+        const outputCell = cell.next('.docable-cell-output');
+
+        if (!results.final) {
+            // only add "STREAM" if output container is empty
+            if ($.trim(outputCell.html()) == '') outputCell.append(`<span class="docable-stream">STREAM</span>:\n`);
+            
+            outputCell.append(`<span>${results.data.stdout || '' + results.data.stderr || ''}</span>`);
+            $(`#${results.id}`).attr('data-pid', results.data.pid);
+            
+            cell.find('.play-btn').html(`<button class="far fa-stop-circle docable-overlay-btn stop-btn"></button>`);
+        }
+        else {
+            results = results.results;
+
+            resetResults(results.stepIndex);
+            processResults(JSON.stringify(results));
+            submitButtonSpinToggle();
+        }
+    });
+});
+
+$('main').on('click', '.stop-btn', function () {
+    let pid = $(this).parent().closest('.docable-cell').find('[data-docable="true"]').data('pid');
+    notebookWS.emit('stop', {notebookUrl: window.location.pathname, pid});
+    // TODO: change stop btn to play btn when finished
+});
+
+function runWS(body, stepIndex) {
+    if (running) return;
+
+    // trigger 'running' event to auto reload playground preview
+    document.dispatchEvent(execEvent);
+
+    // TODO: change btn from play to stop
+    submitButtonSpinToggle();
+    resetResults(stepIndex);
+
+    notebookWS.emit('run', { notebookUrl: window.location.pathname, ...body, stepIndex })
+}
 
 function run(endPoint, body, stepIndex)
 {
@@ -522,7 +572,12 @@ $('main').on('click', '.play-btn', function () {
             blockhtml = $(block)[0].outerHTML;
         }
 
-        run('/runCell', JSON.stringify({ text: blockhtml, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
+        if (cell.find('pre').data('serve')) {
+            runWS({ text: blockhtml, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }, stepIndex);
+        }
+        else {
+            run('/runCell', JSON.stringify({ text: blockhtml, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
+        }
     }
 });
 

@@ -52,9 +52,9 @@ function startServer(argv) {
     const notebook_routes = require('./lib/routes/notebook');
     const workspace_routes = require('./lib/routes/workspace');
 
-    let hostedRoutes, sessionMiddleware, initNotebookHeartbeatWS;
+    let hostedRoutes, sessionMiddleware, initNotebookHeartbeatWS, initNotebookWS;
     if (isHosted) {
-        ({ hostedRoutes, sessionMiddleware, initNotebookHeartbeatWS } = require('./modules/hosted/routes'));
+        ({ hostedRoutes, sessionMiddleware, initNotebookHeartbeatWS, initNotebookWS} = require('./modules/hosted/routes'));
     }
 
     const md5 = require('md5');
@@ -234,6 +234,7 @@ function startServer(argv) {
 
         app.use('/', hostedRoutes);
         initNotebookHeartbeatWS(sessionMiddleware, server);
+        initNotebookWS(sessionMiddleware, server);
     }
 
     app.get('*', function (req, res) {
