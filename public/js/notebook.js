@@ -233,8 +233,6 @@ notebookWS.on('connect', () => {
             if ($.trim(outputCell.html()) == '') outputCell.append(`<span class="docable-stream">STREAM</span>:\n`);
             
             outputCell.append(`<span>${results.data.stdout || '' + results.data.stderr || ''}</span>`);
-            
-            cell.find('.play-btn').html(`<button class="far fa-stop-circle docable-overlay-btn stop-btn"></button>`);
         }
         else {
             results = results.results;
@@ -242,6 +240,9 @@ notebookWS.on('connect', () => {
             resetResults(results.stepIndex);
             processResults(JSON.stringify(results));
             submitButtonSpinToggle();
+    
+            const cell = $(`#${results[0].cellid}`).parent();
+            cell.find('.play-btn').html(`<button class="far fa-play-circle docable-overlay-btn play-btn"></button>`);
         }
     });
 });
@@ -573,6 +574,7 @@ $('main').on('click', '.play-btn', function () {
 
         if (cell.find('pre').data('serve')) {
             runWS({ text: blockhtml, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }, stepIndex);
+            cell.find('.play-btn').html(`<button class="far fa-stop-circle docable-overlay-btn stop-btn"></button>`);
         }
         else {
             run('/runCell', JSON.stringify({ text: blockhtml, stepIndex, cellid: block.attr('id'), username, notebookPath: window.location.pathname, notebookName, pageVariables }), stepIndex);
