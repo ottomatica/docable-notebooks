@@ -233,7 +233,6 @@ notebookWS.on('connect', () => {
             if ($.trim(outputCell.html()) == '') outputCell.append(`<span class="docable-stream">STREAM</span>:\n`);
             
             outputCell.append(`<span>${results.data.stdout || '' + results.data.stderr || ''}</span>`);
-            $(`#${results.id}`).attr('data-pid', results.data.pid);
             
             cell.find('.play-btn').html(`<button class="far fa-stop-circle docable-overlay-btn stop-btn"></button>`);
         }
@@ -248,8 +247,8 @@ notebookWS.on('connect', () => {
 });
 
 $('main').on('click', '.stop-btn', function () {
-    let pid = $(this).parent().closest('.docable-cell').find('[data-docable="true"]').data('pid');
-    notebookWS.emit('stop', {notebookUrl: window.location.pathname, pid});
+    let cellid = $(this).parent().closest('.docable-cell').find('[data-docable="true"]').attr('id');
+    notebookWS.emit('stop', {notebookUrl: window.location.pathname, cellid});
     // TODO: change stop btn to play btn when finished
 });
 
