@@ -53,7 +53,7 @@
     "express": "^4.17.1",
     "express-pino-logger": "^5.0.0",
     "express-session": "^1.17.2",
-    "got": "^11.8.2",
+    "got": "^11.8.5",
     "infra.connectors": "github:ottomatica/infra.connectors",
     "js-yaml": "^3.14.1",
     "jsdom": "^16.7.0",
